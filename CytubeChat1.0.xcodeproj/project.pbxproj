@@ -14,6 +14,17 @@
 		740BEF5419EC315400E577A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 740BEF5319EC315400E577A0 /* Images.xcassets */; };
 		740BEF5719EC315400E577A0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 740BEF5519EC315400E577A0 /* LaunchScreen.xib */; };
 		740BEF6319EC315500E577A0 /* CytubeChat1_0Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF6219EC315500E577A0 /* CytubeChat1_0Tests.swift */; };
+		740BEF7419EC317700E577A0 /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF6D19EC317700E577A0 /* base64.c */; };
+		740BEF7519EC317700E577A0 /* NSData+SRB64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF7019EC317700E577A0 /* NSData+SRB64Additions.m */; };
+		740BEF7619EC317700E577A0 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF7319EC317700E577A0 /* SRWebSocket.m */; };
+		740BEF7919EC31FE00E577A0 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 740BEF7819EC31FE00E577A0 /* CFNetwork.framework */; };
+		740BEF7B19EC320700E577A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 740BEF7A19EC320700E577A0 /* Foundation.framework */; };
+		740BEF7D19EC321300E577A0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 740BEF7C19EC321300E577A0 /* Security.framework */; };
+		740BEF7F19EC322000E577A0 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 740BEF7E19EC322000E577A0 /* libicucore.dylib */; };
+		740BEF8119EC32BD00E577A0 /* CytubeSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF8019EC32BD00E577A0 /* CytubeSocket.swift */; };
+		740BEF8319EC3AD300E577A0 /* CytubeRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF8219EC3AD300E577A0 /* CytubeRoom.swift */; };
+		740BEF8519EC6FCF00E577A0 /* RoomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF8419EC6FCF00E577A0 /* RoomManager.swift */; };
+		740BEF8719EC857E00E577A0 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF8619EC857E00E577A0 /* ThirdViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +49,22 @@
 		740BEF5C19EC315500E577A0 /* CytubeChat1.0Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CytubeChat1.0Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		740BEF6119EC315500E577A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		740BEF6219EC315500E577A0 /* CytubeChat1_0Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CytubeChat1_0Tests.swift; sourceTree = "<group>"; };
+		740BEF6D19EC317700E577A0 /* base64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base64.c; sourceTree = "<group>"; };
+		740BEF6E19EC317700E577A0 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
+		740BEF6F19EC317700E577A0 /* NSData+SRB64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SRB64Additions.h"; sourceTree = "<group>"; };
+		740BEF7019EC317700E577A0 /* NSData+SRB64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SRB64Additions.m"; sourceTree = "<group>"; };
+		740BEF7119EC317700E577A0 /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
+		740BEF7219EC317700E577A0 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
+		740BEF7319EC317700E577A0 /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
+		740BEF7719EC319A00E577A0 /* CytubeChat-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CytubeChat-Bridging-Header.h"; sourceTree = "<group>"; };
+		740BEF7819EC31FE00E577A0 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		740BEF7A19EC320700E577A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		740BEF7C19EC321300E577A0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		740BEF7E19EC322000E577A0 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		740BEF8019EC32BD00E577A0 /* CytubeSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CytubeSocket.swift; sourceTree = "<group>"; };
+		740BEF8219EC3AD300E577A0 /* CytubeRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CytubeRoom.swift; sourceTree = "<group>"; };
+		740BEF8419EC6FCF00E577A0 /* RoomManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomManager.swift; sourceTree = "<group>"; };
+		740BEF8619EC857E00E577A0 /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +72,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				740BEF7F19EC322000E577A0 /* libicucore.dylib in Frameworks */,
+				740BEF7D19EC321300E577A0 /* Security.framework in Frameworks */,
+				740BEF7B19EC320700E577A0 /* Foundation.framework in Frameworks */,
+				740BEF7919EC31FE00E577A0 /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +92,10 @@
 		740BEF3C19EC315400E577A0 = {
 			isa = PBXGroup;
 			children = (
+				740BEF7E19EC322000E577A0 /* libicucore.dylib */,
+				740BEF7C19EC321300E577A0 /* Security.framework */,
+				740BEF7A19EC320700E577A0 /* Foundation.framework */,
+				740BEF7819EC31FE00E577A0 /* CFNetwork.framework */,
 				740BEF4719EC315400E577A0 /* CytubeChat1.0 */,
 				740BEF5F19EC315500E577A0 /* CytubeChat1.0Tests */,
 				740BEF4619EC315400E577A0 /* Products */,
@@ -79,9 +114,15 @@
 		740BEF4719EC315400E577A0 /* CytubeChat1.0 */ = {
 			isa = PBXGroup;
 			children = (
+				740BEF6C19EC317700E577A0 /* SocketRocket */,
+				740BEF8019EC32BD00E577A0 /* CytubeSocket.swift */,
+				740BEF8219EC3AD300E577A0 /* CytubeRoom.swift */,
 				740BEF4A19EC315400E577A0 /* AppDelegate.swift */,
 				740BEF4C19EC315400E577A0 /* FirstViewController.swift */,
 				740BEF4E19EC315400E577A0 /* SecondViewController.swift */,
+				740BEF8619EC857E00E577A0 /* ThirdViewController.swift */,
+				740BEF8419EC6FCF00E577A0 /* RoomManager.swift */,
+				740BEF7719EC319A00E577A0 /* CytubeChat-Bridging-Header.h */,
 				740BEF5019EC315400E577A0 /* Main.storyboard */,
 				740BEF5319EC315400E577A0 /* Images.xcassets */,
 				740BEF5519EC315400E577A0 /* LaunchScreen.xib */,
@@ -113,6 +154,20 @@
 				740BEF6119EC315500E577A0 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		740BEF6C19EC317700E577A0 /* SocketRocket */ = {
+			isa = PBXGroup;
+			children = (
+				740BEF6D19EC317700E577A0 /* base64.c */,
+				740BEF6E19EC317700E577A0 /* base64.h */,
+				740BEF6F19EC317700E577A0 /* NSData+SRB64Additions.h */,
+				740BEF7019EC317700E577A0 /* NSData+SRB64Additions.m */,
+				740BEF7119EC317700E577A0 /* SocketRocket-Prefix.pch */,
+				740BEF7219EC317700E577A0 /* SRWebSocket.h */,
+				740BEF7319EC317700E577A0 /* SRWebSocket.m */,
+			);
+			path = SocketRocket;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,8 +270,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				740BEF7619EC317700E577A0 /* SRWebSocket.m in Sources */,
+				740BEF8519EC6FCF00E577A0 /* RoomManager.swift in Sources */,
+				740BEF8719EC857E00E577A0 /* ThirdViewController.swift in Sources */,
+				740BEF7519EC317700E577A0 /* NSData+SRB64Additions.m in Sources */,
 				740BEF4F19EC315400E577A0 /* SecondViewController.swift in Sources */,
 				740BEF4B19EC315400E577A0 /* AppDelegate.swift in Sources */,
+				740BEF8319EC3AD300E577A0 /* CytubeRoom.swift in Sources */,
+				740BEF7419EC317700E577A0 /* base64.c in Sources */,
+				740BEF8119EC32BD00E577A0 /* CytubeSocket.swift in Sources */,
 				740BEF4D19EC315400E577A0 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,6 +405,7 @@
 				INFOPLIST_FILE = CytubeChat1.0/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CytubeChat1.0/CytubeChat-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -353,6 +416,7 @@
 				INFOPLIST_FILE = CytubeChat1.0/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CytubeChat1.0/CytubeChat-Bridging-Header.h";
 			};
 			name = Release;
 		};

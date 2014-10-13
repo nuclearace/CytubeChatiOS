@@ -8,18 +8,45 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
-
+class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
+    
+    @IBOutlet var tblRoom:UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewDidAppear(animated:Bool) {
+        tblRoom.reloadData()
+    }
+    
+    // This will remove a room
+    func tableView(tableView:UITableView, commitEditingStyle editingStyle:UITableViewCellEditingStyle, forRowAtIndexPath indexPath:NSIndexPath) {
+        
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            roomMng.removeRoom(indexPath.row)
+            tblRoom.reloadData()
+        }
+    }
 
-
+    // Tells how many rows to redraw
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return roomMng.rooms.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath:
+        NSIndexPath) -> UITableViewCell {
+            let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Default")
+            
+            cell.textLabel?.text = roomMng.rooms[indexPath.row].room
+            cell.detailTextLabel?.text = roomMng.rooms[indexPath.row].server
+            
+            return cell
+    }
 }
 
