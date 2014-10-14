@@ -26,8 +26,9 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         sessionConfig.timeoutIntervalForResource = 60
         sessionConfig.HTTPMaximumConnectionsPerHost = 1
         
-        session = NSURLSession(configuration: sessionConfig)
+        self.session = NSURLSession(configuration: sessionConfig)
         self.server = server
+        self.cytubeRoom = room
     }
     
     // Init the socket

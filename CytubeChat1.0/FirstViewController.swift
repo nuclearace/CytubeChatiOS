@@ -27,8 +27,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     // Called when a selects a room
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println(indexPath.row)
-        
         self.performSegueWithIdentifier("goToChatRoom", sender: self)
     }
     
