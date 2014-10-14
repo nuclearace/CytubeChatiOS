@@ -18,17 +18,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="SgH-Wn-ElQ">
-                                <rect key="frame" x="0.0" y="64" width="600" height="457"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="SgH-Wn-ElQ">
+                                <rect key="frame" x="0.0" y="64" width="600" height="449"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Laa-rH-Tc8" id="ExU-Oi-jtO"/>
+                                    <outlet property="delegate" destination="Laa-rH-Tc8" id="fKD-Ry-3eD"/>
+                                </connections>
                             </tableView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kBB-8h-GtI">
-                                <rect key="frame" x="0.0" y="521" width="581" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kBB-8h-GtI">
+                                <rect key="frame" x="3" y="513" width="581" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Laa-rH-Tc8" id="Lxa-2k-8GY"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="kBB-8h-GtI" secondAttribute="centerX" constant="6.5" id="7Gs-Wt-98k"/>
+                            <constraint firstItem="k7H-LG-O2b" firstAttribute="top" secondItem="kBB-8h-GtI" secondAttribute="bottom" constant="8" id="r52-QQ-cY8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kBB-8h-GtI" secondAttribute="trailing" id="zBe-ra-tlw"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="UEt-3P-FzU">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="8Hf-Ce-nDH">
@@ -37,10 +49,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tblMsg" destination="SgH-Wn-ElQ" id="i8c-Np-Elw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aW5-qj-McL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2392" y="-138"/>
+            <point key="canvasLocation" x="1482" y="-274"/>
         </scene>
         <!--Rooms-->
         <scene sceneID="hNz-n2-bh7">
@@ -90,7 +105,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1402" y="-650"/>
+            <point key="canvasLocation" x="674" y="-1010"/>
         </scene>
         <!--Join Room-->
         <scene sceneID="wg7-f3-ORb">
@@ -173,7 +188,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1023" y="183"/>
+            <point key="canvasLocation" x="735" y="425"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -210,7 +225,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="enM-hK-R4M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1712" y="63"/>
+            <point key="canvasLocation" x="786" y="-283"/>
         </scene>
     </scenes>
     <resources>
