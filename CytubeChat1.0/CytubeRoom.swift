@@ -10,7 +10,7 @@ import Foundation
 
 class CytubeRoom: NSObject {
     let roomName:String!
-    let socket:CytubeSocket!
+    let socket:CytubeSocket?
     
     init(roomName:String, socket:CytubeSocket) {
         self.roomName = roomName
@@ -23,6 +23,10 @@ class CytubeRoom: NSObject {
     
     func getRoomName() -> String {
         return self.roomName
+    }
+    
+    func getSocket() -> CytubeSocket? {
+        return self.socket
     }
     
     class func convertFromNilLiteral() -> Void {

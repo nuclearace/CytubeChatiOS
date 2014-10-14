@@ -134,28 +134,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Join Room" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="slm-rl-CBw">
-                                <rect key="frame" x="230" y="20" width="141" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="141" id="BBY-OP-XCL"/>
-                                    <constraint firstAttribute="height" constant="29" id="wQ7-hi-PrY"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="cytu.be" borderStyle="roundedRect" placeholder="Server" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="cnH-Iq-nwA">
-                                <rect key="frame" x="16" y="57" width="568" height="30"/>
+                                <rect key="frame" x="16" y="60" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Room" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jru-xe-fa9">
-                                <rect key="frame" x="16" y="95" width="568" height="30"/>
+                                <rect key="frame" x="16" y="98" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Room Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jpU-VV-oWe">
-                                <rect key="frame" x="16" y="133" width="568" height="30"/>
+                                <rect key="frame" x="16" y="136" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                 <connections>
@@ -163,7 +153,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wNE-I2-78I">
-                                <rect key="frame" x="538" y="171" width="46" height="30"/>
+                                <rect key="frame" x="538" y="174" width="46" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="JLs-pd-3Pn"/>
                                 </constraints>
@@ -174,6 +164,16 @@
                                     <action selector="btnAddTask:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="xtm-9I-nxp"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Room" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="slm-rl-CBw">
+                                <rect key="frame" x="230" y="20" width="141" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="141" id="BBY-OP-XCL"/>
+                                    <constraint firstAttribute="height" constant="34" id="wQ7-hi-PrY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>

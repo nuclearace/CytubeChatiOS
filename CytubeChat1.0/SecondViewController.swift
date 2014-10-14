@@ -13,12 +13,12 @@ class SecondViewController: UIViewController {
     @IBOutlet var serverText:UITextField!
     @IBOutlet var roomText:UITextField!
     @IBOutlet var passwordText:UITextField!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -34,8 +34,10 @@ class SecondViewController: UIViewController {
         if (cRoom != nil) {
             return println("Error Trying to add existing room")
         }
+        var newRoom = CytubeRoom(roomName: room, socket: CytubeSocket(server: server, room: room))
+        newRoom.getSocket()?.setCytubeRoom(newRoom)
+        roomMng.addRoom(server, room: room, cytubeRoom: newRoom)
         
-        roomMng.addRoom(serverText.text, room: roomText.text, cytubeRoom: CytubeRoom(roomName: room, socket: CytubeSocket(server: server, room: room)))
         self.view.endEditing(true)
         serverText.reloadInputViews()
         roomText.text = nil

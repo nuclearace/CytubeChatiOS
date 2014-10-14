@@ -44,6 +44,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return roomMng.rooms.count
     }
     
+    // Creates each cell
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath:
         NSIndexPath) -> UITableViewCell {
             let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Default")

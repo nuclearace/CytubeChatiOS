@@ -8,8 +8,7 @@
 
 import Foundation
 
-class CytubeSocket: NSURLConnection, NSURLConnectionDelegate,
-    NSURLConnectionDataDelegate, SRWebSocketDelegate {
+class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     var socketio:SRWebSocket?
     let socketIOURL:String!
@@ -17,7 +16,7 @@ class CytubeSocket: NSURLConnection, NSURLConnectionDelegate,
     let room:String!
     let server:String!
     let sioconfigURL:String = "/sioconfig"
-    var cytubeRoom:CytubeRoom?
+    weak var cytubeRoom:CytubeRoom?
     
     
     init(server:String, room:String) {
@@ -37,7 +36,7 @@ class CytubeSocket: NSURLConnection, NSURLConnectionDelegate,
     }
     
     deinit {
-        println("CytubeSocket for room \(self.cytubeRoom) is being deint")
+        println("CytubeSocket for room \(self.room) is being deint")
     }
     
     // Finds the correct socket URL
@@ -45,7 +44,8 @@ class CytubeSocket: NSURLConnection, NSURLConnectionDelegate,
         var url =  "http://" + self.server + self.sioconfigURL
         println("Finding socket URL: " + url)
         func parseData(data:NSData) {
-            println(data)
+           var stringData = NSString(data: data, encoding: NSUTF8StringEncoding) as String
+            println(stringData)
         }
         
         var request:NSURLRequest = NSURLRequest(URL: NSURL(string: url))
