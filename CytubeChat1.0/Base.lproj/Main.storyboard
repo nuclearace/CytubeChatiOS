@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Third View Controller-->
+        <!--Title-->
         <scene sceneID="zre-hB-IaL">
             <objects>
                 <viewController id="Laa-rH-Tc8" customClass="ThirdViewController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,31 +18,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="SgH-Wn-ElQ">
+                                <rect key="frame" x="0.0" y="64" width="600" height="457"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kBB-8h-GtI">
-                                <rect key="frame" x="10" y="562" width="581" height="30"/>
+                                <rect key="frame" x="0.0" y="521" width="581" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="SgH-Wn-ElQ">
-                                <rect key="frame" x="0.0" y="64" width="600" height="497"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0YA-GK-sYm">
-                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
-                                <items>
-                                    <navigationItem title="Title" id="n11-1U-D6Q"/>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="TEi-U7-TCo"/>
+                    <navigationItem key="navigationItem" title="Title" id="UEt-3P-FzU">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="8Hf-Ce-nDH">
+                            <connections>
+                                <action selector="backBtnClicked:" destination="Laa-rH-Tc8" id="1yT-Eo-Qsf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aW5-qj-McL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="641" y="-660"/>
+            <point key="canvasLocation" x="2392" y="-138"/>
         </scene>
-        <!--First-->
+        <!--Rooms-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
                 <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
@@ -54,9 +54,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="UAb-1C-ZEo">
-                                <rect key="frame" x="-42" y="20" width="642" height="531"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="UAb-1C-ZEo">
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="haW-Cj-Xqr">
+                                        <rect key="frame" x="0.0" y="0.0" width="642" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="haW-Cj-Xqr" id="5SV-59-R5f">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="RKS-Ia-lnU" kind="show" identifier="goToChatRoom" id="W9V-7H-k7v"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="9pv-A4-QxB" id="DWy-4o-YKN"/>
                                     <outlet property="delegate" destination="9pv-A4-QxB" id="vzM-to-eDr"/>
@@ -71,16 +83,16 @@
                             <constraint firstItem="UAb-1C-ZEo" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-16" id="beJ-az-URV"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Rooms" image="first" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="tblRoom" destination="UAb-1C-ZEo" id="jfM-QO-EiN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1562" y="-321"/>
+            <point key="canvasLocation" x="1402" y="-650"/>
         </scene>
-        <!--Second-->
+        <!--Join Room-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
@@ -102,7 +114,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="cytu.be" borderStyle="roundedRect" placeholder="Server" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cnH-Iq-nwA">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="cytu.be" borderStyle="roundedRect" placeholder="Server" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="cnH-Iq-nwA">
                                 <rect key="frame" x="16" y="57" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -152,7 +164,7 @@
                             <constraint firstItem="Jru-xe-fa9" firstAttribute="trailing" secondItem="cnH-Iq-nwA" secondAttribute="trailing" id="uhe-sq-YUH"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Join Room" image="second" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="passwordText" destination="jpU-VV-oWe" id="PnW-QW-5I1"/>
                         <outlet property="roomText" destination="Jru-xe-fa9" id="piy-m1-gYq"/>
@@ -161,7 +173,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="359"/>
+            <point key="canvasLocation" x="1023" y="183"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -176,12 +188,29 @@
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
-                        <segue destination="Laa-rH-Tc8" kind="show" id="jTb-wK-Cmz"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="JRp-nW-J7L">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RKS-Ia-lnU" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="h9u-L4-MxP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Laa-rH-Tc8" kind="relationship" relationship="rootViewController" id="EXF-2b-NOV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="enM-hK-R4M" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1712" y="63"/>
         </scene>
     </scenes>
     <resources>

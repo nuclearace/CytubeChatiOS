@@ -12,6 +12,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     var socketio:SRWebSocket?
     let session:NSURLSession?
+    let cytubeRoom:CytubeRoom!
     let server:String!
     
     

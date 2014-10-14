@@ -25,6 +25,13 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tblRoom.reloadData()
     }
     
+    // Called when a selects a room
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        println(indexPath.row)
+        
+        self.performSegueWithIdentifier("goToChatRoom", sender: self)
+    }
+    
     // This will remove a room
     func tableView(tableView:UITableView, commitEditingStyle editingStyle:UITableViewCellEditingStyle, forRowAtIndexPath indexPath:NSIndexPath) {
         
