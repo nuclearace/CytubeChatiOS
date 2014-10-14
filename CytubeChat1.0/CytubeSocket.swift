@@ -8,15 +8,19 @@
 
 import Foundation
 
-class CytubeSocket: NSObject, SRWebSocketDelegate {
+class CytubeSocket: NSURLConnection, NSURLConnectionDelegate,
+    NSURLConnectionDataDelegate, SRWebSocketDelegate {
     
     var socketio:SRWebSocket?
+    let socketIOURL:String!
     let session:NSURLSession?
-    let cytubeRoom:CytubeRoom!
+    let room:String!
     let server:String!
+    let sioconfigURL:String = "/sioconfig"
+    var cytubeRoom:CytubeRoom?
     
     
-    init(server:String, room:CytubeRoom) {
+    init(server:String, room:String) {
         super.init()
         
         let sessionConfig:NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -28,7 +32,30 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         
         self.session = NSURLSession(configuration: sessionConfig)
         self.server = server
-        self.cytubeRoom = room
+        self.room = room
+        self.findSocketURL()
+    }
+    
+    deinit {
+        println("CytubeSocket for room \(self.cytubeRoom) is being deint")
+    }
+    
+    // Finds the correct socket URL
+    func findSocketURL() {
+        var url =  "http://" + self.server + self.sioconfigURL
+        println("Finding socket URL: " + url)
+        func parseData(data:NSData) {
+            println(data)
+        }
+        
+        var request:NSURLRequest = NSURLRequest(URL: NSURL(string: url))
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) { (res, data, err) -> Void in
+            if ((err) != nil) {
+                return println(err)
+            }
+            
+            parseData(data as NSData)
+        }
     }
     
     // Init the socket
@@ -52,7 +79,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         })
         handshakeTask.resume()
     }
-
+    
     
     func socketConnect(token:NSString) {
         socketio = SRWebSocket(URLRequest: NSURLRequest(URL: NSURL(string: "ws://\(server)/socket.io/1/websocket/\(token)")))
@@ -97,6 +124,10 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
             
         }
     }
-
+    
+    func setCytubeRoom(room:CytubeRoom) {
+        self.cytubeRoom = room
+    }
+    
 }
 

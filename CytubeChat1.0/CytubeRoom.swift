@@ -9,5 +9,23 @@
 import Foundation
 
 class CytubeRoom: NSObject {
+    let roomName:String!
+    let socket:CytubeSocket!
     
+    init(roomName:String, socket:CytubeSocket) {
+        self.roomName = roomName
+        self.socket = socket
+    }
+    
+    deinit {
+        println("CytubeRoom \(self.roomName) is being deinit")
+    }
+    
+    func getRoomName() -> String {
+        return self.roomName
+    }
+    
+    class func convertFromNilLiteral() -> Void {
+        
+    }
 }

@@ -26,4 +26,15 @@ class RoomManager: NSObject {
     func removeRoom(roomAtIndex: Int) {
         roomMng.rooms.removeAtIndex(roomAtIndex)
     }
+    
+    func findRoom(room:String, server:String) -> CytubeRoom? {
+        for cRoom in roomMng.rooms {
+            if (cRoom.server == server && cRoom.room == room) {
+                return cRoom.cytubeRoom
+            } else {
+                return nil
+            }
+        }
+        return nil
+    }
 }

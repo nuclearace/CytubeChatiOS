@@ -26,7 +26,16 @@ class SecondViewController: UIViewController {
     
     // Join room was pressed
     @IBAction func btnAddTask(sender: UIButton) {
-        roomMng.addRoom(serverText.text, room: roomText.text, cytubeRoom: CytubeRoom())
+        var room = roomText.text
+        var server = serverText.text
+        let cRoom = roomMng.findRoom(room, server: server)
+        
+        // User is trying to add an existing room
+        if (cRoom != nil) {
+            return println("Error Trying to add existing room")
+        }
+        
+        roomMng.addRoom(serverText.text, room: roomText.text, cytubeRoom: CytubeRoom(roomName: room, socket: CytubeSocket(server: server, room: room)))
         self.view.endEditing(true)
         serverText.reloadInputViews()
         roomText.text = nil
