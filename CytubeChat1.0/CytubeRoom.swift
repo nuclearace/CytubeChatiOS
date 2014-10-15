@@ -15,7 +15,6 @@ class CytubeRoom: NSObject {
     init(roomName:String) {
         super.init()
         self.roomName = roomName
-        self.addHandlers()
     }
     
     deinit {
@@ -23,36 +22,9 @@ class CytubeRoom: NSObject {
     }
     
     func addHandlers() {
-        
-    }
-    
-    func handleEvent(json:AnyObject?) {
-        
-        let event: NSString = json!["name"] as NSString
-        
-        if (event.isEqualToString("rank")) {
-            //didReceiveFirstRank()
-            return
-        } else if (event.isEqualToString("emoteList")) {
-            return
-        } else if (event.isEqualToString("setPermissions")) {
-            return
-        } else if (event.isEqualToString("userlist")) {
-            return
-        } else if (event.isEqualToString("setPlaylistLocked")) {
-            return
-        } else if (event.isEqualToString("drinkCount")) {
-            return
-        } else if (event.isEqualToString("playlist")) {
-            return
-        } else if (event.isEqualToString("setCurrent")) {
-            return
-        } else if (event.isEqualToString("usercount")) {
-            return
+        socket?.on("chatMsg") {(data:AnyObject?) in
+            println("Got chat message")
         }
-        
-        //let args:NSDictionary = (json?["args"] as NSArray)[0] as NSDictionary
-
     }
     
     func handleImminentDelete(completion: (() -> Void)!) {
@@ -71,6 +43,7 @@ class CytubeRoom: NSObject {
     
     func setSocket(socket:CytubeSocket) {
         self.socket = socket
+        self.addHandlers()
     }
     
     func getSocket() -> CytubeSocket? {

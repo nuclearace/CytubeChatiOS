@@ -31,10 +31,10 @@ struct socketFrame {
 }
 
 class EventHandler: NSObject {
-    var event:String!
-    var callback:AnyObject!
+    let event:String!
+    let callback: ((data:AnyObject?) -> Void)!
     
-    init(event:String, callback:AnyObject) {
+    init(event:String, callback:((data:AnyObject?) -> Void)?) {
         self.event = event
         self.callback = callback
     }
@@ -43,11 +43,12 @@ class EventHandler: NSObject {
         println("deint handler for \(event)")
     }
     
-    func toDict() -> NSDictionary {
-        return [
-            "event": event,
-            "callback": callback
-        ]
+    func executeCallback(args:AnyObject?) {
+        if (args != nil) {
+            callback(data: args!)
+        } else {
+            callback(data: nil)
+        }
     }
 }
 
@@ -85,6 +86,10 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         println("CytubeSocket for room \(self.room) is being deint")
     }
     
+    //
+    //
+    // Setup WebSocket methods
+    //
     // Finds the correct socket URL
     func findSocketURL() {
         var jsonError:NSError?
@@ -141,9 +146,54 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         handshakeTask.resume()
     }
     
-    func on(name:String, callback:AnyObject) {
-        var handler = EventHandler(event: name, callback: callback)
+    func socketConnect(token:NSString) {
+        socketio = SRWebSocket(URLRequest: NSURLRequest(URL: NSURL(string: "ws://\(self.socketIOURL)/socket.io/1/websocket/\(token)")))
+        socketio!.delegate = self
+        socketio!.open()
+    }
+    //
+    // End setup WebSocket
+    //
+    
+    func handleEvent(json:AnyObject?) {
         
+        let event: NSString = json!["name"] as NSString
+        
+        for handler in self.handlers {
+            if (handler.event == event) {
+                if let args:NSDictionary = (json?["args"] as NSArray)[0] as? NSDictionary {
+                    handler.executeCallback(args)
+                } else {
+                    handler.executeCallback(nil)
+                }
+            }
+        }
+        
+        //        if (event.isEqualToString("rank")) {
+        //            //didReceiveFirstRank()
+        //            return
+        //        } else if (event.isEqualToString("emoteList")) {
+        //            return
+        //        } else if (event.isEqualToString("setPermissions")) {
+        //            return
+        //        } else if (event.isEqualToString("userlist")) {
+        //            return
+        //        } else if (event.isEqualToString("setPlaylistLocked")) {
+        //            return
+        //        } else if (event.isEqualToString("drinkCount")) {
+        //            return
+        //        } else if (event.isEqualToString("playlist")) {
+        //            return
+        //        } else if (event.isEqualToString("setCurrent")) {
+        //            return
+        //        } else if (event.isEqualToString("usercount")) {
+        //            return
+        //        }
+    }
+    
+    
+    func on(name:String, callback:((data:AnyObject?) -> Void)?) {
+        var handler = EventHandler(event: name, callback: callback)
         self.handlers.addObject(handler)
     }
     
@@ -157,18 +207,12 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         let str:NSString = "5:::\(jsonString1)"
         
         socketio?.send(str)
-
+        
     }
     
     func sendPong() {
         println("SENT PONG")
         self.socketio?.send("2::")
-    }
-    
-    func socketConnect(token:NSString) {
-        socketio = SRWebSocket(URLRequest: NSURLRequest(URL: NSURL(string: "ws://\(self.socketIOURL)/socket.io/1/websocket/\(token)")))
-        socketio!.delegate = self
-        socketio!.open()
     }
     
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
@@ -185,7 +229,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         var json:AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &jsonError)
         
         if json != nil {
-            self.cytubeRoom?.handleEvent(json?)
+            self.handleEvent(json?)
         }
     }
     
