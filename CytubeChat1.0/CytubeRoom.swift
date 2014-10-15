@@ -23,7 +23,12 @@ class CytubeRoom: NSObject {
     
     func addHandlers() {
         socket?.on("chatMsg") {(data:AnyObject?) in
-            println("Got chat message")
+           let data = data as NSDictionary
+            println(data["username"]? as NSString)
+        }
+        
+        socket?.on("rank") {(data:AnyObject?) in
+            println(data)
         }
     }
     

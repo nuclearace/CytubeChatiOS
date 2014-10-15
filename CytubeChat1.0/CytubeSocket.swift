@@ -157,38 +157,32 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     func handleEvent(json:AnyObject?) {
         
-        let event: NSString = json!["name"] as NSString
-        
-        for handler in self.handlers {
-            if (handler.event == event) {
-                if let args:NSDictionary = (json?["args"] as NSArray)[0] as? NSDictionary {
-                    handler.executeCallback(args)
-                } else {
-                    handler.executeCallback(nil)
+        func doEvent(evt:String, args:AnyObject?) {
+            for handler in self.handlers {
+                if (handler.event == evt) {
+                    if (args != nil) {
+                        handler.executeCallback(args! as AnyObject)
+                    } else {
+                        handler.executeCallback(nil)
+                    }
                 }
             }
         }
-        
-        //        if (event.isEqualToString("rank")) {
-        //            //didReceiveFirstRank()
-        //            return
-        //        } else if (event.isEqualToString("emoteList")) {
-        //            return
-        //        } else if (event.isEqualToString("setPermissions")) {
-        //            return
-        //        } else if (event.isEqualToString("userlist")) {
-        //            return
-        //        } else if (event.isEqualToString("setPlaylistLocked")) {
-        //            return
-        //        } else if (event.isEqualToString("drinkCount")) {
-        //            return
-        //        } else if (event.isEqualToString("playlist")) {
-        //            return
-        //        } else if (event.isEqualToString("setCurrent")) {
-        //            return
-        //        } else if (event.isEqualToString("usercount")) {
-        //            return
-        //        }
+
+        let event: NSString = json!["name"] as NSString
+        if (json?.count > 1) {
+            if let args:NSDictionary = (json?["args"] as NSArray)[0] as? NSDictionary {
+                doEvent(event, args)
+            } else if let args:Int = (json?["args"] as NSArray)[0] as? Int {
+                doEvent(event, args)
+            } else if let args:BooleanLiteralType = (json?["args"] as NSArray)[0] as? BooleanLiteralType {
+               doEvent(event, args)
+            } else if let args:NSArray = (json?["args"] as NSArray)[0] as? NSArray {
+                doEvent(event, args)
+            }
+        } else {
+            doEvent(event, nil)
+        }
     }
     
     
