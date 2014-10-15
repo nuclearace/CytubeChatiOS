@@ -19,14 +19,35 @@ struct socketFrame {
     func toDict() -> NSDictionary {
         if (self.args != nil) {
             return [
-                "name": self.name,
-                "args": self.args
+                "name": name,
+                "args": args
             ]
         } else {
             return [
                 "name": self.name
             ]
         }
+    }
+}
+
+class EventHandler: NSObject {
+    var event:String!
+    var callback:AnyObject!
+    
+    init(event:String, callback:AnyObject) {
+        self.event = event
+        self.callback = callback
+    }
+    
+    deinit {
+        println("deint handler for \(event)")
+    }
+    
+    func toDict() -> NSDictionary {
+        return [
+            "event": event,
+            "callback": callback
+        ]
     }
 }
 
@@ -39,9 +60,10 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     let server:String!
     let sioconfigURL:String = "/sioconfig"
     weak var cytubeRoom:CytubeRoom?
+    var handlers:NSMutableArray = NSMutableArray()
     
     
-    init(server:String, room:String) {
+    init(server:String, room:String, cytubeRoom:CytubeRoom) {
         super.init()
         
         let sessionConfig:NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -54,11 +76,11 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         self.session = NSURLSession(configuration: sessionConfig)
         self.server = server
         self.room = room
+        self.cytubeRoom = cytubeRoom
         self.findSocketURL()
     }
     
     deinit {
-        //self.socketio!.
         self.socketio = nil
         println("CytubeSocket for room \(self.room) is being deint")
     }
@@ -119,6 +141,12 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         handshakeTask.resume()
     }
     
+    func on(name:String, callback:AnyObject) {
+        var handler = EventHandler(event: name, callback: callback)
+        
+        self.handlers.addObject(handler)
+    }
+    
     func send(name:String, args:AnyObject?) {
         var frame:socketFrame = socketFrame(name: name, args: args)
         
@@ -127,6 +155,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         var jsonString1 = NSString(data: jsonSend!, encoding: NSUTF8StringEncoding)
         println("JSON SENT \(jsonString1)")
         let str:NSString = "5:::\(jsonString1)"
+        
         socketio?.send(str)
 
     }
@@ -156,31 +185,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         var json:AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &jsonError)
         
         if json != nil {
-            let event: NSString = json!["name"] as NSString
-            
-            if (event.isEqualToString("rank")) {
-                //didReceiveFirstRank()
-                return
-            } else if (event.isEqualToString("emoteList")) {
-                return
-            } else if (event.isEqualToString("setPermissions")) {
-                return
-            } else if (event.isEqualToString("userlist")) {
-                return
-            } else if (event.isEqualToString("setPlaylistLocked")) {
-                return
-            } else if (event.isEqualToString("drinkCount")) {
-                return
-            } else if (event.isEqualToString("playlist")) {
-                return
-            } else if (event.isEqualToString("setCurrent")) {
-                return
-            } else if (event.isEqualToString("usercount")) {
-                return
-            }
-            
-            //let args:NSDictionary = (json?["args"] as NSArray)[0] as NSDictionary
-            
+            self.cytubeRoom?.handleEvent(json?)
         }
     }
     

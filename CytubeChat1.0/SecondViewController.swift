@@ -36,8 +36,9 @@ class SecondViewController: UIViewController {
         if (cRoom != nil) {
             return println("Error Trying to add existing room")
         }
-        var newRoom = CytubeRoom(roomName: room, socket: CytubeSocket(server: server, room: room))
-        newRoom.getSocket()?.setCytubeRoom(newRoom)
+        var newRoom = CytubeRoom(roomName: room)
+        newRoom.setSocket(CytubeSocket(server: server, room: room, cytubeRoom: newRoom))
+        //newRoom.getSocket()?.setCytubeRoom(newRoom)
         roomMng.addRoom(server, room: room, cytubeRoom: newRoom)
         
         self.view.endEditing(true)
