@@ -28,6 +28,7 @@ class CytubeRoom: NSObject {
     }
     
     func handleImminentDeleteShutDownSocket() {
+        println("Closing socket: Imminent room shutdown")
         self.socket?.socketio?.close()
     }
     

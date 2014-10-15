@@ -8,6 +8,29 @@
 
 import Foundation
 
+struct socketFrame {
+    var name:String!
+    var args:AnyObject!
+    
+    init(name:String, args:AnyObject?) {
+        self.name = name
+        self.args = args?
+    }
+    
+    func toDict() -> NSDictionary {
+        if (self.args != nil) {
+            return [
+                "name": self.name,
+                "args": self.args
+            ]
+        } else {
+            return [
+                "name": self.name
+            ]
+        }
+    }
+}
+
 class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     var socketio:SRWebSocket?
@@ -46,7 +69,6 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         var jsonError:NSError?
         var url =  "http://" + self.server + self.sioconfigURL
         println("Finding socket URL: " + url)
-        let regex:NSRegularExpression = NSRegularExpression(pattern: "var IO_URLS=\\{['? | \"?]ipv4-nossl['? | \"?]:['? | \"?](.*)['? | \"?],['? | \"?]ipv4-ssl", options: nil, error: nil)
         
         var request:NSURLRequest = NSURLRequest(URL: NSURL(string: url))
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) { [unowned self]
@@ -59,7 +81,9 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
             var mutable = RegexMutable(stringData)
             mutable = mutable["var IO_URLS="] ~= ""
             mutable = mutable["'"] ~= "\""
-            var jsonString = mutable[";var IO_URL=(.*)"] ~= ""
+            mutable[";var IO_URL=(.*)"] ~= ""
+            var jsonString = mutable[",IO_URL=(.*)"] ~= ""
+            println(jsonString)
             let data = (jsonString as NSString).dataUsingEncoding(NSUTF8StringEncoding)
             var realJSON:AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &jsonError)
             
@@ -75,6 +99,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         println("init handshake")
         let time:NSTimeInterval = NSDate().timeIntervalSince1970 * 1000
         
+        println(self.socketIOURL)
         var endpoint = "http://\(self.socketIOURL)/socket.io/1?t=\(time)"
         
         var handshakeTask:NSURLSessionTask = session!.dataTaskWithURL(NSURL.URLWithString(endpoint), completionHandler: { (data:NSData!, response:NSURLResponse!, error:NSError!) in
@@ -86,11 +111,31 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
                 self.socketConnect(handshakeToken)
             } else {
                 println(error)
+                self.cytubeRoom?.handleImminentDelete() {() in
+                    var index = roomMng.findRoomIndex(self.room, server: self.server)
+                    roomMng.removeRoom(index!)
+                }
             }
         })
         handshakeTask.resume()
     }
     
+    func send(name:String, args:AnyObject?) {
+        var frame:socketFrame = socketFrame(name: name, args: args)
+        
+        var jsonSendError:NSError?
+        var jsonSend = NSJSONSerialization.dataWithJSONObject(frame.toDict(), options: NSJSONWritingOptions(0), error: &jsonSendError)
+        var jsonString1 = NSString(data: jsonSend!, encoding: NSUTF8StringEncoding)
+        println("JSON SENT \(jsonString1)")
+        let str:NSString = "5:::\(jsonString1)"
+        socketio?.send(str)
+
+    }
+    
+    func sendPong() {
+        println("SENT PONG")
+        self.socketio?.send("2::")
+    }
     
     func socketConnect(token:NSString) {
         socketio = SRWebSocket(URLRequest: NSURLRequest(URL: NSURL(string: "ws://\(self.socketIOURL)/socket.io/1/websocket/\(token)")))
@@ -101,6 +146,10 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
         // All incoming messages ( socket.on() ) are received in this function. Parsed with JSON
         println("MESSAGE: \(message)")
+        
+        if (message as NSString == "2::") {
+            return self.sendPong()
+        }
         
         var jsonError:NSError?
         let messageArray = (message as NSString).componentsSeparatedByString(":::")
@@ -137,11 +186,16 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     }
     
     func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
+        println("Closed socket because: \(reason)")
         self.cytubeRoom?.handleImminentDelete() {() in
             var index = roomMng.findRoomIndex(self.room, server: self.server)
-            println("Deleting room")
             roomMng.removeRoom(index!)
         }
+    }
+    
+    func webSocketDidOpen(webSocket: SRWebSocket!) {
+        self.send("initChannelCallbacks", args: nil)
+        self.send("joinChannel", args: ["name": self.room])
     }
     
     func setCytubeRoom(room:CytubeRoom) {

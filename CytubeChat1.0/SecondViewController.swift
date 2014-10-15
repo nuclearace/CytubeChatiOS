@@ -28,6 +28,9 @@ class SecondViewController: UIViewController {
     @IBAction func btnAddTask(sender: UIButton) {
         var room = roomText.text
         var server = serverText.text
+        if (server == "cytu.be" || server == "synchtu.be" || server == "milkbartube.com") {} else {
+            return println("Error")
+        }
         let cRoom = roomMng.findRoom(room, server: server)
         
         // User is trying to add an existing room
