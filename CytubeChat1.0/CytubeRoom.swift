@@ -11,6 +11,7 @@ import Foundation
 class CytubeRoom: NSObject {
     let roomName:String!
     let socket:CytubeSocket?
+    var view:FirstViewController?
     
     init(roomName:String, socket:CytubeSocket) {
         self.roomName = roomName
@@ -21,6 +22,15 @@ class CytubeRoom: NSObject {
         println("CytubeRoom \(self.roomName) is being deinit")
     }
     
+    func handleImminentDelete(completion: (() -> Void)!) {
+        completion()
+        view?.tblRoom.reloadData()
+    }
+    
+    func handleImminentDeleteShutDownSocket() {
+        self.socket?.socketio?.close()
+    }
+    
     func getRoomName() -> String {
         return self.roomName
     }
@@ -29,7 +39,7 @@ class CytubeRoom: NSObject {
         return self.socket
     }
     
-    class func convertFromNilLiteral() -> Void {
-        
+    func setView(view:FirstViewController) {
+        self.view = view
     }
 }

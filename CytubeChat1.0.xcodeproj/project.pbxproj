@@ -25,6 +25,7 @@
 		740BEF8319EC3AD300E577A0 /* CytubeRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF8219EC3AD300E577A0 /* CytubeRoom.swift */; };
 		740BEF8519EC6FCF00E577A0 /* RoomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF8419EC6FCF00E577A0 /* RoomManager.swift */; };
 		740BEF8719EC857E00E577A0 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF8619EC857E00E577A0 /* ThirdViewController.swift */; };
+		7410736E19EDE86600D71C6C /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7410736D19EDE86600D71C6C /* SwiftRegex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		740BEF8219EC3AD300E577A0 /* CytubeRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CytubeRoom.swift; sourceTree = "<group>"; };
 		740BEF8419EC6FCF00E577A0 /* RoomManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomManager.swift; sourceTree = "<group>"; };
 		740BEF8619EC857E00E577A0 /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
+		7410736D19EDE86600D71C6C /* SwiftRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRegex.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				740BEF4E19EC315400E577A0 /* SecondViewController.swift */,
 				740BEF8619EC857E00E577A0 /* ThirdViewController.swift */,
 				740BEF8419EC6FCF00E577A0 /* RoomManager.swift */,
+				7410736D19EDE86600D71C6C /* SwiftRegex.swift */,
 				740BEF7719EC319A00E577A0 /* CytubeChat-Bridging-Header.h */,
 				740BEF5019EC315400E577A0 /* Main.storyboard */,
 				740BEF5319EC315400E577A0 /* Images.xcassets */,
@@ -275,6 +278,7 @@
 				740BEF8719EC857E00E577A0 /* ThirdViewController.swift in Sources */,
 				740BEF7519EC317700E577A0 /* NSData+SRB64Additions.m in Sources */,
 				740BEF4F19EC315400E577A0 /* SecondViewController.swift in Sources */,
+				7410736E19EDE86600D71C6C /* SwiftRegex.swift in Sources */,
 				740BEF4B19EC315400E577A0 /* AppDelegate.swift in Sources */,
 				740BEF8319EC3AD300E577A0 /* CytubeRoom.swift in Sources */,
 				740BEF7419EC317700E577A0 /* base64.c in Sources */,
@@ -473,6 +477,7 @@
 				740BEF6819EC315500E577A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		740BEF6919EC315500E577A0 /* Build configuration list for PBXNativeTarget "CytubeChat1.0Tests" */ = {
 			isa = XCConfigurationList;
@@ -481,6 +486,7 @@
 				740BEF6B19EC315500E577A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

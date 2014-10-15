@@ -11,7 +11,7 @@ import Foundation
 class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     var socketio:SRWebSocket?
-    let socketIOURL:String!
+    var socketIOURL:String!
     let session:NSURLSession?
     let room:String!
     let server:String!
@@ -36,25 +36,37 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     }
     
     deinit {
+        //self.socketio!.
+        self.socketio = nil
         println("CytubeSocket for room \(self.room) is being deint")
     }
     
     // Finds the correct socket URL
     func findSocketURL() {
+        var jsonError:NSError?
         var url =  "http://" + self.server + self.sioconfigURL
         println("Finding socket URL: " + url)
-        func parseData(data:NSData) {
-           var stringData = NSString(data: data, encoding: NSUTF8StringEncoding) as String
-            println(stringData)
-        }
+        let regex:NSRegularExpression = NSRegularExpression(pattern: "var IO_URLS=\\{['? | \"?]ipv4-nossl['? | \"?]:['? | \"?](.*)['? | \"?],['? | \"?]ipv4-ssl", options: nil, error: nil)
         
         var request:NSURLRequest = NSURLRequest(URL: NSURL(string: url))
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) { (res, data, err) -> Void in
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) { [unowned self]
+            (res, data, err) -> Void in
             if ((err) != nil) {
                 return println(err)
             }
             
-            parseData(data as NSData)
+            var stringData = NSString(data: data, encoding: NSUTF8StringEncoding) as String
+            var mutable = RegexMutable(stringData)
+            mutable = mutable["var IO_URLS="] ~= ""
+            mutable = mutable["'"] ~= "\""
+            var jsonString = mutable[";var IO_URL=(.*)"] ~= ""
+            let data = (jsonString as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+            var realJSON:AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &jsonError)
+            
+            if realJSON != nil {
+                self.socketIOURL = RegexMutable((realJSON!["ipv4-nossl"] as NSString))["http://"] ~= ""
+                self.initHandshake()
+            }
         }
     }
     
@@ -63,8 +75,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         println("init handshake")
         let time:NSTimeInterval = NSDate().timeIntervalSince1970 * 1000
         
-        println(server)
-        var endpoint = "http://\(server)/socket.io/1?t=\(time)"
+        var endpoint = "http://\(self.socketIOURL)/socket.io/1?t=\(time)"
         
         var handshakeTask:NSURLSessionTask = session!.dataTaskWithURL(NSURL.URLWithString(endpoint), completionHandler: { (data:NSData!, response:NSURLResponse!, error:NSError!) in
             if (error == nil) {
@@ -82,7 +93,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     
     func socketConnect(token:NSString) {
-        socketio = SRWebSocket(URLRequest: NSURLRequest(URL: NSURL(string: "ws://\(server)/socket.io/1/websocket/\(token)")))
+        socketio = SRWebSocket(URLRequest: NSURLRequest(URL: NSURL(string: "ws://\(self.socketIOURL)/socket.io/1/websocket/\(token)")))
         socketio!.delegate = self
         socketio!.open()
     }
@@ -122,6 +133,13 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
             
             let args:NSDictionary = (json!["args"] as NSArray)[0] as NSDictionary
             
+        }
+    }
+    
+    func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
+        self.cytubeRoom?.handleImminentDelete() {() in
+            var index = roomMng.findRoomIndex(self.room, server: self.server)
+            roomMng.removeRoom(index!)
         }
     }
     

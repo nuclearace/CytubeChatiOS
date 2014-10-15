@@ -34,7 +34,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(tableView:UITableView, commitEditingStyle editingStyle:UITableViewCellEditingStyle, forRowAtIndexPath indexPath:NSIndexPath) {
         
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
-            roomMng.removeRoom(indexPath.row)
+            roomMng.getRoomAtIndex(indexPath.row).handleImminentDeleteShutDownSocket()
             tblRoom.reloadData()
         }
     }
@@ -44,11 +44,12 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return roomMng.rooms.count
     }
     
-    // Creates each cell
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath:
         NSIndexPath) -> UITableViewCell {
             let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Default")
             
+            roomMng.rooms[indexPath.row].cytubeRoom.setView(self)
             cell.textLabel?.text = roomMng.rooms[indexPath.row].room
             cell.detailTextLabel?.text = roomMng.rooms[indexPath.row].server
             

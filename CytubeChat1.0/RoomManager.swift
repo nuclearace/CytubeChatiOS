@@ -23,10 +23,6 @@ class RoomManager: NSObject {
         rooms.append(RoomContainer(server: server, room: room, cytubeRoom: cytubeRoom))
     }
     
-    func removeRoom(roomAtIndex: Int) {
-        roomMng.rooms.removeAtIndex(roomAtIndex)
-    }
-    
     func findRoom(room:String, server:String) -> CytubeRoom? {
         for cRoom in roomMng.rooms {
             if (cRoom.server == server && cRoom.room == room) {
@@ -36,5 +32,22 @@ class RoomManager: NSObject {
             }
         }
         return nil
+    }
+    
+    func findRoomIndex(room:String, server:String) -> Int? {
+        for var i = 0; i < roomMng.rooms.count; ++i {
+            if let room = roomMng.findRoom(room, server: server) {
+                return i
+            }
+        }
+        return nil
+    }
+    
+    func getRoomAtIndex(index:Int) -> CytubeRoom {
+        return roomMng.rooms[index].cytubeRoom
+    }
+    
+    func removeRoom(roomAtIndex: Int) {
+        roomMng.rooms.removeAtIndex(roomAtIndex)
     }
 }
