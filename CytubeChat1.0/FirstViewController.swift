@@ -34,7 +34,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(tableView:UITableView, commitEditingStyle editingStyle:UITableViewCellEditingStyle, forRowAtIndexPath indexPath:NSIndexPath) {
         
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
-            roomMng.getRoomAtIndex(indexPath.row).handleImminentDeleteShutDownSocket()
+            roomMng.getRoomAtIndex(indexPath.row).handleImminentDeleteShutdownSocket()
         }
     }
 

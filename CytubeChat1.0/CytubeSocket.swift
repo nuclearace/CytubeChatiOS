@@ -83,7 +83,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
             mutable = mutable["'"] ~= "\""
             mutable[";var IO_URL=(.*)"] ~= ""
             var jsonString = mutable[",IO_URL=(.*)"] ~= ""
-            println(jsonString)
+            //println(jsonString)
             let data = (jsonString as NSString).dataUsingEncoding(NSUTF8StringEncoding)
             var realJSON:AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &jsonError)
             
@@ -99,7 +99,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         println("init handshake")
         let time:NSTimeInterval = NSDate().timeIntervalSince1970 * 1000
         
-        println(self.socketIOURL)
+        //println(self.socketIOURL)
         var endpoint = "http://\(self.socketIOURL)/socket.io/1?t=\(time)"
         
         var handshakeTask:NSURLSessionTask = session!.dataTaskWithURL(NSURL.URLWithString(endpoint), completionHandler: { (data:NSData!, response:NSURLResponse!, error:NSError!) in
@@ -185,6 +185,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         }
     }
     
+    // Called when the socket was closed
     func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         println("Closed socket because: \(reason)")
         self.cytubeRoom?.handleImminentDelete() {() in
@@ -193,6 +194,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         }
     }
     
+    // Called when the socket was first opened
     func webSocketDidOpen(webSocket: SRWebSocket!) {
         self.send("initChannelCallbacks", args: nil)
         self.send("joinChannel", args: ["name": self.room])

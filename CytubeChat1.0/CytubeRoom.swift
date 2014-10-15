@@ -27,7 +27,7 @@ class CytubeRoom: NSObject {
         view?.tblRoom.reloadData()
     }
     
-    func handleImminentDeleteShutDownSocket() {
+    func handleImminentDeleteShutdownSocket() {
         println("Closing socket: Imminent room shutdown")
         self.socket?.socketio?.close()
     }
