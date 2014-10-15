@@ -169,7 +169,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
             }
         }
 
-        let event: NSString = json!["name"] as NSString
+        let event:NSString = json!["name"] as NSString
         if (json?.count > 1) {
             if let args:NSDictionary = (json?["args"] as NSArray)[0] as? NSDictionary {
                 doEvent(event, args)
@@ -238,8 +238,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     // Called when the socket was first opened
     func webSocketDidOpen(webSocket: SRWebSocket!) {
-        self.send("initChannelCallbacks", args: nil)
-        self.send("joinChannel", args: ["name": self.room])
+        self.handleEvent(["name": "connect"])
     }
     
     func setCytubeRoom(room:CytubeRoom) {

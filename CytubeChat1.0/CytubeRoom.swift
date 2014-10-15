@@ -22,13 +22,17 @@ class CytubeRoom: NSObject {
     }
     
     func addHandlers() {
+        socket?.on("connect") {[unowned self] (data:AnyObject?) in
+            self.socket?.send("initChannelCallbacks", args: nil)
+            self.socket?.send("joinChannel", args: ["name": self.roomName])
+        }
+        
         socket?.on("chatMsg") {(data:AnyObject?) in
            let data = data as NSDictionary
-            println(data["username"]? as NSString)
         }
         
         socket?.on("rank") {(data:AnyObject?) in
-            println(data)
+            
         }
     }
     
@@ -39,6 +43,7 @@ class CytubeRoom: NSObject {
     
     func handleImminentDeleteShutdownSocket() {
         println("Closing socket: Imminent room shutdown")
+        self.socket?.handlers.removeAllObjects() // We need to remove the handles while the rooms still exists
         self.socket?.socketio?.close()
     }
     
