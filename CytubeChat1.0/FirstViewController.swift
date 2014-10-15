@@ -35,7 +35,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
             roomMng.getRoomAtIndex(indexPath.row).handleImminentDeleteShutDownSocket()
-            tblRoom.reloadData()
         }
     }
 

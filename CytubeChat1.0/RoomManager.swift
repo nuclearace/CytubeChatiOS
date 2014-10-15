@@ -27,8 +27,6 @@ class RoomManager: NSObject {
         for cRoom in roomMng.rooms {
             if (cRoom.server == server && cRoom.room == room) {
                 return cRoom.cytubeRoom
-            } else {
-                return nil
             }
         }
         return nil
@@ -36,7 +34,7 @@ class RoomManager: NSObject {
     
     func findRoomIndex(room:String, server:String) -> Int? {
         for var i = 0; i < roomMng.rooms.count; ++i {
-            if let room = roomMng.findRoom(room, server: server) {
+            if (roomMng.rooms[i].server == server && roomMng.rooms[i].room == room) {
                 return i
             }
         }

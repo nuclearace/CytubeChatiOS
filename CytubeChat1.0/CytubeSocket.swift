@@ -139,6 +139,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         self.cytubeRoom?.handleImminentDelete() {() in
             var index = roomMng.findRoomIndex(self.room, server: self.server)
+            println("Deleting room")
             roomMng.removeRoom(index!)
         }
     }
