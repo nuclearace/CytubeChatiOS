@@ -180,7 +180,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
                 return
             }
             
-            let args:NSDictionary = (json!["args"] as NSArray)[0] as NSDictionary
+            //let args:NSDictionary = (json?["args"] as NSArray)[0] as NSDictionary
             
         }
     }
