@@ -137,10 +137,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
                 self.socketConnect(handshakeToken)
             } else {
                 println(error)
-                self.cytubeRoom?.handleImminentDelete() {() in
-                    var index = roomMng.findRoomIndex(self.room, server: self.server)
-                    roomMng.removeRoom(index!)
-                }
+                self.cytubeRoom?.handleImminentDelete()
             }
         })
         handshakeTask.resume()
@@ -168,15 +165,16 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
                 }
             }
         }
-
+        
         let event:NSString = json!["name"] as NSString
+        println("GOT EVENT: \(event)")
         if (json?.count > 1) {
             if let args:NSDictionary = (json?["args"] as NSArray)[0] as? NSDictionary {
                 doEvent(event, args)
             } else if let args:Int = (json?["args"] as NSArray)[0] as? Int {
                 doEvent(event, args)
             } else if let args:BooleanLiteralType = (json?["args"] as NSArray)[0] as? BooleanLiteralType {
-               doEvent(event, args)
+                doEvent(event, args)
             } else if let args:NSArray = (json?["args"] as NSArray)[0] as? NSArray {
                 doEvent(event, args)
             }
@@ -230,11 +228,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     // Called when the socket was closed
     func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         println("Closed socket because: \(reason)")
-        self.cytubeRoom?.handleImminentDelete() {() in
-            var index = roomMng.findRoomIndex(self.room, server: self.server)
-            roomMng.removeRoom(index!)
-        }
-    }
+        self.handleEvent(["name": "disconnect"])    }
     
     // Called when the socket was first opened
     func webSocketDidOpen(webSocket: SRWebSocket!) {

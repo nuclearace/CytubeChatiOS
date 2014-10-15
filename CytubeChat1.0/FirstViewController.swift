@@ -14,7 +14,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -33,10 +33,10 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(tableView:UITableView, commitEditingStyle editingStyle:UITableViewCellEditingStyle, forRowAtIndexPath indexPath:NSIndexPath) {
         
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
-            roomMng.getRoomAtIndex(indexPath.row).handleImminentDeleteShutdownSocket()
+            roomMng.getRoomAtIndex(indexPath.row).handleImminentDelete()
         }
     }
-
+    
     // Tells how many rows to redraw
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return roomMng.rooms.count
