@@ -57,7 +57,6 @@ class EventHandler: NSObject {
 }
 
 class CytubeSocket: NSObject, SRWebSocketDelegate {
-    
     var socketio:SRWebSocket?
     var socketIOURL:String!
     let session:NSURLSession?

@@ -18,11 +18,10 @@ class CytubeUtils {
         mut = mut["(&quot;)"] ~= "\""
         mut = mut["(&#40;)"] ~= "("
         mut = mut["(&#41;)"] ~= ")"
-        var link = mut["src=\"(.*?)\""].matches()
+        mut = mut["(<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>)"] ~= "$2"
         mut = mut["(<([^>]+)>)"] ~= ""
         mut = mut["(^[ \t]+)"] ~= ""
         
-        println(link)
         return mut as NSString
     }
 }
