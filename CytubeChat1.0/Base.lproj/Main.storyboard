@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <deployment version="1808" identifier="iOS"/>
+        <deployment version="1792" defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -9,6 +9,7 @@
         <!--Rooms-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
                 <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4uh-em-t4a"/>
@@ -34,32 +35,31 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="9pv-A4-QxB" id="DWy-4o-YKN"/>
-                                    <outlet property="delegate" destination="9pv-A4-QxB" id="vzM-to-eDr"/>
+                                    <outlet property="dataSource" destination="9pv-A4-QxB" id="5UR-RF-cfg"/>
+                                    <outlet property="delegate" destination="9pv-A4-QxB" id="xR8-Lu-ar7"/>
                                 </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="UAb-1C-ZEo" firstAttribute="bottom" secondItem="FzQ-jM-DJs" secondAttribute="top" id="4Qk-Mq-6FP"/>
-                            <constraint firstItem="UAb-1C-ZEo" firstAttribute="top" secondItem="4uh-em-t4a" secondAttribute="bottom" id="FV2-kn-Wgh"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="UAb-1C-ZEo" secondAttribute="trailing" constant="-16" id="aI3-Mg-4Zd"/>
-                            <constraint firstItem="UAb-1C-ZEo" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-16" id="beJ-az-URV"/>
+                            <constraint firstItem="UAb-1C-ZEo" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-16" id="9ut-ui-19L"/>
+                            <constraint firstItem="UAb-1C-ZEo" firstAttribute="top" secondItem="4uh-em-t4a" secondAttribute="bottom" id="cNf-j3-ver"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="UAb-1C-ZEo" secondAttribute="trailing" constant="-16" id="gDl-ma-o9v"/>
+                            <constraint firstItem="FzQ-jM-DJs" firstAttribute="top" secondItem="UAb-1C-ZEo" secondAttribute="bottom" id="iPB-wb-wB4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="UAb-1C-ZEo" secondAttribute="trailing" constant="-16" id="uwX-oi-yXO"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Rooms" image="first" id="acW-dT-cKf"/>
                     <connections>
-                        <outlet property="tblRoom" destination="UAb-1C-ZEo" id="jfM-QO-EiN"/>
+                        <outlet property="tblRoom" destination="UAb-1C-ZEo" id="vsP-2L-Z8N"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="738" y="-726"/>
         </scene>
         <!--Third View Controller-->
         <scene sceneID="QQW-kf-j5c">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x7z-Xr-YKg" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="6DY-Gc-TG0" customClass="ThirdViewController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="l8c-Xc-sH1"/>
@@ -100,25 +100,24 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="SdS-tO-4s3" secondAttribute="centerX" id="0oN-48-fRT"/>
-                            <constraint firstAttribute="centerY" secondItem="JR8-Zh-Whe" secondAttribute="centerY" constant="12.5" id="4ee-yN-PUR"/>
-                            <constraint firstItem="SdS-tO-4s3" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-16" id="Nam-Jk-VzK"/>
-                            <constraint firstItem="JR8-Zh-Whe" firstAttribute="top" secondItem="SdS-tO-4s3" secondAttribute="bottom" id="S8w-6e-35Y"/>
-                            <constraint firstItem="SdS-tO-4s3" firstAttribute="top" secondItem="l8c-Xc-sH1" secondAttribute="bottom" id="Y33-vb-5AW"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Qwl-CL-nHq" secondAttribute="trailing" constant="-11" id="ZIN-6A-NXK"/>
-                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="leading" secondItem="JR8-Zh-Whe" secondAttribute="trailing" constant="-594" id="bCc-eU-P2w"/>
-                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="top" secondItem="KbM-nV-Z39" secondAttribute="bottom" constant="-38" id="j8J-he-RdO"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="JR8-Zh-Whe" secondAttribute="trailing" constant="-16" id="kPD-He-zrc"/>
-                            <constraint firstItem="JR8-Zh-Whe" firstAttribute="leading" secondItem="SdS-tO-4s3" secondAttribute="trailing" constant="-600" id="n4r-wG-gBp"/>
-                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-10" id="pGS-9U-Fdu"/>
-                            <constraint firstItem="JR8-Zh-Whe" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-16" id="v61-cm-Bqs"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="SdS-tO-4s3" secondAttribute="trailing" constant="-16" id="xpR-nX-kDI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="SdS-tO-4s3" secondAttribute="trailing" constant="-16" id="6jR-fv-BDU"/>
+                            <constraint firstItem="SdS-tO-4s3" firstAttribute="top" secondItem="l8c-Xc-sH1" secondAttribute="bottom" id="LWP-A7-dKU"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Qwl-CL-nHq" secondAttribute="trailing" constant="-11" id="Msy-Op-78c"/>
+                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="top" secondItem="JR8-Zh-Whe" secondAttribute="bottom" constant="2" id="SLR-3T-n4J"/>
+                            <constraint firstItem="JR8-Zh-Whe" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-16" id="egd-Ob-Hd2"/>
+                            <constraint firstItem="SdS-tO-4s3" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-16" id="fHI-ht-nRH"/>
+                            <constraint firstItem="KbM-nV-Z39" firstAttribute="top" secondItem="Qwl-CL-nHq" secondAttribute="bottom" constant="8" id="fQI-IL-w1u"/>
+                            <constraint firstItem="JR8-Zh-Whe" firstAttribute="top" secondItem="SdS-tO-4s3" secondAttribute="bottom" id="ioC-KZ-B8t"/>
+                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-10" id="lUf-k8-1oD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="JR8-Zh-Whe" secondAttribute="trailing" constant="-16" id="lnn-FB-EzA"/>
+                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="top" secondItem="JR8-Zh-Whe" secondAttribute="bottom" constant="2" id="wBf-1p-aoD"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="messageView" destination="JR8-Zh-Whe" id="uRI-kx-Gsi"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x7z-Xr-YKg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="845" y="34"/>
         </scene>

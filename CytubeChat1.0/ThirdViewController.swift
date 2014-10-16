@@ -16,6 +16,7 @@ class ThirdViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        println("Loaded v3")
         tapRec.addTarget(self, action: "tappedMessages")
         messageView.addGestureRecognizer(tapRec)
         //        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: nil)
