@@ -12,6 +12,7 @@ class CytubeRoom: NSObject {
     var socket:CytubeSocket?
     var view:FirstViewController?
     var needDelete:Bool = false
+    var messageBuffer:CKLinkedList = CKLinkedList()
     
     init(roomName:String) {
         super.init()
@@ -38,7 +39,7 @@ class CytubeRoom: NSObject {
             self!.handleChatMsg(data)
         }
         
-        socket?.on("rank") {(data:AnyObject?) in
+        socket?.on("rank") {[weak self] (data:AnyObject?) in
             
         }
     }
@@ -46,11 +47,27 @@ class CytubeRoom: NSObject {
     func handleChatMsg(data:NSDictionary) {
         let username:String = data["username"] as NSString
         var msg:String = data["msg"] as NSString
-        let time:Int = data["time"] as Int
+        let time:NSTimeInterval = data["time"] as NSTimeInterval / 1000
         
-        msg = CytubeUtils.filterChatMsg(msg)
+        var dateFormatter:NSDateFormatter = NSDateFormatter()
+        var date:NSDate = NSDate(timeIntervalSince1970: time)
+        dateFormatter.dateFormat = "HH:mm:ss z"
         
-        println("\n\n\(msg)")
+        var filterMsg = CytubeUtils.filterChatMsg(msg)
+        
+        msg =  "[" + dateFormatter.stringFromDate(date) + "]"
+        msg += username + ":"
+        msg += filterMsg
+        //println("\n\n\(msg)\n")
+        
+        if (messageBuffer.count() > 100) {
+            messageBuffer.popBack()
+            messageBuffer.pushFront(msg)
+        } else {
+            messageBuffer.pushFront(msg)
+        }
+        
+        println(messageBuffer)
     }
     
     func handleImminentDelete() {
@@ -63,7 +80,7 @@ class CytubeRoom: NSObject {
         println("SOCKET SHUTDOWN")
         if (self.needDelete) {
             var index = roomMng.findRoomIndex(self.roomName, server: self.socket!.server)
-            var us = roomMng.removeRoom(index!)
+            roomMng.removeRoom(index!)
         } else { // TODO handle when we lose connection
             
         }

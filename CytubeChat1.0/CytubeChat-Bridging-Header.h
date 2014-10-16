@@ -7,3 +7,4 @@
 //
 
 #import "SocketRocket/SRWebSocket.h"
+#import "CKLinkedList.h"
