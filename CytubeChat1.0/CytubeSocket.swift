@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct socketFrame {
+private struct socketFrame {
     var name:String!
     var args:AnyObject!
     
@@ -50,6 +50,10 @@ class EventHandler: NSObject {
             callback(data: nil)
         }
     }
+    
+    func getEvent() -> String {
+        return self.event
+    }
 }
 
 class CytubeSocket: NSObject, SRWebSocketDelegate {
@@ -91,13 +95,13 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     // Setup WebSocket methods
     //
     // Finds the correct socket URL
-    func findSocketURL() {
+    private func findSocketURL() {
         var jsonError:NSError?
         var url =  "http://" + self.server + self.sioconfigURL
         println("Finding socket URL: " + url)
         
         var request:NSURLRequest = NSURLRequest(URL: NSURL(string: url))
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) { [unowned self]
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) {[unowned self]
             (res, data, err) -> Void in
             if ((err) != nil) {
                 return println(err)
@@ -121,7 +125,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     }
     
     // Init the socket
-    func initHandshake() {
+    private func initHandshake() {
         println("init handshake")
         let time:NSTimeInterval = NSDate().timeIntervalSince1970 * 1000
         
@@ -143,7 +147,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         handshakeTask.resume()
     }
     
-    func socketConnect(token:NSString) {
+    private func socketConnect(token:NSString) {
         socketio = SRWebSocket(URLRequest: NSURLRequest(URL: NSURL(string: "ws://\(self.socketIOURL)/socket.io/1/websocket/\(token)")))
         socketio!.delegate = self
         socketio!.open()
@@ -152,11 +156,12 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     // End setup WebSocket
     //
     
+    // Handles socket events
     func handleEvent(json:AnyObject?) {
         
         func doEvent(evt:String, args:AnyObject?) {
             for handler in self.handlers {
-                if (handler.event == evt) {
+                if (handler.getEvent() == evt) {
                     if (args != nil) {
                         handler.executeCallback(args! as AnyObject)
                     } else {

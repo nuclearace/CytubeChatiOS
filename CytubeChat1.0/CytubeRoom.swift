@@ -33,13 +33,30 @@ class CytubeRoom: NSObject {
             self!.socketShutdown()
         }
         
-        socket?.on("chatMsg") {(data:AnyObject?) in
+        socket?.on("chatMsg") {[weak self] (data:AnyObject?) in
             let data = data as NSDictionary
+            self!.handleChatMsg(data)
         }
         
         socket?.on("rank") {(data:AnyObject?) in
             
         }
+    }
+    
+    func handleChatMsg(data:NSDictionary) {
+        let username:String = data["username"] as NSString
+        var msg:String = data["msg"] as NSString
+        let time:Int = data["time"] as Int
+        
+        msg = CytubeUtils.filterChatMsg(msg)
+        
+        println("\n\n\(msg)")
+    }
+    
+    func handleImminentDelete() {
+        println("Imminent room deletion: Shut down socket")
+        self.needDelete = true
+        self.socket?.socketio?.close()
     }
     
     func socketShutdown() {
@@ -50,12 +67,6 @@ class CytubeRoom: NSObject {
         } else { // TODO handle when we lose connection
             
         }
-    }
-    
-    func handleImminentDelete() {
-        println("Imminent room deletion: Shut down socket")
-        self.needDelete = true
-        self.socket?.socketio?.close()
     }
     
     func getRoomName() -> String {

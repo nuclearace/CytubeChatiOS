@@ -26,6 +26,7 @@
 		740BEF8519EC6FCF00E577A0 /* RoomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF8419EC6FCF00E577A0 /* RoomManager.swift */; };
 		740BEF8719EC857E00E577A0 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF8619EC857E00E577A0 /* ThirdViewController.swift */; };
 		7410736E19EDE86600D71C6C /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7410736D19EDE86600D71C6C /* SwiftRegex.swift */; };
+		7410737219EF445E00D71C6C /* CytubeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7410737119EF445E00D71C6C /* CytubeUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		740BEF8419EC6FCF00E577A0 /* RoomManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomManager.swift; sourceTree = "<group>"; };
 		740BEF8619EC857E00E577A0 /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		7410736D19EDE86600D71C6C /* SwiftRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRegex.swift; sourceTree = "<group>"; };
+		7410737119EF445E00D71C6C /* CytubeUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CytubeUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,11 +121,12 @@
 				740BEF6C19EC317700E577A0 /* SocketRocket */,
 				740BEF8019EC32BD00E577A0 /* CytubeSocket.swift */,
 				740BEF8219EC3AD300E577A0 /* CytubeRoom.swift */,
+				7410737119EF445E00D71C6C /* CytubeUtils.swift */,
+				740BEF8419EC6FCF00E577A0 /* RoomManager.swift */,
 				740BEF4A19EC315400E577A0 /* AppDelegate.swift */,
 				740BEF4C19EC315400E577A0 /* FirstViewController.swift */,
 				740BEF4E19EC315400E577A0 /* SecondViewController.swift */,
 				740BEF8619EC857E00E577A0 /* ThirdViewController.swift */,
-				740BEF8419EC6FCF00E577A0 /* RoomManager.swift */,
 				7410736D19EDE86600D71C6C /* SwiftRegex.swift */,
 				740BEF7719EC319A00E577A0 /* CytubeChat-Bridging-Header.h */,
 				740BEF5019EC315400E577A0 /* Main.storyboard */,
@@ -274,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				740BEF7619EC317700E577A0 /* SRWebSocket.m in Sources */,
+				7410737219EF445E00D71C6C /* CytubeUtils.swift in Sources */,
 				740BEF8519EC6FCF00E577A0 /* RoomManager.swift in Sources */,
 				740BEF8719EC857E00E577A0 /* ThirdViewController.swift in Sources */,
 				740BEF7519EC317700E577A0 /* NSData+SRB64Additions.m in Sources */,
