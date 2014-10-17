@@ -52,10 +52,6 @@ class CytubeRoom: NSObject {
                 self!.chatWindow?.chatInput.enabled = true
             }
         }
-        
-        socket?.on("rank") {[weak self] (data:AnyObject?) in
-            
-        }
     }
     
     func handleChatMsg(data:NSDictionary) {
@@ -69,7 +65,7 @@ class CytubeRoom: NSObject {
         
         var filterMsg = CytubeUtils.filterChatMsg(msg)
         
-        msg =  "[" + dateFormatter.stringFromDate(date) + "]"
+        msg =  "[" + dateFormatter.stringFromDate(date) + "] "
         msg += username + ": "
         msg += filterMsg
         //println("\n\n\(msg)\n")
