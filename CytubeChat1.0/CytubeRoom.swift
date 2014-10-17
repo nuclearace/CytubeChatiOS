@@ -9,19 +9,24 @@ import Foundation
 
 class CytubeRoom: NSObject {
     var active:Bool = false
-    var loggedIn:Bool = false
-    let roomName:String!
-    var socket:CytubeSocket?
-    var view:RoomsController?
     var chatWindow:ChatWindowController?
-    var needDelete:Bool = false
+    var loggedIn:Bool = false
     var messageBuffer:NSMutableArray = NSMutableArray()
-    var username:String!
+    var needDelete:Bool = false
     var password:String!
+    let roomName:String!
+    let server:String!
+    var socket:CytubeSocket?
+    let socketURL:NSURL!
+    var username:String!
+    var view:RoomsController?
     
-    init(roomName:String) {
+    init(roomName:String, server:String) {
         super.init()
         self.roomName = roomName
+        self.server = server
+        self.socket = CytubeSocket(server: server, room: roomName, cytubeRoom: self)
+        self.addHandlers()
     }
     
     deinit {
@@ -86,6 +91,17 @@ class CytubeRoom: NSObject {
         self.socket?.socketio?.close()
     }
     
+    func isConnected() -> Bool {
+        if ((socket?) != nil) {
+            if (socket!.connected) {
+                return true
+            } else {
+                return false
+            }
+        }
+        return false
+    }
+    
     func sendChatMsg(msg:String?) {
         if (!self.loggedIn || msg == nil) {
             return
@@ -117,13 +133,16 @@ class CytubeRoom: NSObject {
         }
     }
     
+    func startSocket() {
+        socket?.open()
+    }
+    
     func getRoomName() -> String {
         return self.roomName
     }
     
     func setSocket(socket:CytubeSocket) {
         self.socket = socket
-        self.addHandlers()
     }
     
     func getSocket() -> CytubeSocket? {

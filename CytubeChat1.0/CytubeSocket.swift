@@ -50,10 +50,6 @@ class EventHandler: NSObject {
             callback(data: nil)
         }
     }
-    
-    func getEvent() -> String {
-        return self.event
-    }
 }
 
 class CytubeSocket: NSObject, SRWebSocketDelegate {
@@ -65,6 +61,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     let sioconfigURL:String = "/sioconfig"
     weak var cytubeRoom:CytubeRoom?
     var handlers:NSMutableArray = NSMutableArray()
+    var connected = false
     
     
     init(server:String, room:String, cytubeRoom:CytubeRoom) {
@@ -118,7 +115,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
             
             if realJSON != nil {
                 self.socketIOURL = RegexMutable((realJSON!["ipv4-nossl"] as NSString))["http://"] ~= ""
-                self.initHandshake()
+               // self.initHandshake()
             }
         }
     }
@@ -157,10 +154,9 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     // Handles socket events
     func handleEvent(json:AnyObject?) {
-        
         func doEvent(evt:String, args:AnyObject?) {
             for handler in self.handlers {
-                if (handler.getEvent() == evt) {
+                if (handler.event == evt) {
                     if (args != nil) {
                         handler.executeCallback(args! as AnyObject)
                     } else {
@@ -187,12 +183,18 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         }
     }
     
-    
+    // Adds handlers to the socket
     func on(name:String, callback:((data:AnyObject?) -> Void)?) {
         var handler = EventHandler(event: name, callback: callback)
         self.handlers.addObject(handler)
     }
     
+    // Starts the connection to the server
+    func open() {
+        self.initHandshake()
+    }
+    
+    // Sends a frame
     func send(name:String, args:AnyObject?) {
         var frame:socketFrame = socketFrame(name: name, args: args)
         
@@ -203,7 +205,6 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         let str:NSString = "5:::\(jsonString1)"
         
         socketio?.send(str)
-        
     }
     
     func sendPong() {
@@ -236,6 +237,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     // Called when the socket was first opened
     func webSocketDidOpen(webSocket: SRWebSocket!) {
+        self.connected = true
         self.handleEvent(["name": "connect"])
     }
     

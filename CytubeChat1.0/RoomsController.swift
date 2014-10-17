@@ -30,15 +30,18 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     // Called when a selects a room
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var room = roomMng.getRoomAtIndex(indexPath.row)
+        room.startSocket()
         room.setActive(true)
         self.performSegueWithIdentifier("goToChatRoom", sender: self)
     }
     
     // This will remove a room
     func tableView(tableView:UITableView, commitEditingStyle editingStyle:UITableViewCellEditingStyle, forRowAtIndexPath indexPath:NSIndexPath) {
-        
-        if (editingStyle == UITableViewCellEditingStyle.Delete) {
-            roomMng.getRoomAtIndex(indexPath.row).handleImminentDelete()
+        var roomToDelete = roomMng.getRoomAtIndex(indexPath.row)
+        if (roomToDelete.isConnected() && editingStyle == UITableViewCellEditingStyle.Delete) {
+            roomToDelete.handleImminentDelete()
+        } else if (!roomToDelete.isConnected()){
+            roomMng.removeRoom(indexPath.row)
         }
     }
     

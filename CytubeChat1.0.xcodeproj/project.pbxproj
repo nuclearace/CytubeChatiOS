@@ -122,12 +122,12 @@
 		740BEF4719EC315400E577A0 /* CytubeChat1.0 */ = {
 			isa = PBXGroup;
 			children = (
+				740BEF4A19EC315400E577A0 /* AppDelegate.swift */,
 				740BEF8019EC32BD00E577A0 /* CytubeSocket.swift */,
 				740BEF8219EC3AD300E577A0 /* CytubeRoom.swift */,
 				74038C8219F00E65005DB2A7 /* CytubeUser.swift */,
 				7410737119EF445E00D71C6C /* CytubeUtils.swift */,
 				740BEF8419EC6FCF00E577A0 /* RoomManager.swift */,
-				740BEF4A19EC315400E577A0 /* AppDelegate.swift */,
 				740BEF4C19EC315400E577A0 /* RoomsController.swift */,
 				740BEF4E19EC315400E577A0 /* AddRoomsController.swift */,
 				740BEF8619EC857E00E577A0 /* ChatWindowController.swift */,

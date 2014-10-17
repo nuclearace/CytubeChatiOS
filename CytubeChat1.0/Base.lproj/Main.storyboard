@@ -208,7 +208,7 @@
             </objects>
             <point key="canvasLocation" x="1554" y="-128"/>
         </scene>
-        <!--Join Room-->
+        <!--Add Room-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="AddRoomsController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
@@ -243,7 +243,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="46" id="JLs-pd-3Pn"/>
                                 </constraints>
-                                <state key="normal" title="Join">
+                                <state key="normal" title="Add">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -280,7 +280,7 @@
                             <constraint firstItem="Jru-xe-fa9" firstAttribute="trailing" secondItem="cnH-Iq-nwA" secondAttribute="trailing" id="uhe-sq-YUH"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Join Room" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Add Room" image="second" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="passwordText" destination="jpU-VV-oWe" id="PnW-QW-5I1"/>
                         <outlet property="roomText" destination="Jru-xe-fa9" id="piy-m1-gYq"/>

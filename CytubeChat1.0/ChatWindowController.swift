@@ -24,8 +24,11 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         tapRec.addTarget(self, action: "tappedMessages")
         messageView.addGestureRecognizer(tapRec)
         messageView.reloadData()
-        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: nil)
-        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     deinit {
@@ -53,14 +56,6 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         return cell
     }
     
-    //    func keyboardWillShow(sender: NSNotification) {
-    //        self.view.frame.origin.y -= posOfChatInput
-    //    }
-    //
-    //    func keyboardWillHide(sender: NSNotification) {
-    //        self.view.frame.origin.y += posOfChatInput
-    //    }
-    
     // Hide keyboard if we touch anywhere
     func tappedMessages() {
         self.view.endEditing(true)
@@ -78,11 +73,6 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         chatInput.text = nil
         textField.resignFirstResponder()
         return false
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func backBtnClicked(btn:UIBarButtonItem) {

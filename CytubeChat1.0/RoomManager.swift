@@ -23,7 +23,7 @@ class RoomManager: NSObject {
     }
     
     func findRoom(room:String, server:String) -> CytubeRoom? {
-        for cRoom in roomMng.rooms {
+        for cRoom in rooms {
             if (cRoom.server == server && cRoom.room == room) {
                 return cRoom.cytubeRoom
             }
@@ -33,7 +33,7 @@ class RoomManager: NSObject {
     
     func findRoomIndex(room:String, server:String) -> Int? {
         for var i = 0; i < roomMng.rooms.count; ++i {
-            if (roomMng.rooms[i].server == server && roomMng.rooms[i].room == room) {
+            if (rooms[i].server == server && rooms[i].room == room) {
                 return i
             }
         }
@@ -41,7 +41,7 @@ class RoomManager: NSObject {
     }
     
     func getActiveRoom() -> CytubeRoom? {
-        for cRoom in roomMng.rooms {
+        for cRoom in rooms {
             if (cRoom.cytubeRoom.active) {
                 return cRoom.cytubeRoom
             }
@@ -50,12 +50,53 @@ class RoomManager: NSObject {
     }
     
     func getRoomAtIndex(index:Int) -> CytubeRoom {
-        return roomMng.rooms[index].cytubeRoom
+        return rooms[index].cytubeRoom
     }
     
     func removeRoom(roomAtIndex: Int) -> CytubeRoom {
         println("Removing room at \(roomAtIndex)")
-        var con = roomMng.rooms.removeAtIndex(roomAtIndex)
+        var con = rooms.removeAtIndex(roomAtIndex)
         return con.cytubeRoom
+    }
+    
+    func saveRooms() {
+        var handler = NSFileManager()
+        var path:String?
+        var pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        path = pathsArray[0] as NSString + "/rooms"
+        var roomsForSave:NSMutableArray = NSMutableArray()
+        
+        for room in rooms {
+            var sroom = [
+                "room": room.room,
+                "server": room.server
+            ]
+            roomsForSave.addObject(sroom)
+        }
+        
+        var roomData = NSKeyedArchiver.archivedDataWithRootObject(roomsForSave)
+        //        println(path)
+        //        println(handler.fileExistsAtPath(path!))
+        handler.createFileAtPath(path!, contents: roomData, attributes: nil)
+    }
+    
+    func loadRooms() -> Bool {
+        var handler = NSFileManager()
+        var path:String?
+        var pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        path = pathsArray[0] as NSString + "/rooms"
+        
+        if (!handler.fileExistsAtPath(path!)) {
+            return false
+        }
+        //var roomsFromData = handler.contentsAtPath(path!)
+        if let roomsFromData:NSMutableArray? = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as? NSMutableArray {
+            for var i = 0; i < roomsFromData?.count; ++i {
+                var con = roomsFromData?.objectAtIndex(i) as NSDictionary
+                var recreatedRoom = CytubeRoom(roomName: con["room"] as NSString, server: con["server"] as NSString)
+                roomMng.addRoom(con["server"] as NSString, room: con["room"] as NSString, cytubeRoom: recreatedRoom)
+            }
+        }
+        return true
     }
 }
