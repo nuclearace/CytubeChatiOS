@@ -10,8 +10,24 @@ import UIKit
 
 class LoginController: UIViewController {
     
+    @IBOutlet var usernameText:UITextField!
+    @IBOutlet var passwordText:UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    @IBAction func backBtnClicked(btn:UIBarButtonItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func submitBtnClicked(btn:UIBarButtonItem) {
+        var room = roomMng.getActiveRoom()
+        let username:String = usernameText.text
+        let password:String = passwordText.text
+        self.dismissViewControllerAnimated(true, completion: nil)
+        room?.setUsername(usernameText.text)
+        room?.setPassword(password)
+        room?.sendLogin()
+    }
 }

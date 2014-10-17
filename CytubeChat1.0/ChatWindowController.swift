@@ -14,6 +14,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet var chatInput:UITextField!
     let tapRec = UITapGestureRecognizer()
     weak var room:CytubeRoom?
+    var loggedIn:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +73,9 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     
     func textFieldShouldReturn(textField:UITextField) -> Bool {
         println("got enter")
+        let msg = chatInput.text
+        room?.sendChatMsg(msg)
+        chatInput.text = nil
         textField.resignFirstResponder()
         return false
     }
@@ -83,10 +87,6 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     
     @IBAction func backBtnClicked(btn:UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    @IBAction func shouldSendMessage(btn:UIBarButtonItem) {
-        println("Should send message")
     }
     
     func scrollChat(index:Int) {

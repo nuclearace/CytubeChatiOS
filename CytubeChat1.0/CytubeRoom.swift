@@ -9,12 +9,15 @@ import Foundation
 
 class CytubeRoom: NSObject {
     var active:Bool = false
+    var loggedIn:Bool = false
     let roomName:String!
     var socket:CytubeSocket?
     var view:RoomsController?
     var chatWindow:ChatWindowController?
     var needDelete:Bool = false
     var messageBuffer:NSMutableArray = NSMutableArray()
+    var username:String!
+    var password:String!
     
     init(roomName:String) {
         super.init()
@@ -39,6 +42,15 @@ class CytubeRoom: NSObject {
         socket?.on("chatMsg") {[weak self] (data:AnyObject?) in
             let data = data as NSDictionary
             self!.handleChatMsg(data)
+        }
+        
+        socket?.on("login") {[weak self] (data:AnyObject?) in
+            let data = data as NSDictionary
+            let success:Bool = data["success"] as Bool
+            if (success) {
+                self!.loggedIn = true
+                self!.chatWindow?.chatInput.enabled = true
+            }
         }
         
         socket?.on("rank") {[weak self] (data:AnyObject?) in
@@ -78,6 +90,33 @@ class CytubeRoom: NSObject {
         self.socket?.socketio?.close()
     }
     
+    func sendChatMsg(msg:String?) {
+        if (!self.loggedIn || msg == nil) {
+            return
+        }
+        
+        let msgData = [
+            "msg": msg!
+        ]
+        
+        socket?.send("chatMsg", args: msgData)
+    }
+    
+    func sendLogin() {
+        if (self.username != nil && self.password != nil) {
+            socket?.send("login", args:
+                ["name": self.username,
+                    "pw": self.password]
+            )
+        } else if (self.username != nil) {
+            socket?.send("login", args:
+                ["name": self.username,
+                    "pw": self.password]
+            )
+            
+        }
+    }
+    
     func socketShutdown() {
         println("SOCKET SHUTDOWN")
         if (self.needDelete) {
@@ -111,5 +150,13 @@ class CytubeRoom: NSObject {
     
     func setChatWindow(chatWindow:ChatWindowController?) {
         self.chatWindow = chatWindow
+    }
+    
+    func setPassword(password:String) {
+        self.password = password
+    }
+    
+    func setUsername(username:String) {
+        self.username = username
     }
 }
