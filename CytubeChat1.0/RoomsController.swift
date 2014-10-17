@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
+class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
     @IBOutlet var tblRoom:UITableView!
     

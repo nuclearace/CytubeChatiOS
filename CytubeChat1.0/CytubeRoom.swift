@@ -11,8 +11,8 @@ class CytubeRoom: NSObject {
     var active:Bool = false
     let roomName:String!
     var socket:CytubeSocket?
-    var view:FirstViewController?
-    var chatWindow:ThirdViewController?
+    var view:RoomsController?
+    var chatWindow:ChatWindowController?
     var needDelete:Bool = false
     var messageBuffer:NSMutableArray = NSMutableArray()
     
@@ -105,11 +105,11 @@ class CytubeRoom: NSObject {
         self.active = active
     }
     
-    func setView(view:FirstViewController) {
+    func setView(view:RoomsController) {
         self.view = view
     }
     
-    func setChatWindow(chatWindow:ThirdViewController?) {
+    func setChatWindow(chatWindow:ChatWindowController?) {
         self.chatWindow = chatWindow
     }
 }

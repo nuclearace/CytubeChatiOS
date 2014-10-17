@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ChatWindowController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet var roomTitle:UINavigationItem!
     @IBOutlet var messageView:UITableView!

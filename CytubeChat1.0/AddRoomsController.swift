@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
+class AddRoomsController: UIViewController {
     
     @IBOutlet var serverText:UITextField!
     @IBOutlet var roomText:UITextField!

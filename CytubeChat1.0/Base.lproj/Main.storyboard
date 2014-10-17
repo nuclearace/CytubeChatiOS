@@ -9,7 +9,7 @@
         <!--Rooms-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9pv-A4-QxB" customClass="RoomsController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4uh-em-t4a"/>
                         <viewControllerLayoutGuide type="bottom" id="FzQ-jM-DJs"/>
@@ -57,10 +57,10 @@
             </objects>
             <point key="canvasLocation" x="738" y="-726"/>
         </scene>
-        <!--Third View Controller-->
+        <!--Chat Window Controller-->
         <scene sceneID="QQW-kf-j5c">
             <objects>
-                <viewController id="6DY-Gc-TG0" customClass="ThirdViewController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6DY-Gc-TG0" customClass="ChatWindowController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="l8c-Xc-sH1"/>
                         <viewControllerLayoutGuide type="bottom" id="KbM-nV-Z39"/>
@@ -126,16 +126,77 @@
                     <connections>
                         <outlet property="messageView" destination="8lT-SA-T96" id="QtE-jt-vWd"/>
                         <outlet property="roomTitle" destination="egg-QC-8ds" id="kof-Hu-gRf"/>
+                        <segue destination="gL4-Vg-feS" kind="show" identifier="goToLogin" id="0Dv-Qg-hxB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x7z-Xr-YKg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="845" y="34"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="fvK-pJ-qGo">
+            <objects>
+                <viewController id="gL4-Vg-feS" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="D5f-ER-80t"/>
+                        <viewControllerLayoutGuide type="bottom" id="9bn-Kn-bD9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="i4Q-0f-T3d">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CVK-fA-NIV">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Login" id="KIw-r6-eaj">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="42p-Fm-ntL"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BjX-Zs-U5M">
+                                <rect key="frame" x="16" y="107" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YbR-Zu-5q5">
+                                <rect key="frame" x="16" y="145" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBw-r7-FTH">
+                                <rect key="frame" x="504" y="191" width="80" height="30"/>
+                                <state key="normal" title="Submit">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="CVK-fA-NIV" secondAttribute="trailing" constant="-16" id="7QU-KY-ylL"/>
+                            <constraint firstItem="GBw-r7-FTH" firstAttribute="leading" secondItem="i4Q-0f-T3d" secondAttribute="leadingMargin" constant="488" id="9MR-KY-iMz"/>
+                            <constraint firstItem="YbR-Zu-5q5" firstAttribute="leading" secondItem="i4Q-0f-T3d" secondAttribute="leadingMargin" id="AGH-Uh-AeN"/>
+                            <constraint firstItem="YbR-Zu-5q5" firstAttribute="trailing" secondItem="i4Q-0f-T3d" secondAttribute="trailingMargin" id="AvN-1v-vMF"/>
+                            <constraint firstItem="9bn-Kn-bD9" firstAttribute="top" secondItem="YbR-Zu-5q5" secondAttribute="bottom" constant="376" id="CfL-oP-4lu"/>
+                            <constraint firstItem="CVK-fA-NIV" firstAttribute="leading" secondItem="i4Q-0f-T3d" secondAttribute="leadingMargin" constant="-16" id="Ecc-Cw-tgE"/>
+                            <constraint firstItem="GBw-r7-FTH" firstAttribute="trailing" secondItem="i4Q-0f-T3d" secondAttribute="trailingMargin" id="YDV-5y-sAx"/>
+                            <constraint firstItem="9bn-Kn-bD9" firstAttribute="top" secondItem="GBw-r7-FTH" secondAttribute="bottom" constant="330" id="gJG-YJ-kzg"/>
+                            <constraint firstItem="BjX-Zs-U5M" firstAttribute="top" secondItem="CVK-fA-NIV" secondAttribute="bottom" constant="35" id="j0d-R2-Ebm"/>
+                            <constraint firstItem="GBw-r7-FTH" firstAttribute="top" secondItem="YbR-Zu-5q5" secondAttribute="bottom" constant="16" id="l9l-K9-rQH"/>
+                            <constraint firstItem="BjX-Zs-U5M" firstAttribute="leading" secondItem="i4Q-0f-T3d" secondAttribute="leadingMargin" id="nW4-dE-u2a"/>
+                            <constraint firstItem="CVK-fA-NIV" firstAttribute="top" secondItem="D5f-ER-80t" secondAttribute="bottom" constant="8" id="qLD-Wb-sak"/>
+                            <constraint firstItem="BjX-Zs-U5M" firstAttribute="trailing" secondItem="i4Q-0f-T3d" secondAttribute="trailingMargin" id="suW-Bh-8Yb"/>
+                            <constraint firstItem="YbR-Zu-5q5" firstAttribute="top" secondItem="BjX-Zs-U5M" secondAttribute="bottom" constant="8" id="u9s-Nd-Lgi"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3vF-b9-XxA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1554" y="-128"/>
+        </scene>
         <!--Join Room-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="SecondViewController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8rJ-Kc-sve" customClass="AddRoomsController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MeD-nc-0p2"/>
                         <viewControllerLayoutGuide type="bottom" id="Ypt-QD-R1S"/>
