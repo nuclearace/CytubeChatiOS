@@ -9,7 +9,6 @@
         <!--Rooms-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
                 <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4uh-em-t4a"/>
@@ -54,6 +53,7 @@
                         <outlet property="tblRoom" destination="UAb-1C-ZEo" id="vsP-2L-Z8N"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="738" y="-726"/>
         </scene>
@@ -81,13 +81,6 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Test" translatesAutoresizingMaskIntoConstraints="NO" id="JR8-Zh-Whe">
-                                <rect key="frame" x="0.0" y="64" width="600" height="447"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
-                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
-                            </textView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qwl-CL-nHq">
                                 <rect key="frame" x="6" y="513" width="589" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -97,24 +90,33 @@
                                     <outlet property="delegate" destination="6DY-Gc-TG0" id="VKX-1i-3tI"/>
                                 </connections>
                             </textField>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="8lT-SA-T96">
+                                <rect key="frame" x="0.0" y="64" width="600" height="446"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="6DY-Gc-TG0" id="7ib-VM-QwT"/>
+                                    <outlet property="delegate" destination="6DY-Gc-TG0" id="0Qt-mK-Wyw"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="SdS-tO-4s3" secondAttribute="trailing" constant="-16" id="6jR-fv-BDU"/>
-                            <constraint firstItem="SdS-tO-4s3" firstAttribute="top" secondItem="l8c-Xc-sH1" secondAttribute="bottom" id="LWP-A7-dKU"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Qwl-CL-nHq" secondAttribute="trailing" constant="-11" id="Msy-Op-78c"/>
-                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="top" secondItem="JR8-Zh-Whe" secondAttribute="bottom" constant="2" id="SLR-3T-n4J"/>
-                            <constraint firstItem="JR8-Zh-Whe" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-16" id="egd-Ob-Hd2"/>
-                            <constraint firstItem="SdS-tO-4s3" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-16" id="fHI-ht-nRH"/>
-                            <constraint firstItem="KbM-nV-Z39" firstAttribute="top" secondItem="Qwl-CL-nHq" secondAttribute="bottom" constant="8" id="fQI-IL-w1u"/>
-                            <constraint firstItem="JR8-Zh-Whe" firstAttribute="top" secondItem="SdS-tO-4s3" secondAttribute="bottom" id="ioC-KZ-B8t"/>
-                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-10" id="lUf-k8-1oD"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="JR8-Zh-Whe" secondAttribute="trailing" constant="-16" id="lnn-FB-EzA"/>
-                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="top" secondItem="JR8-Zh-Whe" secondAttribute="bottom" constant="2" id="wBf-1p-aoD"/>
+                            <constraint firstItem="8lT-SA-T96" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-16" id="0By-Zf-XR3"/>
+                            <constraint firstItem="SdS-tO-4s3" firstAttribute="top" secondItem="l8c-Xc-sH1" secondAttribute="bottom" id="A4t-dX-jGg"/>
+                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="top" secondItem="SdS-tO-4s3" secondAttribute="bottom" constant="449" id="PCg-if-j2c"/>
+                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="top" secondItem="8lT-SA-T96" secondAttribute="bottom" constant="3" id="W2t-ck-AtJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Qwl-CL-nHq" secondAttribute="trailing" constant="-11" id="bhD-kF-3U7"/>
+                            <constraint firstItem="SdS-tO-4s3" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-16" id="ikV-hT-FQ8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8lT-SA-T96" secondAttribute="trailing" constant="-16" id="jPk-KO-npV"/>
+                            <constraint firstItem="KbM-nV-Z39" firstAttribute="top" secondItem="Qwl-CL-nHq" secondAttribute="bottom" constant="8" id="ncO-gZ-q3o"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="SdS-tO-4s3" secondAttribute="trailing" constant="-16" id="tWU-yE-UrN"/>
+                            <constraint firstItem="8lT-SA-T96" firstAttribute="top" secondItem="SdS-tO-4s3" secondAttribute="bottom" id="zHO-vd-cMU"/>
+                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-10" id="zke-3v-Zis"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="messageView" destination="JR8-Zh-Whe" id="uRI-kx-Gsi"/>
+                        <outlet property="messageView" destination="8lT-SA-T96" id="QtE-jt-vWd"/>
+                        <outlet property="roomTitle" destination="egg-QC-8ds" id="kof-Hu-gRf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x7z-Xr-YKg" userLabel="First Responder" sceneMemberID="firstResponder"/>

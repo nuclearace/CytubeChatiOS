@@ -232,7 +232,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     // Called when the socket was closed
     func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         println("Closed socket because: \(reason)")
-        self.handleEvent(["name": "disconnect"])    }
+        self.handleEvent(["name": "disconnect"])}
     
     // Called when the socket was first opened
     func webSocketDidOpen(webSocket: SRWebSocket!) {

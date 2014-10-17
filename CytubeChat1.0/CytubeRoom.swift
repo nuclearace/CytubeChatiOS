@@ -8,11 +8,13 @@
 import Foundation
 
 class CytubeRoom: NSObject {
+    var active:Bool = false
     let roomName:String!
     var socket:CytubeSocket?
     var view:FirstViewController?
+    var chatWindow:ThirdViewController?
     var needDelete:Bool = false
-    var messageBuffer:CKLinkedList = CKLinkedList()
+    var messageBuffer:NSMutableArray = NSMutableArray()
     
     init(roomName:String) {
         super.init()
@@ -60,14 +62,15 @@ class CytubeRoom: NSObject {
         msg += filterMsg
         //println("\n\n\(msg)\n")
         
-        if (messageBuffer.count() > 100) {
-            messageBuffer.popBack()
-            messageBuffer.pushFront(msg)
+        if (messageBuffer.count > 100) {
+            messageBuffer.removeLastObject()
+            messageBuffer.addObject(msg)
         } else {
-            messageBuffer.pushFront(msg)
+            messageBuffer.addObject(msg)
         }
         
-        println(messageBuffer)
+        println(messageBuffer.objectAtIndex(0))
+        chatWindow?.messageView.reloadData()
     }
     
     func handleImminentDelete() {
@@ -99,7 +102,16 @@ class CytubeRoom: NSObject {
         return self.socket
     }
     
+    func setActive(active:Bool) {
+        self.active = active
+    }
+    
     func setView(view:FirstViewController) {
         self.view = view
+    }
+    
+    func setChatWindow(chatWindow:ThirdViewController?) {
+        println("setting chatWindow")
+        self.chatWindow = chatWindow
     }
 }

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		74038C8019F00BCD005DB2A7 /* CKLinkedList.m in Sources */ = {isa = PBXBuildFile; fileRef = 74038C7F19F00BCD005DB2A7 /* CKLinkedList.m */; };
 		74038C8319F00E65005DB2A7 /* CytubeUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74038C8219F00E65005DB2A7 /* CytubeUser.swift */; };
 		740BEF4B19EC315400E577A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF4A19EC315400E577A0 /* AppDelegate.swift */; };
 		740BEF4D19EC315400E577A0 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF4C19EC315400E577A0 /* FirstViewController.swift */; };
@@ -42,8 +41,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		74038C7F19F00BCD005DB2A7 /* CKLinkedList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKLinkedList.m; sourceTree = "<group>"; };
-		74038C8119F00BFA005DB2A7 /* CKLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKLinkedList.h; sourceTree = "<group>"; };
 		74038C8219F00E65005DB2A7 /* CytubeUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CytubeUser.swift; sourceTree = "<group>"; };
 		740BEF4519EC315400E577A0 /* CytubeChat1.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CytubeChat1.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		740BEF4919EC315400E577A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -123,7 +120,6 @@
 		740BEF4719EC315400E577A0 /* CytubeChat1.0 */ = {
 			isa = PBXGroup;
 			children = (
-				740BEF6C19EC317700E577A0 /* SocketRocket */,
 				740BEF8019EC32BD00E577A0 /* CytubeSocket.swift */,
 				740BEF8219EC3AD300E577A0 /* CytubeRoom.swift */,
 				74038C8219F00E65005DB2A7 /* CytubeUser.swift */,
@@ -134,12 +130,11 @@
 				740BEF4E19EC315400E577A0 /* SecondViewController.swift */,
 				740BEF8619EC857E00E577A0 /* ThirdViewController.swift */,
 				7410736D19EDE86600D71C6C /* SwiftRegex.swift */,
-				74038C7F19F00BCD005DB2A7 /* CKLinkedList.m */,
-				74038C8119F00BFA005DB2A7 /* CKLinkedList.h */,
 				740BEF7719EC319A00E577A0 /* CytubeChat-Bridging-Header.h */,
 				740BEF5019EC315400E577A0 /* Main.storyboard */,
 				740BEF5319EC315400E577A0 /* Images.xcassets */,
 				740BEF5519EC315400E577A0 /* LaunchScreen.xib */,
+				740BEF6C19EC317700E577A0 /* SocketRocket */,
 				740BEF4819EC315400E577A0 /* Supporting Files */,
 			);
 			path = CytubeChat1.0;
@@ -287,7 +282,6 @@
 			files = (
 				740BEF7619EC317700E577A0 /* SRWebSocket.m in Sources */,
 				7410737219EF445E00D71C6C /* CytubeUtils.swift in Sources */,
-				74038C8019F00BCD005DB2A7 /* CKLinkedList.m in Sources */,
 				740BEF8519EC6FCF00E577A0 /* RoomManager.swift in Sources */,
 				740BEF8719EC857E00E577A0 /* ThirdViewController.swift in Sources */,
 				740BEF7519EC317700E577A0 /* NSData+SRB64Additions.m in Sources */,

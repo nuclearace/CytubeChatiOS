@@ -7,24 +7,48 @@
 
 import UIKit
 
-class ThirdViewController: UIViewController {
+class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet var navRoom:UINavigationBar!
-    @IBOutlet var messageView:UITextView!
+    @IBOutlet var roomTitle:UINavigationItem!
+    @IBOutlet var messageView:UITableView!
     @IBOutlet var chatInput:UITextField!
     let tapRec = UITapGestureRecognizer()
+    weak var room:CytubeRoom?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        println("Loaded v3")
+        room = roomMng.getActiveRoom()
+        room?.setChatWindow(self)
+        roomTitle.title = room?.roomName
         tapRec.addTarget(self, action: "tappedMessages")
         messageView.addGestureRecognizer(tapRec)
+        messageView.reloadData()
         //        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: nil)
         //        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: nil)
     }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let r:CytubeRoom = room? {
+            var c = room?.messageBuffer.count
+            return c!
+        } else {
+            return 0
+        }
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Default")
+        
+        let c:Int = indexPath.row
+        let d:Int32 = Int32(c)
+        // println(room?.messageBuffer.objectAtIndex(1))
+        cell.textLabel?.text = room?.messageBuffer.objectAtIndex(c) as NSString
+ 
+        return cell
     }
     
     //    func keyboardWillShow(sender: NSNotification) {
@@ -36,9 +60,9 @@ class ThirdViewController: UIViewController {
     //    }
     
     // Hide keyboard if we touch anywhere
-    
     func tappedMessages() {
         self.view.endEditing(true)
+        messageView.reloadData()
     }
     
     override func touchesBegan(touches:NSSet, withEvent event:UIEvent) {

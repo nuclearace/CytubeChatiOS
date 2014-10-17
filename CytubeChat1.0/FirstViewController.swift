@@ -22,10 +22,15 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidAppear(animated:Bool) {
         tblRoom.reloadData()
+        var room = roomMng.getActiveRoom()
+        room?.setChatWindow(nil)
+        room?.setActive(false)
     }
     
     // Called when a selects a room
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var room = roomMng.getRoomAtIndex(indexPath.row)
+        room.setActive(true)
         self.performSegueWithIdentifier("goToChatRoom", sender: self)
     }
     

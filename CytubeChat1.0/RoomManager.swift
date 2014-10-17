@@ -40,6 +40,15 @@ class RoomManager: NSObject {
         return nil
     }
     
+    func getActiveRoom() -> CytubeRoom? {
+        for cRoom in roomMng.rooms {
+            if (cRoom.cytubeRoom.active) {
+                return cRoom.cytubeRoom
+            }
+        }
+        return nil
+    }
+    
     func getRoomAtIndex(index:Int) -> CytubeRoom {
         return roomMng.rooms[index].cytubeRoom
     }
