@@ -58,7 +58,7 @@ class CytubeRoom: NSObject {
         var filterMsg = CytubeUtils.filterChatMsg(msg)
         
         msg =  "[" + dateFormatter.stringFromDate(date) + "]"
-        msg += username + ":"
+        msg += username + ": "
         msg += filterMsg
         //println("\n\n\(msg)\n")
         
@@ -69,8 +69,7 @@ class CytubeRoom: NSObject {
             messageBuffer.addObject(msg)
         }
         
-        println(messageBuffer.objectAtIndex(0))
-        chatWindow?.messageView.reloadData()
+        chatWindow?.scrollChat(messageBuffer.count)
     }
     
     func handleImminentDelete() {
@@ -111,7 +110,6 @@ class CytubeRoom: NSObject {
     }
     
     func setChatWindow(chatWindow:ThirdViewController?) {
-        println("setting chatWindow")
         self.chatWindow = chatWindow
     }
 }

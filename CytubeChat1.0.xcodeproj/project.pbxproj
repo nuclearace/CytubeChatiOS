@@ -12,7 +12,6 @@
 		740BEF4D19EC315400E577A0 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF4C19EC315400E577A0 /* FirstViewController.swift */; };
 		740BEF4F19EC315400E577A0 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF4E19EC315400E577A0 /* SecondViewController.swift */; };
 		740BEF5219EC315400E577A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 740BEF5019EC315400E577A0 /* Main.storyboard */; };
-		740BEF5419EC315400E577A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 740BEF5319EC315400E577A0 /* Images.xcassets */; };
 		740BEF5719EC315400E577A0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 740BEF5519EC315400E577A0 /* LaunchScreen.xib */; };
 		740BEF6319EC315500E577A0 /* CytubeChat1_0Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF6219EC315500E577A0 /* CytubeChat1_0Tests.swift */; };
 		740BEF7419EC317700E577A0 /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF6D19EC317700E577A0 /* base64.c */; };
@@ -28,6 +27,7 @@
 		740BEF8719EC857E00E577A0 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF8619EC857E00E577A0 /* ThirdViewController.swift */; };
 		7410736E19EDE86600D71C6C /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7410736D19EDE86600D71C6C /* SwiftRegex.swift */; };
 		7410737219EF445E00D71C6C /* CytubeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7410737119EF445E00D71C6C /* CytubeUtils.swift */; };
+		74704BB119F0B13600B810A6 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74704BB019F0B13600B810A6 /* image.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +48,6 @@
 		740BEF4C19EC315400E577A0 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		740BEF4E19EC315400E577A0 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		740BEF5119EC315400E577A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		740BEF5319EC315400E577A0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		740BEF5619EC315400E577A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		740BEF5C19EC315500E577A0 /* CytubeChat1.0Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CytubeChat1.0Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		740BEF6119EC315500E577A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -71,6 +70,7 @@
 		740BEF8619EC857E00E577A0 /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		7410736D19EDE86600D71C6C /* SwiftRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRegex.swift; sourceTree = "<group>"; };
 		7410737119EF445E00D71C6C /* CytubeUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CytubeUtils.swift; sourceTree = "<group>"; };
+		74704BB019F0B13600B810A6 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,10 +132,10 @@
 				7410736D19EDE86600D71C6C /* SwiftRegex.swift */,
 				740BEF7719EC319A00E577A0 /* CytubeChat-Bridging-Header.h */,
 				740BEF5019EC315400E577A0 /* Main.storyboard */,
-				740BEF5319EC315400E577A0 /* Images.xcassets */,
 				740BEF5519EC315400E577A0 /* LaunchScreen.xib */,
 				740BEF6C19EC317700E577A0 /* SocketRocket */,
 				740BEF4819EC315400E577A0 /* Supporting Files */,
+				74704BB019F0B13600B810A6 /* image.xcassets */,
 			);
 			path = CytubeChat1.0;
 			sourceTree = "<group>";
@@ -260,9 +260,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74704BB119F0B13600B810A6 /* image.xcassets in Resources */,
 				740BEF5219EC315400E577A0 /* Main.storyboard in Resources */,
 				740BEF5719EC315400E577A0 /* LaunchScreen.xib in Resources */,
-				740BEF5419EC315400E577A0 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

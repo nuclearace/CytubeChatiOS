@@ -43,11 +43,12 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Default")
         
-        let c:Int = indexPath.row
-        let d:Int32 = Int32(c)
+        var font = UIFont(name: "Helvetica Neue", size: 12)
         // println(room?.messageBuffer.objectAtIndex(1))
-        cell.textLabel?.text = room?.messageBuffer.objectAtIndex(c) as NSString
- 
+        cell.textLabel?.font = font
+        cell.textLabel?.numberOfLines = 3
+        cell.textLabel?.text = room?.messageBuffer.objectAtIndex(indexPath.row) as NSString
+        
         return cell
     }
     
@@ -86,5 +87,11 @@ class ThirdViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @IBAction func shouldSendMessage(btn:UIBarButtonItem) {
         println("Should send message")
+    }
+    
+    func scrollChat(index:Int) {
+        var indexPath:NSIndexPath = NSIndexPath(forItem: index - 1, inSection: 0)
+        messageView.reloadData()
+        messageView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
     }
 }
