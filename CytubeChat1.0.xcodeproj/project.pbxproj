@@ -28,6 +28,7 @@
 		7410736E19EDE86600D71C6C /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7410736D19EDE86600D71C6C /* SwiftRegex.swift */; };
 		7410737219EF445E00D71C6C /* CytubeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7410737119EF445E00D71C6C /* CytubeUtils.swift */; };
 		74704BB119F0B13600B810A6 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74704BB019F0B13600B810A6 /* image.xcassets */; };
+		74704BB319F0C0F900B810A6 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74704BB219F0C0F900B810A6 /* LoginController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		7410736D19EDE86600D71C6C /* SwiftRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRegex.swift; sourceTree = "<group>"; };
 		7410737119EF445E00D71C6C /* CytubeUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CytubeUtils.swift; sourceTree = "<group>"; };
 		74704BB019F0B13600B810A6 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
+		74704BB219F0C0F900B810A6 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 				740BEF4C19EC315400E577A0 /* RoomsController.swift */,
 				740BEF4E19EC315400E577A0 /* AddRoomsController.swift */,
 				740BEF8619EC857E00E577A0 /* ChatWindowController.swift */,
+				74704BB219F0C0F900B810A6 /* LoginController.swift */,
 				7410736D19EDE86600D71C6C /* SwiftRegex.swift */,
 				740BEF7719EC319A00E577A0 /* CytubeChat-Bridging-Header.h */,
 				740BEF5019EC315400E577A0 /* Main.storyboard */,
@@ -293,6 +296,7 @@
 				740BEF7419EC317700E577A0 /* base64.c in Sources */,
 				740BEF8119EC32BD00E577A0 /* CytubeSocket.swift in Sources */,
 				740BEF4D19EC315400E577A0 /* RoomsController.swift in Sources */,
+				74704BB319F0C0F900B810A6 /* LoginController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

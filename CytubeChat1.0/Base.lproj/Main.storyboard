@@ -78,6 +78,11 @@
                                                 <action selector="backBtnClicked:" destination="x7z-Xr-YKg" id="EkC-1E-PRq"/>
                                             </connections>
                                         </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Login" id="42i-ya-wgV">
+                                            <connections>
+                                                <segue destination="gL4-Vg-feS" kind="show" id="PSc-PG-jaw"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -126,7 +131,6 @@
                     <connections>
                         <outlet property="messageView" destination="8lT-SA-T96" id="QtE-jt-vWd"/>
                         <outlet property="roomTitle" destination="egg-QC-8ds" id="kof-Hu-gRf"/>
-                        <segue destination="gL4-Vg-feS" kind="show" identifier="goToLogin" id="0Dv-Qg-hxB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x7z-Xr-YKg" userLabel="First Responder" sceneMemberID="firstResponder"/>
