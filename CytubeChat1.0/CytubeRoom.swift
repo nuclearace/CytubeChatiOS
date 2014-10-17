@@ -75,7 +75,7 @@ class CytubeRoom: NSObject {
         //println("\n\n\(msg)\n")
         
         if (messageBuffer.count > 100) {
-            messageBuffer.removeLastObject()
+            messageBuffer.removeObjectAtIndex(0)
             messageBuffer.addObject(msg)
         } else {
             messageBuffer.addObject(msg)
@@ -103,17 +103,11 @@ class CytubeRoom: NSObject {
     }
     
     func sendLogin() {
-        if (self.username != nil && self.password != nil) {
+        if (self.username != nil) {
             socket?.send("login", args:
                 ["name": self.username,
                     "pw": self.password]
             )
-        } else if (self.username != nil) {
-            socket?.send("login", args:
-                ["name": self.username,
-                    "pw": self.password]
-            )
-            
         }
     }
     
