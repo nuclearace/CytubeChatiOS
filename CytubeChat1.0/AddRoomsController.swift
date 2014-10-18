@@ -37,14 +37,13 @@ class AddRoomsController: UIViewController {
             return println("Error Trying to add existing room")
         }
         var newRoom = CytubeRoom(roomName: room, server: server)
-        //newRoom.setSocket(CytubeSocket(server: server, room: room, cytubeRoom: newRoom))
-        //newRoom.getSocket()?.setCytubeRoom(newRoom)
         roomMng.addRoom(server, room: room, cytubeRoom: newRoom)
         
         self.view.endEditing(true)
         serverText.reloadInputViews()
         roomText.text = nil
         passwordText.text = nil
+        roomMng.saveRooms()
         self.tabBarController?.selectedIndex = 0
     }
     

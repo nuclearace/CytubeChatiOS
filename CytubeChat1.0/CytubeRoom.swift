@@ -18,7 +18,6 @@ class CytubeRoom: NSObject {
     let roomName:String!
     let server:String!
     var socket:CytubeSocket?
-    let socketURL:NSURL!
     var username:String!
     var view:RoomsController?
     
@@ -45,7 +44,7 @@ class CytubeRoom: NSObject {
         
         socket?.on("disconnect") {[weak self] (data:AnyObject?) in
             self!.socketShutdown()
-            self!.connected = false
+            self?.connected = false
         }
         
         socket?.on("chatMsg") {[weak self] (data:AnyObject?) in
