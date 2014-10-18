@@ -12,13 +12,22 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet var roomTitle:UINavigationItem!
     @IBOutlet var messageView:UITableView!
     @IBOutlet var chatInput:UITextField!
+    @IBOutlet var inputBottomLayoutGuide:NSLayoutConstraint!
     let tapRec = UITapGestureRecognizer()
     weak var room:CytubeRoom?
     var loggedIn:Bool = false
+    var keyboardOffset:CGFloat!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
         room = roomMng.getActiveRoom()
+        if ((room?.loggedIn) != nil) {
+            if (room!.loggedIn) {
+                chatInput.enabled = true
+            }
+        }
         room?.setChatWindow(self)
         roomTitle.title = room?.roomName
         tapRec.addTarget(self, action: "tappedMessages")
@@ -33,6 +42,26 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func keyboardWillShow(not:NSNotification) {
+        var info = not.userInfo!
+        var keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
+        
+        self.keyboardOffset = self.inputBottomLayoutGuide.constant
+        UIView.animateWithDuration(0.3, animations: {() -> Void in
+            self.inputBottomLayoutGuide.constant = keyboardFrame.size.height + 10
+        })
+    }
+    
+    func keyboardWillHide(not:NSNotification) {
+        var info = not.userInfo!
+        var keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
+        
+        //self.keyboardOffset = self.inputBottomLayoutGuide.constant
+        UIView.animateWithDuration(0.3, animations: {() -> Void in
+            self.inputBottomLayoutGuide.constant = self.keyboardOffset
+        })
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

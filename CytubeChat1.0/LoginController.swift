@@ -21,6 +21,7 @@ class LoginController: UIViewController {
     }
     
     @IBAction func submitBtnClicked(btn:UIBarButtonItem) {
+        self.resignFirstResponder()
         var room = roomMng.getActiveRoom()
         let username:String = usernameText.text
         let password:String = passwordText.text

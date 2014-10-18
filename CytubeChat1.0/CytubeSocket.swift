@@ -194,6 +194,10 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         self.initHandshake()
     }
     
+    func reconnect() {
+        self.initHandshake()
+    }
+    
     // Sends a frame
     func send(name:String, args:AnyObject?) {
         var frame:socketFrame = socketFrame(name: name, args: args)

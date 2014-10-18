@@ -30,7 +30,9 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     // Called when a selects a room
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var room = roomMng.getRoomAtIndex(indexPath.row)
-        room.startSocket()
+        if (!room.isConnected()) {
+            room.startSocket()
+        }
         room.setActive(true)
         self.performSegueWithIdentifier("goToChatRoom", sender: self)
     }

@@ -129,7 +129,7 @@ class CytubeRoom: NSObject {
             var index = roomMng.findRoomIndex(self.roomName, server: self.socket!.server)
             roomMng.removeRoom(index!)
         } else { // TODO handle when we lose connection
-            
+            socket?.reconnect()
         }
     }
     

@@ -86,14 +86,6 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qwl-CL-nHq">
-                                <rect key="frame" x="6" y="513" width="589" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="6DY-Gc-TG0" id="VKX-1i-3tI"/>
-                                </connections>
-                            </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="8lT-SA-T96">
                                 <rect key="frame" x="0.0" y="64" width="600" height="446"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -111,31 +103,39 @@
                                     <outlet property="delegate" destination="6DY-Gc-TG0" id="0Qt-mK-Wyw"/>
                                 </connections>
                             </tableView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qwl-CL-nHq">
+                                <rect key="frame" x="6" y="513" width="589" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="6DY-Gc-TG0" id="VKX-1i-3tI"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="8lT-SA-T96" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-16" id="DYV-ig-rsk"/>
-                            <constraint firstItem="8lT-SA-T96" firstAttribute="top" secondItem="SdS-tO-4s3" secondAttribute="bottom" id="N3n-Kr-w0A"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Qwl-CL-nHq" secondAttribute="trailing" constant="-11" id="P3B-K3-Q1A"/>
-                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="top" secondItem="8lT-SA-T96" secondAttribute="bottom" constant="3" id="Sze-8B-xtu"/>
-                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="top" secondItem="8lT-SA-T96" secondAttribute="bottom" constant="3" id="eiM-yq-VLT"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="SdS-tO-4s3" secondAttribute="trailing" constant="-16" id="gbe-5h-Uak"/>
-                            <constraint firstItem="KbM-nV-Z39" firstAttribute="top" secondItem="Qwl-CL-nHq" secondAttribute="bottom" constant="8" id="hfv-2a-RqF"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="8lT-SA-T96" secondAttribute="trailing" constant="-16" id="ju4-Wa-eXb"/>
-                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-10" id="sQZ-yG-LZd"/>
-                            <constraint firstItem="SdS-tO-4s3" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-16" id="vcg-SE-DUh"/>
-                            <constraint firstItem="SdS-tO-4s3" firstAttribute="top" secondItem="l8c-Xc-sH1" secondAttribute="bottom" id="yLb-bC-Z2L"/>
+                            <constraint firstItem="SdS-tO-4s3" firstAttribute="top" secondItem="l8c-Xc-sH1" secondAttribute="bottom" id="ARe-PH-AAS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Qwl-CL-nHq" secondAttribute="trailing" constant="-11" id="KIT-gN-LjX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="SdS-tO-4s3" secondAttribute="trailing" constant="-16" id="W7A-Yc-a0P"/>
+                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-10" id="WdU-fI-7JJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8lT-SA-T96" secondAttribute="trailing" constant="-16" id="Z23-cj-WQx"/>
+                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="top" secondItem="8lT-SA-T96" secondAttribute="bottom" constant="3" id="eJM-S8-BSp"/>
+                            <constraint firstItem="KbM-nV-Z39" firstAttribute="top" secondItem="Qwl-CL-nHq" secondAttribute="bottom" constant="8" id="sLi-R4-0pX"/>
+                            <constraint firstItem="SdS-tO-4s3" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-16" id="uOK-N4-1eL"/>
+                            <constraint firstItem="8lT-SA-T96" firstAttribute="top" secondItem="SdS-tO-4s3" secondAttribute="bottom" id="uhz-kg-vbJ"/>
+                            <constraint firstItem="8lT-SA-T96" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-16" id="vV6-TT-1NK"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="chatInput" destination="Qwl-CL-nHq" id="aK0-yZ-R3T"/>
+                        <outlet property="inputBottomLayoutGuide" destination="sLi-R4-0pX" id="gKv-hA-zgB"/>
                         <outlet property="messageView" destination="8lT-SA-T96" id="QtE-jt-vWd"/>
                         <outlet property="roomTitle" destination="egg-QC-8ds" id="kof-Hu-gRf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x7z-Xr-YKg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="845" y="34"/>
+            <point key="canvasLocation" x="843" y="-12"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="fvK-pJ-qGo">
