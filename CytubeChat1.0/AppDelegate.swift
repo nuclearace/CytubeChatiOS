@@ -11,8 +11,10 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var backgroundID:UIBackgroundTaskIdentifier!
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        NSLog("App Started")
         // Override point for customization after application launch.
         roomMng.loadRooms()
         return true
@@ -28,11 +30,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         println("We entered the background")
-        roomMng.saveRooms()
+        self.backgroundID = application.beginBackgroundTaskWithExpirationHandler() {[weak self] in
+            
+        }
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            NSLog("Running in the background\n")
+            roomMng.saveRooms()
+            roomMng.closeSockets()
+            application.endBackgroundTask(self.backgroundID)
+        })
     }
     
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        //roomMng.restartSockets()
         println("Coming back from the background")
     }
     
@@ -44,6 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         println("We're going down")
+        roomMng.saveRooms()
     }
 }
 

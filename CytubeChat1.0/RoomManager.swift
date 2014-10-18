@@ -59,7 +59,14 @@ class RoomManager: NSObject {
         return con.cytubeRoom
     }
     
+    func closeSockets() {
+        for cRoom in rooms {
+            cRoom.cytubeRoom?.closeSocket()
+        }
+    }
+    
     func saveRooms() {
+        NSLog("Saving Rooms")
         var handler = NSFileManager()
         var path:String?
         var pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true)
@@ -75,12 +82,12 @@ class RoomManager: NSObject {
         }
         
         var roomData = NSKeyedArchiver.archivedDataWithRootObject(roomsForSave)
-        //        println(path)
-        //        println(handler.fileExistsAtPath(path!))
         handler.createFileAtPath(path!, contents: roomData, attributes: nil)
+        NSLog("Rooms saved")
     }
     
     func loadRooms() -> Bool {
+        NSLog("Loading rooms")
         var handler = NSFileManager()
         var path:String?
         var pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true)
@@ -97,6 +104,7 @@ class RoomManager: NSObject {
                 roomMng.addRoom(con["server"] as NSString, room: con["room"] as NSString, cytubeRoom: recreatedRoom)
             }
         }
+        NSLog("Loaded Rooms")
         return true
     }
 }

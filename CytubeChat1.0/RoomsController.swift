@@ -31,7 +31,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var room = roomMng.getRoomAtIndex(indexPath.row)
         if (!room.isConnected()) {
-            room.startSocket()
+            room.openSocket()
         }
         room.setActive(true)
         self.performSegueWithIdentifier("goToChatRoom", sender: self)

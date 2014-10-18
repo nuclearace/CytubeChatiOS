@@ -189,17 +189,27 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         self.handlers.addObject(handler)
     }
     
+    func close() {
+        self.socketio?.close()
+        self.socketio = nil
+        self.connected = false
+    }
+    
     // Starts the connection to the server
     func open() {
         self.initHandshake()
     }
     
     func reconnect() {
-        self.initHandshake()
+        self.open()
     }
     
     // Sends a frame
     func send(name:String, args:AnyObject?) {
+        if (!self.connected) {
+            return
+        }
+        
         var frame:socketFrame = socketFrame(name: name, args: args)
         
         var jsonSendError:NSError?
@@ -236,6 +246,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     // Called when the socket was closed
     func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
+        self.connected = false
         println("Closed socket because: \(reason)")
         self.handleEvent(["name": "disconnect"])}
     

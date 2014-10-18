@@ -10,6 +10,7 @@ import Foundation
 class CytubeRoom: NSObject {
     var active:Bool = false
     var chatWindow:ChatWindowController?
+    var connected:Bool = false
     var loggedIn:Bool = false
     var messageBuffer:NSMutableArray = NSMutableArray()
     var needDelete:Bool = false
@@ -36,12 +37,15 @@ class CytubeRoom: NSObject {
     
     func addHandlers() {
         socket?.on("connect") {[weak self] (data:AnyObject?) in
+            self!.connected = true
             self!.socket?.send("initChannelCallbacks", args: nil)
             self!.socket?.send("joinChannel", args: ["name": self!.roomName])
+            self!.sendLogin()
         }
         
         socket?.on("disconnect") {[weak self] (data:AnyObject?) in
             self!.socketShutdown()
+            self!.connected = false
         }
         
         socket?.on("chatMsg") {[weak self] (data:AnyObject?) in
@@ -88,7 +92,7 @@ class CytubeRoom: NSObject {
     func handleImminentDelete() {
         println("Imminent room deletion: Shut down socket")
         self.needDelete = true
-        self.socket?.socketio?.close()
+        self.socket?.close()
     }
     
     func isConnected() -> Bool {
@@ -116,11 +120,26 @@ class CytubeRoom: NSObject {
     
     func sendLogin() {
         if (self.username != nil) {
-            socket?.send("login", args:
-                ["name": self.username,
-                    "pw": self.password]
+            socket?.send("login", args: [
+                "name": self.username,
+                "pw": self.password]
             )
         }
+    }
+    
+    func closeSocket() {
+        NSLog("Closing socket for \(self.roomName)")
+        socket?.close()
+    }
+    
+    
+    func openSocket() {
+        socket?.open()
+    }
+    
+    func addNewSocket() {
+        socket = CytubeSocket(server: self.server, room: self.roomName, cytubeRoom: self)
+        self.addHandlers()
     }
     
     func socketShutdown() {
@@ -128,13 +147,9 @@ class CytubeRoom: NSObject {
         if (self.needDelete) {
             var index = roomMng.findRoomIndex(self.roomName, server: self.socket!.server)
             roomMng.removeRoom(index!)
-        } else { // TODO handle when we lose connection
-            socket?.reconnect()
+        } else {
+            self.socket?.reconnect()
         }
-    }
-    
-    func startSocket() {
-        socket?.open()
     }
     
     func getRoomName() -> String {
