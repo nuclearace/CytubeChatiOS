@@ -9,7 +9,7 @@ import UIKit
 
 class ChatWindowController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet var roomTitle:UINavigationItem!
+    @IBOutlet var roomTitle:UIButton!
     @IBOutlet var messageView:UITableView!
     @IBOutlet var chatInput:UITextField!
     @IBOutlet var loginButton:UIBarButtonItem!
@@ -31,7 +31,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
             }
         }
         room?.setChatWindow(self)
-        roomTitle.title = room?.roomName
+        roomTitle.setTitle(room?.roomName, forState: nil)
         tapRec.addTarget(self, action: "tappedMessages")
         messageView.addGestureRecognizer(tapRec)
         messageView.reloadData()
@@ -83,7 +83,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         var font = UIFont(name: "Helvetica Neue", size: 12)
         // println(room?.messageBuffer.objectAtIndex(1))
         cell.textLabel?.font = font
-        cell.textLabel?.numberOfLines = 3
+        cell.textLabel?.numberOfLines = 4
         cell.textLabel?.text = room?.messageBuffer.objectAtIndex(indexPath.row) as NSString
         
         return cell

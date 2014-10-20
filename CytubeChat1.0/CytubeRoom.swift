@@ -18,6 +18,8 @@ class CytubeRoom: NSObject {
     let roomName:String!
     let server:String!
     var socket:CytubeSocket?
+    var userlist:NSMutableArray = NSMutableArray()
+    var userlistView:UserlistController?
     var username:String!
     var view:RoomsController?
     
@@ -59,6 +61,12 @@ class CytubeRoom: NSObject {
                 self!.loggedIn = true
                 self!.chatWindow?.chatInput.enabled = true
             }
+        }
+        
+        socket?.on("userlist") {[weak self] (data:AnyObject?) in
+            let data = data as NSMutableArray
+            
+            self?.userlist = data
         }
     }
     
@@ -180,5 +188,9 @@ class CytubeRoom: NSObject {
     
     func setUsername(username:String) {
         self.username = username
+    }
+    
+    func setUserlistView(userlistView:UserlistController?) {
+        self.userlistView = userlistView
     }
 }
