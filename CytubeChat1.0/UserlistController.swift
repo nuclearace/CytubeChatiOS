@@ -45,9 +45,8 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
         NSIndexPath) -> UITableViewCell {
             let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "userlistCell")
             
-            var user = room?.userlist.objectAtIndex(indexPath.row) as NSDictionary
-            println(user["name"] as NSString)
-            cell.textLabel?.text = user["name"] as NSString
+            var user = room?.userlist.objectAtIndex(indexPath.row) as CytubeUser
+            cell.textLabel?.text = user.getUsername() as NSString
             return cell
             
     }

@@ -64,10 +64,26 @@ class CytubeRoom: NSObject {
         }
         
         socket?.on("userlist") {[weak self] (data:AnyObject?) in
-            let data = data as NSMutableArray
+            let data = data as NSArray
             
-            self?.userlist = data
+            self?.handleUserlist(data)
         }
+        
+        socket?.on("addUser") {[weak self] (data:AnyObject?) in
+            let data = data as NSDictionary
+            
+            self?.handleAddUser(data)
+        }
+        
+        socket?.on("userLeave") {[weak self] (data:AnyObject?) in
+            let data = (data as NSDictionary)["name"] as NSString
+            
+            self?.handleUserLeave(data)
+        }
+    }
+    
+    func handleAddUser(user:NSDictionary) {
+        
     }
     
     func handleChatMsg(data:NSDictionary) {
@@ -101,6 +117,22 @@ class CytubeRoom: NSObject {
         self.socket?.close()
     }
     
+    func handleUserLeave(username:String) {
+        for var i = 0; i < self.userlist.count; ++i {
+            var user = self.userlist.objectAtIndex(i) as CytubeUser
+            if (user.getUsername() == username) {
+                self.userlist.removeObjectAtIndex(i)
+            }
+        }
+    }
+    
+    func handleUserlist(userlist:NSArray) {
+        self.userlist.removeAllObjects()
+        for user in userlist {
+            self.userlist.addObject(CytubeUser(user: user as NSDictionary))
+        }
+    }
+    
     func isConnected() -> Bool {
         if ((socket?) != nil) {
             if (socket!.connected) {
@@ -120,7 +152,6 @@ class CytubeRoom: NSObject {
         let msgData = [
             "msg": msg!
         ]
-        
         socket?.send("chatMsg", args: msgData)
     }
     
