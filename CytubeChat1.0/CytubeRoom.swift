@@ -76,7 +76,6 @@ class CytubeRoom: NSObject {
         msg =  "[" + dateFormatter.stringFromDate(date) + "] "
         msg += username + ": "
         msg += filterMsg
-        //println("\n\n\(msg)\n")
         
         if (messageBuffer.count > 100) {
             messageBuffer.removeObjectAtIndex(0)

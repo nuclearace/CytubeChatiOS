@@ -12,6 +12,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet var roomTitle:UINavigationItem!
     @IBOutlet var messageView:UITableView!
     @IBOutlet var chatInput:UITextField!
+    @IBOutlet var loginButton:UIBarButtonItem!
     @IBOutlet var inputBottomLayoutGuide:NSLayoutConstraint!
     let tapRec = UITapGestureRecognizer()
     weak var room:CytubeRoom?
@@ -25,6 +26,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         room = roomMng.getActiveRoom()
         if ((room?.loggedIn) != nil) {
             if (room!.loggedIn) {
+                loginButton.enabled = false
                 chatInput.enabled = true
             }
         }
@@ -45,6 +47,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func keyboardWillShow(not:NSNotification) {
+        var scrollNum = room?.messageBuffer.count
         var info = not.userInfo!
         var keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
         
@@ -52,6 +55,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         UIView.animateWithDuration(0.3, animations: {() -> Void in
             self.inputBottomLayoutGuide.constant = keyboardFrame.size.height + 10
         })
+        self.scrollChat(scrollNum!)
     }
     
     func keyboardWillHide(not:NSNotification) {
@@ -100,7 +104,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         let msg = chatInput.text
         room?.sendChatMsg(msg)
         chatInput.text = nil
-        textField.resignFirstResponder()
+        // textField.resignFirstResponder()
         return false
     }
     
