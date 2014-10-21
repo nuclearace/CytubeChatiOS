@@ -23,12 +23,13 @@ class AddRoomsController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // Join room was pressed
+    // Add room was pressed
     @IBAction func btnAddTask(sender: UIButton) {
         var room = roomText.text
         var server = serverText.text
         if (server == "cytu.be" || server == "synchtu.be" || server == "milkbartube.com") {} else {
-            return println("Error")
+            var errorMessage = UIAlertView(title: "Unsupported Server", message: "Only connections to cytu.be and synchtu.be are supported in this version.", delegate: nil, cancelButtonTitle: "Okay")
+            return errorMessage.show()
         }
         let cRoom = roomMng.findRoom(room, server: server)
         
