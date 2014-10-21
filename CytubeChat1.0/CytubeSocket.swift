@@ -32,7 +32,7 @@ private struct socketFrame {
 
 class EventHandler: NSObject {
     let event:String!
-    let callback: ((data:AnyObject?) -> Void)!
+    let callback:((data:AnyObject?) -> Void)!
     
     init(event:String, callback:((data:AnyObject?) -> Void)?) {
         self.event = event
@@ -115,7 +115,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
             
             if realJSON != nil {
                 self.socketIOURL = RegexMutable((realJSON!["ipv4-nossl"] as NSString))["http://"] ~= ""
-               // self.initHandshake()
+                // self.initHandshake()
             }
         }
     }

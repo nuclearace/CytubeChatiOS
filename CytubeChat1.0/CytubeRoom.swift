@@ -60,24 +60,22 @@ class CytubeRoom: NSObject {
             if (success) {
                 self?.loggedIn = true
                 self?.chatWindow?.chatInput.enabled = true
+                self?.chatWindow?.loginButton.enabled = false
             }
         }
         
         socket?.on("userlist") {[weak self] (data:AnyObject?) in
             let data = data as NSArray
-            
             self?.handleUserlist(data)
         }
         
         socket?.on("addUser") {[weak self] (data:AnyObject?) in
             let data = data as NSDictionary
-            
             self?.handleAddUser(data)
         }
         
         socket?.on("userLeave") {[weak self] (data:AnyObject?) in
             let data = (data as NSDictionary)["name"] as NSString
-            
             self?.handleUserLeave(data)
         }
     }

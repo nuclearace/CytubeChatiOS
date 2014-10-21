@@ -101,7 +101,7 @@ class RoomManager: NSObject {
             for var i = 0; i < roomsFromData?.count; ++i {
                 var con = roomsFromData?.objectAtIndex(i) as NSDictionary
                 var recreatedRoom = CytubeRoom(roomName: con["room"] as NSString, server: con["server"] as NSString)
-                roomMng.addRoom(con["server"] as NSString, room: con["room"] as NSString, cytubeRoom: recreatedRoom)
+                self.addRoom(con["server"] as NSString, room: con["room"] as NSString, cytubeRoom: recreatedRoom)
             }
         }
         NSLog("Loaded Rooms")
