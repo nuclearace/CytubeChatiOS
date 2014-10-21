@@ -42,7 +42,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         if (indexPath != nil && versionInt >= 8) {
             self.selectedRoom = roomMng.getRoomAtIndex(indexPath!.row)
-            var alert = UIAlertController(title: "Disconnect", message: "Disconnect", preferredStyle: UIAlertControllerStyle.Alert)
+            var alert = UIAlertController(title: "Options", message: "What do you want to do?", preferredStyle: UIAlertControllerStyle.Alert)
             var action = UIAlertAction(title: "Disconnect", style: UIAlertActionStyle.Default) {[weak self] (action:UIAlertAction?) in
                 self?.selectedRoom.closeRoom()
                 self?.inAlert = false

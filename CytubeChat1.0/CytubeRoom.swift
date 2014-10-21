@@ -117,9 +117,9 @@ class CytubeRoom: NSObject {
     
     func handleImminentDelete() {
         if (self.connected) {
-        println("Imminent room deletion: Shut down socket")
-        self.needDelete = true
-        self.socket?.close()
+            println("Imminent room deletion: Shut down socket")
+            self.needDelete = true
+            self.socket?.close()
         } else {
             var index = roomMng.findRoomIndex(self.roomName, server: self.socket!.server)
             roomMng.removeRoom(index!)
