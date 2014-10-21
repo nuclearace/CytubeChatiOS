@@ -38,28 +38,28 @@ class CytubeRoom: NSObject {
     
     func addHandlers() {
         socket?.on("connect") {[weak self] (data:AnyObject?) in
-            self!.connected = true
-            self!.socket?.send("initChannelCallbacks", args: nil)
-            self!.socket?.send("joinChannel", args: ["name": self!.roomName])
-            self!.sendLogin()
+            self?.connected = true
+            self?.socket?.send("initChannelCallbacks", args: nil)
+            self?.socket?.send("joinChannel", args: ["name": self!.roomName])
+            self?.sendLogin()
         }
         
         socket?.on("disconnect") {[weak self] (data:AnyObject?) in
-            self!.socketShutdown()
+            self?.socketShutdown()
             self?.connected = false
         }
         
         socket?.on("chatMsg") {[weak self] (data:AnyObject?) in
             let data = data as NSDictionary
-            self!.handleChatMsg(data)
+            self?.handleChatMsg(data)
         }
         
         socket?.on("login") {[weak self] (data:AnyObject?) in
             let data = data as NSDictionary
             let success:Bool = data["success"] as Bool
             if (success) {
-                self!.loggedIn = true
-                self!.chatWindow?.chatInput.enabled = true
+                self?.loggedIn = true
+                self?.chatWindow?.chatInput.enabled = true
             }
         }
         
@@ -83,7 +83,10 @@ class CytubeRoom: NSObject {
     }
     
     func handleAddUser(user:NSDictionary) {
-        
+        if (!self.userlist.containsObject(user)) {
+            self.userlist.addObject(CytubeUser(user: user))
+            self.userlistView?.tblUserlist.reloadData()
+        }
     }
     
     func handleChatMsg(data:NSDictionary) {
@@ -122,6 +125,7 @@ class CytubeRoom: NSObject {
             var user = self.userlist.objectAtIndex(i) as CytubeUser
             if (user.getUsername() == username) {
                 self.userlist.removeObjectAtIndex(i)
+                self.userlistView?.tblUserlist.reloadData()
             }
         }
     }

@@ -16,7 +16,7 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         room = roomMng.getActiveRoom()
-        userlistTitle.title = room.roomName + " Userlist"
+        userlistTitle.title = room.roomName + " userlist"
         room.setUserlistView(self)
         tblUserlist.reloadData()
     }
@@ -30,22 +30,18 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
         // Dispose of any resources that can be recreated.
     }
     
-    
-    func tableView(tableView:UITableView, commitEditingStyle editingStyle:UITableViewCellEditingStyle, forRowAtIndexPath indexPath:NSIndexPath) {
-        
-    }
-    
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return room.userlist.count
     }
-    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath:
         NSIndexPath) -> UITableViewCell {
             let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "userlistCell")
             
             var user = room?.userlist.objectAtIndex(indexPath.row) as CytubeUser
+            if let color = user.getColorValue() {
+                cell.textLabel?.textColor = color
+            }
             cell.textLabel?.text = user.getUsername() as NSString
             return cell
             
