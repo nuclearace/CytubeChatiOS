@@ -54,6 +54,7 @@ class EventHandler: NSObject {
 
 class CytubeSocket: NSObject, SRWebSocketDelegate {
     var socketio:SRWebSocket?
+    var connecting:Bool = false
     var socketIOURL:String!
     let session:NSURLSession?
     let room:String!
@@ -137,7 +138,8 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
                 self.socketConnect(handshakeToken)
             } else {
                 println(error)
-                self.cytubeRoom?.handleImminentDelete()
+                self.connecting = false
+                //self.cytubeRoom?.handleImminentDelete()
             }
         })
         handshakeTask.resume()
@@ -197,6 +199,10 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     // Starts the connection to the server
     func open() {
+        if (self.connecting) {
+            return
+        }
+        self.connecting = true
         self.initHandshake()
     }
     
@@ -252,6 +258,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     // Called when the socket was first opened
     func webSocketDidOpen(webSocket: SRWebSocket!) {
+        self.connecting = false
         self.connected = true
         self.handleEvent(["name": "connect"])
     }

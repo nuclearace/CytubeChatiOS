@@ -25,9 +25,9 @@ class LoginController: UIViewController {
         var room = roomMng.getActiveRoom()
         let username:String = usernameText.text
         let password:String = passwordText.text
-        self.dismissViewControllerAnimated(true, completion: nil)
         room?.setUsername(usernameText.text)
         room?.setPassword(password)
         room?.sendLogin()
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }

@@ -17,6 +17,7 @@ struct RoomContainer {
 
 class RoomManager: NSObject {
     var rooms = [RoomContainer]()
+    var roomsDidClose:Bool = false
     
     func addRoom(server:String, room:String, cytubeRoom:CytubeRoom) {
         rooms.append(RoomContainer(server: server, room: room, cytubeRoom: cytubeRoom))
@@ -59,9 +60,24 @@ class RoomManager: NSObject {
         return con.cytubeRoom
     }
     
-    func closeSockets() {
+    func closeRooms() {
+        self.roomsDidClose = true
         for cRoom in rooms {
+            if (cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.isConnected()) {
             cRoom.cytubeRoom?.closeSocket()
+            }
+        }
+    }
+    
+    func reopenRooms() {
+        if (!self.roomsDidClose) {
+            return
+        }
+        self.roomsDidClose = false
+        for cRoom in rooms {
+            if (cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.closed) {
+                cRoom.cytubeRoom?.socket?.reconnect()
+            }
         }
     }
     

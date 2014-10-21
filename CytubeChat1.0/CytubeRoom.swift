@@ -9,7 +9,8 @@ import Foundation
 
 class CytubeRoom: NSObject {
     var active:Bool = false
-    var chatWindow:ChatWindowController?
+    weak var chatWindow:ChatWindowController?
+    var closed:Bool = false
     var connected:Bool = false
     var loggedIn:Bool = false
     var messageBuffer:NSMutableArray = NSMutableArray()
@@ -17,11 +18,12 @@ class CytubeRoom: NSObject {
     var password:String!
     let roomName:String!
     let server:String!
+    var shouldReconnect:Bool = true
     var socket:CytubeSocket?
     var userlist:NSMutableArray = NSMutableArray()
-    var userlistView:UserlistController?
+    weak var userlistView:UserlistController?
     var username:String!
-    var view:RoomsController?
+    weak var view:RoomsController?
     
     init(roomName:String, server:String) {
         super.init()
@@ -41,12 +43,13 @@ class CytubeRoom: NSObject {
             self?.connected = true
             self?.socket?.send("initChannelCallbacks", args: nil)
             self?.socket?.send("joinChannel", args: ["name": self!.roomName])
+            self?.messageBuffer.removeAllObjects()
             self?.sendLogin()
         }
         
         socket?.on("disconnect") {[weak self] (data:AnyObject?) in
-            self?.socketShutdown()
             self?.connected = false
+            self?.socketShutdown()
         }
         
         socket?.on("chatMsg") {[weak self] (data:AnyObject?) in
@@ -113,9 +116,14 @@ class CytubeRoom: NSObject {
     }
     
     func handleImminentDelete() {
+        if (self.connected) {
         println("Imminent room deletion: Shut down socket")
         self.needDelete = true
         self.socket?.close()
+        } else {
+            var index = roomMng.findRoomIndex(self.roomName, server: self.socket!.server)
+            roomMng.removeRoom(index!)
+        }
     }
     
     func handleUserLeave(username:String) {
@@ -169,16 +177,31 @@ class CytubeRoom: NSObject {
     func closeSocket() {
         NSLog("Closing socket for \(self.roomName)")
         socket?.close()
+        self.connected = false
+        self.closed = true
     }
     
+    func closeRoom() {
+        if (self.connected == false) {
+            return
+        }
+        
+        NSLog("Closing socket for \(self.roomName)")
+        socket?.close()
+        self.connected = false
+        self.userlist.removeAllObjects()
+        self.messageBuffer.removeAllObjects()
+        self.username = nil
+        self.password = nil
+        self.chatWindow = nil
+        self.userlistView = nil
+        self.loggedIn = false
+        self.active = false
+        self.shouldReconnect = false
+    }
     
     func openSocket() {
         socket?.open()
-    }
-    
-    func addNewSocket() {
-        socket = CytubeSocket(server: self.server, room: self.roomName, cytubeRoom: self)
-        self.addHandlers()
     }
     
     func socketShutdown() {
@@ -186,7 +209,7 @@ class CytubeRoom: NSObject {
         if (self.needDelete) {
             var index = roomMng.findRoomIndex(self.roomName, server: self.socket!.server)
             roomMng.removeRoom(index!)
-        } else {
+        } else if (!self.closed && self.shouldReconnect) {
             self.socket?.reconnect()
         }
     }

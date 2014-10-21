@@ -28,6 +28,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="haW-Cj-Xqr" id="5SV-59-R5f">
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <gestureRecognizers/>
                                         <connections>
                                             <segue destination="6DY-Gc-TG0" kind="show" identifier="goToChatRoom" id="nf6-wa-pug"/>
                                         </connections>
@@ -40,6 +41,7 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="UAb-1C-ZEo" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-16" id="9ut-ui-19L"/>
                             <constraint firstItem="UAb-1C-ZEo" firstAttribute="top" secondItem="4uh-em-t4a" secondAttribute="bottom" id="cNf-j3-ver"/>
@@ -47,6 +49,9 @@
                             <constraint firstItem="FzQ-jM-DJs" firstAttribute="top" secondItem="UAb-1C-ZEo" secondAttribute="bottom" id="iPB-wb-wB4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="UAb-1C-ZEo" secondAttribute="trailing" constant="-16" id="uwX-oi-yXO"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="amf-sv-JDv" appends="YES" id="tpW-tm-uFQ"/>
+                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Rooms" image="first" id="acW-dT-cKf"/>
                     <connections>
@@ -54,6 +59,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="amf-sv-JDv">
+                    <connections>
+                        <action selector="didLongPress:" destination="9pv-A4-QxB" id="PvH-eZ-4Xj"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="717" y="-728"/>
         </scene>
@@ -112,7 +122,7 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="446"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Di6-FF-Cmj">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="chatWindowCell" id="Di6-FF-Cmj">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Di6-FF-Cmj" id="qBj-td-0VY">
