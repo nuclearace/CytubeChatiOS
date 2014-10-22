@@ -14,7 +14,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet var chatInput:UITextField!
     @IBOutlet var loginButton:UIBarButtonItem!
     @IBOutlet var inputBottomLayoutGuide:NSLayoutConstraint!
-    var canScroll:Bool = false
+    var canScroll:Bool = true
     let tapRec = UITapGestureRecognizer()
     weak var room:CytubeRoom?
     var loggedIn:Bool = false
