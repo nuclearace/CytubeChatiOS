@@ -40,6 +40,7 @@ class CytubeRoom: NSObject {
     
     func addHandlers() {
         socket?.on("connect") {[weak self] (data:AnyObject?) in
+            NSLog("Connected to Cytube Room \(self?.roomName)")
             self?.connected = true
             self?.socket?.send("initChannelCallbacks", args: nil)
             self?.socket?.send("joinChannel", args: ["name": self!.roomName])
@@ -50,6 +51,8 @@ class CytubeRoom: NSObject {
         socket?.on("disconnect") {[weak self] (data:AnyObject?) in
             self?.connected = false
             self?.socketShutdown()
+            self?.messageBuffer.removeAllObjects()
+            self?.chatWindow?.messageView.reloadData()
         }
         
         socket?.on("chatMsg") {[weak self] (data:AnyObject?) in
@@ -80,6 +83,11 @@ class CytubeRoom: NSObject {
         socket?.on("userLeave") {[weak self] (data:AnyObject?) in
             let data = (data as NSDictionary)["name"] as NSString
             self?.handleUserLeave(data)
+        }
+        
+        socket?.on("kick") {[weak self] (data:AnyObject?) in
+            let data = data as NSDictionary
+            self?.shouldReconnect = true
         }
     }
     
