@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <deployment version="1792" identifier="iOS"/>
+        <deployment version="1792" defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -9,7 +9,7 @@
         <!--Rooms-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="RoomsController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9pv-A4-QxB" customClass="RoomsController" customModule="CytubeChat" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4uh-em-t4a"/>
                         <viewControllerLayoutGuide type="bottom" id="FzQ-jM-DJs"/>
@@ -53,7 +53,7 @@
                             <outletCollection property="gestureRecognizers" destination="amf-sv-JDv" appends="YES" id="tpW-tm-uFQ"/>
                         </connections>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Rooms" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Rooms" image="Button" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="tblRoom" destination="UAb-1C-ZEo" id="vsP-2L-Z8N"/>
                     </connections>
@@ -70,7 +70,7 @@
         <!--Chat Window Controller-->
         <scene sceneID="QQW-kf-j5c">
             <objects>
-                <viewController id="6DY-Gc-TG0" customClass="ChatWindowController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6DY-Gc-TG0" customClass="ChatWindowController" customModule="CytubeChat" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="l8c-Xc-sH1"/>
                         <viewControllerLayoutGuide type="bottom" id="KbM-nV-Z39"/>
@@ -175,7 +175,7 @@
         <!--Userlist Controller-->
         <scene sceneID="heR-bh-F0K">
             <objects>
-                <viewController id="YWS-ug-z1r" customClass="UserlistController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="YWS-ug-z1r" customClass="UserlistController" customModule="CytubeChat" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VOf-JU-wpU"/>
                         <viewControllerLayoutGuide type="bottom" id="sfd-Y3-fcA"/>
@@ -240,7 +240,7 @@
         <!--Login Controller-->
         <scene sceneID="fvK-pJ-qGo">
             <objects>
-                <viewController id="gL4-Vg-feS" customClass="LoginController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gL4-Vg-feS" customClass="LoginController" customModule="CytubeChat" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="D5f-ER-80t"/>
                         <viewControllerLayoutGuide type="bottom" id="9bn-Kn-bD9"/>
@@ -311,7 +311,7 @@
         <!--Add Room-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="AddRoomsController" customModule="CytubeChat1_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8rJ-Kc-sve" customClass="AddRoomsController" customModule="CytubeChat" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MeD-nc-0p2"/>
                         <viewControllerLayoutGuide type="bottom" id="Ypt-QD-R1S"/>
@@ -380,7 +380,7 @@
                             <constraint firstItem="Jru-xe-fa9" firstAttribute="trailing" secondItem="cnH-Iq-nwA" secondAttribute="trailing" id="uhe-sq-YUH"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Add Room" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Add Room" image="Button" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="passwordText" destination="jpU-VV-oWe" id="PnW-QW-5I1"/>
                         <outlet property="roomText" destination="Jru-xe-fa9" id="piy-m1-gYq"/>
@@ -412,7 +412,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
+        <image name="Button" width="70" height="70"/>
     </resources>
 </document>

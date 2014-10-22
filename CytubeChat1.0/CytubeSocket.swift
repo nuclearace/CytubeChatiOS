@@ -233,7 +233,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     }
     
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
-        // All incoming messages ( socket.on() ) are received in this function. Parsed with JSON
+        // All incoming messages (socket.on()) are received in this function. Parsed with JSON
         println("MESSAGE: \(message)")
         
         if (message as NSString == "2::") {
