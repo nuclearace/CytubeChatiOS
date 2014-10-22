@@ -14,6 +14,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet var chatInput:UITextField!
     @IBOutlet var loginButton:UIBarButtonItem!
     @IBOutlet var inputBottomLayoutGuide:NSLayoutConstraint!
+    var canScroll:Bool = false
     let tapRec = UITapGestureRecognizer()
     weak var room:CytubeRoom?
     var loggedIn:Bool = false
@@ -44,6 +45,14 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        self.canScroll = false
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        self.canScroll = true
     }
     
     func keyboardWillShow(not:NSNotification) {
@@ -95,10 +104,6 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         messageView.reloadData()
     }
     
-    override func touchesBegan(touches:NSSet, withEvent event:UIEvent) {
-        self.view.endEditing(true)
-    }
-    
     func textFieldShouldReturn(textField:UITextField) -> Bool {
         println("got enter")
         let msg = chatInput.text
@@ -114,6 +119,9 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func scrollChat(index:Int) {
+        if (!self.canScroll) {
+            return messageView.reloadData()
+        }
         var indexPath:NSIndexPath = NSIndexPath(forItem: index - 1, inSection: 0)
         messageView.reloadData()
         messageView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
