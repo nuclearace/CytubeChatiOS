@@ -38,7 +38,6 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         var versionInt:Int? = version.toInt()
         var point = sender.locationInView(tblRoom)
         var indexPath = tblRoom.indexPathForRowAtPoint(point)
-        var room:CytubeRoom!
         
         if (indexPath != nil && versionInt >= 8) {
             self.selectedRoom = roomMng.getRoomAtIndex(indexPath!.row)

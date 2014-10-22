@@ -109,6 +109,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     @IBAction func backBtnClicked(btn:UIBarButtonItem) {
+        self.room?.setChatWindow(nil)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
