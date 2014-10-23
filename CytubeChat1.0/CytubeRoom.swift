@@ -17,6 +17,8 @@ class CytubeRoom: NSObject {
     var needDelete:Bool = false
     var password:String!
     let roomName:String!
+    var roomPassword:String?
+    var sentRoomPassword:Bool = false
     let server:String!
     var shouldReconnect:Bool = true
     var socket:CytubeSocket?
@@ -25,9 +27,10 @@ class CytubeRoom: NSObject {
     var username:String!
     weak var view:RoomsController?
     
-    init(roomName:String, server:String) {
+    init(roomName:String, server:String, password:String?) {
         super.init()
         self.roomName = roomName
+        self.roomPassword = password
         self.server = server
         self.socket = CytubeSocket(server: server, room: roomName, cytubeRoom: self)
         self.addHandlers()
@@ -89,6 +92,22 @@ class CytubeRoom: NSObject {
             let data = data as NSDictionary
             self?.shouldReconnect = true
         }
+        
+        socket?.on("needPassword") {[weak self] (data:AnyObject?) in
+            if (self?.roomPassword != nil && self?.roomPassword != "") {
+                self?.handleRoomPassword()
+            } else {
+                self?.chatWindow?.showRoomJoinFailed("No password given, or incorrect password" +
+                    "was given. Try adding room again.")
+                self?.handleImminentDelete()
+            }
+        }
+        
+        socket?.on("cancelNeedPassword") {[weak self] (data:AnyObject?) in
+            if (self? != nil) {
+                self?.sentRoomPassword = false
+            }
+        }
     }
     
     func handleAddUser(user:NSDictionary) {
@@ -131,6 +150,16 @@ class CytubeRoom: NSObject {
         } else {
             var index = roomMng.findRoomIndex(self.roomName, server: self.socket!.server)
             roomMng.removeRoom(index!)
+        }
+    }
+    
+    func handleRoomPassword() {
+        if (self.roomPassword != nil && !self.sentRoomPassword) {
+            socket?.send("channelPassword", args: self.roomPassword)
+            self.sentRoomPassword = true
+        } else {
+            self.chatWindow?.showRoomJoinFailed("No password given, or incorrect password was given. Try adding room again.")
+            self.handleImminentDelete()
         }
     }
     
@@ -224,6 +253,10 @@ class CytubeRoom: NSObject {
     
     func getRoomName() -> String {
         return self.roomName
+    }
+    
+    func setRoomPassword(password:String) {
+        self.roomPassword = password
     }
     
     func setSocket(socket:CytubeSocket) {

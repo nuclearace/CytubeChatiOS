@@ -126,4 +126,24 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         messageView.reloadData()
         messageView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
     }
+    
+    func showRoomJoinFailed(reason:String) {
+        var version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
+        var versionInt:Int? = version.toInt()
+        
+        if (versionInt < 8) {
+            var errorMessage = UIAlertView(title: "Error joining room", message: reason, delegate: nil, cancelButtonTitle: "Return")
+            errorMessage.show()
+            self.dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            var alert = UIAlertController(title: "Error joining room", message: reason, preferredStyle: UIAlertControllerStyle.Alert)
+            var action = UIAlertAction(title: "Return", style: UIAlertActionStyle.Default, handler: nil)
+            alert.addAction(action)
+            self.presentViewController(alert, animated: true) {[weak self] () in
+                self?.dismissViewControllerAnimated(true, completion: nil)
+                return
+            }
+        }
+
+    }
 }

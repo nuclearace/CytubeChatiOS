@@ -57,6 +57,7 @@ class RoomManager: NSObject {
     func removeRoom(roomAtIndex: Int) -> CytubeRoom {
         println("Removing room at \(roomAtIndex)")
         var con = rooms.removeAtIndex(roomAtIndex)
+        self.saveRooms()
         return con.cytubeRoom
     }
     
@@ -64,7 +65,7 @@ class RoomManager: NSObject {
         self.roomsDidClose = true
         for cRoom in rooms {
             if (cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.isConnected()) {
-            cRoom.cytubeRoom?.closeSocket()
+                cRoom.cytubeRoom?.closeSocket()
             }
         }
     }
@@ -88,12 +89,23 @@ class RoomManager: NSObject {
         var pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true)
         path = pathsArray[0] as NSString + "/rooms"
         var roomsForSave:NSMutableArray = NSMutableArray()
+        var sroom:NSDictionary!
         
         for room in rooms {
-            var sroom = [
-                "room": room.room,
-                "server": room.server
-            ]
+            if let roomPassword = room.cytubeRoom?.roomPassword? {
+                sroom = [
+                    "room": room.room,
+                    "server": room.server,
+                    "password": roomPassword
+                ]
+                
+            } else {
+                var sroom = [
+                    "room": room.room,
+                    "server": room.server,
+                    "password": ""
+                ]
+            }
             roomsForSave.addObject(sroom)
         }
         
@@ -112,11 +124,10 @@ class RoomManager: NSObject {
         if (!handler.fileExistsAtPath(path!)) {
             return false
         }
-        //var roomsFromData = handler.contentsAtPath(path!)
         if let roomsFromData:NSMutableArray? = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as? NSMutableArray {
             for var i = 0; i < roomsFromData?.count; ++i {
                 var con = roomsFromData?.objectAtIndex(i) as NSDictionary
-                var recreatedRoom = CytubeRoom(roomName: con["room"] as NSString, server: con["server"] as NSString)
+                var recreatedRoom = CytubeRoom(roomName: con["room"] as NSString, server: con["server"] as NSString, password: con["password"] as NSString)
                 self.addRoom(con["server"] as NSString, room: con["room"] as NSString, cytubeRoom: recreatedRoom)
             }
         }
