@@ -38,10 +38,6 @@ class CytubeRoom: NSObject {
     
     deinit {
         println("CytubeRoom \(self.roomName) is being deinit")
-//        dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {[unowned self] () in
-//            println("Refreshing table")
-//            self.view?.tblRoom.reloadData()
-//        }
         view?.tblRoom.reloadData()
         NSNotificationCenter.defaultCenter().postNotificationName("roomRemoved", object: nil)
     }

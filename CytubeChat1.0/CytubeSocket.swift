@@ -112,11 +112,13 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         println("Finding socket URL: " + url)
         
         var request:NSURLRequest = NSURLRequest(URL: NSURL(string: url))
-        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {[unowned self] () in
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) {[weak self]
             (res, data, err) -> Void in
             if ((err) != nil) {
-                self?.findSocketURLFailed()
+                dispatch_async(dispatch_get_main_queue()) {[weak self]() in
+                    NSLog("Socket url fail")
+                    self?.findSocketURLFailed()
+                }
                 return
             } else {
                 var stringData = NSString(data: data, encoding: NSUTF8StringEncoding) as String
@@ -136,11 +138,9 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     }
     
     private func findSocketURLFailed() {
-        //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {[weak self] () in
-        //            //CytubeUtils.displayGenericAlertWithNoButtons("Error", message: "Something is wrong with your server URL. Try again")
-        //            NSLog("Failed to find socket URL")
+        CytubeUtils.displayGenericAlertWithNoButtons("Error", message: "Something is wrong with your server URL. Try again")
+        NSLog("Failed to find socket URL")
         self.handleEvent(["name": "serverFailure"])
-        //}
     }
     
     // Init the socket
