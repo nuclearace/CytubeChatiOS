@@ -16,8 +16,6 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserverForName("roomRemoved", object: nil, queue: nil) {[unowned self] (not:NSNotification?) in
-            println("got removed room")
-            println(roomMng.rooms.count)
             self.tblRoom.reloadData()
         }
     }
@@ -28,7 +26,6 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     override func viewDidAppear(animated:Bool) {
-        println("rooms view appeared")
         tblRoom.reloadData()
         var room = roomMng.getActiveRoom()
         room?.setChatWindow(nil)
@@ -117,7 +114,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "roomsCell")
             
             roomMng.rooms[indexPath.row].cytubeRoom.setView(self)
-            cell.textLabel?.text = roomMng.rooms[indexPath.row].room
+            cell.textLabel.text = roomMng.rooms[indexPath.row].room
             cell.detailTextLabel?.text = roomMng.rooms[indexPath.row].server
             
             return cell

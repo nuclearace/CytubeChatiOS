@@ -111,7 +111,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         var url =  "http://" + self.server + self.sioconfigURL
         println("Finding socket URL: " + url)
         
-        var request:NSURLRequest = NSURLRequest(URL: NSURL(string: url))
+        var request:NSURLRequest = NSURLRequest(URL: NSURL(string: url)!)
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) {[weak self]
             (res, data, err) -> Void in
             if ((err) != nil) {
@@ -153,9 +153,9 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         //var endpoint = "ws://\(self.socketIOURL)/socket.io/?EIO=2&transport=websocket"
         //        self.socketConnect(endpoint)
         
-        var handshakeTask:NSURLSessionTask = session!.dataTaskWithURL(NSURL.URLWithString(endpoint), completionHandler: {[unowned self] (data:NSData!, response:NSURLResponse!, error:NSError!) in
+        var handshakeTask:NSURLSessionTask = session!.dataTaskWithURL(NSURL(string: endpoint)!, completionHandler: {[unowned self] (data:NSData!, response:NSURLResponse!, error:NSError!) in
             if (error == nil) {
-                let stringData:NSString = NSString(data: data, encoding: NSUTF8StringEncoding)
+                let stringData:NSString = NSString(data: data, encoding: NSUTF8StringEncoding)!
                 let handshakeToken:NSString = stringData.componentsSeparatedByString(":")[0] as NSString
                 println("HANDSHAKE \(handshakeToken)")
                 
@@ -170,7 +170,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     }
     
     private func socketConnect(token:NSString) {
-        socketio = SRWebSocket(URLRequest: NSURLRequest(URL: NSURL(string: "ws://\(self.socketIOURL)/socket.io/1/websocket/\(token)")))
+        socketio = SRWebSocket(URLRequest: NSURLRequest(URL: NSURL(string: "ws://\(self.socketIOURL)/socket.io/1/websocket/\(token)")!))
         //socketio = SRWebSocket(URL: NSURL(string: token))
         socketio!.delegate = self
         socketio!.open()
@@ -259,7 +259,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         var jsonSend = NSJSONSerialization.dataWithJSONObject(frame.toDict(), options: NSJSONWritingOptions(0), error: &jsonSendError)
         var jsonString1 = NSString(data: jsonSend!, encoding: NSUTF8StringEncoding)
         println("JSON SENT \(jsonString1)")
-        let str:NSString = "5:::\(jsonString1)"
+        let str:NSString = "5:::\(jsonString1!)"
         
         //        let str:NSString = "42\(frame.createFrameForSending())"
         //

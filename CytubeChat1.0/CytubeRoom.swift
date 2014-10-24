@@ -63,7 +63,6 @@ class CytubeRoom: NSObject {
         socket?.on("serverFailure") {[weak self] (data:AnyObject?) in
             NSLog("The server failed")
             self?.handleImminentDelete()
-            //CytubeUtils.displayGenericAlertWithNoButtons("Error", message: "Something is wrong with your server URL. Try again")
         }
         
         socket?.on("chatMsg") {[weak self] (data:AnyObject?) in

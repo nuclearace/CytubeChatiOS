@@ -40,9 +40,9 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
             
             var user = room?.userlist.objectAtIndex(indexPath.row) as CytubeUser
             if let color = user.getColorValue() {
-                cell.textLabel?.textColor = color
+                cell.textLabel.textColor = color
             }
-            cell.textLabel?.text = user.getUsername() as NSString
+            cell.textLabel.text = user.getUsername() as NSString
             return cell
             
     }

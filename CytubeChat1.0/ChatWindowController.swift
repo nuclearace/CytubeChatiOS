@@ -91,9 +91,9 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         
         var font = UIFont(name: "Helvetica Neue", size: 12)
         // println(room?.messageBuffer.objectAtIndex(1))
-        cell.textLabel?.font = font
-        cell.textLabel?.numberOfLines = 3
-        cell.textLabel?.text = room?.messageBuffer.objectAtIndex(indexPath.row) as NSString
+        cell.textLabel.font = font
+        cell.textLabel.numberOfLines = 3
+        cell.textLabel.text = room?.messageBuffer.objectAtIndex(indexPath.row) as NSString
         
         return cell
     }

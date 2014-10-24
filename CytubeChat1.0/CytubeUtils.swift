@@ -35,7 +35,7 @@ class CytubeUtils {
                 delegate: self, cancelButtonTitle: "Okay")
             alert.show()
         } else {
-            var view = UIApplication.sharedApplication().keyWindow.rootViewController
+            var view = UIApplication.sharedApplication().keyWindow?.rootViewController
             var alert = UIAlertController(title: title, message: title, preferredStyle: UIAlertControllerStyle.Alert)
             view?.presentViewController(alert, animated: true, completion: nil)
         }
