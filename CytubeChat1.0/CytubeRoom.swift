@@ -221,6 +221,7 @@ class CytubeRoom: NSObject {
     
     func closeSocket() {
         NSLog("Closing socket for \(self.roomName)")
+        socket?.shutdownPingTimer()
         socket?.close()
         self.connected = false
         self.closed = true
