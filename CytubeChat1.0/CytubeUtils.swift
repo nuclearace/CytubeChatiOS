@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class CytubeUtils {
     
@@ -23,5 +24,20 @@ class CytubeUtils {
         mut = mut["(^[ \t]+)"] ~= ""
         
         return mut as NSString
+    }
+    
+    class func displayGenericAlertWithNoButtons(title:String, message:String) {
+        var version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
+        var versionInt:Int? = version.toInt()
+        
+        if (versionInt < 8) {
+            var alert:UIAlertView = UIAlertView(title: title, message: message,
+                delegate: self, cancelButtonTitle: "Okay")
+            alert.show()
+        } else {
+            var view = UIApplication.sharedApplication().keyWindow.rootViewController
+            var alert = UIAlertController(title: title, message: title, preferredStyle: UIAlertControllerStyle.Alert)
+            view?.presentViewController(alert, animated: true, completion: nil)
+        }
     }
 }

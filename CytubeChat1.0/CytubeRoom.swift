@@ -17,7 +17,7 @@ class CytubeRoom: NSObject {
     var needDelete:Bool = false
     var password:String!
     let roomName:String!
-    var roomPassword:String?
+    var roomPassword:String!
     var sentRoomPassword:Bool = false
     let server:String!
     var shouldReconnect:Bool = true
@@ -99,7 +99,7 @@ class CytubeRoom: NSObject {
             } else {
                 self?.chatWindow?.showRoomJoinFailed("No password given, or incorrect password" +
                     "was given. Try adding room again.")
-                self?.handleImminentDelete()
+                self?.handleImminentDelete(nil)
             }
         }
         
@@ -118,6 +118,7 @@ class CytubeRoom: NSObject {
     }
     
     func handleChatMsg(data:NSDictionary) {
+        println("Got chat message")
         let username:String = data["username"] as NSString
         var msg:String = data["msg"] as NSString
         let time:NSTimeInterval = data["time"] as NSTimeInterval / 1000
@@ -142,12 +143,18 @@ class CytubeRoom: NSObject {
         chatWindow?.scrollChat(messageBuffer.count)
     }
     
-    func handleImminentDelete() {
+    func handleImminentDelete(callback:(() -> Void)?) {
         if (self.connected) {
+            if (callback != nil) {
+                callback!()
+            }
             println("Imminent room deletion: Shut down socket")
             self.needDelete = true
             self.socket?.close()
         } else {
+            if (callback != nil) {
+                callback!()
+            }
             var index = roomMng.findRoomIndex(self.roomName, server: self.socket!.server)
             roomMng.removeRoom(index!)
         }
@@ -159,7 +166,7 @@ class CytubeRoom: NSObject {
             self.sentRoomPassword = true
         } else {
             self.chatWindow?.showRoomJoinFailed("No password given, or incorrect password was given. Try adding room again.")
-            self.handleImminentDelete()
+            self.handleImminentDelete(nil)
         }
     }
     

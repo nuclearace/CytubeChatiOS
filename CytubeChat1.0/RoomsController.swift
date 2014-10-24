@@ -49,7 +49,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
             
             var action1 = UIAlertAction(title: "Remove", style: UIAlertActionStyle.Destructive) {[weak self] (action:UIAlertAction?) in
-                self?.selectedRoom.handleImminentDelete()
+                self?.selectedRoom.handleImminentDelete(nil)
                 self?.inAlert = false
                 self?.selectedRoom = nil
             }
@@ -71,7 +71,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         if (buttonIndex == 1 && selectedRoom.isConnected()) {
             self.selectedRoom.closeRoom()
         } else if (buttonIndex == 2) {
-            self.selectedRoom.handleImminentDelete()
+            self.selectedRoom.handleImminentDelete(nil)
         }
         self.selectedRoom = nil
         self.inAlert = false
@@ -91,7 +91,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(tableView:UITableView, commitEditingStyle editingStyle:UITableViewCellEditingStyle, forRowAtIndexPath indexPath:NSIndexPath) {
         var roomToDelete = roomMng.getRoomAtIndex(indexPath.row)
         if (roomToDelete.isConnected() && editingStyle == UITableViewCellEditingStyle.Delete) {
-            roomToDelete.handleImminentDelete()
+            roomToDelete.handleImminentDelete(nil)
         } else if (!roomToDelete.isConnected()){
             roomMng.removeRoom(indexPath.row)
         }
