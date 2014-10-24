@@ -15,6 +15,11 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserverForName("roomRemoved", object: nil, queue: nil) {[unowned self] (not:NSNotification?) in
+            println("got removed room")
+            println(roomMng.rooms.count)
+            self.tblRoom.reloadData()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -23,10 +28,15 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     override func viewDidAppear(animated:Bool) {
+        println("rooms view appeared")
         tblRoom.reloadData()
         var room = roomMng.getActiveRoom()
         room?.setChatWindow(nil)
         room?.setActive(false)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     @IBAction func didLongPress(sender:UIGestureRecognizer) {
@@ -49,11 +59,11 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
             
             var action1 = UIAlertAction(title: "Remove", style: UIAlertActionStyle.Destructive) {[weak self] (action:UIAlertAction?) in
-                self?.selectedRoom.handleImminentDelete(nil)
+                self?.selectedRoom.handleImminentDelete()
                 self?.inAlert = false
                 self?.selectedRoom = nil
             }
-
+            
             alert.addAction(action)
             alert.addAction(action1)
             self.presentViewController(alert, animated: true, completion: nil)
@@ -71,7 +81,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         if (buttonIndex == 1 && selectedRoom.isConnected()) {
             self.selectedRoom.closeRoom()
         } else if (buttonIndex == 2) {
-            self.selectedRoom.handleImminentDelete(nil)
+            self.selectedRoom.handleImminentDelete()
         }
         self.selectedRoom = nil
         self.inAlert = false
@@ -91,7 +101,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(tableView:UITableView, commitEditingStyle editingStyle:UITableViewCellEditingStyle, forRowAtIndexPath indexPath:NSIndexPath) {
         var roomToDelete = roomMng.getRoomAtIndex(indexPath.row)
         if (roomToDelete.isConnected() && editingStyle == UITableViewCellEditingStyle.Delete) {
-            roomToDelete.handleImminentDelete(nil)
+            roomToDelete.handleImminentDelete()
         } else if (!roomToDelete.isConnected()){
             roomMng.removeRoom(indexPath.row)
         }
@@ -101,7 +111,6 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return roomMng.rooms.count
     }
-    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath:
         NSIndexPath) -> UITableViewCell {

@@ -16,32 +16,32 @@ private struct socketFrame {
         self.args = args?
     }
     
-    func createFrameForSending() -> String {
-        var array = "["
-        array += "\"" + name + "\""
-        if (args? != nil) {
-            array += ","
-            var jsonSendError:NSError?
-            var jsonSend = NSJSONSerialization.dataWithJSONObject(args, options: NSJSONWritingOptions(0), error: &jsonSendError)
-            var jsonString = NSString(data: jsonSend!, encoding: NSUTF8StringEncoding)
-            return array + jsonString + "]"
-        } else {
-            return array + "]"
-        }
-    }
-    
-    //    func toDict() -> NSDictionary {
-    //        if (self.args != nil) {
-    //            return [
-    //                "name": name,
-    //                "args": args
-    //            ]
+    //    func createFrameForSending() -> String {
+    //        var array = "["
+    //        array += "\"" + name + "\""
+    //        if (args? != nil) {
+    //            array += ","
+    //            var jsonSendError:NSError?
+    //            var jsonSend = NSJSONSerialization.dataWithJSONObject(args, options: NSJSONWritingOptions(0), error: &jsonSendError)
+    //            var jsonString = NSString(data: jsonSend!, encoding: NSUTF8StringEncoding)
+    //            return array + jsonString + "]"
     //        } else {
-    //            return [
-    //                "name": self.name
-    //            ]
+    //            return array + "]"
     //        }
     //    }
+    
+    func toDict() -> NSDictionary {
+        if (self.args != nil) {
+            return [
+                "name": name,
+                "args": args
+            ]
+        } else {
+            return [
+                "name": self.name
+            ]
+        }
+    }
 }
 
 class EventHandler: NSObject {
@@ -112,11 +112,12 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         println("Finding socket URL: " + url)
         
         var request:NSURLRequest = NSURLRequest(URL: NSURL(string: url))
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) {[unowned self]
+        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {[unowned self] () in
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) {[weak self]
             (res, data, err) -> Void in
             if ((err) != nil) {
-                NSLog(err.localizedDescription)
-                return self.findSocketURLFailed()
+                self?.findSocketURLFailed()
+                return
             } else {
                 var stringData = NSString(data: data, encoding: NSUTF8StringEncoding) as String
                 var mutable = RegexMutable(stringData)
@@ -128,16 +129,18 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
                 var realJSON:AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &jsonError)
                 
                 if realJSON != nil {
-                    self.socketIOURL = RegexMutable((realJSON!["ipv4-nossl"] as NSString))["http://"] ~= ""
+                    self?.socketIOURL = RegexMutable((realJSON!["ipv4-nossl"] as NSString))["http://"] ~= ""
                 }
             }
         }
     }
     
     private func findSocketURLFailed() {
-        CytubeUtils.displayGenericAlertWithNoButtons("Error", message: "Something is wrong with your server URL. Try again")
-        var index = roomMng.findRoomIndex(self.room, server: self.server)
-        roomMng.removeRoom(index!)
+        //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {[weak self] () in
+        //            //CytubeUtils.displayGenericAlertWithNoButtons("Error", message: "Something is wrong with your server URL. Try again")
+        //            NSLog("Failed to find socket URL")
+        self.handleEvent(["name": "serverFailure"])
+        //}
     }
     
     // Init the socket
@@ -146,31 +149,29 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         let time:NSTimeInterval = NSDate().timeIntervalSince1970 * 1000
         
         println(self.socketIOURL)
-        var endpoint = "ws://\(self.socketIOURL)/socket.io/?EIO=2&transport=websocket"
-        self.socketConnect(endpoint)
+        var endpoint = "http://\(self.socketIOURL)/socket.io/1?t=\(time)"
+        //var endpoint = "ws://\(self.socketIOURL)/socket.io/?EIO=2&transport=websocket"
+        //        self.socketConnect(endpoint)
         
-        //        var handshakeTask:NSURLSessionTask = session!.dataTaskWithURL(NSURL.URLWithString(endpoint), completionHandler: { (data:NSData!, response:NSURLResponse!, error:NSError!) in
-        //            if (error == nil) {
-        //                let stringData:NSString = NSString(data: data, encoding: NSUTF8StringEncoding)
-        //                let handshakeToken:NSString = stringData.componentsSeparatedByString(":")[0] as NSString
-        //                println(stringData)
-        //                println("HANDSHAKE \(handshakeToken)")
-        //
-        //                self.socketConnect(handshakeToken)
-        //            } else {
-        //                NSLog(error.localizedDescription)
-        //                self.connecting = false
-        //                self.cytubeRoom?.handleImminentDelete() {() in
-        //                    CytubeUtils.displayGenericAlertWithNoButtons("Error", message: "Something is wrong with your server URL. Try again")
-        //                }
-        //            }
-        //        })
-        //        handshakeTask.resume()
+        var handshakeTask:NSURLSessionTask = session!.dataTaskWithURL(NSURL.URLWithString(endpoint), completionHandler: {[unowned self] (data:NSData!, response:NSURLResponse!, error:NSError!) in
+            if (error == nil) {
+                let stringData:NSString = NSString(data: data, encoding: NSUTF8StringEncoding)
+                let handshakeToken:NSString = stringData.componentsSeparatedByString(":")[0] as NSString
+                println("HANDSHAKE \(handshakeToken)")
+                
+                self.socketConnect(handshakeToken)
+            } else {
+                NSLog(error.localizedDescription)
+                self.connecting = false
+                self.cytubeRoom?.handleImminentDelete()
+            }
+        })
+        handshakeTask.resume()
     }
     
     private func socketConnect(token:NSString) {
-        //socketio = SRWebSocket(URLRequest: NSURLRequest(URL: NSURL(string: "ws://\(self.socketIOURL)/socket.io/1/websocket/\(token)")))
-        socketio = SRWebSocket(URL: NSURL(string: token))
+        socketio = SRWebSocket(URLRequest: NSURLRequest(URL: NSURL(string: "ws://\(self.socketIOURL)/socket.io/1/websocket/\(token)")))
+        //socketio = SRWebSocket(URL: NSURL(string: token))
         socketio!.delegate = self
         socketio!.open()
     }
@@ -180,6 +181,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     // Handles socket events
     func handleEvent(json:AnyObject?) {
+        
         func doEvent(evt:String, args:AnyObject?) {
             for handler in self.handlers {
                 if (handler.event == evt) {
@@ -192,10 +194,26 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
             }
         }
         
+        //        let event:NSString = json!["name"] as NSString
+        //        println("GOT EVENT: \(event)")
+        //        if (json?.count > 1) {
+        //            doEvent(event, json!["args"])
+        //        } else {
+        //            doEvent(event, nil)
+        //        }
+        
         let event:NSString = json!["name"] as NSString
         println("GOT EVENT: \(event)")
         if (json?.count > 1) {
-            doEvent(event, json!["args"])
+            if let args:NSDictionary = (json?["args"] as NSArray)[0] as? NSDictionary {
+                doEvent(event, args)
+            } else if let args:Int = (json?["args"] as NSArray)[0] as? Int {
+                doEvent(event, args)
+            } else if let args:BooleanLiteralType = (json?["args"] as NSArray)[0] as? BooleanLiteralType {
+                doEvent(event, args)
+            } else if let args:NSArray = (json?["args"] as NSArray)[0] as? NSArray {
+                doEvent(event, args)
+            }
         } else {
             doEvent(event, nil)
         }
@@ -215,7 +233,10 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     // Starts the connection to the server
     func open() {
-        if (self.connecting) {
+        if (self.socketIOURL == nil) {
+            self.cytubeRoom?.handleImminentDelete()
+        }
+        if (self.connecting || self.connected) {
             return
         }
         self.connecting = true
@@ -234,41 +255,53 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         
         var frame:socketFrame = socketFrame(name: name, args: args)
         
-        //        var jsonSendError:NSError?
-        //        var jsonSend = NSJSONSerialization.dataWithJSONObject(frame.toDict(), options: NSJSONWritingOptions(0), error: &jsonSendError)
-        //        var jsonString1 = NSString(data: jsonSend!, encoding: NSUTF8StringEncoding)
-        //        println("JSON SENT \(jsonString1)")
-        let str:NSString = "42\(frame.createFrameForSending())"
+        var jsonSendError:NSError?
+        var jsonSend = NSJSONSerialization.dataWithJSONObject(frame.toDict(), options: NSJSONWritingOptions(0), error: &jsonSendError)
+        var jsonString1 = NSString(data: jsonSend!, encoding: NSUTF8StringEncoding)
+        println("JSON SENT \(jsonString1)")
+        let str:NSString = "5:::\(jsonString1)"
         
-        println("SENDING:" + str)
+        //        let str:NSString = "42\(frame.createFrameForSending())"
+        //
+        //        println("SENDING:" + str)
         socketio?.send(str)
     }
     
     func sendPong() {
         println("SENT PONG")
-        self.socketio?.send("3")
+        //self.socketio?.send("3")
+        self.socketio?.send("2::")
     }
     
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
         // All incoming messages (socket.on()) are received in this function. Parsed with JSON
         //println("MESSAGE: \(message)")
         
-        if (message as NSString == "2") {
+        //        if (message as NSString == "2") {
+        //            return self.sendPong()
+        //        } else if (message as NSString == "40" || (message as NSString).characterAtIndex(0) == 0) {
+        //            return
+        //        }
+        //
+        //        var jsonError:NSError?
+        //        var messageMut = RegexMutable((message as NSString).substringFromIndex(2))
+        //
+        //        var ranges = messageMut[","].ranges()
+        //        if (ranges.count != 0) {
+        //            messageMut.replaceCharactersInRange(ranges[0], withString: ",\"args\":")
+        //        }
+        //        messageMut.replaceCharactersInRange(NSMakeRange(0, 1), withString: "{\"name\":")
+        //        messageMut.replaceCharactersInRange(NSMakeRange(messageMut.length - 1, 1), withString: "}")
+        //        let data:NSData = messageMut.dataUsingEncoding(NSUTF8StringEncoding)!
+        //        var json:AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &jsonError)
+        
+        if (message as NSString == "2::") {
             return self.sendPong()
-        } else if (message as NSString == "40" || (message as NSString).characterAtIndex(0) == 0) {
-            return
         }
         
         var jsonError:NSError?
-        var messageMut = RegexMutable((message as NSString).substringFromIndex(2))
-        
-        var ranges = messageMut[","].ranges()
-        if (ranges.count != 0) {
-            messageMut.replaceCharactersInRange(ranges[0], withString: ",\"args\":")
-        }
-        messageMut.replaceCharactersInRange(NSMakeRange(0, 1), withString: "{\"name\":")
-        messageMut.replaceCharactersInRange(NSMakeRange(messageMut.length - 1, 1), withString: "}")
-        let data:NSData = messageMut.dataUsingEncoding(NSUTF8StringEncoding)!
+        let messageArray = (message as NSString).componentsSeparatedByString(":::")
+        let data:NSData = messageArray[messageArray.endIndex - 1].dataUsingEncoding(NSUTF8StringEncoding)!
         var json:AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &jsonError)
         
         if json != nil {
@@ -285,7 +318,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     // Called when the socket was first opened
     func webSocketDidOpen(webSocket: SRWebSocket!) {
-        self.sendPong()
+        //self.sendPong()
         self.connecting = false
         self.connected = true
         self.handleEvent(["name": "connect"])
