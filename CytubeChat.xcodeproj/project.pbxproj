@@ -31,16 +31,6 @@
 		74B767CC19F54D490021B178 /* UserlistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B767CB19F54D490021B178 /* UserlistController.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		740BEF5D19EC315500E577A0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 740BEF3D19EC315400E577A0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 740BEF4419EC315400E577A0;
-			remoteInfo = CytubeChat1.0;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		74038C8219F00E65005DB2A7 /* CytubeUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CytubeUser.swift; sourceTree = "<group>"; };
 		740BEF4519EC315400E577A0 /* CytubeChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CytubeChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,7 +40,6 @@
 		740BEF4E19EC315400E577A0 /* AddRoomsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoomsController.swift; sourceTree = "<group>"; };
 		740BEF5119EC315400E577A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		740BEF5619EC315400E577A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		740BEF5C19EC315500E577A0 /* CytubeChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CytubeChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		740BEF6D19EC317700E577A0 /* base64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base64.c; sourceTree = "<group>"; };
 		740BEF6E19EC317700E577A0 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		740BEF6F19EC317700E577A0 /* NSData+SRB64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SRB64Additions.h"; sourceTree = "<group>"; };
@@ -86,13 +75,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		740BEF5919EC315500E577A0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -112,7 +94,6 @@
 			isa = PBXGroup;
 			children = (
 				740BEF4519EC315400E577A0 /* CytubeChat.app */,
-				740BEF5C19EC315500E577A0 /* CytubeChatTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -184,24 +165,6 @@
 			productReference = 740BEF4519EC315400E577A0 /* CytubeChat.app */;
 			productType = "com.apple.product-type.application";
 		};
-		740BEF5B19EC315500E577A0 /* CytubeChatTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 740BEF6919EC315500E577A0 /* Build configuration list for PBXNativeTarget "CytubeChatTests" */;
-			buildPhases = (
-				740BEF5819EC315500E577A0 /* Sources */,
-				740BEF5919EC315500E577A0 /* Frameworks */,
-				740BEF5A19EC315500E577A0 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				740BEF5E19EC315500E577A0 /* PBXTargetDependency */,
-			);
-			name = CytubeChatTests;
-			productName = CytubeChat1.0Tests;
-			productReference = 740BEF5C19EC315500E577A0 /* CytubeChatTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -214,10 +177,6 @@
 					740BEF4419EC315400E577A0 = {
 						CreatedOnToolsVersion = 6.0.1;
 						DevelopmentTeam = 6XBC3G4NFX;
-					};
-					740BEF5B19EC315500E577A0 = {
-						CreatedOnToolsVersion = 6.0.1;
-						TestTargetID = 740BEF4419EC315400E577A0;
 					};
 				};
 			};
@@ -235,7 +194,6 @@
 			projectRoot = "";
 			targets = (
 				740BEF4419EC315400E577A0 /* CytubeChat */,
-				740BEF5B19EC315500E577A0 /* CytubeChatTests */,
 			);
 		};
 /* End PBXProject section */
@@ -248,13 +206,6 @@
 				74704BB119F0B13600B810A6 /* image.xcassets in Resources */,
 				740BEF5219EC315400E577A0 /* Main.storyboard in Resources */,
 				740BEF5719EC315400E577A0 /* LaunchScreen.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		740BEF5A19EC315500E577A0 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,22 +234,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		740BEF5819EC315500E577A0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		740BEF5E19EC315500E577A0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 740BEF4419EC315400E577A0 /* CytubeChat */;
-			targetProxy = 740BEF5D19EC315500E577A0 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		740BEF5019EC315400E577A0 /* Main.storyboard */ = {
@@ -431,43 +367,6 @@
 			};
 			name = Release;
 		};
-		740BEF6A19EC315500E577A0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = CytubeChat1.0Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = CytubeChatTests;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CytubeChat1.0.app/CytubeChat1.0";
-			};
-			name = Debug;
-		};
-		740BEF6B19EC315500E577A0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = CytubeChat1.0Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = CytubeChatTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CytubeChat1.0.app/CytubeChat1.0";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -485,15 +384,6 @@
 			buildConfigurations = (
 				740BEF6719EC315500E577A0 /* Debug */,
 				740BEF6819EC315500E577A0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		740BEF6919EC315500E577A0 /* Build configuration list for PBXNativeTarget "CytubeChatTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				740BEF6A19EC315500E577A0 /* Debug */,
-				740BEF6B19EC315500E577A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
