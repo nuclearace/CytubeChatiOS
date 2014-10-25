@@ -137,8 +137,8 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         self.socketConnect(endpoint)
     }
     
-    private func socketConnect(token:NSString) {
-        socketio = SRWebSocket(URL: NSURL(string: token))
+    private func socketConnect(url:NSString) {
+        socketio = SRWebSocket(URL: NSURL(string: url))
         socketio!.delegate = self
         socketio!.open()
     }
@@ -224,17 +224,16 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         self.pingTimer.invalidate()
     }
     
-    func webSocket(webSocket: SRWebSocket!, didReceiveMessage message: AnyObject!) {
+    func webSocket(webSocket: SRWebSocket!, didReceiveMessage message:AnyObject?) {
         // All incoming messages (socket.on()) are received in this function. Parsed with JSON
-        
         if (message as NSString == "3") {
             NSLog("GOT PONG")
             return
-        } else if (message as NSString == "40" || message.characterAtIndex(0) == 48) {
+        } else if (message as NSString == "40" || message!.characterAtIndex(0) == 48 || message == nil) {
             return println("Got Trash")
         }
         
-        NSLog("MESSAGE: \(message)")
+        NSLog("MESSAGE: %@", message! as NSString)
         
         var messageMut = RegexMutable((message as NSString).substringFromIndex(2))
         var ranges = messageMut[","].ranges()
@@ -252,21 +251,21 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         }
     }
     
-    // Called when the socket was closed
-    func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
-        self.connected = false
-        self.pingTimer.invalidate()
-        println("Closed socket because: \(reason)")
-        self.handleEvent(["name": "disconnect"])
-    }
-    
-    // Called when the socket was first opened
+    // Called when the socket is first opened
     func webSocketDidOpen(webSocket: SRWebSocket!) {
         self.pingTimer = NSTimer.scheduledTimerWithTimeInterval(25, target: self,
             selector: Selector("sendPing"), userInfo: nil, repeats: true)
         self.connecting = false
         self.connected = true
         self.handleEvent(["name": "connect"])
+    }
+    
+    // Called when the socket is closed
+    func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
+        self.connected = false
+        self.pingTimer.invalidate()
+        println("Closed socket because: \(reason)")
+        self.handleEvent(["name": "disconnect"])
     }
     
     func setCytubeRoom(room:CytubeRoom) {
