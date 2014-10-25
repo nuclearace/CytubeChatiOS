@@ -105,11 +105,9 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func textFieldShouldReturn(textField:UITextField) -> Bool {
-        println("got enter")
         let msg = chatInput.text
         room?.sendChatMsg(msg)
         chatInput.text = nil
-        // textField.resignFirstResponder()
         return false
     }
     

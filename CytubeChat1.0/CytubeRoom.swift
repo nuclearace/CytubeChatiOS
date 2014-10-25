@@ -125,7 +125,6 @@ class CytubeRoom: NSObject {
     }
     
     func handleChatMsg(data:NSDictionary) {
-        println("Got chat message")
         let username:String = data["username"] as NSString
         var msg:String = data["msg"] as NSString
         let time:NSTimeInterval = data["time"] as NSTimeInterval / 1000
@@ -232,7 +231,8 @@ class CytubeRoom: NSObject {
             return
         }
         
-        NSLog("Closing socket for \(self.roomName)")
+        NSLog("Closing room \(self.roomName)")
+        socket?.shutdownPingTimer()
         socket?.close()
         self.connected = false
         self.userlist.removeAllObjects()
