@@ -43,23 +43,13 @@ class AddRoomsController: UIViewController {
                 return
             }
         }
-        //        if (server == "cytu.be" || server == "synchtu.be" || server == "milkbartube.com") {} else {
-        //            if (versionInt < 8) {
-        //                var errorMessage = UIAlertView(title: "Unsupported Server", message: "Only connections to cytu.be and synchtu.be are supported in this version.", delegate: nil, cancelButtonTitle: "Return")
-        //                return errorMessage.show()
-        //            } else {
-        //                var alert = UIAlertController(title: "Unsupported Server", message: "Only connections to cytu.be and synchtu.be are supported in this version.", preferredStyle: UIAlertControllerStyle.Alert)
-        //                var action = UIAlertAction(title: "Return", style: UIAlertActionStyle.Default, handler: nil)
-        //                alert.addAction(action)
-        //                self.presentViewController(alert, animated: true, completion: nil)
-        //                return
-        //            }
-        //        }
+
         let cRoom = roomMng.findRoom(room, server: server)
         
         // User is trying to add an existing room
         if (cRoom != nil) {
-            return println("Error Trying to add existing room")
+            CytubeUtils.displayGenericAlertWithNoButtons("Already added", message: "You have already added this room!")
+            return
         }
         var newRoom = CytubeRoom(roomName: room, server: server, password: password)
         roomMng.addRoom(server, room: room, cytubeRoom: newRoom)
@@ -70,6 +60,12 @@ class AddRoomsController: UIViewController {
         passwordText.text = nil
         roomMng.saveRooms()
         self.tabBarController?.selectedIndex = 0
+        
+        if (!NSUserDefaults.standardUserDefaults().boolForKey("HasLaunchedOnce")) {
+            CytubeUtils.displayGenericAlertWithNoButtons("Hint", message: "You can long press on a room to bring up options for that room. Alternativly you can swipe left on a row to bring up a delete option")
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasLaunchedOnce")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
     }
     
     override func touchesBegan(touches:NSSet, withEvent event:UIEvent) {

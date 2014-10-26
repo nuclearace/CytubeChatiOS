@@ -29,6 +29,7 @@
 		74704BB119F0B13600B810A6 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74704BB019F0B13600B810A6 /* image.xcassets */; };
 		74704BB319F0C0F900B810A6 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74704BB219F0C0F900B810A6 /* LoginController.swift */; };
 		74B767CC19F54D490021B178 /* UserlistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B767CB19F54D490021B178 /* UserlistController.swift */; };
+		74BB03E019FC708A000534DB /* PrivacyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB03DF19FC708A000534DB /* PrivacyController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		74704BB019F0B13600B810A6 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
 		74704BB219F0C0F900B810A6 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		74B767CB19F54D490021B178 /* UserlistController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserlistController.swift; sourceTree = "<group>"; };
+		74BB03DF19FC708A000534DB /* PrivacyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				740BEF8219EC3AD300E577A0 /* CytubeRoom.swift */,
 				74038C8219F00E65005DB2A7 /* CytubeUser.swift */,
 				7410737119EF445E00D71C6C /* CytubeUtils.swift */,
+				74BB03DF19FC708A000534DB /* PrivacyController.swift */,
 				740BEF8419EC6FCF00E577A0 /* RoomManager.swift */,
 				740BEF4C19EC315400E577A0 /* RoomsController.swift */,
 				740BEF4E19EC315400E577A0 /* AddRoomsController.swift */,
@@ -220,6 +223,7 @@
 				74B767CC19F54D490021B178 /* UserlistController.swift in Sources */,
 				7410737219EF445E00D71C6C /* CytubeUtils.swift in Sources */,
 				740BEF8519EC6FCF00E577A0 /* RoomManager.swift in Sources */,
+				74BB03E019FC708A000534DB /* PrivacyController.swift in Sources */,
 				740BEF8719EC857E00E577A0 /* ChatWindowController.swift in Sources */,
 				740BEF7519EC317700E577A0 /* NSData+SRB64Additions.m in Sources */,
 				740BEF4F19EC315400E577A0 /* AddRoomsController.swift in Sources */,

@@ -36,7 +36,11 @@ class CytubeUtils {
             alert.show()
         } else {
             var view = UIApplication.sharedApplication().keyWindow?.rootViewController
-            var alert = UIAlertController(title: title, message: title, preferredStyle: UIAlertControllerStyle.Alert)
+            var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {(action:UIAlertAction?) in
+                return
+            }
+            alert.addAction(action)
             view?.presentViewController(alert, animated: true, completion: nil)
         }
     }

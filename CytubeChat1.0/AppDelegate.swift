@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var backgroundID:UIBackgroundTaskIdentifier!
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        NSLog("App Started")
+        
         // Override point for customization after application launch.
         roomMng.loadRooms()
         return true

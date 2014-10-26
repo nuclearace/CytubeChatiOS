@@ -246,7 +246,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         var jsonError:NSError?
         var json:AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &jsonError)
         
-        if json != nil {
+        if (json != nil) {
             self.handleEvent(json?)
         }
     }

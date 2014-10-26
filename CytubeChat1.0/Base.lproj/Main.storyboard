@@ -72,7 +72,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="708" y="-732"/>
+            <point key="canvasLocation" x="698" y="0.0"/>
         </scene>
         <!--Chat Window Controller-->
         <scene sceneID="QQW-kf-j5c">
@@ -177,7 +177,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x7z-Xr-YKg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="717" y="0.0"/>
+            <point key="canvasLocation" x="1340" y="0.0"/>
         </scene>
         <!--Userlist Controller-->
         <scene sceneID="heR-bh-F0K">
@@ -242,7 +242,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hwu-HF-oWD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="717" y="715"/>
+            <point key="canvasLocation" x="1006" y="744"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="fvK-pJ-qGo">
@@ -313,7 +313,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3vF-b9-XxA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1402" y="0.0"/>
+            <point key="canvasLocation" x="1696" y="744"/>
         </scene>
         <!--Add Room-->
         <scene sceneID="wg7-f3-ORb">
@@ -367,10 +367,21 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y4o-ZL-hWF">
+                                <rect key="frame" x="266" y="467" width="68" height="38"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Privacy">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="6jC-zg-QUA" kind="show" id="xDZ-Vc-aP4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="jpU-VV-oWe" firstAttribute="top" secondItem="Jru-xe-fa9" secondAttribute="bottom" constant="8" symbolic="YES" id="4Ty-oD-pLV"/>
+                            <constraint firstAttribute="centerX" secondItem="Y4o-ZL-hWF" secondAttribute="centerX" id="9AW-Qy-ePl"/>
                             <constraint firstItem="Jru-xe-fa9" firstAttribute="top" secondItem="cnH-Iq-nwA" secondAttribute="bottom" constant="8" symbolic="YES" id="BYP-nL-NdF"/>
                             <constraint firstItem="Jru-xe-fa9" firstAttribute="leading" secondItem="jpU-VV-oWe" secondAttribute="leading" id="CJq-cU-fq8"/>
                             <constraint firstItem="cnH-Iq-nwA" firstAttribute="leading" secondItem="Jru-xe-fa9" secondAttribute="leading" id="CLA-6e-xwi"/>
@@ -380,6 +391,7 @@
                             <constraint firstItem="jpU-VV-oWe" firstAttribute="trailing" secondItem="wNE-I2-78I" secondAttribute="trailing" id="gNh-Ma-rje"/>
                             <constraint firstItem="slm-rl-CBw" firstAttribute="centerY" secondItem="cnH-Iq-nwA" secondAttribute="centerY" constant="-37.5" id="jiD-rd-ZSO"/>
                             <constraint firstItem="jpU-VV-oWe" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="mMJ-up-qzT"/>
+                            <constraint firstItem="Y4o-ZL-hWF" firstAttribute="top" secondItem="jpU-VV-oWe" secondAttribute="bottom" constant="301" id="npR-gj-CDZ"/>
                             <constraint firstItem="jpU-VV-oWe" firstAttribute="trailing" secondItem="Jru-xe-fa9" secondAttribute="trailing" id="oKb-Wr-fhC"/>
                             <constraint firstItem="slm-rl-CBw" firstAttribute="top" secondItem="MeD-nc-0p2" secondAttribute="bottom" id="sHR-q2-gny"/>
                             <constraint firstItem="slm-rl-CBw" firstAttribute="centerX" secondItem="cnH-Iq-nwA" secondAttribute="centerX" id="sNC-X0-lVn"/>
@@ -396,7 +408,58 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="715"/>
+            <point key="canvasLocation" x="0.0" y="744"/>
+        </scene>
+        <!--Privacy Controller-->
+        <scene sceneID="PhM-S3-wEc">
+            <objects>
+                <viewController id="6jC-zg-QUA" customClass="PrivacyController" customModule="CytubeChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BI1-rB-vUM"/>
+                        <viewControllerLayoutGuide type="bottom" id="wgJ-Z2-rBe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Wmc-jL-eBy">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ejf-Kz-4DU">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Privacy" id="KlF-Tc-QNH">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="iRd-vv-JFX">
+                                            <connections>
+                                                <action selector="backBtnClicked" destination="6jC-zg-QUA" id="zEz-BT-0H5"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nvA-gP-09C">
+                                <rect key="frame" x="0.0" y="44" width="600" height="512"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Ejf-Kz-4DU" firstAttribute="leading" secondItem="Wmc-jL-eBy" secondAttribute="leadingMargin" constant="-16" id="2f8-Mi-uck"/>
+                            <constraint firstItem="wgJ-Z2-rBe" firstAttribute="top" secondItem="nvA-gP-09C" secondAttribute="bottom" id="eaG-6p-DcM"/>
+                            <constraint firstItem="nvA-gP-09C" firstAttribute="top" secondItem="Ejf-Kz-4DU" secondAttribute="bottom" id="iHw-PW-auv"/>
+                            <constraint firstItem="Ejf-Kz-4DU" firstAttribute="top" secondItem="Wmc-jL-eBy" secondAttribute="topMargin" id="jNs-pu-5fe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nvA-gP-09C" secondAttribute="trailing" constant="-16" id="t8O-G2-tdE"/>
+                            <constraint firstItem="nvA-gP-09C" firstAttribute="leading" secondItem="Wmc-jL-eBy" secondAttribute="leadingMargin" constant="-16" id="wrl-F5-jMN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ejf-Kz-4DU" secondAttribute="trailing" constant="-16" id="zLt-6s-qzH"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="backBtn" destination="iRd-vv-JFX" id="PJ0-MU-blX"/>
+                        <outlet property="webView" destination="nvA-gP-09C" id="UAB-Iw-pQK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ibi-Cj-tuC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="1448"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
