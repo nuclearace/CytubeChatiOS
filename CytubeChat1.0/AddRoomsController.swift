@@ -25,25 +25,15 @@ class AddRoomsController: UIViewController {
     
     // Add room was pressed
     @IBAction func btnAddTask(sender: UIButton) {
-        var version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
-        var versionInt:Int? = version.toInt()
         let room = roomText.text
         let server = serverText.text
         var password = passwordText.text
         
         if (server == "" || room == "") {
-            if (versionInt < 8) {
-                var errorMessage = UIAlertView(title: "Error", message: "Please enter a valid server and room.", delegate: nil, cancelButtonTitle: "Return")
-                return errorMessage.show()
-            } else {
-                var alert = UIAlertController(title: "Error", message: "Please enter a valid server and room.", preferredStyle: UIAlertControllerStyle.Alert)
-                var action = UIAlertAction(title: "Return", style: UIAlertActionStyle.Default, handler: nil)
-                alert.addAction(action)
-                self.presentViewController(alert, animated: true, completion: nil)
-                return
-            }
+            CytubeUtils.displayGenericAlertWithNoButtons("Error", message: "Please enter a valid server and room.")
+            return
         }
-
+        
         let cRoom = roomMng.findRoom(room, server: server)
         
         // User is trying to add an existing room
@@ -62,7 +52,8 @@ class AddRoomsController: UIViewController {
         self.tabBarController?.selectedIndex = 0
         
         if (!NSUserDefaults.standardUserDefaults().boolForKey("HasLaunchedOnce")) {
-            CytubeUtils.displayGenericAlertWithNoButtons("Hint", message: "You can long press on a room to bring up options for that room. Alternativly you can swipe left on a row to bring up a delete option")
+            CytubeUtils.displayGenericAlertWithNoButtons("Hint", message: "You can long press on a room to bring up options for that room." +
+                "Alternativly you can swipe left on a row to bring up a delete option")
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasLaunchedOnce")
             NSUserDefaults.standardUserDefaults().synchronize()
         }

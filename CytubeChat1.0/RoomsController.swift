@@ -60,9 +60,14 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                 self?.inAlert = false
                 self?.selectedRoom = nil
             }
+            var action2 = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {[weak self] (action:UIAlertAction?) in
+                self?.inAlert = false
+                self?.selectedRoom = nil
+            }
             
             alert.addAction(action)
             alert.addAction(action1)
+            alert.addAction(action2)
             self.presentViewController(alert, animated: true, completion: nil)
         } else if (indexPath != nil) {
             self.selectedRoom = roomMng.getRoomAtIndex(indexPath!.row)
