@@ -96,8 +96,8 @@ class CytubeRoom: NSObject {
         }
         
         socket?.on("kick") {[weak self] (data:AnyObject?) in
-            let data = data as NSDictionary
-            self?.shouldReconnect = true
+            CytubeUtils.displayGenericAlertWithNoButtons("Kicked", message: "You have been kicked!")
+            self?.chatWindow?.dismissViewControllerAnimated(true, completion: nil)
         }
         
         socket?.on("needPassword") {[weak self] (data:AnyObject?) in
@@ -254,7 +254,7 @@ class CytubeRoom: NSObject {
         if (self.needDelete) {
             var index = roomMng.findRoomIndex(self.roomName, server: self.socket!.server)
             roomMng.removeRoom(index!)
-        } else if (!self.closed && self.shouldReconnect) {
+        } else if (self.closed && self.shouldReconnect) {
             self.socket?.reconnect()
         }
     }
