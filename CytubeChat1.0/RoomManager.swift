@@ -76,7 +76,7 @@ class RoomManager: NSObject {
         self.roomsDidClose = false
         for cRoom in rooms {
             if (cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.closed) {
-                cRoom.cytubeRoom?.socket?.reconnect()
+                cRoom.cytubeRoom?.openSocket()
             }
         }
     }

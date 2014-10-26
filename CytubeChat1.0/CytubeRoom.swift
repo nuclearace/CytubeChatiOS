@@ -13,6 +13,7 @@ class CytubeRoom: NSObject {
     var closed:Bool = false
     var connected:Bool = false
     var loggedIn:Bool = false
+    var kicked:Bool = false
     var messageBuffer:NSMutableArray = NSMutableArray()
     var needDelete:Bool = false
     var password:String!
@@ -96,7 +97,8 @@ class CytubeRoom: NSObject {
         }
         
         socket?.on("kick") {[weak self] (data:AnyObject?) in
-            CytubeUtils.displayGenericAlertWithNoButtons("Kicked", message: "You have been kicked!")
+            self?.kicked = true
+            CytubeUtils.displayGenericAlertWithNoButtons("Kicked", message: "You have been kicked from \(self?.roomName!)!")
             self?.chatWindow?.dismissViewControllerAnimated(true, completion: nil)
         }
         
@@ -246,7 +248,11 @@ class CytubeRoom: NSObject {
     }
     
     func openSocket() {
-        socket?.open()
+        if (!self.connected) {
+            self.kicked = false
+            self.closed = false
+            socket?.open()
+        }
     }
     
     func socketShutdown() {
