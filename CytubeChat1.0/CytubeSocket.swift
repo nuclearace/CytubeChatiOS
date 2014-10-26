@@ -29,6 +29,16 @@ private struct socketFrame {
             return array + "]"
         }
     }
+    
+    func createFramewithSingleArg() -> String? {
+        var array = "["
+        array += "\"" + name + "\""
+        if (args? != nil) {
+            array += ",\"\(args!)\""
+            return array + "]"
+        }
+        return nil
+    }
 }
 
 class EventHandler: NSObject {
@@ -199,13 +209,18 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     }
     
     // Sends a frame
-    func send(name:String, args:AnyObject?) {
+    func send(name:String, args:AnyObject?, singleArg:Bool) {
         if (!self.connected) {
             return
         }
         
+        var str:String!
         var frame:socketFrame = socketFrame(name: name, args: args)
-        let str:NSString = "42\(frame.createFrameForSending())"
+        if (singleArg) {
+            str = "42\(frame.createFramewithSingleArg()!)"
+        } else {
+            str = "42\(frame.createFrameForSending())"
+        }
         
         println("SENDING: " + str)
         socketio?.send(str)
@@ -217,7 +232,6 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         }
         NSLog("SENT PING")
         self.socketio?.send("2")
-        //self.socketio?.send("2::")
     }
     
     func shutdownPingTimer() {
