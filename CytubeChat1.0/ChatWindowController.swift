@@ -35,7 +35,14 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         roomTitle.setTitle(room?.roomName, forState: nil)
         tapRec.addTarget(self, action: "tappedMessages")
         messageView.addGestureRecognizer(tapRec)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
         messageView.reloadData()
+        if (self.room? != nil) {
+            self.scrollChat(self.room!.messageBuffer.count)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -122,26 +129,13 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         }
         var indexPath:NSIndexPath = NSIndexPath(forItem: index - 1, inSection: 0)
         messageView.reloadData()
-        messageView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
-    }
-    
-    func showRoomJoinFailed(reason:String) {
-        var version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
-        var versionInt:Int? = version.toInt()
+        let delay = 0.1 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
         
-        if (versionInt < 8) {
-            var errorMessage = UIAlertView(title: "Error joining room", message: reason, delegate: nil, cancelButtonTitle: "Return")
-            errorMessage.show()
-            self.dismissViewControllerAnimated(true, completion: nil)
-        } else {
-            var alert = UIAlertController(title: "Error joining room", message: reason, preferredStyle: UIAlertControllerStyle.Alert)
-            var action = UIAlertAction(title: "Return", style: UIAlertActionStyle.Default, handler: nil)
-            alert.addAction(action)
-            self.presentViewController(alert, animated: true) {[weak self] () in
-                self?.dismissViewControllerAnimated(true, completion: nil)
-                return
+        dispatch_after(time, dispatch_get_main_queue(), {[weak self]() in
+            if (self != nil) {
+                self?.messageView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
             }
-        }
-
+        })
     }
 }

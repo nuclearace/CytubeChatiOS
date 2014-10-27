@@ -156,15 +156,15 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="SdS-tO-4s3" firstAttribute="top" secondItem="l8c-Xc-sH1" secondAttribute="bottom" id="ARe-PH-AAS"/>
+                            <constraint firstItem="8lT-SA-T96" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-16" id="EKr-pd-oCO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Qwl-CL-nHq" secondAttribute="trailing" constant="-11" id="KIT-gN-LjX"/>
+                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="top" secondItem="8lT-SA-T96" secondAttribute="bottom" constant="3" id="RXS-xk-MWt"/>
                             <constraint firstAttribute="trailingMargin" secondItem="SdS-tO-4s3" secondAttribute="trailing" constant="-16" id="W7A-Yc-a0P"/>
                             <constraint firstItem="Qwl-CL-nHq" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-10" id="WdU-fI-7JJ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="8lT-SA-T96" secondAttribute="trailing" constant="-16" id="Z23-cj-WQx"/>
-                            <constraint firstItem="Qwl-CL-nHq" firstAttribute="top" secondItem="8lT-SA-T96" secondAttribute="bottom" constant="3" id="eJM-S8-BSp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8lT-SA-T96" secondAttribute="trailing" constant="-16" id="muZ-0t-UBY"/>
                             <constraint firstItem="KbM-nV-Z39" firstAttribute="top" secondItem="Qwl-CL-nHq" secondAttribute="bottom" constant="8" id="sLi-R4-0pX"/>
                             <constraint firstItem="SdS-tO-4s3" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-16" id="uOK-N4-1eL"/>
-                            <constraint firstItem="8lT-SA-T96" firstAttribute="top" secondItem="SdS-tO-4s3" secondAttribute="bottom" id="uhz-kg-vbJ"/>
-                            <constraint firstItem="8lT-SA-T96" firstAttribute="leading" secondItem="e2d-Go-L75" secondAttribute="leadingMargin" constant="-16" id="vV6-TT-1NK"/>
+                            <constraint firstItem="8lT-SA-T96" firstAttribute="top" secondItem="SdS-tO-4s3" secondAttribute="bottom" id="ube-t5-ILt"/>
                         </constraints>
                     </view>
                     <connections>
@@ -367,21 +367,23 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y4o-ZL-hWF">
-                                <rect key="frame" x="266" y="467" width="68" height="38"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BgN-hU-owh">
+                                <rect key="frame" x="16" y="174" width="66" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="66" id="n1X-Ml-uUn"/>
+                                </constraints>
                                 <state key="normal" title="Privacy">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="6jC-zg-QUA" kind="show" id="xDZ-Vc-aP4"/>
+                                    <segue destination="6jC-zg-QUA" kind="show" id="QOX-zR-yd5"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="BgN-hU-owh" firstAttribute="baseline" secondItem="wNE-I2-78I" secondAttribute="baseline" id="2T2-9V-ESJ"/>
                             <constraint firstItem="jpU-VV-oWe" firstAttribute="top" secondItem="Jru-xe-fa9" secondAttribute="bottom" constant="8" symbolic="YES" id="4Ty-oD-pLV"/>
-                            <constraint firstAttribute="centerX" secondItem="Y4o-ZL-hWF" secondAttribute="centerX" id="9AW-Qy-ePl"/>
                             <constraint firstItem="Jru-xe-fa9" firstAttribute="top" secondItem="cnH-Iq-nwA" secondAttribute="bottom" constant="8" symbolic="YES" id="BYP-nL-NdF"/>
                             <constraint firstItem="Jru-xe-fa9" firstAttribute="leading" secondItem="jpU-VV-oWe" secondAttribute="leading" id="CJq-cU-fq8"/>
                             <constraint firstItem="cnH-Iq-nwA" firstAttribute="leading" secondItem="Jru-xe-fa9" secondAttribute="leading" id="CLA-6e-xwi"/>
@@ -391,12 +393,12 @@
                             <constraint firstItem="jpU-VV-oWe" firstAttribute="trailing" secondItem="wNE-I2-78I" secondAttribute="trailing" id="gNh-Ma-rje"/>
                             <constraint firstItem="slm-rl-CBw" firstAttribute="centerY" secondItem="cnH-Iq-nwA" secondAttribute="centerY" constant="-37.5" id="jiD-rd-ZSO"/>
                             <constraint firstItem="jpU-VV-oWe" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leadingMargin" id="mMJ-up-qzT"/>
-                            <constraint firstItem="Y4o-ZL-hWF" firstAttribute="top" secondItem="jpU-VV-oWe" secondAttribute="bottom" constant="301" id="npR-gj-CDZ"/>
                             <constraint firstItem="jpU-VV-oWe" firstAttribute="trailing" secondItem="Jru-xe-fa9" secondAttribute="trailing" id="oKb-Wr-fhC"/>
                             <constraint firstItem="slm-rl-CBw" firstAttribute="top" secondItem="MeD-nc-0p2" secondAttribute="bottom" id="sHR-q2-gny"/>
                             <constraint firstItem="slm-rl-CBw" firstAttribute="centerX" secondItem="cnH-Iq-nwA" secondAttribute="centerX" id="sNC-X0-lVn"/>
                             <constraint firstItem="slm-rl-CBw" firstAttribute="top" secondItem="MeD-nc-0p2" secondAttribute="bottom" id="ucN-rH-pk9"/>
                             <constraint firstItem="Jru-xe-fa9" firstAttribute="trailing" secondItem="cnH-Iq-nwA" secondAttribute="trailing" id="uhe-sq-YUH"/>
+                            <constraint firstItem="BgN-hU-owh" firstAttribute="leading" secondItem="jpU-VV-oWe" secondAttribute="leading" id="wuP-T7-N8R"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Add Room" image="Button" id="cPa-gy-q4n"/>

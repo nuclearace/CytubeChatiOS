@@ -97,17 +97,20 @@ class CytubeRoom: NSObject {
         }
         
         socket?.on("kick") {[weak self] (data:AnyObject?) in
+            var room:String!
+            if (self != nil) {
+                room = self!.roomName!
+            }
             self?.kicked = true
-            CytubeUtils.displayGenericAlertWithNoButtons("Kicked", message: "You have been kicked from \(self?.roomName!)!")
             self?.chatWindow?.dismissViewControllerAnimated(true, completion: nil)
+            CytubeUtils.displayGenericAlertWithNoButtons("Kicked", message: "You have been kicked from \(room)!")
         }
         
         socket?.on("needPassword") {[weak self] (data:AnyObject?) in
             if (self?.roomPassword != nil && self?.roomPassword != "") {
                 self?.handleRoomPassword()
             } else {
-                self?.chatWindow?.showRoomJoinFailed("No password given, or incorrect password" +
-                    "was given. Try adding room again.")
+                CytubeUtils.displayGenericAlertWithNoButtons("Password Needed", message: "No room password given, or was wrong.")
                 self?.handleImminentDelete()
             }
         }
@@ -147,7 +150,6 @@ class CytubeRoom: NSObject {
         } else {
             messageBuffer.addObject(msg)
         }
-        
         chatWindow?.scrollChat(messageBuffer.count)
     }
     
@@ -167,7 +169,7 @@ class CytubeRoom: NSObject {
             socket?.send("channelPassword", args: self.roomPassword, singleArg: true)
             self.sentRoomPassword = true
         } else {
-            self.chatWindow?.showRoomJoinFailed("No password given, or incorrect password was given. Try adding room again.")
+            CytubeUtils.displayGenericAlertWithNoButtons("Password Needed", message: "No room password given, or was wrong.")
             self.handleImminentDelete()
         }
     }
@@ -213,9 +215,11 @@ class CytubeRoom: NSObject {
     
     func sendLogin() {
         if (self.username != nil) {
-            socket?.send("login", args: [
+            let loginData = [
                 "name": self.username,
-                "pw": self.password], singleArg: false)
+                "pw": self.password
+            ]
+            socket?.send("login", args: loginData, singleArg: false)
         }
     }
     

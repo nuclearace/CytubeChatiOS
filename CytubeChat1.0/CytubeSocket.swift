@@ -76,7 +76,6 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     var handlers:NSMutableArray = NSMutableArray()
     var connected = false
     
-    
     init(server:String, room:String, cytubeRoom:CytubeRoom) {
         super.init()
         
@@ -230,7 +229,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         if (!self.connected) {
             return
         }
-        NSLog("SENT PING")
+        println("SENT PING")
         self.socketio?.send("2")
     }
     
@@ -241,7 +240,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message:AnyObject?) {
         // All incoming messages (socket.on()) are received in this function. Parsed with JSON
         if (message as NSString == "3") {
-            NSLog("GOT PONG")
+            println("GOT PONG")
             return
         } else if (message as NSString == "40" || message!.characterAtIndex(0) == 48 || message == nil) {
             return println("Got Trash")
