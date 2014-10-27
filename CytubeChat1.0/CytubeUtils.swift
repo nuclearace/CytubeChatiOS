@@ -27,21 +27,23 @@ class CytubeUtils {
     }
     
     class func displayGenericAlertWithNoButtons(title:String, message:String) {
-        var version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
-        var versionInt:Int? = version.toInt()
-        
-        if (versionInt < 8) {
-            var alert:UIAlertView = UIAlertView(title: title, message: message,
-                delegate: self, cancelButtonTitle: "Okay")
-            alert.show()
-        } else {
-            var view = UIApplication.sharedApplication().keyWindow?.rootViewController
-            var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-            var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {(action:UIAlertAction?) in
-                return
+        dispatch_async(dispatch_get_main_queue()) {() in
+            var version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
+            var versionInt:Int? = version.toInt()
+            
+            if (versionInt < 8) {
+                var alert:UIAlertView = UIAlertView(title: title, message: message,
+                    delegate: self, cancelButtonTitle: "Okay")
+                alert.show()
+            } else {
+                var view = UIApplication.sharedApplication().keyWindow?.rootViewController
+                var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {(action:UIAlertAction?) in
+                    return
+                }
+                alert.addAction(action)
+                view?.presentViewController(alert, animated: true, completion: nil)
             }
-            alert.addAction(action)
-            view?.presentViewController(alert, animated: true, completion: nil)
         }
     }
 }

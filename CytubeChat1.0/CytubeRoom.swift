@@ -98,12 +98,8 @@ class CytubeRoom: NSObject {
         
         socket?.on("kick") {[weak self] (data:AnyObject?) in
             var room:String!
-            if (self != nil) {
-                room = self!.roomName!
-            }
             self?.kicked = true
-            self?.chatWindow?.dismissViewControllerAnimated(true, completion: nil)
-            CytubeUtils.displayGenericAlertWithNoButtons("Kicked", message: "You have been kicked from \(room)!")
+            self?.chatWindow?.wasKicked = true
         }
         
         socket?.on("needPassword") {[weak self] (data:AnyObject?) in

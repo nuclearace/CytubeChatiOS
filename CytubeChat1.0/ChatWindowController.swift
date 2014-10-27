@@ -17,6 +17,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     var canScroll:Bool = true
     let tapRec = UITapGestureRecognizer()
     weak var room:CytubeRoom?
+    var wasKicked:Bool = false
     var loggedIn:Bool = false
     var keyboardOffset:CGFloat!
     
@@ -40,6 +41,13 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         messageView.reloadData()
+        if (self.wasKicked) {
+            let roomName = self.room!.roomName
+            return self.dismissViewControllerAnimated(true) {() in
+                CytubeUtils.displayGenericAlertWithNoButtons("Kicked", message: "You have been kicked from \(roomName)!")
+            }
+            
+        }
         if (self.room? != nil) {
             self.scrollChat(self.room!.messageBuffer.count)
         }
@@ -124,7 +132,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func scrollChat(index:Int) {
-        if (!self.canScroll) {
+        if (!self.canScroll || index == 0) {
             return messageView.reloadData()
         }
         var indexPath:NSIndexPath = NSIndexPath(forItem: index - 1, inSection: 0)
