@@ -23,7 +23,7 @@ class CytubeRoom: NSObject {
     let server:String!
     var shouldReconnect:Bool = true
     var socket:CytubeSocket?
-    var userlist:NSMutableArray = NSMutableArray()
+    var userlist = [CytubeUser]()
     weak var userlistView:UserlistController?
     var username:String!
     weak var view:RoomsController?
@@ -84,11 +84,13 @@ class CytubeRoom: NSObject {
         socket?.on("userlist") {[weak self] (data:AnyObject?) in
             let data = data as NSArray
             self?.handleUserlist(data)
+            self?.sortUserlist()
         }
         
         socket?.on("addUser") {[weak self] (data:AnyObject?) in
             let data = data as NSDictionary
             self?.handleAddUser(data)
+            self?.sortUserlist()
         }
         
         socket?.on("userLeave") {[weak self] (data:AnyObject?) in
@@ -119,8 +121,10 @@ class CytubeRoom: NSObject {
     }
     
     func handleAddUser(user:NSDictionary) {
-        if (!self.userlist.containsObject(user)) {
-            self.userlist.addObject(CytubeUser(user: user))
+        var tempUser = CytubeUser(user: user)
+        if (CytubeUtils.userlistContainsUser(self.userlist, user: tempUser)) {
+            self.userlist.append(CytubeUser(user: user))
+            self.sortUserlist()
             self.userlistView?.tblUserlist.reloadData()
         }
     }
@@ -172,19 +176,23 @@ class CytubeRoom: NSObject {
     
     func handleUserLeave(username:String) {
         for var i = 0; i < self.userlist.count; ++i {
-            var user = self.userlist.objectAtIndex(i) as CytubeUser
+            var user = self.userlist[i] as CytubeUser
             if (user.getUsername() == username) {
-                self.userlist.removeObjectAtIndex(i)
+                self.userlist.removeAtIndex(i)
                 self.userlistView?.tblUserlist.reloadData()
             }
         }
     }
     
     func handleUserlist(userlist:NSArray) {
-        self.userlist.removeAllObjects()
+        self.userlist.removeAll(keepCapacity: false)
         for user in userlist {
-            self.userlist.addObject(CytubeUser(user: user as NSDictionary))
+            self.userlist.append(CytubeUser(user: user as NSDictionary))
         }
+    }
+    
+    func sortUserlist() {
+        sort(&self.userlist) {$0 > $1}
     }
     
     func isConnected() -> Bool {
@@ -236,7 +244,7 @@ class CytubeRoom: NSObject {
         socket?.shutdownPingTimer()
         socket?.close()
         self.connected = false
-        self.userlist.removeAllObjects()
+        self.userlist.removeAll(keepCapacity: false)
         self.messageBuffer.removeAllObjects()
         self.username = nil
         self.password = nil

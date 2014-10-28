@@ -46,4 +46,13 @@ class CytubeUtils {
             }
         }
     }
+    
+    class func userlistContainsUser(userlist:[CytubeUser], user:CytubeUser) -> Bool {
+        for cuser in userlist {
+            if (cuser.isEqual(user)) {
+                return true
+            }
+        }
+        return false
+    }
 }

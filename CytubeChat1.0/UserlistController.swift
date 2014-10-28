@@ -38,7 +38,7 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
         NSIndexPath) -> UITableViewCell {
             let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "userlistCell")
             
-            var user = room?.userlist.objectAtIndex(indexPath.row) as CytubeUser
+            var user:CytubeUser = room!.userlist[indexPath.row]
             if let color = user.getColorValue() {
                 cell.textLabel.textColor = color
             }
