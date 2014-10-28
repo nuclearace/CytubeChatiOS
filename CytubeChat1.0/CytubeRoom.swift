@@ -122,8 +122,8 @@ class CytubeRoom: NSObject {
     
     func handleAddUser(user:NSDictionary) {
         var tempUser = CytubeUser(user: user)
-        if (CytubeUtils.userlistContainsUser(self.userlist, user: tempUser)) {
-            self.userlist.append(CytubeUser(user: user))
+        if (!CytubeUtils.userlistContainsUser(self.userlist, user: tempUser)) {
+            self.userlist.append(tempUser)
             self.sortUserlist()
             self.userlistView?.tblUserlist.reloadData()
         }

@@ -71,9 +71,10 @@ class CytubeUser: NSObject, Comparable {
     }
     
     override func isEqual(object:AnyObject?) -> Bool {
+        var user = object as CytubeUser
         if (object === self) {
             return true
-        } else if ((object as NSDictionary)["name"] as NSString != self.username) {
+        } else if (user.username != self.username) {
             return false
         }
         return true
