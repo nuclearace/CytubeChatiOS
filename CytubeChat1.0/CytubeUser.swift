@@ -58,7 +58,6 @@ class CytubeUser: NSObject, Comparable {
         if (rank >= 255) {
             return UIColor(red: 0.98, green: 0, blue: 0.35, alpha: 1)
         }
-        
         return nil
     }
     

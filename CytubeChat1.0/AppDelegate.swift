@@ -31,7 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         println("We entered the background")
         self.backgroundID = application.beginBackgroundTaskWithExpirationHandler() {[weak self] in
-            
+            if (self != nil) {
+                application.endBackgroundTask(self!.backgroundID)
+            }
         }
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {

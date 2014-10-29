@@ -227,12 +227,30 @@ class CytubeRoom: NSObject {
         }
     }
     
+    func openSocket() {
+        if (!self.connected) {
+            self.kicked = false
+            self.closed = false
+            socket?.open()
+        }
+    }
+    
     func closeSocket() {
         NSLog("Closing socket for \(self.roomName)")
         socket?.shutdownPingTimer()
         socket?.close()
         self.connected = false
         self.closed = true
+    }
+    
+    func socketShutdown() {
+        println("SOCKET SHUTDOWN")
+        if (self.needDelete) {
+            var index = roomMng.findRoomIndex(self.roomName, server: self.socket!.server)
+            roomMng.removeRoom(index!)
+        } else if (self.closed && self.shouldReconnect) {
+            self.socket?.reconnect()
+        }
     }
     
     func closeRoom() {
@@ -253,24 +271,6 @@ class CytubeRoom: NSObject {
         self.loggedIn = false
         self.active = false
         self.shouldReconnect = false
-    }
-    
-    func openSocket() {
-        if (!self.connected) {
-            self.kicked = false
-            self.closed = false
-            socket?.open()
-        }
-    }
-    
-    func socketShutdown() {
-        println("SOCKET SHUTDOWN")
-        if (self.needDelete) {
-            var index = roomMng.findRoomIndex(self.roomName, server: self.socket!.server)
-            roomMng.removeRoom(index!)
-        } else if (self.closed && self.shouldReconnect) {
-            self.socket?.reconnect()
-        }
     }
     
     func getRoomName() -> String {
