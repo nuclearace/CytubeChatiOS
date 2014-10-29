@@ -26,24 +26,29 @@ class CytubeUtils {
         return mut as NSString
     }
     
-    class func displayGenericAlertWithNoButtons(title:String, message:String) {
+    class func displayGenericAlertWithNoButtons(title:String, message:String, view:UIViewController?, completion:(() -> Void)?) {
         dispatch_async(dispatch_get_main_queue()) {() in
-            var version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
-            var versionInt:Int? = version.toInt()
+            let version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
+            let versionInt:Int? = version.toInt()
             
             if (versionInt < 8) {
-                var alert:UIAlertView = UIAlertView(title: title, message: message,
+                var alert:UIAlertView = UIAlertView(title: "Kicked", message: message,
                     delegate: self, cancelButtonTitle: "Okay")
                 alert.show()
             } else {
-                var view = UIApplication.sharedApplication().keyWindow?.rootViewController
                 var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
                 var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {(action:UIAlertAction?) in
                     return
                 }
                 alert.addAction(action)
+                if (view == nil) {
+                    var view = UIApplication.sharedApplication().keyWindow?.rootViewController
+                }
                 view?.presentViewController(alert, animated: true, completion: nil)
             }
+        }
+        if (completion != nil) {
+            completion!()
         }
     }
     

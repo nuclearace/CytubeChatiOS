@@ -34,7 +34,8 @@ class AddRoomsController: UIViewController {
         var password = passwordText.text
         
         if (server == "" || room == "") {
-            CytubeUtils.displayGenericAlertWithNoButtons("Error", message: "Please enter a valid server and room.")
+            CytubeUtils.displayGenericAlertWithNoButtons("Error", message:
+                "Please enter a valid server and room.", view: self, completion: nil)
             return
         }
         
@@ -42,7 +43,8 @@ class AddRoomsController: UIViewController {
         
         // User is trying to add an existing room
         if (cRoom != nil) {
-            CytubeUtils.displayGenericAlertWithNoButtons("Already added", message: "You have already added this room!")
+            CytubeUtils.displayGenericAlertWithNoButtons("Already added", message:
+                "You have already added this room!", view: self, completion: nil)
             return
         }
         var newRoom = CytubeRoom(roomName: room, server: server, password: password)
@@ -56,8 +58,9 @@ class AddRoomsController: UIViewController {
         self.tabBarController?.selectedIndex = 0
         
         if (!NSUserDefaults.standardUserDefaults().boolForKey("HasLaunchedOnce")) {
-            CytubeUtils.displayGenericAlertWithNoButtons("Hint", message: "You can long press on a room to bring up options for that room." +
-                "Alternativly you can swipe left on a row to bring up a delete option")
+            CytubeUtils.displayGenericAlertWithNoButtons("Hint",
+                message: "Click on a room to join it" +
+                " You can also long press on a room to bring up options for that room.", view: self, completion: nil)
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasLaunchedOnce")
             NSUserDefaults.standardUserDefaults().synchronize()
         }

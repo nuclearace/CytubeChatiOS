@@ -26,7 +26,7 @@ class CytubeRoom: NSObject {
     var userlist = [CytubeUser]()
     weak var userlistView:UserlistController?
     var username:String!
-    weak var view:RoomsController?
+    weak var roomsController:RoomsController?
     
     init(roomName:String, server:String, password:String?) {
         super.init()
@@ -39,7 +39,7 @@ class CytubeRoom: NSObject {
     
     deinit {
         println("CytubeRoom \(self.roomName) is being deinit")
-        view?.tblRoom.reloadData()
+        roomsController?.tblRoom.reloadData()
         NSNotificationCenter.defaultCenter().postNotificationName("roomRemoved", object: nil)
     }
     
@@ -99,16 +99,18 @@ class CytubeRoom: NSObject {
         }
         
         socket?.on("kick") {[weak self] (data:AnyObject?) in
-            var room:String!
+            var reason = (data as NSDictionary)["reason"] as NSString
             self?.kicked = true
-            self?.chatWindow?.wasKicked = true
+            NSNotificationCenter.defaultCenter().postNotificationName("wasKicked", object: self)
+            self?.closeRoom()
         }
         
         socket?.on("needPassword") {[weak self] (data:AnyObject?) in
             if (self?.roomPassword != nil && self?.roomPassword != "") {
                 self?.handleRoomPassword()
             } else {
-                CytubeUtils.displayGenericAlertWithNoButtons("Password Needed", message: "No room password given, or was wrong.")
+                CytubeUtils.displayGenericAlertWithNoButtons("Password Needed", message:
+                    "No room password given, or was wrong.", view: nil, completion: nil)
                 self?.handleImminentDelete()
             }
         }
@@ -163,13 +165,14 @@ class CytubeRoom: NSObject {
             roomMng.removeRoom(index!)
         }
     }
-    
+
     func handleRoomPassword() {
         if (self.roomPassword != nil && !self.sentRoomPassword) {
             socket?.send("channelPassword", args: self.roomPassword, singleArg: true)
             self.sentRoomPassword = true
         } else {
-            CytubeUtils.displayGenericAlertWithNoButtons("Password Needed", message: "No room password given, or was wrong.")
+            CytubeUtils.displayGenericAlertWithNoButtons("Password Needed", message:
+                "No room password given, or was wrong.", view: nil, completion: nil)
             self.handleImminentDelete()
         }
     }
@@ -293,8 +296,8 @@ class CytubeRoom: NSObject {
         self.active = active
     }
     
-    func setView(view:RoomsController) {
-        self.view = view
+    func setView(roomsController:RoomsController) {
+        self.roomsController = roomsController
     }
     
     func setChatWindow(chatWindow:ChatWindowController?) {

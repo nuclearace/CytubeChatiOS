@@ -135,7 +135,8 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     }
     
     private func findSocketURLFailed() {
-        CytubeUtils.displayGenericAlertWithNoButtons("Error", message: "Something is wrong with your server URL. Try again")
+        CytubeUtils.displayGenericAlertWithNoButtons("Error", message:
+            "Something is wrong with your server URL. Try again", view: nil, completion: nil)
         NSLog("Failed to find socket URL")
         self.handleEvent(["name": "serverFailure"])
     }
@@ -242,7 +243,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         if (message as NSString == "3") {
             println("GOT PONG")
             return
-        } else if (message as NSString == "40" || message!.characterAtIndex(0) == 48 || message == nil) {
+        } else if (message as NSString == "40" || message as NSString == "41" || message!.characterAtIndex(0) == 48 || message == nil) {
             return println("Got Trash")
         }
         
