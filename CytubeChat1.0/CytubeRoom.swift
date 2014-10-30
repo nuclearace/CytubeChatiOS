@@ -109,8 +109,7 @@ class CytubeRoom: NSObject {
             if (self?.roomPassword != nil && self?.roomPassword != "") {
                 self?.handleRoomPassword()
             } else {
-                CytubeUtils.displayGenericAlertWithNoButtons("Password Needed", message:
-                    "No room password given, or was wrong.", view: nil, completion: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName("passwordFail", object: self)
                 self?.handleImminentDelete()
             }
         }
@@ -171,8 +170,7 @@ class CytubeRoom: NSObject {
             socket?.send("channelPassword", args: self.roomPassword, singleArg: true)
             self.sentRoomPassword = true
         } else {
-            CytubeUtils.displayGenericAlertWithNoButtons("Password Needed", message:
-                "No room password given, or was wrong.", view: nil, completion: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName("passwordFail", object: self)
             self.handleImminentDelete()
         }
     }

@@ -32,7 +32,7 @@ class CytubeUtils {
             let versionInt:Int? = version.toInt()
             
             if (versionInt < 8) {
-                var alert:UIAlertView = UIAlertView(title: "Kicked", message: message,
+                var alert:UIAlertView = UIAlertView(title: title, message: message,
                     delegate: self, cancelButtonTitle: "Okay")
                 alert.show()
             } else {

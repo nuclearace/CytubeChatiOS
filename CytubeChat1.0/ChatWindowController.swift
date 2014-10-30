@@ -29,6 +29,8 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
             name: UIKeyboardWillHideNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("wasKicked:"),
             name: "wasKicked", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("passwordFail:"),
+            name: "passwordFail", object: nil)
         room = roomMng.getActiveRoom()
         if (self.room != nil) {
             if (room!.loggedIn) {
@@ -163,6 +165,30 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
             alert.addAction(action)
             self.presentViewController(alert, animated: true, completion: nil)
         }
+    }
+    
+    func passwordFail(not:NSNotification) {
+        let version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
+        let versionInt:Int? = version.toInt()
+        let roomName = self.room!.roomName
+        
+        if (versionInt < 8) {
+            var alert:UIAlertView = UIAlertView(title: "Password Fail", message:
+                "No password, or incorrect password for: \(roomName). Please try adding again.",
+                delegate: self, cancelButtonTitle: "Okay")
+            alert.show()
+        } else {
+            var alert = UIAlertController(title: "Password Fail", message:
+                "No password, or incorrect password for: \(roomName). Please try adding again.",
+                preferredStyle: UIAlertControllerStyle.Alert)
+            var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {(action:UIAlertAction?) in
+                self.room?.setChatWindow(nil)
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+            alert.addAction(action)
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+
     }
     
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
