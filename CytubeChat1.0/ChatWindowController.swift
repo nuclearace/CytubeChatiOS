@@ -150,14 +150,16 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         let version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
         let versionInt:Int? = version.toInt()
         let roomName = self.room!.roomName
+        let reason = not.object as NSString
         
         if (versionInt < 8) {
-            var alert:UIAlertView = UIAlertView(title: "Kicked", message: "You have been kicked from room \(roomName)",
+            var alert:UIAlertView = UIAlertView(title: "Kicked", message:
+                "You have been kicked from room \(roomName). Reason: \(reason)",
                 delegate: self, cancelButtonTitle: "Okay")
             alert.show()
         } else {
             var alert = UIAlertController(title: "Kicked", message:
-                "You have been kicked from room \(roomName)", preferredStyle: UIAlertControllerStyle.Alert)
+                "You have been kicked from room \(roomName). Reason: \(reason)", preferredStyle: UIAlertControllerStyle.Alert)
             var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {(action:UIAlertAction?) in
                 self.room?.setChatWindow(nil)
                 self.dismissViewControllerAnimated(true, completion: nil)
