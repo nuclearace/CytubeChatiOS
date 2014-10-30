@@ -17,17 +17,18 @@ class LoginController: UIViewController {
     }
     
     @IBAction func backBtnClicked(btn:UIBarButtonItem) {
+        self.resignFirstResponder()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func submitBtnClicked(btn:UIBarButtonItem) {
         self.resignFirstResponder()
+        self.dismissViewControllerAnimated(true, completion: nil)
         var room = roomMng.getActiveRoom()
         let username:String = usernameText.text
         let password:String = passwordText.text
         room?.setUsername(usernameText.text)
         room?.setPassword(password)
         room?.sendLogin()
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }

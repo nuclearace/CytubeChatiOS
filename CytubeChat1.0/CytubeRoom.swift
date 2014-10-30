@@ -78,6 +78,11 @@ class CytubeRoom: NSObject {
                 self?.loggedIn = true
                 self?.chatWindow?.chatInput.enabled = true
                 self?.chatWindow?.loginButton.enabled = false
+            } else {
+                if let error = data["error"] as? NSString {
+                    CytubeUtils.displayGenericAlertWithNoButtons("Login Failed", message: error,
+                        view: self?.chatWindow, completion: nil)
+                }
             }
         }
         
