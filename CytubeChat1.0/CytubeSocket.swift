@@ -67,6 +67,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     var socketio:SRWebSocket?
     var connecting:Bool = false
     var pingTimer:NSTimer!
+    var isSSL:Bool = false
     var socketIOURL:String!
     let session:NSURLSession?
     let room:String!
@@ -128,7 +129,12 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
                 var realJSON:AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &jsonError)
                 
                 if realJSON != nil {
-                    self?.socketIOURL = RegexMutable((realJSON!["ipv4-nossl"] as NSString))["http://"] ~= ""
+                    if (realJSON!["ipv4-ssl"] != "") {
+                        self?.socketIOURL = RegexMutable((realJSON!["ipv4-ssl"] as NSString))["https://"] ~= ""
+                        self?.isSSL = true
+                    } else {
+                        self?.socketIOURL = RegexMutable((realJSON!["ipv4-nossl"] as NSString))["http://"] ~= ""
+                    }
                 }
             }
         }
@@ -143,7 +149,12 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     // Init the socket
     private func initHandshake() {
-        var endpoint = "ws://\(self.socketIOURL)/socket.io/?EIO=2&transport=websocket"
+        var endpoint:String!
+        if (self.isSSL) {
+            endpoint = "wss://\(self.socketIOURL)/socket.io/?EIO=2&transport=websocket"
+        } else {
+            endpoint = "ws://\(self.socketIOURL)/socket.io/?EIO=2&transport=websocket"
+        }
         self.socketConnect(endpoint)
     }
     
