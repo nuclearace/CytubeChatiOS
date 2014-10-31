@@ -8,8 +8,11 @@
 import Foundation
 
 class CytubeRoom: NSObject {
-    var active:Bool = false
+    
     weak var chatWindow:ChatWindowController?
+    weak var roomsController:RoomsController?
+    weak var userlistView:UserlistController?
+    var active:Bool = false
     var closed:Bool = false
     var connected:Bool = false
     var loggedIn:Bool = false
@@ -24,9 +27,7 @@ class CytubeRoom: NSObject {
     var shouldReconnect:Bool = true
     var socket:CytubeSocket?
     var userlist = [CytubeUser]()
-    weak var userlistView:UserlistController?
     var username:String!
-    weak var roomsController:RoomsController?
     
     init(roomName:String, server:String, password:String?) {
         super.init()

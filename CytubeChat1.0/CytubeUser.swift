@@ -8,19 +8,6 @@
 import Foundation
 import UIkit
 
-func ==(lhs:CytubeUser, rhs:CytubeUser) -> Bool {
-    if lhs.rank == rhs.rank {
-        return true
-    }
-    return false
-}
-func <(lhs:CytubeUser, rhs:CytubeUser) -> Bool {
-    if lhs.rank < rhs.rank {
-        return true
-    }
-    return false
-}
-
 class CytubeUser: NSObject, Comparable {
     let username:String!
     var rank:Int!
