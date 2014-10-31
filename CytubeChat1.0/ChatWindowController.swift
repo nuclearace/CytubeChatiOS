@@ -190,7 +190,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
             alert.addAction(action)
             self.presentViewController(alert, animated: true, completion: nil)
         }
-
+        
     }
     
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {

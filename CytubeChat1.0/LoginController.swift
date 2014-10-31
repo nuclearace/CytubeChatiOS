@@ -11,9 +11,11 @@ class LoginController: UIViewController {
     
     @IBOutlet var usernameText:UITextField!
     @IBOutlet var passwordText:UITextField!
+    var room:CytubeRoom?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        room = roomMng.getActiveRoom()
     }
     
     @IBAction func backBtnClicked(btn:UIBarButtonItem) {
@@ -24,7 +26,6 @@ class LoginController: UIViewController {
     @IBAction func submitBtnClicked(btn:UIBarButtonItem) {
         self.resignFirstResponder()
         self.dismissViewControllerAnimated(true, completion: nil)
-        var room = roomMng.getActiveRoom()
         let username:String = usernameText.text
         let password:String = passwordText.text
         room?.setUsername(usernameText.text)

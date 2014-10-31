@@ -180,6 +180,11 @@
 					740BEF4419EC315400E577A0 = {
 						CreatedOnToolsVersion = 6.0.1;
 						DevelopmentTeam = 6XBC3G4NFX;
+						SystemCapabilities = {
+							com.apple.DataProtection = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};

@@ -113,7 +113,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
             (res, data, err) -> Void in
             if ((err) != nil) {
                 dispatch_async(dispatch_get_main_queue()) {[weak self]() in
-                    NSLog("Socket url fail")
+                    NSLog("Socket url fail:" + err.localizedDescription)
                     self?.findSocketURLFailed()
                 }
                 return

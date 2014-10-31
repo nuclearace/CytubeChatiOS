@@ -95,14 +95,14 @@ class RoomManager: NSObject {
                 sroom = [
                     "room": room.room,
                     "server": room.server,
-                    "password": roomPassword
+                    "roomPassword": roomPassword
                 ]
                 
             } else {
                 var sroom = [
                     "room": room.room,
                     "server": room.server,
-                    "password": ""
+                    "roomPassword": ""
                 ]
             }
             roomsForSave.addObject(sroom)
@@ -126,7 +126,7 @@ class RoomManager: NSObject {
         if let roomsFromData:NSMutableArray? = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as? NSMutableArray {
             for var i = 0; i < roomsFromData?.count; ++i {
                 var con = roomsFromData?.objectAtIndex(i) as NSDictionary
-                var recreatedRoom = CytubeRoom(roomName: con["room"] as NSString, server: con["server"] as NSString, password: con["password"] as NSString)
+                var recreatedRoom = CytubeRoom(roomName: con["room"] as NSString, server: con["server"] as NSString, password: con["roomPassword"] as NSString)
                 self.addRoom(con["server"] as NSString, room: con["room"] as NSString, cytubeRoom: recreatedRoom)
             }
         }

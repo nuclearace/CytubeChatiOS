@@ -128,7 +128,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         room.setActive(true)
         self.performSegueWithIdentifier("goToChatRoom", sender: self)
     }
-
+    
     // Tells how many rows to redraw
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return roomMng.rooms.count

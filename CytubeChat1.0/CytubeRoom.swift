@@ -169,7 +169,7 @@ class CytubeRoom: NSObject {
             roomMng.removeRoom(index!)
         }
     }
-
+    
     func handleRoomPassword() {
         if (self.roomPassword != nil && !self.sentRoomPassword) {
             socket?.send("channelPassword", args: self.roomPassword, singleArg: true)
@@ -197,10 +197,6 @@ class CytubeRoom: NSObject {
         }
     }
     
-    func sortUserlist() {
-        sort(&self.userlist) {$0 > $1}
-    }
-    
     func isConnected() -> Bool {
         if ((socket?) != nil) {
             if (socket!.connected) {
@@ -210,6 +206,10 @@ class CytubeRoom: NSObject {
             }
         }
         return false
+    }
+    
+    func sortUserlist() {
+        sort(&self.userlist) {$0 > $1}
     }
     
     func sendChatMsg(msg:String?) {
