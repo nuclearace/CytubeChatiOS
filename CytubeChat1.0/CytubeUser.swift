@@ -1,6 +1,6 @@
 //
 //  CytubeUser.swift
-//  CytubeChat1.0
+//  CytubeChat
 //
 //  Created by Erik Little on 10/16/14.
 //

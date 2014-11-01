@@ -1,6 +1,6 @@
 //
 //  CytubeRoom.swift
-//  CytubeChat1.0
+//  CytubeChat
 //
 //  Created by Erik Little on 10/13/14.
 //
@@ -252,6 +252,7 @@ class CytubeRoom: NSObject {
         self.socket?.close()
         self.connected = false
         self.closed = true
+        self.shouldReconnect = false
     }
     
     func socketShutdown() {

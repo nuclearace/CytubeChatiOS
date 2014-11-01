@@ -1,6 +1,6 @@
 //
 //  UserlistController.swift
-//  CytubeChat1.0
+//  CytubeChat
 //
 //  Created by Erik Little on 10/20/14.
 //
