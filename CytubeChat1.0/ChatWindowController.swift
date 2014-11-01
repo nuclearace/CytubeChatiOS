@@ -41,7 +41,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         roomTitle.setTitle(room?.roomName, forState: nil)
         tapRec.addTarget(self, action: "tappedMessages")
         messageView.addGestureRecognizer(tapRec)
-        messageView.estimatedRowHeight = 20.0
+        messageView.estimatedRowHeight = 40.0
         messageView.rowHeight = UITableViewAutomaticDimension
     }
     
@@ -105,12 +105,9 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         let cell:UITableViewCell = messageView.dequeueReusableCellWithIdentifier("chatWindowCell") as UITableViewCell
         let font = UIFont(name: "Helvetica Neue", size: 12)
         
-        // println(cell.contentView.subviews)
         (cell.contentView.subviews[0] as UITextView).font = font
         (cell.contentView.subviews[0] as UITextView).text = nil
         (cell.contentView.subviews[0] as UITextView).text = room?.messageBuffer.objectAtIndex(indexPath.row) as NSString
-        //cell.textLabel.text = room?.messageBuffer.objectAtIndex(indexPath.row) as NSString
-        
         return cell
     }
     
@@ -142,7 +139,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         
         dispatch_after(time, dispatch_get_main_queue(), {[weak self]() in
             if (self != nil) {
-                self?.messageView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
+                self?.messageView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
             }
         })
     }

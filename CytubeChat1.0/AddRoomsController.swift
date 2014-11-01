@@ -57,7 +57,7 @@ class AddRoomsController: UIViewController {
         
         if (!NSUserDefaults.standardUserDefaults().boolForKey("HasLaunchedOnce")) {
             CytubeUtils.displayGenericAlertWithNoButtons("Hint",
-                message: "Click on a room to join it" +
+                message: "Click on a room to join it." +
                 " You can also long press on a room to bring up options for that room.", view: self, completion: nil)
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasLaunchedOnce")
             NSUserDefaults.standardUserDefaults().synchronize()

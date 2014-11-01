@@ -46,7 +46,7 @@ class CytubeRoom: NSObject {
     
     func addHandlers() {
         NSLog("Adding Handlers for room: \(self.roomName)")
-        socket?.on("connect") {[weak self] (data:AnyObject?) in
+        self.socket?.on("connect") {[weak self] (data:AnyObject?) in
             NSLog("Connected to Cytube Room \(self?.roomName)")
             self?.connected = true
             self?.socket?.send("initChannelCallbacks", args: nil, singleArg: false)
@@ -55,24 +55,24 @@ class CytubeRoom: NSObject {
             self?.sendLogin()
         }
         
-        socket?.on("disconnect") {[weak self] (data:AnyObject?) in
+        self.socket?.on("disconnect") {[weak self] (data:AnyObject?) in
             self?.connected = false
             self?.socketShutdown()
             self?.messageBuffer.removeAllObjects()
             self?.chatWindow?.messageView.reloadData()
         }
         
-        socket?.on("serverFailure") {[weak self] (data:AnyObject?) in
+        self.socket?.on("serverFailure") {[weak self] (data:AnyObject?) in
             NSLog("The server failed")
             self?.handleImminentDelete()
         }
         
-        socket?.on("chatMsg") {[weak self] (data:AnyObject?) in
+        self.socket?.on("chatMsg") {[weak self] (data:AnyObject?) in
             let data = data as NSDictionary
             self?.handleChatMsg(data)
         }
         
-        socket?.on("login") {[weak self] (data:AnyObject?) in
+        self.socket?.on("login") {[weak self] (data:AnyObject?) in
             let data = data as NSDictionary
             let success:Bool = data["success"] as Bool
             if (success) {
@@ -90,31 +90,31 @@ class CytubeRoom: NSObject {
             }
         }
         
-        socket?.on("userlist") {[weak self] (data:AnyObject?) in
+        self.socket?.on("userlist") {[weak self] (data:AnyObject?) in
             let data = data as NSArray
             self?.handleUserlist(data)
             self?.sortUserlist()
         }
         
-        socket?.on("addUser") {[weak self] (data:AnyObject?) in
+        self.socket?.on("addUser") {[weak self] (data:AnyObject?) in
             let data = data as NSDictionary
             self?.handleAddUser(data)
             self?.sortUserlist()
         }
         
-        socket?.on("userLeave") {[weak self] (data:AnyObject?) in
+        self.socket?.on("userLeave") {[weak self] (data:AnyObject?) in
             let data = (data as NSDictionary)["name"] as NSString
             self?.handleUserLeave(data)
         }
         
-        socket?.on("kick") {[weak self] (data:AnyObject?) in
+        self.socket?.on("kick") {[weak self] (data:AnyObject?) in
             var reason = (data as NSDictionary)["reason"] as NSString
             self?.kicked = true
             NSNotificationCenter.defaultCenter().postNotificationName("wasKicked", object: reason)
             self?.closeRoom()
         }
         
-        socket?.on("needPassword") {[weak self] (data:AnyObject?) in
+        self.socket?.on("needPassword") {[weak self] (data:AnyObject?) in
             if (self?.roomPassword != nil && self?.roomPassword != "") {
                 self?.handleRoomPassword()
             } else {
@@ -123,7 +123,7 @@ class CytubeRoom: NSObject {
             }
         }
         
-        socket?.on("cancelNeedPassword") {[weak self] (data:AnyObject?) in
+        self.socket?.on("cancelNeedPassword") {[weak self] (data:AnyObject?) in
             if (self? != nil) {
                 self?.sentRoomPassword = false
             }
@@ -177,7 +177,7 @@ class CytubeRoom: NSObject {
     
     func handleRoomPassword() {
         if (self.roomPassword != nil && !self.sentRoomPassword) {
-            socket?.send("channelPassword", args: self.roomPassword, singleArg: true)
+            self.socket?.send("channelPassword", args: self.roomPassword, singleArg: true)
             self.sentRoomPassword = true
         } else {
             NSNotificationCenter.defaultCenter().postNotificationName("passwordFail", object: self)
@@ -225,7 +225,7 @@ class CytubeRoom: NSObject {
         let msgData = [
             "msg": msg!
         ]
-        socket?.send("chatMsg", args: msgData, singleArg: false)
+        self.socket?.send("chatMsg", args: msgData, singleArg: false)
     }
     
     func sendLogin() {
@@ -234,7 +234,7 @@ class CytubeRoom: NSObject {
                 "name": self.username,
                 "pw": self.password
             ]
-            socket?.send("login", args: loginData, singleArg: false)
+            self.socket?.send("login", args: loginData, singleArg: false)
         }
     }
     
@@ -242,14 +242,14 @@ class CytubeRoom: NSObject {
         if (!self.connected) {
             self.kicked = false
             self.closed = false
-            socket?.open()
+            self.socket?.open()
         }
     }
     
     func closeSocket() {
         NSLog("Closing socket for \(self.roomName)")
-        socket?.shutdownPingTimer()
-        socket?.close()
+        self.socket?.shutdownPingTimer()
+        self.socket?.close()
         self.connected = false
         self.closed = true
     }
