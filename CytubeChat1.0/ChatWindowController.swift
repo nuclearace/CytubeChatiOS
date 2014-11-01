@@ -45,7 +45,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         messageView.rowHeight = UITableViewAutomaticDimension
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(animated:Bool) {
         super.viewDidAppear(true)
         messageView.reloadData()
         if (self.room != nil) {

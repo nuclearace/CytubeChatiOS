@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddRoomsController: UIViewController {
+class AddRoomsController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var serverText:UITextField!
     @IBOutlet weak var roomText:UITextField!
@@ -27,6 +27,10 @@ class AddRoomsController: UIViewController {
     
     // Add room was pressed
     @IBAction func btnAddTask(sender: UIButton) {
+        self.handleAddRoom()
+    }
+    
+    func handleAddRoom() {
         let room = roomText.text
         let server = serverText.text
         var password = passwordText.text
@@ -70,6 +74,7 @@ class AddRoomsController: UIViewController {
     
     func textFieldShouldReturn(textField:UITextField) -> Bool {
         textField.resignFirstResponder()
+        self.handleAddRoom()
         return true
     }
 }

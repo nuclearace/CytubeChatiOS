@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginController: UIViewController {
+class LoginController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var usernameText:UITextField!
     @IBOutlet weak var passwordText:UITextField!
@@ -15,7 +15,7 @@ class LoginController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        room = roomMng.getActiveRoom()
+        self.room = roomMng.getActiveRoom()
     }
     
     @IBAction func backBtnClicked(btn:UIBarButtonItem) {
@@ -25,11 +25,29 @@ class LoginController: UIViewController {
     
     @IBAction func submitBtnClicked(btn:UIBarButtonItem) {
         self.resignFirstResponder()
+        self.handleLogin()
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func handleLogin() {
         let username:String = usernameText.text
         let password:String = passwordText.text
-        room?.setUsername(usernameText.text)
-        room?.setPassword(password)
-        room?.sendLogin()
+        self.room?.setUsername(usernameText.text)
+        self.room?.setPassword(password)
+        self.room?.sendLogin()
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func textFieldShouldReturn(textField:UITextField) -> Bool {
+        let nextTag = textField.tag + 1
+        let nextResponder = textField.superview?.viewWithTag(nextTag)
+        if (nextResponder != nil) {
+            nextResponder!.becomeFirstResponder()
+            return false
+        }
+        
+        textField.resignFirstResponder()
+        self.handleLogin()
+        return true
     }
 }
