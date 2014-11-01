@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  RoomsController.swift
 //  CytubeChat1.0
 //
 //  Created by Erik Little on 10/13/14.
@@ -15,14 +15,14 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserverForName("roomRemoved", object: nil, queue: nil) {[unowned self] (not:NSNotification?) in
-            self.tblRoom.reloadData()
+        NSNotificationCenter.defaultCenter().addObserverForName("roomRemoved", object: nil,
+            queue: nil) {[unowned self] (not:NSNotification?) in
+                self.tblRoom.reloadData()
         }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewDidAppear(animated:Bool) {

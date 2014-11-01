@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  AddRoomsController.swift
 //  CytubeChat1.0
 //
 //  Created by Erik Little on 10/13/14.
@@ -15,7 +15,6 @@ class AddRoomsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -24,7 +23,6 @@ class AddRoomsController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // Add room was pressed

@@ -17,7 +17,6 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     var canScroll:Bool = true
     let tapRec = UITapGestureRecognizer()
     weak var room:CytubeRoom?
-    // var wasKicked:Bool = false
     var loggedIn:Bool = false
     var keyboardOffset:CGFloat!
     
