@@ -135,6 +135,21 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Di6-FF-Cmj" id="qBj-td-0VY">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" scrollEnabled="NO" editable="NO" text="Sample Text" translatesAutoresizingMaskIntoConstraints="NO" id="w3D-VH-qE5">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="w3D-VH-qE5" secondAttribute="trailing" constant="-8" id="9KI-yd-RBt"/>
+                                                <constraint firstItem="w3D-VH-qE5" firstAttribute="top" secondItem="qBj-td-0VY" secondAttribute="topMargin" constant="-8" id="G6n-Sa-uSK"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="w3D-VH-qE5" secondAttribute="bottom" constant="-8" id="HuM-99-cRJ"/>
+                                                <constraint firstItem="w3D-VH-qE5" firstAttribute="leading" secondItem="qBj-td-0VY" secondAttribute="leadingMargin" constant="-8" id="hOe-mA-fcj"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>

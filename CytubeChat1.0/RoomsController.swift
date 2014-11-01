@@ -9,7 +9,7 @@ import UIKit
 
 class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate  {
     
-    @IBOutlet var tblRoom:UITableView!
+    @IBOutlet weak var tblRoom:UITableView!
     var inAlert:Bool = false
     var selectedRoom:CytubeRoom!
     

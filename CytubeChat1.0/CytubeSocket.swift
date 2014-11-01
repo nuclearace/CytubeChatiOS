@@ -258,7 +258,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
             return println("Got Trash")
         }
         
-        NSLog("MESSAGE: %@", message! as NSString)
+        // NSLog("MESSAGE: %@", message! as NSString)
         
         var messageMut = RegexMutable((message as NSString).substringFromIndex(2))
         var ranges = messageMut[","].ranges()

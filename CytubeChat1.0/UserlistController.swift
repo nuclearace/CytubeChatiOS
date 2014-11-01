@@ -9,9 +9,9 @@ import UIKit
 
 class UserlistController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var userlistTitle:UINavigationItem!
+    @IBOutlet weak var tblUserlist:UITableView!
     weak var room:CytubeRoom!
-    @IBOutlet var userlistTitle:UINavigationItem!
-    @IBOutlet var tblUserlist:UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

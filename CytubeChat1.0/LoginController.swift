@@ -9,8 +9,8 @@ import UIKit
 
 class LoginController: UIViewController {
     
-    @IBOutlet var usernameText:UITextField!
-    @IBOutlet var passwordText:UITextField!
+    @IBOutlet weak var usernameText:UITextField!
+    @IBOutlet weak var passwordText:UITextField!
     var room:CytubeRoom?
     
     override func viewDidLoad() {

@@ -9,11 +9,11 @@ import UIKit
 
 class ChatWindowController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate {
     
-    @IBOutlet var roomTitle:UIButton!
-    @IBOutlet var messageView:UITableView!
-    @IBOutlet var chatInput:UITextField!
-    @IBOutlet var loginButton:UIBarButtonItem!
-    @IBOutlet var inputBottomLayoutGuide:NSLayoutConstraint!
+    @IBOutlet weak var roomTitle:UIButton!
+    @IBOutlet weak var messageView:UITableView!
+    @IBOutlet weak var chatInput:UITextField!
+    @IBOutlet weak var loginButton:UIBarButtonItem!
+    @IBOutlet weak var inputBottomLayoutGuide:NSLayoutConstraint!
     var canScroll:Bool = true
     let tapRec = UITapGestureRecognizer()
     weak var room:CytubeRoom?
@@ -41,6 +41,8 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         roomTitle.setTitle(room?.roomName, forState: nil)
         tapRec.addTarget(self, action: "tappedMessages")
         messageView.addGestureRecognizer(tapRec)
+        messageView.estimatedRowHeight = 20.0
+        messageView.rowHeight = UITableViewAutomaticDimension
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -100,13 +102,14 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Default")
+        let cell:UITableViewCell = messageView.dequeueReusableCellWithIdentifier("chatWindowCell") as UITableViewCell
+        let font = UIFont(name: "Helvetica Neue", size: 12)
         
-        var font = UIFont(name: "Helvetica Neue", size: 12)
-        // println(room?.messageBuffer.objectAtIndex(1))
-        cell.textLabel.font = font
-        cell.textLabel.numberOfLines = 3
-        cell.textLabel.text = room?.messageBuffer.objectAtIndex(indexPath.row) as NSString
+        // println(cell.contentView.subviews)
+        (cell.contentView.subviews[0] as UITextView).font = font
+        (cell.contentView.subviews[0] as UITextView).text = nil
+        (cell.contentView.subviews[0] as UITextView).text = room?.messageBuffer.objectAtIndex(indexPath.row) as NSString
+        //cell.textLabel.text = room?.messageBuffer.objectAtIndex(indexPath.row) as NSString
         
         return cell
     }
@@ -131,16 +134,15 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     
     func scrollChat(index:Int) {
         if (!self.canScroll || index == 0) {
-            return messageView.reloadData()
+            return
         }
         var indexPath:NSIndexPath = NSIndexPath(forItem: index - 1, inSection: 0)
-        messageView.reloadData()
         let delay = 0.1 * Double(NSEC_PER_SEC)
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
         
         dispatch_after(time, dispatch_get_main_queue(), {[weak self]() in
             if (self != nil) {
-                self?.messageView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+                self?.messageView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: false)
             }
         })
     }

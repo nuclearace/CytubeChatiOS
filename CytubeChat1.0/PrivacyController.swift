@@ -10,8 +10,8 @@ import UIKit
 
 class PrivacyController: UIViewController {
     
-    @IBOutlet var backBtn:UIBarButtonItem!
-    @IBOutlet var webView:UIWebView!
+    @IBOutlet weak var backBtn:UIBarButtonItem!
+    @IBOutlet weak var webView:UIWebView!
     let privacyLink:NSURLRequest = NSURLRequest(URL: NSURL(string: "http://pastebin.com/raw.php?i=DtFfGReM")!)
     
     override func viewDidAppear(animated: Bool) {

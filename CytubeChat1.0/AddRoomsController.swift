@@ -9,9 +9,9 @@ import UIKit
 
 class AddRoomsController: UIViewController {
     
-    @IBOutlet var serverText:UITextField!
-    @IBOutlet var roomText:UITextField!
-    @IBOutlet var passwordText:UITextField!
+    @IBOutlet weak var serverText:UITextField!
+    @IBOutlet weak var roomText:UITextField!
+    @IBOutlet weak var passwordText:UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
