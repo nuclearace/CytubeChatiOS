@@ -15,6 +15,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var loginButton:UIBarButtonItem!
     @IBOutlet weak var inputBottomLayoutGuide:NSLayoutConstraint!
     var canScroll:Bool = true
+    var userDidScrollUp = false
     let tapRec = UITapGestureRecognizer()
     weak var room:CytubeRoom?
     var loggedIn:Bool = false
@@ -47,7 +48,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidAppear(animated:Bool) {
         super.viewDidAppear(true)
-        messageView.reloadData()
+        self.userDidScrollUp = false
         if (self.room != nil) {
             self.hackyScrollFix()
         }
@@ -68,6 +69,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         self.canScroll = true
+        self.userDidScrollUp = true
     }
     
     func keyboardWillShow(not:NSNotification) {
@@ -130,10 +132,21 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func scrollChat() {
+        let scrollViewHeight = self.messageView.frame.size.height
+        let scrollContentSizeHeight = self.messageView.contentSize.height
+        let scrollOffset = self.messageView.contentOffset.y
+        let scrolledToBottom = (scrollOffset + scrollViewHeight) == scrollContentSizeHeight
+        
         self.messageView.reloadData()
         if (!self.canScroll || self.room?.messageBuffer.count == 0) {
             return
         }
+        if (self.userDidScrollUp && !scrolledToBottom) {
+            self.userDidScrollUp = false
+            self.hackyScrollFix()
+            return
+        }
+        self.userDidScrollUp = false
         let indexPath:NSIndexPath = NSIndexPath(forRow: self.messageView.numberOfRowsInSection(0) - 1, inSection: 0)
         let delay = 0.1 * Double(NSEC_PER_SEC)
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
@@ -145,7 +158,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         })
     }
     
-    // This fixes iOS 8's bug in auto cell height that caused scrolling the bottom to overscroll
+    // This fixes iOS 8's bug in auto cell height that caused scrolling to the bottom to overscroll
     func hackyScrollFix() {
         if (self.room?.messageBuffer.count == 0) {
             return
