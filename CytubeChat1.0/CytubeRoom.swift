@@ -154,12 +154,7 @@ class CytubeRoom: NSObject {
         msg += username + ": "
         msg += filterMsg
         
-        if (self.messageBuffer.count > 100) {
-            self.messageBuffer.removeObjectAtIndex(0)
-        }
-        self.messageBuffer.addObject(msg)
-        self.chatWindow?.messageView.reloadData()
-        self.chatWindow?.scrollChat(messageBuffer.count)
+        self.addMessageToChat(msg)
     }
     
     func handleImminentDelete() {
@@ -198,6 +193,14 @@ class CytubeRoom: NSObject {
         for user in userlist {
             self.userlist.append(CytubeUser(user: user as NSDictionary))
         }
+    }
+    
+    func addMessageToChat(msg:String) {
+        if (self.messageBuffer.count > 100) {
+            self.messageBuffer.removeObjectAtIndex(0)
+        }
+        self.messageBuffer.addObject(msg)
+        self.chatWindow?.scrollChat()
     }
     
     func isConnected() -> Bool {

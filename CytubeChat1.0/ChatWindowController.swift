@@ -49,7 +49,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidAppear(true)
         messageView.reloadData()
         if (self.room != nil) {
-            self.scrollChat(self.room!.messageBuffer.count)
+            self.hackyScrollFix()
         }
     }
     
@@ -79,7 +79,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         UIView.animateWithDuration(0.3, animations: {() -> Void in
             self.inputBottomLayoutGuide.constant = keyboardFrame.size.height + 10
         })
-        self.scrollChat(scrollNum!)
+        self.scrollChat()
     }
     
     func keyboardWillHide(not:NSNotification) {
@@ -129,11 +129,12 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func scrollChat(index:Int) {
-        if (!self.canScroll || index == 0) {
+    func scrollChat() {
+        self.messageView.reloadData()
+        if (!self.canScroll || self.room?.messageBuffer.count == 0) {
             return
         }
-        var indexPath:NSIndexPath = NSIndexPath(forItem: index - 1, inSection: 0)
+        let indexPath:NSIndexPath = NSIndexPath(forRow: self.messageView.numberOfRowsInSection(0) - 1, inSection: 0)
         let delay = 0.1 * Double(NSEC_PER_SEC)
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
         
@@ -142,6 +143,20 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
                 self?.messageView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
             }
         })
+    }
+    
+    // This fixes iOS 8's bug in auto cell height that caused scrolling the bottom to overscroll
+    func hackyScrollFix() {
+        if (self.room?.messageBuffer.count == 0) {
+            return
+        }
+        
+        let tempChat = self.room?.messageBuffer.copy() as [String]
+        self.room?.messageBuffer.removeAllObjects()
+        
+        for msg in tempChat {
+            self.room?.addMessageToChat(msg)
+        }
     }
     
     func wasKicked(not:NSNotification) {
