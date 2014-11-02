@@ -154,14 +154,12 @@ class CytubeRoom: NSObject {
         msg += username + ": "
         msg += filterMsg
         
-        if (messageBuffer.count > 100) {
-            messageBuffer.removeObjectAtIndex(0)
-            messageBuffer.addObject(msg)
-        } else {
-            messageBuffer.addObject(msg)
+        if (self.messageBuffer.count > 100) {
+            self.messageBuffer.removeObjectAtIndex(0)
         }
-        chatWindow?.messageView.reloadData()
-        chatWindow?.scrollChat(messageBuffer.count)
+        self.messageBuffer.addObject(msg)
+        self.chatWindow?.messageView.reloadData()
+        self.chatWindow?.scrollChat(messageBuffer.count)
     }
     
     func handleImminentDelete() {
