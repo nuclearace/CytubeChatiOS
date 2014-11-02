@@ -48,7 +48,6 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidAppear(animated:Bool) {
         super.viewDidAppear(true)
-        self.userDidScrollUp = false
         if (self.room != nil) {
             self.hackyScrollFix()
         }
@@ -160,6 +159,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     
     // This fixes iOS 8's bug in auto cell height that caused scrolling to the bottom to overscroll
     func hackyScrollFix() {
+        println("Performing hacky fix")
         if (self.room?.messageBuffer.count == 0) {
             return
         }

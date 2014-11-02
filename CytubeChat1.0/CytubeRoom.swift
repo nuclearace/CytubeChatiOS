@@ -128,6 +128,12 @@ class CytubeRoom: NSObject {
                 self?.sentRoomPassword = false
             }
         }
+        
+        self.socket?.on("clearchat") {[weak self] (data:AnyObject?) in
+            if (self != nil) {
+                self?.clearChat()
+            }
+        }
     }
     
     func handleAddUser(user:NSDictionary) {
@@ -201,6 +207,11 @@ class CytubeRoom: NSObject {
         }
         self.messageBuffer.addObject(msg)
         self.chatWindow?.scrollChat()
+    }
+    
+    func clearChat() {
+        self.messageBuffer.removeAllObjects()
+        self.chatWindow?.messageView.reloadData()
     }
     
     func isConnected() -> Bool {
