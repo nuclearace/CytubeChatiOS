@@ -42,7 +42,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         self.roomTitle.setTitle(room?.roomName, forState: nil)
         self.tapRec.addTarget(self, action: "tappedMessages")
         self.messageView.addGestureRecognizer(tapRec)
-        self.messageView.estimatedRowHeight = 40.0
+        self.messageView.estimatedRowHeight = 50.0
         self.messageView.rowHeight = UITableViewAutomaticDimension
     }
     
