@@ -31,19 +31,19 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
             name: "wasKicked", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("passwordFail:"),
             name: "passwordFail", object: nil)
-        room = roomMng.getActiveRoom()
+        self.room = roomMng.getActiveRoom()
         if (self.room != nil) {
             if (room!.loggedIn) {
                 loginButton.enabled = false
                 chatInput.enabled = true
             }
         }
-        room?.setChatWindow(self)
-        roomTitle.setTitle(room?.roomName, forState: nil)
-        tapRec.addTarget(self, action: "tappedMessages")
-        messageView.addGestureRecognizer(tapRec)
-        messageView.estimatedRowHeight = 40.0
-        messageView.rowHeight = UITableViewAutomaticDimension
+        self.room?.setChatWindow(self)
+        self.roomTitle.setTitle(room?.roomName, forState: nil)
+        self.tapRec.addTarget(self, action: "tappedMessages")
+        self.messageView.addGestureRecognizer(tapRec)
+        self.messageView.estimatedRowHeight = 40.0
+        self.messageView.rowHeight = UITableViewAutomaticDimension
     }
     
     override func viewDidAppear(animated:Bool) {

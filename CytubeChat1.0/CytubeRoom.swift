@@ -283,8 +283,8 @@ class CytubeRoom: NSObject {
         }
         
         NSLog("Closing room \(self.roomName)")
-        socket?.shutdownPingTimer()
-        socket?.close()
+        self.socket?.shutdownPingTimer()
+        self.socket?.close()
         self.connected = false
         self.userlist.removeAll(keepCapacity: false)
         self.messageBuffer.removeAllObjects()
