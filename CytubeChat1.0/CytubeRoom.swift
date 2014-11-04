@@ -47,7 +47,7 @@ class CytubeRoom: NSObject {
     func addHandlers() {
         NSLog("Adding Handlers for room: \(self.roomName)")
         self.socket?.on("connect") {[weak self] (data:AnyObject?) in
-            NSLog("Connected to Cytube Room \(self?.roomName)")
+            NSLog("Connected to Cytube server \(self!.server!)")
             self?.connected = true
             self?.socket?.send("initChannelCallbacks", args: nil)
             self?.socket?.send("joinChannel", args: ["name": self!.roomName])
@@ -169,7 +169,7 @@ class CytubeRoom: NSObject {
             self.needDelete = true
             self.socket?.close()
         } else {
-            var index = roomMng.findRoomIndex(self.roomName, server: self.socket!.server)
+            var index = roomMng.findRoomIndex(self.roomName, server: self.server)
             roomMng.removeRoom(index!)
         }
     }

@@ -61,16 +61,16 @@ class EventHandler: NSObject {
 
 class CytubeSocket: NSObject, SRWebSocketDelegate {
     var socketio:SRWebSocket?
-    var connecting:Bool = false
+    var connecting = false
     var pingTimer:NSTimer!
-    var isSSL:Bool = false
+    var isSSL = false
     var socketIOURL:String!
     let session:NSURLSession?
     let room:String!
     let server:String!
-    let sioconfigURL:String = "/sioconfig"
+    let sioconfigURL = "/sioconfig"
     weak var cytubeRoom:CytubeRoom?
-    var handlers:NSMutableArray = NSMutableArray()
+    var handlers = [EventHandler]()
     var connected = false
     
     init(server:String, room:String, cytubeRoom:CytubeRoom) {
@@ -190,7 +190,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     // Adds handlers to the socket
     func on(name:String, callback:((data:AnyObject?) -> Void)?) {
         var handler = EventHandler(event: name, callback: callback)
-        self.handlers.addObject(handler)
+        self.handlers.append(handler)
     }
     
     func close() {
@@ -202,7 +202,8 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     // Starts the connection to the server
     func open() {
         if (self.socketIOURL == nil) {
-            self.cytubeRoom?.handleImminentDelete()
+            CytubeUtils.displayGenericAlertWithNoButtons("Error", message: "Tried to open socket before socket.io URL was found." +
+                "Or there is an error getting the URL.", view: nil, completion: nil)
             return
         } else if (self.connecting || self.connected) {
             return
