@@ -20,24 +20,20 @@ private struct socketFrame {
         var array = "["
         array += "\"" + name + "\""
         if (args? != nil) {
-            array += ","
-            var jsonSendError:NSError?
-            var jsonSend = NSJSONSerialization.dataWithJSONObject(args, options: NSJSONWritingOptions(0), error: &jsonSendError)
-            var jsonString = NSString(data: jsonSend!, encoding: NSUTF8StringEncoding)
-            return array + jsonString! + "]"
+            if (args is NSDictionary) {
+                array += ","
+                var jsonSendError:NSError?
+                var jsonSend = NSJSONSerialization.dataWithJSONObject(args, options: NSJSONWritingOptions(0), error: &jsonSendError)
+                var jsonString = NSString(data: jsonSend!, encoding: NSUTF8StringEncoding)
+                return array + jsonString! + "]"
+            } else {
+                array += "\"" + name + "\""
+                array += ",\"\(args!)\""
+                return array + "]"
+            }
         } else {
             return array + "]"
         }
-    }
-    
-    func createFramewithSingleArg() -> String? {
-        var array = "["
-        array += "\"" + name + "\""
-        if (args? != nil) {
-            array += ",\"\(args!)\""
-            return array + "]"
-        }
-        return nil
     }
 }
 
@@ -207,8 +203,8 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     func open() {
         if (self.socketIOURL == nil) {
             self.cytubeRoom?.handleImminentDelete()
-        }
-        if (self.connecting || self.connected) {
+            return
+        } else if (self.connecting || self.connected) {
             return
         }
         self.connecting = true
@@ -220,18 +216,14 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     }
     
     // Sends a frame
-    func send(name:String, args:AnyObject?, singleArg:Bool) {
+    func send(name:String, args:AnyObject?) {
         if (!self.connected) {
             return
         }
         
         var str:String!
         var frame:socketFrame = socketFrame(name: name, args: args)
-        if (singleArg) {
-            str = "42\(frame.createFramewithSingleArg()!)"
-        } else {
-            str = "42\(frame.createFrameForSending())"
-        }
+        str = "42\(frame.createFrameForSending())"
         
         println("SENDING: " + str)
         socketio?.send(str)

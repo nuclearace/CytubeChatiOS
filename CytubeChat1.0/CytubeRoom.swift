@@ -49,8 +49,8 @@ class CytubeRoom: NSObject {
         self.socket?.on("connect") {[weak self] (data:AnyObject?) in
             NSLog("Connected to Cytube Room \(self?.roomName)")
             self?.connected = true
-            self?.socket?.send("initChannelCallbacks", args: nil, singleArg: false)
-            self?.socket?.send("joinChannel", args: ["name": self!.roomName], singleArg: false)
+            self?.socket?.send("initChannelCallbacks", args: nil)
+            self?.socket?.send("joinChannel", args: ["name": self!.roomName])
             self?.messageBuffer.removeAllObjects()
             self?.sendLogin()
         }
@@ -176,7 +176,7 @@ class CytubeRoom: NSObject {
     
     func handleRoomPassword() {
         if (self.roomPassword != nil && !self.sentRoomPassword) {
-            self.socket?.send("channelPassword", args: self.roomPassword, singleArg: true)
+            self.socket?.send("channelPassword", args: self.roomPassword)
             self.sentRoomPassword = true
         } else {
             NSNotificationCenter.defaultCenter().postNotificationName("passwordFail", object: self)
@@ -237,7 +237,7 @@ class CytubeRoom: NSObject {
         let msgData = [
             "msg": msg!
         ]
-        self.socket?.send("chatMsg", args: msgData, singleArg: false)
+        self.socket?.send("chatMsg", args: msgData)
     }
     
     func sendLogin() {
@@ -246,7 +246,7 @@ class CytubeRoom: NSObject {
                 "name": self.username,
                 "pw": self.password
             ]
-            self.socket?.send("login", args: loginData, singleArg: false)
+            self.socket?.send("login", args: loginData)
         }
     }
     

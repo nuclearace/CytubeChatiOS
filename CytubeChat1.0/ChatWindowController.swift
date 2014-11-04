@@ -87,8 +87,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         var info = not.userInfo!
         var keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
         
-        //self.keyboardOffset = self.inputBottomLayoutGuide.constant
-        UIView.animateWithDuration(0.3, animations: {() -> Void in
+        UIView.animateWithDuration(0.3, animations: {[unowned self] () -> Void in
             self.inputBottomLayoutGuide.constant = self.keyboardOffset
         })
     }
@@ -166,6 +165,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         
         let tempChat = self.room?.messageBuffer.copy() as [String]
         self.room?.messageBuffer.removeAllObjects()
+        self.messageView.reloadData()
         
         for msg in tempChat {
             self.room?.addMessageToChat(msg)
