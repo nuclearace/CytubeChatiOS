@@ -60,16 +60,16 @@ class EventHandler: NSObject {
 }
 
 class CytubeSocket: NSObject, SRWebSocketDelegate {
+    weak var cytubeRoom:CytubeRoom?
+    let session:NSURLSession?
+    let room:String!
+    let server:String!
+    let sioconfigURL = "/sioconfig"
     var socketio:SRWebSocket?
     var connecting = false
     var pingTimer:NSTimer!
     var isSSL = false
     var socketIOURL:String!
-    let session:NSURLSession?
-    let room:String!
-    let server:String!
-    let sioconfigURL = "/sioconfig"
-    weak var cytubeRoom:CytubeRoom?
     var handlers = [EventHandler]()
     var connected = false
     

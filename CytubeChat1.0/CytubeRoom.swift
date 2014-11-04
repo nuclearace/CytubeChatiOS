@@ -14,17 +14,17 @@ class CytubeRoom: NSObject {
     weak var userlistView:UserlistController?
     let server:String!
     let roomName:String!
-    var active:Bool = false
-    var closed:Bool = false
-    var connected:Bool = false
-    var loggedIn:Bool = false
-    var kicked:Bool = false
-    var messageBuffer:NSMutableArray = NSMutableArray()
-    var needDelete:Bool = false
+    var active = false
+    var closed = false
+    var connected = false
+    var loggedIn = false
+    var kicked = false
+    var messageBuffer = NSMutableArray()
+    var needDelete = false
     var password:String!
     var roomPassword:String!
-    var sentRoomPassword:Bool = false
-    var shouldReconnect:Bool = true
+    var sentRoomPassword = false
+    var shouldReconnect = true
     var socket:CytubeSocket?
     var userlist = [CytubeUser]()
     var username:String!
