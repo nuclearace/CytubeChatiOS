@@ -17,7 +17,7 @@ private struct socketFrame {
     }
     
     func createFrameForSending() -> String {
-        var array = "["
+        var array = "42["
         array += "\"" + name + "\""
         if (args? != nil) {
             if (args is NSDictionary) {
@@ -221,12 +221,11 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
             return
         }
         
-        var str:String!
-        var frame:socketFrame = socketFrame(name: name, args: args)
-        str = "42\(frame.createFrameForSending())"
+        let frame = socketFrame(name: name, args: args)
+        let str = frame.createFrameForSending()
         
         println("SENDING: " + str)
-        socketio?.send(str)
+        self.socketio?.send(str)
     }
     
     func sendPing() {

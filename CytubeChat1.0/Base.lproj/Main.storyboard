@@ -161,7 +161,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Message" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qwl-CL-nHq">
                                 <rect key="frame" x="6" y="513" width="589" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="send"/>
                                 <connections>
                                     <outlet property="delegate" destination="6DY-Gc-TG0" id="VKX-1i-3tI"/>
                                 </connections>
