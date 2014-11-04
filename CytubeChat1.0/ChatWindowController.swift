@@ -14,10 +14,10 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var chatInput:UITextField!
     @IBOutlet weak var loginButton:UIBarButtonItem!
     @IBOutlet weak var inputBottomLayoutGuide:NSLayoutConstraint!
+    weak var room:CytubeRoom!
+    let tapRec = UITapGestureRecognizer()
     var canScroll:Bool = true
     var userDidScrollUp = false
-    let tapRec = UITapGestureRecognizer()
-    weak var room:CytubeRoom?
     var loggedIn:Bool = false
     var keyboardOffset:CGFloat!
     
@@ -42,20 +42,18 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         self.roomTitle.setTitle(room?.roomName, forState: nil)
         self.tapRec.addTarget(self, action: "tappedMessages")
         self.messageView.addGestureRecognizer(tapRec)
-        self.messageView.estimatedRowHeight = 43.0
+        self.messageView.estimatedRowHeight = 50.0
         self.messageView.rowHeight = UITableViewAutomaticDimension
     }
     
     override func viewDidAppear(animated:Bool) {
         super.viewDidAppear(true)
-        if (self.room != nil) {
-            self.hackyScrollFix()
-        }
+        self.messageView.reloadData()
+        self.scrollChat()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     deinit {
@@ -129,23 +127,36 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    func addMessageAtIndex(index:Int) {
+        let path = NSIndexPath(forRow: index, inSection: 0)
+        self.messageView.beginUpdates()
+        self.messageView.insertRowsAtIndexPaths([path], withRowAnimation: UITableViewRowAnimation.None)
+        self.messageView.endUpdates()
+    }
+    
+    func removeMessageAtIndex(index:Int) {
+        let path = NSIndexPath(forRow: index, inSection: 0)
+        self.messageView.beginUpdates()
+        self.messageView.deleteRowsAtIndexPaths([path], withRowAnimation: UITableViewRowAnimation.None)
+        self.messageView.endUpdates()
+    }
+    
     func scrollChat() {
         let scrollViewHeight = self.messageView.frame.size.height
         let scrollContentSizeHeight = self.messageView.contentSize.height
         let scrollOffset = self.messageView.contentOffset.y
         let scrolledToBottom = (scrollOffset + scrollViewHeight) == scrollContentSizeHeight
         
-        self.messageView.reloadData()
         if (!self.canScroll || self.room?.messageBuffer.count == 0) {
             return
         }
-        if (self.userDidScrollUp && !scrolledToBottom) {
-            self.userDidScrollUp = false
-            self.hackyScrollFix()
-            return
-        }
+        //        if (self.userDidScrollUp && !scrolledToBottom) {
+        //            self.userDidScrollUp = false
+        //            self.hackyScrollFix()
+        //            return
+        //        }
         self.userDidScrollUp = false
-        let indexPath:NSIndexPath = NSIndexPath(forRow: self.messageView.numberOfRowsInSection(0) - 1, inSection: 0)
+        let indexPath:NSIndexPath = NSIndexPath(forRow: self.room.messageBuffer.count - 1, inSection: 0)
         let delay = 0.1 * Double(NSEC_PER_SEC)
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
         
@@ -157,20 +168,20 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     // This fixes iOS 8's bug in auto cell height that caused scrolling to the bottom to overscroll
-    func hackyScrollFix() {
-        println("Performing hacky fix")
-        if (self.room?.messageBuffer.count == 0) {
-            return
-        }
-        
-        let tempChat = self.room?.messageBuffer.copy() as [String]
-        self.room?.messageBuffer.removeAllObjects()
-        self.messageView.reloadData()
-        
-        for msg in tempChat {
-            self.room?.addMessageToChat(msg)
-        }
-    }
+    //    func hackyScrollFix() {
+    //        println("Performing hacky fix")
+    //        if (self.room?.messageBuffer.count == 0) {
+    //            return
+    //        }
+    //
+    //        let tempChat = self.room?.messageBuffer.copy() as [String]
+    //        self.room?.messageBuffer.removeAllObjects()
+    //        self.messageView.reloadData()
+    //
+    //        for msg in tempChat {
+    //            self.room?.addMessageToChat(msg)
+    //        }
+    //    }
     
     func wasKicked(not:NSNotification) {
         let version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]

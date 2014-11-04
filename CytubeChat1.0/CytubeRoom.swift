@@ -204,8 +204,12 @@ class CytubeRoom: NSObject {
     func addMessageToChat(msg:String) {
         if (self.messageBuffer.count > 100) {
             self.messageBuffer.removeObjectAtIndex(0)
+           // self.chatWindow?.removeMessageAtIndex(0)
+          //  self.chatWindow?.scrollChat()
         }
         self.messageBuffer.addObject(msg)
+        // self.chatWindow?.addMessageAtIndex(self.messageBuffer.count - 1)
+        self.chatWindow?.messageView.reloadData()
         self.chatWindow?.scrollChat()
     }
     
