@@ -12,6 +12,8 @@ class CytubeRoom: NSObject {
     weak var chatWindow:ChatWindowController?
     weak var roomsController:RoomsController?
     weak var userlistView:UserlistController?
+    let server:String!
+    let roomName:String!
     var active:Bool = false
     var closed:Bool = false
     var connected:Bool = false
@@ -20,10 +22,8 @@ class CytubeRoom: NSObject {
     var messageBuffer:NSMutableArray = NSMutableArray()
     var needDelete:Bool = false
     var password:String!
-    let roomName:String!
     var roomPassword:String!
     var sentRoomPassword:Bool = false
-    let server:String!
     var shouldReconnect:Bool = true
     var socket:CytubeSocket?
     var userlist = [CytubeUser]()
