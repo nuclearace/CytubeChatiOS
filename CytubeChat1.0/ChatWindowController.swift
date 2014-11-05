@@ -17,7 +17,6 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     weak var room:CytubeRoom!
     let tapRec = UITapGestureRecognizer()
     var canScroll:Bool = true
-    var userDidScrollUp = false
     var loggedIn:Bool = false
     var keyboardOffset:CGFloat!
     
@@ -42,13 +41,10 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         self.roomTitle.setTitle(room?.roomName, forState: nil)
         self.tapRec.addTarget(self, action: "tappedMessages")
         self.messageView.addGestureRecognizer(tapRec)
-        self.messageView.estimatedRowHeight = 50.0
-        self.messageView.rowHeight = UITableViewAutomaticDimension
     }
     
     override func viewDidAppear(animated:Bool) {
         super.viewDidAppear(true)
-        self.messageView.reloadData()
         self.scrollChat()
     }
     
@@ -66,7 +62,6 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         self.canScroll = true
-        self.userDidScrollUp = true
     }
     
     func keyboardWillShow(not:NSNotification) {
@@ -99,14 +94,37 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath:NSIndexPath) -> CGFloat {
+        return self.heightForRowAtIndexPath(indexPath)
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = messageView.dequeueReusableCellWithIdentifier("chatWindowCell") as UITableViewCell
+        var cell:UITableViewCell = messageView.dequeueReusableCellWithIdentifier("chatWindowCell") as UITableViewCell
         let font = UIFont(name: "Helvetica Neue", size: 12)
-        
         (cell.contentView.subviews[0] as UITextView).font = font
         (cell.contentView.subviews[0] as UITextView).text = nil
         (cell.contentView.subviews[0] as UITextView).text = room?.messageBuffer.objectAtIndex(indexPath.row) as NSString
+        
+        cell.contentView.layoutSubviews()
+        
         return cell
+    }
+    
+    func heightForRowAtIndexPath(indexPath:NSIndexPath) -> CGFloat {
+        var sizingView = UITextView()
+        let font = UIFont(name: "Helvetica Neue", size: 12)
+        sizingView.font = font
+        sizingView.text = room?.messageBuffer.objectAtIndex(indexPath.row) as NSString
+        
+        
+        let width = self.messageView.frame.size.width
+        let size = sizingView.sizeThatFits(CGSizeMake(width, 120.0))
+
+        return size.height + 3 // Need some padding
+    }
+    
+    @IBAction func dragDidStart() {
+        
     }
     
     // Hide keyboard if we touch anywhere
@@ -127,61 +145,20 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func addMessageAtIndex(index:Int) {
-        let path = NSIndexPath(forRow: index, inSection: 0)
-        self.messageView.beginUpdates()
-        self.messageView.insertRowsAtIndexPaths([path], withRowAnimation: UITableViewRowAnimation.None)
-        self.messageView.endUpdates()
-    }
-    
-    func removeMessageAtIndex(index:Int) {
-        let path = NSIndexPath(forRow: index, inSection: 0)
-        self.messageView.beginUpdates()
-        self.messageView.deleteRowsAtIndexPaths([path], withRowAnimation: UITableViewRowAnimation.None)
-        self.messageView.endUpdates()
-    }
-    
     func scrollChat() {
-        let scrollViewHeight = self.messageView.frame.size.height
-        let scrollContentSizeHeight = self.messageView.contentSize.height
-        let scrollOffset = self.messageView.contentOffset.y
-        let scrolledToBottom = (scrollOffset + scrollViewHeight) == scrollContentSizeHeight
-        
         if (!self.canScroll || self.room?.messageBuffer.count == 0) {
             return
         }
-        //        if (self.userDidScrollUp && !scrolledToBottom) {
-        //            self.userDidScrollUp = false
-        //            self.hackyScrollFix()
-        //            return
-        //        }
-        self.userDidScrollUp = false
-        let indexPath:NSIndexPath = NSIndexPath(forRow: self.room.messageBuffer.count - 1, inSection: 0)
+        
         let delay = 0.1 * Double(NSEC_PER_SEC)
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
         
         dispatch_after(time, dispatch_get_main_queue(), {[weak self]() in
             if (self != nil) {
-                self?.messageView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+                self?.messageView.scrollToRowAtIndexPath(NSIndexPath(forRow: self!.room.messageBuffer.count - 1, inSection: 0), atScrollPosition: UITableViewScrollPosition.None, animated: true)
             }
         })
     }
-    
-    // This fixes iOS 8's bug in auto cell height that caused scrolling to the bottom to overscroll
-    //    func hackyScrollFix() {
-    //        println("Performing hacky fix")
-    //        if (self.room?.messageBuffer.count == 0) {
-    //            return
-    //        }
-    //
-    //        let tempChat = self.room?.messageBuffer.copy() as [String]
-    //        self.room?.messageBuffer.removeAllObjects()
-    //        self.messageView.reloadData()
-    //
-    //        for msg in tempChat {
-    //            self.room?.addMessageToChat(msg)
-    //        }
-    //    }
     
     func wasKicked(not:NSNotification) {
         let version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]

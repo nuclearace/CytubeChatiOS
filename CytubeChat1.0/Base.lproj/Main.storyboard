@@ -136,8 +136,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Di6-FF-Cmj" id="qBj-td-0VY">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" scrollEnabled="NO" editable="NO" text="Sample Text" translatesAutoresizingMaskIntoConstraints="NO" id="w3D-VH-qE5">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ry-hw-N7j">
+                                                    <rect key="frame" x="0.0" y="1" width="600" height="42"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -145,10 +145,10 @@
                                                 </textView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="w3D-VH-qE5" secondAttribute="trailing" constant="-8" id="9KI-yd-RBt"/>
-                                                <constraint firstItem="w3D-VH-qE5" firstAttribute="top" secondItem="qBj-td-0VY" secondAttribute="topMargin" constant="-8" id="G6n-Sa-uSK"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="w3D-VH-qE5" secondAttribute="bottom" constant="-8" id="HuM-99-cRJ"/>
-                                                <constraint firstItem="w3D-VH-qE5" firstAttribute="leading" secondItem="qBj-td-0VY" secondAttribute="leadingMargin" constant="-8" id="hOe-mA-fcj"/>
+                                                <constraint firstItem="1ry-hw-N7j" firstAttribute="leading" secondItem="qBj-td-0VY" secondAttribute="leadingMargin" constant="-8" id="0or-eG-CtA"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="1ry-hw-N7j" secondAttribute="bottom" constant="-8" id="41y-aC-Lxq"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="1ry-hw-N7j" secondAttribute="trailing" constant="-8" id="9Q1-8v-NoV"/>
+                                                <constraint firstItem="1ry-hw-N7j" firstAttribute="top" secondItem="qBj-td-0VY" secondAttribute="topMargin" constant="-7" id="rJg-jI-ByQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -192,7 +192,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x7z-Xr-YKg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1340" y="0.0"/>
+            <point key="canvasLocation" x="1340" y="-6"/>
         </scene>
         <!--Userlist Controller-->
         <scene sceneID="heR-bh-F0K">
