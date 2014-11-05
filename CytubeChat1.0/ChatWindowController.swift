@@ -123,10 +123,6 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         return size.height + 3 // Need some padding
     }
     
-    @IBAction func dragDidStart() {
-        
-    }
-    
     // Hide keyboard if we touch anywhere
     func tappedMessages() {
         self.view.endEditing(true)
