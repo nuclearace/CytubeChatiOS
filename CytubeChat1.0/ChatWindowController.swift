@@ -116,7 +116,6 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         sizingView.font = font
         sizingView.text = room?.messageBuffer.objectAtIndex(indexPath.row) as NSString
         
-        
         let width = self.messageView.frame.size.width
         let size = sizingView.sizeThatFits(CGSizeMake(width, 120.0))
 
