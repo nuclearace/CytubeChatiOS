@@ -1,5 +1,5 @@
 //
-//  ThirdViewController.swift
+//  ChatWindowController.swift
 //  CytubeChat
 //
 //  Created by Erik Little on 10/13/14.
@@ -73,7 +73,10 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         UIView.animateWithDuration(0.3, animations: {() -> Void in
             self.inputBottomLayoutGuide.constant = keyboardFrame.size.height + 10
         })
-        self.scrollChat()
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(0.01))
+        dispatch_after(time, dispatch_get_main_queue()) {() in
+            self.scrollChat()
+        }
     }
     
     func keyboardWillHide(not:NSNotification) {
@@ -103,7 +106,8 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         let font = UIFont(name: "Helvetica Neue", size: 12)
         (cell.contentView.subviews[0] as UITextView).font = font
         (cell.contentView.subviews[0] as UITextView).text = nil
-        (cell.contentView.subviews[0] as UITextView).attributedText = room?.messageBuffer.objectAtIndex(indexPath.row) as NSMutableAttributedString
+        (cell.contentView.subviews[0] as UITextView).attributedText =
+            self.room?.messageBuffer.objectAtIndex(indexPath.row) as NSMutableAttributedString
         
         return cell
     }
@@ -112,7 +116,8 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         var sizingView = UITextView()
         let font = UIFont(name: "Helvetica Neue", size: 12)
         sizingView.font = font
-        sizingView.attributedText = room?.messageBuffer.objectAtIndex(indexPath.row) as NSMutableAttributedString
+        sizingView.attributedText = room?.messageBuffer.objectAtIndex(indexPath.row)
+            as NSMutableAttributedString
         
         let width = self.messageView.frame.size.width
         let size = sizingView.sizeThatFits(CGSizeMake(width, 120.0))
@@ -135,6 +140,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     
     @IBAction func backBtnClicked(btn:UIBarButtonItem) {
         self.room?.setChatWindow(nil)
+        self.resignFirstResponder()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

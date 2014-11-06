@@ -189,7 +189,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     // Adds handlers to the socket
     func on(name:String, callback:((data:AnyObject?) -> Void)?) {
-        var handler = EventHandler(event: name, callback: callback)
+        let handler = EventHandler(event: name, callback: callback)
         self.handlers.append(handler)
     }
     
