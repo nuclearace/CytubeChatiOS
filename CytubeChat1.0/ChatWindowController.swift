@@ -103,9 +103,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         let font = UIFont(name: "Helvetica Neue", size: 12)
         (cell.contentView.subviews[0] as UITextView).font = font
         (cell.contentView.subviews[0] as UITextView).text = nil
-        (cell.contentView.subviews[0] as UITextView).text = room?.messageBuffer.objectAtIndex(indexPath.row) as NSString
-        
-        cell.contentView.layoutSubviews()
+        (cell.contentView.subviews[0] as UITextView).attributedText = room?.messageBuffer.objectAtIndex(indexPath.row) as NSMutableAttributedString
         
         return cell
     }
@@ -114,11 +112,11 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         var sizingView = UITextView()
         let font = UIFont(name: "Helvetica Neue", size: 12)
         sizingView.font = font
-        sizingView.text = room?.messageBuffer.objectAtIndex(indexPath.row) as NSString
+        sizingView.attributedText = room?.messageBuffer.objectAtIndex(indexPath.row) as NSMutableAttributedString
         
         let width = self.messageView.frame.size.width
         let size = sizingView.sizeThatFits(CGSizeMake(width, 120.0))
-
+        
         return size.height + 3 // Need some padding
     }
     
@@ -145,14 +143,8 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
             return
         }
         
-        let delay = 0.1 * Double(NSEC_PER_SEC)
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-        
-        dispatch_after(time, dispatch_get_main_queue(), {[weak self]() in
-            if (self != nil) {
-                self?.messageView.scrollToRowAtIndexPath(NSIndexPath(forRow: self!.room.messageBuffer.count - 1, inSection: 0), atScrollPosition: UITableViewScrollPosition.None, animated: true)
-            }
-        })
+        self.messageView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.room.messageBuffer.count - 1, inSection: 0),
+            atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
     }
     
     func wasKicked(not:NSNotification) {

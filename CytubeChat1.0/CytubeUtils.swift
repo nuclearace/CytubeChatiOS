@@ -60,4 +60,20 @@ class CytubeUtils {
         }
         return false
     }
+    
+    class func formatMessage(msgObj:NSDictionary) -> NSAttributedString {
+        let time = msgObj["time"] as NSString
+        let username = msgObj["username"] as NSString
+        let msg = msgObj["msg"] as NSString
+        let message = NSString(format: "%@ %@: %@", time, username, msg)
+        let timeFont = UIFont(name: "Helvetica Neue", size: 10)
+        let timeRange = message.rangeOfString(time)
+        let usernameFont = UIFont.boldSystemFontOfSize(12)
+        let usernameRange = message.rangeOfString(username + ":")
+        
+        var returnMessage = NSMutableAttributedString(string: message)
+        returnMessage.addAttribute(kCTFontAttributeName, value: timeFont!, range: timeRange)
+        returnMessage.addAttribute(kCTFontAttributeName, value: usernameFont, range: usernameRange)
+        return returnMessage
+    }
 }

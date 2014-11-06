@@ -154,13 +154,13 @@ class CytubeRoom: NSObject {
         var date:NSDate = NSDate(timeIntervalSince1970: time)
         dateFormatter.dateFormat = "HH:mm:ss z"
         
-        var filterMsg = CytubeUtils.filterChatMsg(msg)
+        let msgObj = [
+            "time": "[" + dateFormatter.stringFromDate(date) + "]",
+            "username": username,
+            "msg": CytubeUtils.filterChatMsg(msg)
+        ]
         
-        msg =  "[" + dateFormatter.stringFromDate(date) + "] "
-        msg += username + ": "
-        msg += filterMsg
-        
-        self.addMessageToChat(msg)
+        self.addMessageToChat(CytubeUtils.formatMessage(msgObj))
     }
     
     func handleImminentDelete() {
@@ -201,7 +201,7 @@ class CytubeRoom: NSObject {
         }
     }
     
-    func addMessageToChat(msg:String) {
+    func addMessageToChat(msg:NSAttributedString) {
         if (self.messageBuffer.count > 100) {
             self.messageBuffer.removeObjectAtIndex(0)
         }
