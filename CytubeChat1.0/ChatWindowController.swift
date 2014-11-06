@@ -65,9 +65,10 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func keyboardWillShow(not:NSNotification) {
-        var scrollNum = room?.messageBuffer.count
-        var info = not.userInfo!
-        var keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
+        self.canScroll = true
+        let scrollNum = room?.messageBuffer.count
+        let info = not.userInfo!
+        let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
         
         self.keyboardOffset = self.inputBottomLayoutGuide.constant
         UIView.animateWithDuration(0.3, animations: {() -> Void in
@@ -80,8 +81,9 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func keyboardWillHide(not:NSNotification) {
-        var info = not.userInfo!
-        var keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
+        self.canScroll = true
+        let info = not.userInfo!
+        let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
         
         UIView.animateWithDuration(0.3, animations: {[unowned self] () -> Void in
             self.inputBottomLayoutGuide.constant = self.keyboardOffset

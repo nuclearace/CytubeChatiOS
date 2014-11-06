@@ -70,8 +70,8 @@ class CytubeUtils {
         let timeRange = message.rangeOfString(time)
         let usernameFont = UIFont.boldSystemFontOfSize(12)
         let usernameRange = message.rangeOfString(username + ":")
+        let returnMessage = NSMutableAttributedString(string: message)
         
-        var returnMessage = NSMutableAttributedString(string: message)
         returnMessage.addAttribute(kCTFontAttributeName, value: timeFont!, range: timeRange)
         returnMessage.addAttribute(kCTFontAttributeName, value: usernameFont, range: usernameRange)
         return returnMessage
