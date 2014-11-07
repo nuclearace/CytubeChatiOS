@@ -37,7 +37,7 @@ private struct socketFrame {
     }
 }
 
-class EventHandler: NSObject {
+private class EventHandler: NSObject {
     let event:String!
     let callback:((data:AnyObject?) -> Void)!
     
@@ -70,7 +70,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     var pingTimer:NSTimer!
     var isSSL = false
     var socketIOURL:String!
-    var handlers = [EventHandler]()
+    private var handlers = [EventHandler]()
     var connected = false
     
     init(server:String, room:String, cytubeRoom:CytubeRoom) {

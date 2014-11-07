@@ -14,6 +14,7 @@ func ==(lhs:CytubeUser, rhs:CytubeUser) -> Bool {
     }
     return false
 }
+
 func <(lhs:CytubeUser, rhs:CytubeUser) -> Bool {
     if (lhs.rank < rhs.rank) {
         return true

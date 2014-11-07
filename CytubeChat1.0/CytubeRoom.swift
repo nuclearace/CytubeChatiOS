@@ -219,7 +219,7 @@ class CytubeRoom: NSObject {
     }
     
     func addMessageToChat(msg:NSAttributedString) {
-        if (self.messageBuffer.count > 100) {
+        if (self.messageBuffer.count > 75) {
             self.messageBuffer.removeObjectAtIndex(0)
         }
         self.messageBuffer.addObject(msg)
