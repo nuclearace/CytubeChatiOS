@@ -33,7 +33,7 @@ class AddRoomsController: UIViewController, UITextFieldDelegate {
     func handleAddRoom() {
         let room = roomText.text
         let server = serverText.text
-        var password = passwordText.text
+        let password = passwordText.text
         
         if (server == "" || room == "") {
             CytubeUtils.displayGenericAlertWithNoButtons("Error", message:

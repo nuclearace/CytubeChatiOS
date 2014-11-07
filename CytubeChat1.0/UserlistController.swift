@@ -36,13 +36,10 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath:
         NSIndexPath) -> UITableViewCell {
-            let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "userlistCell")
+            let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "userlistCell")
+            let user = room!.userlist[indexPath.row]
             
-            var user:CytubeUser = room!.userlist[indexPath.row]
-            if let color = user.getColorValue() {
-                cell.textLabel.textColor = color
-            }
-            cell.textLabel.text = user.getUsername() as NSString
+            cell.textLabel.attributedText = user.createAttributedStringForUser()
             return cell
             
     }

@@ -11,10 +11,12 @@ import UIkit
 class CytubeUser: NSObject, Comparable {
     let username:String!
     var rank:Int!
+    var afk = false
     
     init(user:NSDictionary) {
         self.username = user["name"] as NSString
         self.rank = user["rank"] as Int
+        self.afk = (user["meta"] as NSDictionary)["afk"] as Bool
     }
     
     deinit {
@@ -48,12 +50,35 @@ class CytubeUser: NSObject, Comparable {
         return nil
     }
     
+    func createAttributedStringForUser() -> NSAttributedString {
+        let range = NSMakeRange(0, countElements(self.username))
+        let attString = NSMutableAttributedString(string: self.username, attributes: nil)
+        if let color = self.getColorValue() {
+            attString.addAttribute(NSForegroundColorAttributeName, value: color, range: range)
+        }
+        
+        if (self.afk) {
+            let font = UIFont.italicSystemFontOfSize(16)
+            attString.addAttribute(kCTFontAttributeName, value: font, range: range)
+        }
+        
+        return attString
+    }
+    
     func getUsername() -> String {
         return self.username
     }
     
     func getRank() -> Int {
         return self.rank
+    }
+    
+    func getAFK() -> Bool {
+        return self.afk
+    }
+    
+    func setAFK(afk:Bool) {
+        self.afk = afk
     }
     
     override func isEqual(object:AnyObject?) -> Bool {

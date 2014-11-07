@@ -107,6 +107,14 @@ class CytubeRoom: NSObject {
             self?.handleUserLeave(data)
         }
         
+        self.socket?.on("setAFK") {[weak self] (data:AnyObject?) in
+            if (self != nil) {
+                let username = (data as NSDictionary)["name"] as NSString
+                let afk = (data as NSDictionary)["afk"] as Bool
+                self?.handleSetAFK(username, afk: afk)
+            }
+        }
+        
         self.socket?.on("kick") {[weak self] (data:AnyObject?) in
             var reason = (data as NSDictionary)["reason"] as NSString
             self?.kicked = true
@@ -181,6 +189,15 @@ class CytubeRoom: NSObject {
         } else {
             NSNotificationCenter.defaultCenter().postNotificationName("passwordFail", object: self)
             self.handleImminentDelete()
+        }
+    }
+    
+    func handleSetAFK(username:String, afk:Bool) {
+        for user in self.userlist {
+            if (user.getUsername() == username) {
+                user.setAFK(afk)
+                self.userlistView?.tblUserlist.reloadData()
+            }
         }
     }
     
