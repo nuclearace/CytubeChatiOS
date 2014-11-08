@@ -86,8 +86,10 @@ class RoomManager: NSObject {
         var handler = NSFileManager()
         var path:String?
         var pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        path = pathsArray[0] as NSString + "/rooms"
-        var roomsForSave:NSMutableArray = NSMutableArray()
+        path = pathsArray[0] as NSString + "/rooms.json"
+        var roomsForSave = [
+            "rooms": [NSDictionary]()
+        ]
         var sroom:NSDictionary!
         
         for room in rooms {
@@ -105,30 +107,36 @@ class RoomManager: NSObject {
                     "roomPassword": ""
                 ]
             }
-            roomsForSave.addObject(sroom)
+            roomsForSave["rooms"]?.append(sroom)
         }
         
-        var roomData = NSKeyedArchiver.archivedDataWithRootObject(roomsForSave)
-        handler.createFileAtPath(path!, contents: roomData, attributes: nil)
+        var pointerErr:NSError?
+        let jsonForWriting = NSJSONSerialization.dataWithJSONObject(roomsForSave, options: NSJSONWritingOptions.PrettyPrinted, error: &pointerErr)
+        
+        handler.createFileAtPath(path!, contents: jsonForWriting, attributes: nil)
         NSLog("Rooms saved")
     }
     
     func loadRooms() -> Bool {
         NSLog("Loading rooms")
         var handler = NSFileManager()
-        var path:String?
-        var pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        path = pathsArray[0] as NSString + "/rooms"
+        var pointerErr:NSError?
+        let pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let path = pathsArray[0] as NSString + "/rooms.json"
         
-        if (!handler.fileExistsAtPath(path!)) {
+        if (!handler.fileExistsAtPath(path)) {
             return false
         }
-        if let roomsFromData:NSMutableArray? = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as? NSMutableArray {
-            for var i = 0; i < roomsFromData?.count; ++i {
-                var con = roomsFromData?.objectAtIndex(i) as NSDictionary
-                var recreatedRoom = CytubeRoom(roomName: con["room"] as NSString, server: con["server"] as NSString, password: con["roomPassword"] as NSString)
-                self.addRoom(con["server"] as NSString, room: con["room"] as NSString, cytubeRoom: recreatedRoom)
-            }
+
+        let data = NSData(contentsOfFile: path)
+        if let roomsFromData:NSDictionary = NSJSONSerialization.JSONObjectWithData(data!,
+            options: NSJSONReadingOptions.AllowFragments, error: &pointerErr) as? NSDictionary  {
+                for var i = 0; i < (roomsFromData["rooms"] as NSArray).count; ++i {
+                    let con = (roomsFromData["rooms"] as NSArray)[i] as NSDictionary
+                    let recreatedRoom = CytubeRoom(roomName: con["room"] as NSString, server: con["server"]
+                        as NSString, password: con["roomPassword"] as NSString)
+                    self.addRoom(con["server"] as NSString, room: con["room"] as NSString, cytubeRoom: recreatedRoom)
+                }
         }
         NSLog("Loaded Rooms")
         return true
