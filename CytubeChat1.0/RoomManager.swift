@@ -17,7 +17,7 @@ struct RoomContainer {
 
 class RoomManager: NSObject {
     var rooms = [RoomContainer]()
-    var roomsDidClose:Bool = false
+    var roomsDidClose = false
     
     func addRoom(server:String, room:String, cytubeRoom:CytubeRoom) {
         rooms.append(RoomContainer(server: server, room: room, cytubeRoom: cytubeRoom))
@@ -55,7 +55,7 @@ class RoomManager: NSObject {
     }
     
     func removeRoom(roomAtIndex: Int) -> CytubeRoom {
-        var con = rooms.removeAtIndex(roomAtIndex)
+        let con = rooms.removeAtIndex(roomAtIndex)
         self.saveRooms()
         return con.cytubeRoom
     }
@@ -83,10 +83,10 @@ class RoomManager: NSObject {
     
     func saveRooms() {
         NSLog("Saving Rooms")
-        var handler = NSFileManager()
-        var path:String?
-        var pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        path = pathsArray[0] as NSString + "/rooms.json"
+        let handler = NSFileManager()
+        var pointerErr:NSError?
+        let pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let path = pathsArray[0] as NSString + "/rooms.json"
         var roomsForSave = [
             "rooms": [NSDictionary]()
         ]
@@ -110,10 +110,9 @@ class RoomManager: NSObject {
             roomsForSave["rooms"]?.append(sroom)
         }
         
-        var pointerErr:NSError?
         let jsonForWriting = NSJSONSerialization.dataWithJSONObject(roomsForSave, options: NSJSONWritingOptions.PrettyPrinted, error: &pointerErr)
         
-        handler.createFileAtPath(path!, contents: jsonForWriting, attributes: nil)
+        handler.createFileAtPath(path, contents: jsonForWriting, attributes: nil)
         NSLog("Rooms saved")
     }
     
@@ -127,14 +126,14 @@ class RoomManager: NSObject {
         if (!handler.fileExistsAtPath(path)) {
             return false
         }
-
+        
         let data = NSData(contentsOfFile: path)
         if let roomsFromData:NSDictionary = NSJSONSerialization.JSONObjectWithData(data!,
             options: NSJSONReadingOptions.AllowFragments, error: &pointerErr) as? NSDictionary  {
                 for var i = 0; i < (roomsFromData["rooms"] as NSArray).count; ++i {
                     let con = (roomsFromData["rooms"] as NSArray)[i] as NSDictionary
-                    let recreatedRoom = CytubeRoom(roomName: con["room"] as NSString, server: con["server"]
-                        as NSString, password: con["roomPassword"] as NSString)
+                    let recreatedRoom = CytubeRoom(roomName: con["room"] as NSString,
+                        server: con["server"] as NSString, password: con["roomPassword"] as NSString)
                     self.addRoom(con["server"] as NSString, room: con["room"] as NSString, cytubeRoom: recreatedRoom)
                 }
         }
