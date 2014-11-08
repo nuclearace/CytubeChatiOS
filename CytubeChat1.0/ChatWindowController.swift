@@ -7,6 +7,8 @@
 
 import UIKit
 
+private let sizingView = UITextView()
+
 class ChatWindowController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate {
     
     @IBOutlet weak var roomTitle:UIButton!
@@ -115,9 +117,6 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func heightForRowAtIndexPath(indexPath:NSIndexPath) -> CGFloat {
-        var sizingView = UITextView()
-        let font = UIFont(name: "Helvetica Neue", size: 12)
-        sizingView.font = font
         sizingView.attributedText = room?.messageBuffer.objectAtIndex(indexPath.row)
             as NSMutableAttributedString
         
