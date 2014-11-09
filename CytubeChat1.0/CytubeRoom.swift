@@ -160,15 +160,20 @@ class CytubeRoom: NSObject {
     
     func handleChatMsg(data:NSDictionary) {
         let username:String = data["username"] as NSString
-        if (CytubeUtils.userIsIgnored(self.ignoreList, user: username)) {
-            return
-        }
         var msg:String = data["msg"] as NSString
         let time:NSTimeInterval = data["time"] as NSTimeInterval / 1000
-        
         var dateFormatter:NSDateFormatter = NSDateFormatter()
         var date:NSDate = NSDate(timeIntervalSince1970: time)
         dateFormatter.dateFormat = "HH:mm:ss z"
+        
+        if (CytubeUtils.userIsIgnored(self.ignoreList, user: username)) {
+            let msgObj = [
+                "time": "[" + dateFormatter.stringFromDate(date) + "]",
+                "username": username,
+                "msg": "User Ignored"
+            ]
+            return self.addMessageToChat(CytubeUtils.createIgnoredUserMessage(msgObj))
+        }
         
         let msgObj = [
             "time": "[" + dateFormatter.stringFromDate(date) + "]",

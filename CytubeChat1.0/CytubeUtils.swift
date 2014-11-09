@@ -62,9 +62,13 @@ class CytubeUtils {
     }
     
     class func userIsIgnored(ignoreList:[CytubeUser], user:AnyObject) -> Bool {
+        if (ignoreList.count == 0) {
+            return false
+        }
+        
         for cuser in ignoreList {
             if let userAsCytubeUser = user as? CytubeUser {
-                if (cuser.getUsername() == user.getUsername()) {
+                if (cuser.getUsername() == userAsCytubeUser.getUsername()) {
                     return true
                 }
             } else if let userAsString = user as? NSString {
@@ -81,14 +85,34 @@ class CytubeUtils {
         let username = msgObj["username"] as NSString
         let msg = msgObj["msg"] as NSString
         let message = NSString(format: "%@ %@: %@", time, username, msg)
+        let returnMessage = NSMutableAttributedString(string: message)
         let timeFont = UIFont(name: "Helvetica Neue", size: 10)
         let timeRange = message.rangeOfString(time)
         let usernameFont = UIFont.boldSystemFontOfSize(12)
         let usernameRange = message.rangeOfString(username + ":")
-        let returnMessage = NSMutableAttributedString(string: message)
         
         returnMessage.addAttribute(kCTFontAttributeName, value: timeFont!, range: timeRange)
         returnMessage.addAttribute(kCTFontAttributeName, value: usernameFont, range: usernameRange)
         return returnMessage
+    }
+    
+    class func createIgnoredUserMessage(msgObj:NSDictionary) -> NSAttributedString {
+        let time = msgObj["time"] as NSString
+        let username = msgObj["username"] as NSString
+        let msg = msgObj["msg"] as NSString
+        let message = NSString(format: "%@ %@: %@", time, username, msg)
+        let returnMessage = NSMutableAttributedString(string: message)
+        let messageRange = message.rangeOfString(msg)
+        let messageFont = UIFont.boldSystemFontOfSize(12)
+        let timeFont = UIFont(name: "Helvetica Neue", size: 10)
+        let timeRange = message.rangeOfString(time)
+        let usernameFont = UIFont.boldSystemFontOfSize(12)
+        let usernameRange = message.rangeOfString(username + ":")
+        
+        returnMessage.addAttribute(kCTFontAttributeName, value: timeFont!, range: timeRange)
+        returnMessage.addAttribute(kCTFontAttributeName, value: usernameFont, range: usernameRange)
+        returnMessage.addAttribute(kCTFontAttributeName, value: messageFont, range: messageRange)
+        return returnMessage
+
     }
 }
