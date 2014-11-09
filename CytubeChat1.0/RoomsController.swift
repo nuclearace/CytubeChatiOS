@@ -41,10 +41,10 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             return
         }
         self.inAlert = true
-        var version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
-        var versionInt:Int? = version.toInt()
-        var point = sender.locationInView(tblRoom)
-        var indexPath = tblRoom.indexPathForRowAtPoint(point)
+        let version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
+        let versionInt:Int? = version.toInt()
+        let point = sender.locationInView(tblRoom)
+        let indexPath = tblRoom.indexPathForRowAtPoint(point)
         
         if (indexPath != nil && versionInt >= 8) {
             self.selectedRoom = roomMng.getRoomAtIndex(indexPath!.row)
@@ -95,7 +95,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             } else {
                 connectDisconnect = "Connect"
             }
-            var alert:UIAlertView = UIAlertView(title: "Options", message: "What do you want to do?",
+            var alert = UIAlertView(title: "Options", message: "What do you want to do?",
                 delegate: self, cancelButtonTitle: "Cancel")
             alert.addButtonWithTitle(connectDisconnect)
             alert.addButtonWithTitle("Remove")

@@ -17,8 +17,9 @@ class CytubeRoom: NSObject {
     var active = false
     var closed = false
     var connected = false
-    var loggedIn = false
+    var ignoreList = [CytubeUser]()
     var kicked = false
+    var loggedIn = false
     var messageBuffer = NSMutableArray()
     var needDelete = false
     var password:String!
@@ -159,6 +160,9 @@ class CytubeRoom: NSObject {
     
     func handleChatMsg(data:NSDictionary) {
         let username:String = data["username"] as NSString
+        if (CytubeUtils.userIsIgnored(self.ignoreList, user: username)) {
+            return
+        }
         var msg:String = data["msg"] as NSString
         let time:NSTimeInterval = data["time"] as NSTimeInterval / 1000
         

@@ -246,8 +246,9 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         if (message as NSString == "3") {
             println("GOT PONG")
             return
-        } else if (message as NSString == "40" || message as NSString == "41" || message!.characterAtIndex(0) == 48 || message == nil) {
-            return println("Got Trash")
+        } else if (message as NSString == "40" || message as NSString == "41"
+            || message!.characterAtIndex(0) == 48 || message == nil) {
+                return println("Got Trash")
         }
         
         // NSLog("MESSAGE: %@", message! as NSString)

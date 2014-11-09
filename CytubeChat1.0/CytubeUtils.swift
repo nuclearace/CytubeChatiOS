@@ -61,6 +61,21 @@ class CytubeUtils {
         return false
     }
     
+    class func userIsIgnored(ignoreList:[CytubeUser], user:AnyObject) -> Bool {
+        for cuser in ignoreList {
+            if let userAsCytubeUser = user as? CytubeUser {
+                if (cuser.getUsername() == user.getUsername()) {
+                    return true
+                }
+            } else if let userAsString = user as? NSString {
+                if (cuser.getUsername() == userAsString) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
     class func formatMessage(msgObj:NSDictionary) -> NSAttributedString {
         let time = msgObj["time"] as NSString
         let username = msgObj["username"] as NSString
