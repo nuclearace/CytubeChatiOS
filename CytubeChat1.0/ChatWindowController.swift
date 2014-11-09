@@ -62,9 +62,6 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         if let segueIdentifier = segue.identifier {
             if (segueIdentifier == "openChatLink") {
                 let cell = sender as ChatCell
-                let repObject = [
-                    "link": cell.link
-                ]
                 (segue.destinationViewController as ChatLinkController).link = cell.link
             }
         }
@@ -170,7 +167,11 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         let version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
         let versionInt:Int? = version.toInt()
         let roomName = self.room!.roomName
-        let reason = not.object as NSString
+        let kickObj = not.object as NSDictionary
+        if (kickObj["room"] as NSString != roomName) {
+            return
+        }
+        let reason = kickObj["reason"] as NSString
         
         if (versionInt < 8) {
             var alert:UIAlertView = UIAlertView(title: "Kicked", message:

@@ -243,6 +243,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="navBarTitle" destination="39A-Hm-ai3" id="JWR-3S-hAd"/>
                         <outlet property="webView" destination="XUR-1S-bcS" id="1HI-R9-22w"/>
                     </connections>
                 </viewController>

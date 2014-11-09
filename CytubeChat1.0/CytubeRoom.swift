@@ -116,9 +116,13 @@ class CytubeRoom: NSObject {
         }
         
         self.socket?.on("kick") {[weak self] (data:AnyObject?) in
-            var reason = (data as NSDictionary)["reason"] as NSString
+            let reason = (data as NSDictionary)["reason"] as NSString
+            let kickObj = [
+                "reason": reason,
+                "room": self!.roomName
+            ]
             self?.kicked = true
-            NSNotificationCenter.defaultCenter().postNotificationName("wasKicked", object: reason)
+            NSNotificationCenter.defaultCenter().postNotificationName("wasKicked", object: kickObj)
             self?.closeRoom()
         }
         
