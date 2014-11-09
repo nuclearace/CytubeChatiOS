@@ -130,7 +130,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="chatWindowCell" id="Di6-FF-Cmj">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="chatWindowCell" id="Di6-FF-Cmj" customClass="ChatCell" customModule="CytubeChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Di6-FF-Cmj" id="qBj-td-0VY">
@@ -142,6 +142,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="Di6-FF-Cmj" id="H2j-3A-3aS"/>
+                                                    </connections>
                                                 </textView>
                                             </subviews>
                                             <constraints>
@@ -188,11 +191,64 @@
                         <outlet property="loginButton" destination="42i-ya-wgV" id="Ccs-Sf-tzP"/>
                         <outlet property="messageView" destination="8lT-SA-T96" id="QtE-jt-vWd"/>
                         <outlet property="roomTitle" destination="V8V-xj-lIF" id="hIb-tz-21o"/>
+                        <segue destination="Vxd-Lm-k7Q" kind="show" identifier="openChatLink" id="xdW-2y-0o8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x7z-Xr-YKg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1340" y="-6"/>
+            <point key="canvasLocation" x="1348" y="0.0"/>
+        </scene>
+        <!--Chat Link Controller-->
+        <scene sceneID="gJX-Ya-2bC">
+            <objects>
+                <viewController id="Vxd-Lm-k7Q" customClass="ChatLinkController" customModule="CytubeChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qj9-oh-CXq"/>
+                        <viewControllerLayoutGuide type="bottom" id="cAN-T7-ecU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nZU-3J-mIb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMl-8c-70D">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="39A-Hm-ai3">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="WdE-WI-XLC">
+                                            <connections>
+                                                <action selector="backButtonClicked" destination="Vxd-Lm-k7Q" id="for-47-cDW"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <webView multipleTouchEnabled="YES" contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XUR-1S-bcS">
+                                <rect key="frame" x="-5" y="64" width="611" height="487"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Vxd-Lm-k7Q" id="BJf-ag-dZ2"/>
+                                </connections>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="XUR-1S-bcS" firstAttribute="leading" secondItem="nZU-3J-mIb" secondAttribute="leadingMargin" constant="-21" id="7MH-Hx-bkY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="XUR-1S-bcS" secondAttribute="trailing" constant="-22" id="UAO-eV-QzV"/>
+                            <constraint firstItem="ZMl-8c-70D" firstAttribute="top" secondItem="qj9-oh-CXq" secondAttribute="bottom" id="ZV3-79-jMe"/>
+                            <constraint firstItem="XUR-1S-bcS" firstAttribute="top" secondItem="ZMl-8c-70D" secondAttribute="bottom" id="gJ7-bL-uHy"/>
+                            <constraint firstAttribute="centerX" secondItem="ZMl-8c-70D" secondAttribute="centerX" id="jxa-w2-qej"/>
+                            <constraint firstItem="ZMl-8c-70D" firstAttribute="leading" secondItem="nZU-3J-mIb" secondAttribute="leadingMargin" constant="-16" id="k62-l6-wpB"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZMl-8c-70D" secondAttribute="trailing" constant="-16" id="kcl-Vl-UFZ"/>
+                            <constraint firstItem="cAN-T7-ecU" firstAttribute="top" secondItem="XUR-1S-bcS" secondAttribute="bottom" id="qWh-u1-WaV"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="XUR-1S-bcS" id="1HI-R9-22w"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pbh-u6-S69" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1988" y="0.0"/>
         </scene>
         <!--Userlist Controller-->
         <scene sceneID="heR-bh-F0K">

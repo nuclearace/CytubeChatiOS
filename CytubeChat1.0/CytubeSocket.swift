@@ -103,7 +103,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     private func findSocketURL() {
         var jsonError:NSError?
         var url =  "http://" + self.server + self.sioconfigURL
-        println("Finding socket URL: " + url)
+        // println("Finding socket URL: " + url)
         
         var request:NSURLRequest = NSURLRequest(URL: NSURL(string: url)!)
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) {[weak self]

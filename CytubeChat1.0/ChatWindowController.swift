@@ -58,6 +58,18 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    override func prepareForSegue(segue:UIStoryboardSegue, sender:AnyObject?) {
+        if let segueIdentifier = segue.identifier {
+            if (segueIdentifier == "openChatLink") {
+                let cell = sender as ChatCell
+                let repObject = [
+                    "link": cell.link
+                ]
+                (segue.destinationViewController as ChatLinkController).link = cell.link
+            }
+        }
+    }
+    
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         self.canScroll = false
     }

@@ -15,8 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        // Override point for customization after application launch.
         roomMng.loadRooms()
+        let cacheSizeMemory = 4*1024*1024 // 4MB
+        let cacheSizeDisk = 32*1024*1024; // 32MB
+        let sharedCache = NSURLCache(memoryCapacity: cacheSizeMemory,
+            diskCapacity: cacheSizeDisk, diskPath: nil)
+        NSURLCache.setSharedURLCache(sharedCache)
         return true
     }
     
@@ -59,6 +63,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         println("We're going down")
         roomMng.saveRooms()
+    }
+    
+    func applicationDidReceiveMemoryWarning(application: UIApplication) {
+        NSLog("Recieved memory warning, clearing url cache")
+        let sharedCache = NSURLCache.sharedURLCache()
+        sharedCache.removeAllCachedResponses()
     }
 }
 
