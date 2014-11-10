@@ -21,7 +21,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         NSNotificationCenter.defaultCenter().addObserverForName("socketURLFail", object: nil,
             queue: nil) {[unowned self] (not:NSNotification?) in
-                CytubeUtils.displayGenericAlertWithNoButtons("Socket Failure", message: "Failed to load socketURL. Check you entered" +
+                CytubeUtils.displayGenericAlertWithNoButtons(title: "Socket Failure", message: "Failed to load socketURL. Check you entered" +
                     " the server correctly", view: self)
         }
     }

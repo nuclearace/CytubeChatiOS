@@ -207,7 +207,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     // Starts the connection to the server
     func open() {
         if (self.socketIOURL == nil) {
-            CytubeUtils.displayGenericAlertWithNoButtons("Error", message: "Tried to open socket before socket.io URL was found." +
+            CytubeUtils.displayGenericAlertWithNoButtons(title: "Error", message: "Tried to open socket before socket.io URL was found." +
                 "Or there is an error getting the URL.", view: nil)
             return
         } else if (self.connecting || self.connected) {
