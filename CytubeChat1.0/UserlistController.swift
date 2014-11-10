@@ -57,7 +57,7 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
         let versionInt:Int? = version.toInt()
         var title:String!
         var message:String!
-        if (CytubeUtils.userIsIgnored(self.room.ignoreList, user: user)) {
+        if (CytubeUtils.userIsIgnored(ignoreList: self.room.ignoreList, user: user)) {
             title = "Unignore"
             message = "Unignore \(user.getUsername())?"
         } else {
@@ -71,12 +71,12 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
             var yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) {(alert:UIAlertAction!) in
                 if (title == "Unignore") {
                     for (var i = 0; i < self.room.ignoreList.count; ++i) {
-                        if (self.room.ignoreList[i].getUsername() == self.selectedUser.getUsername()) {
+                        if (self.room.ignoreList[i] == self.selectedUser.getUsername()) {
                             self.room.ignoreList.removeAtIndex(i)
                         }
                     }
                 } else {
-                    self.room.ignoreList.append(self.selectedUser.copy() as CytubeUser)
+                    self.room.ignoreList.append(self.selectedUser.getUsername())
                 }
             }
             var noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel) {(alert:UIAlertAction!) in
@@ -97,12 +97,12 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
         
         if (title == "Unignore" && buttonIndex == 1) {
             for (var i = 0; i < self.room.ignoreList.count; ++i) {
-                if (self.room.ignoreList[i].getUsername() == self.selectedUser.getUsername()) {
+                if (self.room.ignoreList[i] == self.selectedUser.getUsername()) {
                     self.room.ignoreList.removeAtIndex(i)
                 }
             }
         } else if (buttonIndex == 1) {
-            self.room.ignoreList.append(self.selectedUser.copy() as CytubeUser)
+            self.room.ignoreList.append(self.selectedUser.getUsername())
         }
     }
 }

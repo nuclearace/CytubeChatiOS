@@ -17,7 +17,7 @@ class CytubeRoom: NSObject {
     var active = false
     var closed = false
     var connected = false
-    var ignoreList = [CytubeUser]()
+    var ignoreList = [String]()
     var kicked = false
     var loggedIn = false
     var messageBuffer = NSMutableArray()
@@ -151,7 +151,7 @@ class CytubeRoom: NSObject {
     
     func handleAddUser(user:NSDictionary) {
         var tempUser = CytubeUser(user: user)
-        if (!CytubeUtils.userlistContainsUser(self.userlist, user: tempUser)) {
+        if (!CytubeUtils.userlistContainsUser(userlist: self.userlist, user: tempUser)) {
             self.userlist.append(tempUser)
             self.sortUserlist()
             self.userlistView?.tblUserlist.reloadData()
@@ -166,13 +166,14 @@ class CytubeRoom: NSObject {
         var date:NSDate = NSDate(timeIntervalSince1970: time)
         dateFormatter.dateFormat = "HH:mm:ss z"
         
-        if (CytubeUtils.userIsIgnored(self.ignoreList, user: username)) {
+        if (CytubeUtils.userIsIgnored(ignoreList: self.ignoreList, user: username)) {
             let msgObj = [
                 "time": "[" + dateFormatter.stringFromDate(date) + "]",
                 "username": username,
                 "msg": "User Ignored"
             ]
-            return self.addMessageToChat(CytubeUtils.createIgnoredUserMessage(msgObj))
+            return self.addMessageToChat(
+                CytubeUtils.createIgnoredUserMessage(msgObj: msgObj))
         }
         
         let msgObj = [
@@ -181,7 +182,7 @@ class CytubeRoom: NSObject {
             "msg": CytubeUtils.filterChatMsg(msg)
         ]
         
-        self.addMessageToChat(CytubeUtils.formatMessage(msgObj))
+        self.addMessageToChat(CytubeUtils.formatMessage(msgObj: msgObj))
     }
     
     func handleImminentDelete() {
