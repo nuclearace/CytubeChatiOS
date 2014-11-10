@@ -19,11 +19,33 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     weak var room:CytubeRoom!
     let tapRec = UITapGestureRecognizer()
     var canScroll:Bool = true
+    var keyboardIsShowing = false
     var loggedIn:Bool = false
     var keyboardOffset:CGFloat!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.room = roomMng.getActiveRoom()
+        if (self.room != nil) {
+            if (room!.loggedIn) {
+                self.loginButton.enabled = false
+                self.chatInput.enabled = true
+            }
+        }
+        self.room?.setChatWindow(self)
+        self.roomTitle.setTitle(self.room?.roomName, forState: nil)
+        self.tapRec.addTarget(self, action: "tappedMessages")
+        self.messageView.addGestureRecognizer(self.tapRec)
+    }
+    
+    override func viewDidAppear(animated:Bool) {
+        super.viewDidAppear(true)
+        if (self.room.kicked) {
+            self.wasKicked(NSNotification(name: "wasKicked", object: [
+                "room": self.room.roomName,
+                "reason": ""
+                ]))
+        }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"),
             name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"),
@@ -32,22 +54,12 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
             name: "wasKicked", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("passwordFail:"),
             name: "passwordFail", object: nil)
-        self.room = roomMng.getActiveRoom()
-        if (self.room != nil) {
-            if (room!.loggedIn) {
-                loginButton.enabled = false
-                chatInput.enabled = true
-            }
-        }
-        self.room?.setChatWindow(self)
-        self.roomTitle.setTitle(room?.roomName, forState: nil)
-        self.tapRec.addTarget(self, action: "tappedMessages")
-        self.messageView.addGestureRecognizer(tapRec)
+        
+        self.scrollChat()
     }
     
-    override func viewDidAppear(animated:Bool) {
-        super.viewDidAppear(true)
-        self.scrollChat()
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -76,6 +88,10 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func keyboardWillShow(not:NSNotification) {
+        if (self.keyboardIsShowing) {
+            return
+        }
+        self.keyboardIsShowing = true
         self.canScroll = true
         let scrollNum = room?.messageBuffer.count
         let info = not.userInfo!
@@ -93,8 +109,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     
     func keyboardWillHide(not:NSNotification) {
         self.canScroll = true
-        let info = not.userInfo!
-        let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
+        self.keyboardIsShowing = false
         
         UIView.animateWithDuration(0.3, animations: {[unowned self] () -> Void in
             self.inputBottomLayoutGuide.constant = self.keyboardOffset

@@ -26,7 +26,7 @@ class CytubeUtils {
         return mut as NSString
     }
     
-    class func displayGenericAlertWithNoButtons(title:String, message:String, view:UIViewController?, completion:(() -> Void)?) {
+    class func displayGenericAlertWithNoButtons(title:String, message:String, view:UIViewController?) {
         dispatch_async(dispatch_get_main_queue()) {() in
             let version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
             let versionInt:Int? = version.toInt()
@@ -46,9 +46,6 @@ class CytubeUtils {
                 }
                 view?.presentViewController(alert, animated: true, completion: nil)
             }
-        }
-        if (completion != nil) {
-            completion!()
         }
     }
     

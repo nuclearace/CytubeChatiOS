@@ -37,14 +37,14 @@ class AddRoomsController: UIViewController, UITextFieldDelegate {
         
         if (server == "" || room == "") {
             CytubeUtils.displayGenericAlertWithNoButtons("Error", message:
-                "Please enter a valid server and room.", view: self, completion: nil)
+                "Please enter a valid server and room.", view: self)
             return
         }
         
         // User is trying to add an existing room
         if let cRoom = roomMng.findRoom(room, server: server) {
             CytubeUtils.displayGenericAlertWithNoButtons("Already added", message:
-                "You have already added this room!", view: self, completion: nil)
+                "You have already added this room!", view: self)
             return
         }
         var newRoom = CytubeRoom(roomName: room, server: server, password: password)
@@ -60,7 +60,7 @@ class AddRoomsController: UIViewController, UITextFieldDelegate {
         if (!NSUserDefaults.standardUserDefaults().boolForKey("HasLaunchedOnce")) {
             CytubeUtils.displayGenericAlertWithNoButtons("Hint",
                 message: "Click on a room to join it." +
-                " You can also long press on a room to bring up options for that room.", view: self, completion: nil)
+                " You can also long press on a room to bring up options for that room.", view: self)
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasLaunchedOnce")
             NSUserDefaults.standardUserDefaults().synchronize()
         }

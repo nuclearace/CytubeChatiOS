@@ -86,7 +86,7 @@ class CytubeRoom: NSObject {
                     self?.chatWindow?.chatInput.enabled = false
                     self?.chatWindow?.loginButton.enabled = true
                     CytubeUtils.displayGenericAlertWithNoButtons("Login Failed", message: error,
-                        view: self?.chatWindow, completion: nil)
+                        view: self?.chatWindow)
                 }
             }
         }
