@@ -117,6 +117,13 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
             } else {
                 var stringData = NSString(data: data, encoding: NSUTF8StringEncoding) as String
                 var mutable = RegexMutable(stringData)
+                if (mutable["var IO_URLS="].matches().count == 0) {
+                    dispatch_async(dispatch_get_main_queue()) {[weak self]() in
+                        NSLog("Socket url fail")
+                        self?.findSocketURLFailed()
+                    }
+                    return
+                }
                 mutable = mutable["var IO_URLS="] ~= ""
                 mutable = mutable["'"] ~= "\""
                 mutable[";var IO_URL=(.*)"] ~= ""
@@ -137,9 +144,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     }
     
     private func findSocketURLFailed() {
-        CytubeUtils.displayGenericAlertWithNoButtons("Error", message:
-            "Something is wrong with your server URL. Try again", view: nil)
-        NSLog("Failed to find socket URL")
+        NSNotificationCenter.defaultCenter().postNotificationName("socketURLFail", object: nil)
         self.handleEvent(["name": "serverFailure"])
     }
     
@@ -288,6 +293,5 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     func setCytubeRoom(room:CytubeRoom) {
         self.cytubeRoom = room
     }
-    
 }
 

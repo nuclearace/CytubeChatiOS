@@ -19,6 +19,11 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             queue: nil) {[unowned self] (not:NSNotification?) in
                 self.tblRoom.reloadData()
         }
+        NSNotificationCenter.defaultCenter().addObserverForName("socketURLFail", object: nil,
+            queue: nil) {[unowned self] (not:NSNotification?) in
+                CytubeUtils.displayGenericAlertWithNoButtons("Socket Failure", message: "Failed to load socketURL. Check you entered" +
+                    " the server correctly", view: self)
+        }
     }
     
     override func didReceiveMemoryWarning() {
