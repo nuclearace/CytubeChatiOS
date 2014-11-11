@@ -87,9 +87,7 @@ class RoomManager: NSObject {
         var pointerErr:NSError?
         let pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true)
         let path = pathsArray[0] as NSString + "/rooms.json"
-        var roomsForSave = [
-            "rooms": [NSDictionary]()
-        ]
+        var roomArray = [NSDictionary]()
         var sroom:NSDictionary!
         
         for room in rooms {
@@ -101,16 +99,22 @@ class RoomManager: NSObject {
                 ]
                 
             } else {
-                var sroom = [
+                sroom = [
                     "room": room.room,
                     "server": room.server,
                     "roomPassword": ""
                 ]
             }
-            roomsForSave["rooms"]?.append(sroom)
+            roomArray.append(sroom)
         }
         
-        let jsonForWriting = NSJSONSerialization.dataWithJSONObject(roomsForSave, options: NSJSONWritingOptions.PrettyPrinted, error: &pointerErr)
+        let roomsForSave = [
+            "version": 1.0,
+            "rooms": roomArray
+        ]
+        
+        let jsonForWriting = NSJSONSerialization.dataWithJSONObject(roomsForSave,
+            options: NSJSONWritingOptions.PrettyPrinted, error: &pointerErr)
         
         handler.createFileAtPath(path, contents: jsonForWriting, attributes: nil)
         NSLog("Rooms saved")
