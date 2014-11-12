@@ -6,3 +6,4 @@
 //
 
 #import "SocketRocket/SRWebSocket.h"
+#import "Reachability.h"

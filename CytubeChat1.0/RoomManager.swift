@@ -81,6 +81,25 @@ class RoomManager: NSObject {
         }
     }
     
+    // If we go from wifi to cellular we need to reconnect
+    func handleNetworkChange(not:NSNotification) {
+        let status = internetReachability.currentReachabilityStatus()
+        if (status.value == 2) {
+            for cRoom in rooms {
+                if (cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.connected) {
+                    cRoom.cytubeRoom?.socket?.reconnect()
+                }
+            }
+        } else if (status.value == 0) {
+            for cRoom in rooms {
+                if (cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.connected) {
+                    cRoom.cytubeRoom?.closeSocket()
+                }
+            }
+            NSNotificationCenter.defaultCenter().postNotificationName("noInternet", object: nil)
+        }
+    }
+    
     func saveRooms() {
         NSLog("Saving Rooms")
         let handler = NSFileManager()

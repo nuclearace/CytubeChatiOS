@@ -73,8 +73,13 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     private var handlers = [EventHandler]()
     var connected = false
     
-    init(server:String, room:String, cytubeRoom:CytubeRoom) {
+    init?(server:String, room:String, cytubeRoom:CytubeRoom) {
         super.init()
+        let status = internetReachability.currentReachabilityStatus()
+        if (status.value == 0) {
+            NSNotificationCenter.defaultCenter().postNotificationName("noInternet", object: nil)
+            return nil
+        }
         
         let sessionConfig:NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
         sessionConfig.allowsCellularAccess = true
@@ -87,7 +92,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         self.server = server
         self.room = room
         self.cytubeRoom = cytubeRoom
-        self.findSocketURL()
+        self.findSocketURL(nil)
     }
     
     deinit {
@@ -100,7 +105,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     // Setup WebSocket methods
     //
     // Finds the correct socket URL
-    private func findSocketURL() {
+    private func findSocketURL(callback:(() -> Void)?) {
         var jsonError:NSError?
         var url =  "http://" + self.server + self.sioconfigURL
         // println("Finding socket URL: " + url)
@@ -138,6 +143,9 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
                     } else {
                         self?.socketIOURL = RegexMutable((realJSON!["ipv4-nossl"] as NSString))["http://"] ~= ""
                     }
+                    if (callback != nil) {
+                        callback!()
+                    }
                 }
             }
         }
@@ -150,6 +158,12 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     // Init the socket
     private func initHandshake() {
+        let status = internetReachability.currentReachabilityStatus()
+        if (status.value == 0) {
+            self.connecting = false
+            NSNotificationCenter.defaultCenter().postNotificationName("noInternet", object: nil)
+            return
+        }
         var endpoint:String!
         if (self.isSSL) {
             endpoint = "wss://\(self.socketIOURL)/socket.io/?EIO=2&transport=websocket"
@@ -199,18 +213,25 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     }
     
     func close() {
-        self.socketio?.close()
-        self.socketio = nil
+        NSLog("Closing Socket for \(self.room)")
+        if (!self.connected) {
+            return
+        }
+        
         self.connected = false
+        self.socketio?.close()
+        // self.socketio = nil
     }
     
     // Starts the connection to the server
     func open() {
         if (self.socketIOURL == nil) {
-            CytubeUtils.displayGenericAlertWithNoButtons(title: "Error", message: "Tried to open socket before socket.io URL was found." +
-                "Or there is an error getting the URL.", view: nil)
+            self.findSocketURL() {[unowned self] in
+                self.open()
+            }
             return
         } else if (self.connecting || self.connected) {
+            NSLog("Tried to open socket when connecting or already connected")
             return
         }
         self.connecting = true
@@ -218,6 +239,10 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     }
     
     func reconnect() {
+        self.handleEvent(["name": "reconnect"])
+        if (self.connected) {
+            self.close()
+        }
         self.open()
     }
     
@@ -230,7 +255,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         let frame = socketFrame(name: name, args: args)
         let str = frame.createFrameForSending()
         
-        println("SENDING: " + str)
+        NSLog("SENDING: %@", name)
         self.socketio?.send(str)
     }
     

@@ -30,6 +30,8 @@
 		74704BB319F0C0F900B810A6 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74704BB219F0C0F900B810A6 /* LoginController.swift */; };
 		7478A2E21A0ED3A20013D46C /* ChatLinkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7478A2E11A0ED3A20013D46C /* ChatLinkController.swift */; };
 		7478A2E41A0ED4B80013D46C /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7478A2E31A0ED4B80013D46C /* ChatCell.swift */; };
+		747DBA891A12AF5A00486E7E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747DBA881A12AF5A00486E7E /* SystemConfiguration.framework */; };
+		747DBA8D1A12B2B400486E7E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 747DBA8C1A12B2B400486E7E /* Reachability.m */; };
 		74AD72791A03EF580013C8AF /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AD72781A03EF580013C8AF /* Operators.swift */; };
 		74B767CC19F54D490021B178 /* UserlistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B767CB19F54D490021B178 /* UserlistController.swift */; };
 		74BB03E019FC708A000534DB /* PrivacyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB03DF19FC708A000534DB /* PrivacyController.swift */; };
@@ -66,6 +68,9 @@
 		74704BB219F0C0F900B810A6 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		7478A2E11A0ED3A20013D46C /* ChatLinkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLinkController.swift; sourceTree = "<group>"; };
 		7478A2E31A0ED4B80013D46C /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		747DBA881A12AF5A00486E7E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		747DBA8B1A12B26C00486E7E /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		747DBA8C1A12B2B400486E7E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		74AD72781A03EF580013C8AF /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		74B767CB19F54D490021B178 /* UserlistController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserlistController.swift; sourceTree = "<group>"; };
 		74BB03DF19FC708A000534DB /* PrivacyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyController.swift; sourceTree = "<group>"; };
@@ -76,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				747DBA891A12AF5A00486E7E /* SystemConfiguration.framework in Frameworks */,
 				740BEF7F19EC322000E577A0 /* libicucore.dylib in Frameworks */,
 				740BEF7D19EC321300E577A0 /* Security.framework in Frameworks */,
 				740BEF7B19EC320700E577A0 /* Foundation.framework in Frameworks */,
@@ -89,6 +95,7 @@
 		740BEF3C19EC315400E577A0 = {
 			isa = PBXGroup;
 			children = (
+				747DBA881A12AF5A00486E7E /* SystemConfiguration.framework */,
 				740BEF7E19EC322000E577A0 /* libicucore.dylib */,
 				740BEF7C19EC321300E577A0 /* Security.framework */,
 				740BEF7A19EC320700E577A0 /* Foundation.framework */,
@@ -116,7 +123,6 @@
 				7410737119EF445E00D71C6C /* CytubeUtils.swift */,
 				74AD72781A03EF580013C8AF /* Operators.swift */,
 				740BEF8419EC6FCF00E577A0 /* RoomManager.swift */,
-				74BB03DF19FC708A000534DB /* PrivacyController.swift */,
 				740BEF4C19EC315400E577A0 /* RoomsController.swift */,
 				740BEF4E19EC315400E577A0 /* AddRoomsController.swift */,
 				740BEF8619EC857E00E577A0 /* ChatWindowController.swift */,
@@ -124,10 +130,12 @@
 				7478A2E11A0ED3A20013D46C /* ChatLinkController.swift */,
 				74704BB219F0C0F900B810A6 /* LoginController.swift */,
 				74B767CB19F54D490021B178 /* UserlistController.swift */,
+				74BB03DF19FC708A000534DB /* PrivacyController.swift */,
 				7410736D19EDE86600D71C6C /* SwiftRegex.swift */,
 				740BEF7719EC319A00E577A0 /* CytubeChat-Bridging-Header.h */,
 				740BEF5019EC315400E577A0 /* Main.storyboard */,
 				740BEF5519EC315400E577A0 /* LaunchScreen.xib */,
+				747DBA8A1A12B21D00486E7E /* Reachability */,
 				740BEF6C19EC317700E577A0 /* SocketRocket */,
 				740BEF4819EC315400E577A0 /* Supporting Files */,
 				74704BB019F0B13600B810A6 /* image.xcassets */,
@@ -155,6 +163,15 @@
 				740BEF7319EC317700E577A0 /* SRWebSocket.m */,
 			);
 			path = SocketRocket;
+			sourceTree = "<group>";
+		};
+		747DBA8A1A12B21D00486E7E /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				747DBA8B1A12B26C00486E7E /* Reachability.h */,
+				747DBA8C1A12B2B400486E7E /* Reachability.m */,
+			);
+			name = Reachability;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,6 +264,7 @@
 				740BEF8319EC3AD300E577A0 /* CytubeRoom.swift in Sources */,
 				7478A2E21A0ED3A20013D46C /* ChatLinkController.swift in Sources */,
 				74038C8319F00E65005DB2A7 /* CytubeUser.swift in Sources */,
+				747DBA8D1A12B2B400486E7E /* Reachability.m in Sources */,
 				74AD72791A03EF580013C8AF /* Operators.swift in Sources */,
 				740BEF7419EC317700E577A0 /* base64.c in Sources */,
 				740BEF8119EC32BD00E577A0 /* CytubeSocket.swift in Sources */,

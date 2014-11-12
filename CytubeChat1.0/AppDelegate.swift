@@ -7,6 +7,8 @@
 
 import UIKit
 
+let internetReachability = Reachability.reachabilityForInternetConnection()
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -14,13 +16,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var backgroundID:UIBackgroundTaskIdentifier!
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        roomMng.loadRooms()
         let cacheSizeMemory = 4*1024*1024 // 4MB
         let cacheSizeDisk = 32*1024*1024; // 32MB
         let sharedCache = NSURLCache(memoryCapacity: cacheSizeMemory,
             diskCapacity: cacheSizeDisk, diskPath: nil)
         NSURLCache.setSharedURLCache(sharedCache)
+        
+        // Look for changes in network
+        NSNotificationCenter.defaultCenter().addObserver(roomMng,
+            selector: "handleNetworkChange:", name: kReachabilityChangedNotification, object: nil)
+        
+        internetReachability.startNotifier()
+        roomMng.loadRooms()
         return true
     }
     

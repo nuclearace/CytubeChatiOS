@@ -46,16 +46,28 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
                 "reason": ""
                 ]))
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"),
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:",
             name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"),
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:",
             name: UIKeyboardWillHideNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("wasKicked:"),
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasKicked:",
             name: "wasKicked", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("passwordFail:"),
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "passwordFail:",
             name: "passwordFail", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNilSocketURL:",
+            name: "nilSocketURL", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNoInternet:",
+            name: "noInternet", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleSocketURLFail:",
+            name: "socketURLFail", object: nil)
+        
         
         self.scrollChat()
+        
+        // Start connection to server
+        if (!self.room.isConnected()) {
+            self.room.openSocket()
+        }
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -176,6 +188,21 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         
         self.messageView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.room.messageBuffer.count - 1, inSection: 0),
             atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+    }
+    
+    func handleNilSocketURL(not:NSNotification) {
+        CytubeUtils.displayGenericAlertWithNoButtons(title: "Connection Failed",
+            message: "Could not connect to server, check you are connected to the internet", view: self)
+    }
+    
+    func handleNoInternet(not:NSNotification) {
+        CytubeUtils.displayGenericAlertWithNoButtons(title: "No Internet",
+            message: "Check your internet connection", view: self)
+    }
+    
+    func handleSocketURLFail(not:NSNotification) {
+        CytubeUtils.displayGenericAlertWithNoButtons(title: "Socket Failure", message: "Failed to load socketURL. Check you entered" +
+            " the server correctly", view: self)
     }
     
     func wasKicked(not:NSNotification) {

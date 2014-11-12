@@ -19,11 +19,9 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             queue: nil) {[unowned self] (not:NSNotification?) in
                 self.tblRoom.reloadData()
         }
-        NSNotificationCenter.defaultCenter().addObserverForName("socketURLFail", object: nil,
-            queue: nil) {[unowned self] (not:NSNotification?) in
-                CytubeUtils.displayGenericAlertWithNoButtons(title: "Socket Failure", message: "Failed to load socketURL. Check you entered" +
-                    " the server correctly", view: self)
-        }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleSocketURLFail:", name: "socketURLFail", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNilSocketURL:", name: "nilSocketURL", object: nil)
+        // NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNoInternet:", name: "noInternet", object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -127,9 +125,6 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     // Called when a selects a room
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var room = roomMng.getRoomAtIndex(indexPath.row)
-        if (!room.isConnected()) {
-            room.openSocket()
-        }
         room.setActive(true)
         self.performSegueWithIdentifier("goToChatRoom", sender: self)
     }
@@ -148,6 +143,16 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             cell.textLabel.text = roomMng.rooms[indexPath.row].room
             cell.detailTextLabel?.text = roomMng.rooms[indexPath.row].server
             return cell
+    }
+    
+    func handleSocketURLFail(not:NSNotification) {
+        CytubeUtils.displayGenericAlertWithNoButtons(title: "Socket Failure", message: "Failed to load socketURL. Check you entered" +
+            " the server correctly", view: self)
+    }
+    
+    func handleNilSocketURL(not:NSNotification) {
+        CytubeUtils.displayGenericAlertWithNoButtons(title: "Connection Failed",
+            message: "Could not connect to server, check you are connected to the internet", view: self)
     }
 }
 
