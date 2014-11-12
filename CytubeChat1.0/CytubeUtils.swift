@@ -37,7 +37,7 @@ class CytubeUtils {
                 alert.show()
             } else {
                 var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {(action:UIAlertAction?) in
+                var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
                     return
                 }
                 alert.addAction(action)

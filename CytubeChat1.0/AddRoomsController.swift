@@ -41,6 +41,13 @@ class AddRoomsController: UIViewController, UITextFieldDelegate {
             return
         }
         
+        let hostReachability = Reachability(hostName: server)
+        if (hostReachability.currentReachabilityStatus().value == 0) {
+            CytubeUtils.displayGenericAlertWithNoButtons(title: "Error", message:
+                "Please check that you entered a valid server", view: self)
+            return
+        }
+        
         // User is trying to add an existing room
         if let cRoom = roomMng.findRoom(room, server: server) {
             CytubeUtils.displayGenericAlertWithNoButtons(title: "Already added", message:

@@ -68,7 +68,7 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
         if (versionInt >= 8) {
             var alert = UIAlertController(title: title, message:
                 message, preferredStyle: UIAlertControllerStyle.Alert)
-            var yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) {(alert:UIAlertAction!) in
+            var yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) {alert in
                 if (title == "Unignore") {
                     for (var i = 0; i < self.room.ignoreList.count; ++i) {
                         if (self.room.ignoreList[i] == self.selectedUser.getUsername()) {
@@ -79,7 +79,7 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
                     self.room.ignoreList.append(self.selectedUser.getUsername())
                 }
             }
-            var noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel) {(alert:UIAlertAction!) in
+            var noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel) {alert in
                 return
             }
             alert.addAction(yesAction)

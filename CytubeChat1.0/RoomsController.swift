@@ -57,7 +57,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                 connectDisconnect = "Connect"
             }
             var alert = UIAlertController(title: "Options", message: "What do you want to do?", preferredStyle: UIAlertControllerStyle.Alert)
-            var action = UIAlertAction(title: connectDisconnect, style: UIAlertActionStyle.Default) {[weak self] (action:UIAlertAction?) in
+            var action = UIAlertAction(title: connectDisconnect, style: UIAlertActionStyle.Default) {[weak self] action in
                 if (connected) {
                     self?.selectedRoom.closeRoom()
                     self?.inAlert = false
@@ -73,12 +73,12 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                 }
             }
             
-            var action1 = UIAlertAction(title: "Remove", style: UIAlertActionStyle.Destructive) {[weak self] (action:UIAlertAction?) in
+            var action1 = UIAlertAction(title: "Remove", style: UIAlertActionStyle.Destructive) {[weak self] action in
                 self?.selectedRoom.handleImminentDelete()
                 self?.inAlert = false
                 self?.selectedRoom = nil
             }
-            var action2 = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {[weak self] (action:UIAlertAction?) in
+            var action2 = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {[weak self] action in
                 self?.inAlert = false
                 self?.selectedRoom = nil
             }

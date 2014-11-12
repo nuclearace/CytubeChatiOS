@@ -108,13 +108,11 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     private func findSocketURL(callback:(() -> Void)?) {
         var jsonError:NSError?
         var url =  "http://" + self.server + self.sioconfigURL
-        // println("Finding socket URL: " + url)
         
         var request:NSURLRequest = NSURLRequest(URL: NSURL(string: url)!)
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) {[weak self]
-            (res, data, err) -> Void in
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) {[weak self] res, data, err in
             if ((err) != nil) {
-                dispatch_async(dispatch_get_main_queue()) {[weak self]() in
+                dispatch_async(dispatch_get_main_queue()) {[weak self] in
                     NSLog("Socket url fail:" + err.localizedDescription)
                     self?.findSocketURLFailed()
                 }
@@ -123,7 +121,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
                 var stringData = NSString(data: data, encoding: NSUTF8StringEncoding) as String
                 var mutable = RegexMutable(stringData)
                 if (mutable["var IO_URLS="].matches().count == 0) {
-                    dispatch_async(dispatch_get_main_queue()) {[weak self]() in
+                    dispatch_async(dispatch_get_main_queue()) {[weak self] in
                         NSLog("Socket url fail")
                         self?.findSocketURLFailed()
                     }
@@ -220,7 +218,6 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         
         self.connected = false
         self.socketio?.close()
-        // self.socketio = nil
     }
     
     // Starts the connection to the server

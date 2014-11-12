@@ -223,7 +223,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         } else {
             var alert = UIAlertController(title: "Kicked", message:
                 "You have been kicked from room \(roomName). Reason: \(reason)", preferredStyle: UIAlertControllerStyle.Alert)
-            var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {(action:UIAlertAction?) in
+            var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
                 self.room?.setChatWindow(nil)
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
@@ -246,7 +246,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
             var alert = UIAlertController(title: "Password Fail", message:
                 "No password, or incorrect password for: \(roomName). Please try adding again.",
                 preferredStyle: UIAlertControllerStyle.Alert)
-            var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {(action:UIAlertAction?) in
+            var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
                 self.room?.setChatWindow(nil)
                 self.dismissViewControllerAnimated(true, completion: nil)
             }

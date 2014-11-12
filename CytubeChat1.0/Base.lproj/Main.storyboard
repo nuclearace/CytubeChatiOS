@@ -408,7 +408,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="cytu.be" borderStyle="roundedRect" placeholder="Server" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="cnH-Iq-nwA">
                                 <rect key="frame" x="16" y="60" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL"/>
                                 <connections>
                                     <outlet property="delegate" destination="8rJ-Kc-sve" id="uZt-4W-8az"/>
                                 </connections>
