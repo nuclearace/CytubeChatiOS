@@ -20,8 +20,6 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                 self.tblRoom.reloadData()
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleSocketURLFail:", name: "socketURLFail", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNilSocketURL:", name: "nilSocketURL", object: nil)
-        // NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNoInternet:", name: "noInternet", object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -148,11 +146,6 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     func handleSocketURLFail(not:NSNotification) {
         CytubeUtils.displayGenericAlertWithNoButtons(title: "Socket Failure", message: "Failed to load socketURL. Check you entered" +
             " the server correctly", view: self)
-    }
-    
-    func handleNilSocketURL(not:NSNotification) {
-        CytubeUtils.displayGenericAlertWithNoButtons(title: "Connection Failed",
-            message: "Could not connect to server, check you are connected to the internet", view: self)
     }
 }
 

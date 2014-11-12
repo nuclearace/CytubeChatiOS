@@ -319,6 +319,10 @@ class CytubeRoom: NSObject {
         self.connected = false
         self.closed = true
         self.shouldReconnect = false
+        self.userlist.removeAll(keepCapacity: false)
+        self.userlistView?.tblUserlist.reloadData()
+        self.messageBuffer.removeAllObjects()
+        self.chatWindow?.messageView.reloadData()
     }
     
     func socketShutdown() {
