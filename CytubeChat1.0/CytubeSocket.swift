@@ -69,6 +69,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     var pingTimer:NSTimer!
     var isSSL = false
     var socketIOURL:String!
+    var timeoutTimer:NSTimer!
     private var handlers = [EventHandler]()
     var connected = false
     
@@ -174,17 +175,19 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         socketio = SRWebSocket(URL: NSURL(string: url))
         socketio!.delegate = self
         socketio!.open()
-        let time = dispatch_time(DISPATCH_TIME_NOW, 10000000000)
-        dispatch_after(time, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {[unowned self] in
-            if (!self.connected) {
-                self.close()
-                NSNotificationCenter.defaultCenter().postNotificationName("socketTimeout", object: nil)
-            }
-        }
+        self.timeoutTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self,
+            selector: "checkConnected", userInfo: nil, repeats: false)
     }
     //
     // End setup WebSocket
     //
+    
+    func checkConnected() {
+        if (!self.connected) {
+            self.close()
+            NSNotificationCenter.defaultCenter().postNotificationName("socketTimeout", object: nil)
+        }
+    }
     
     // Handles socket events
     func handleEvent(json:AnyObject?) {
@@ -217,6 +220,8 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     }
     
     func close() {
+        self.timeoutTimer.invalidate()
+        self.pingTimer?.invalidate()
         NSLog("Closing Socket for \(self.room)")
         self.connecting = false
         self.connected = false
