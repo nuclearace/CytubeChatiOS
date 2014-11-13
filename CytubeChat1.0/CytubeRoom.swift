@@ -36,7 +36,7 @@ class CytubeRoom: NSObject {
         self.roomName = roomName
         self.roomPassword = password
         self.server = server
-        self.socket = CytubeSocket(server: server, room: roomName, cytubeRoom: self)
+        self.socket = CytubeSocket(server: server, room: roomName)
         self.addHandlers()
     }
     
@@ -304,7 +304,7 @@ class CytubeRoom: NSObject {
             self.socket?.open()
         } else if (self.socket == nil) {
             // Try and add the socket
-            self.socket = CytubeSocket(server: self.server, room: self.roomName, cytubeRoom: self)
+            self.socket = CytubeSocket(server: self.server, room: self.roomName)
             self.addHandlers()
             self.kicked = false
             self.closed = false

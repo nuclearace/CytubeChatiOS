@@ -60,7 +60,6 @@ private class EventHandler: NSObject {
 }
 
 class CytubeSocket: NSObject, SRWebSocketDelegate {
-    weak var cytubeRoom:CytubeRoom?
     let session:NSURLSession?
     let room:String!
     let server:String!
@@ -73,10 +72,11 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     private var handlers = [EventHandler]()
     var connected = false
     
-    init?(server:String, room:String, cytubeRoom:CytubeRoom) {
+    init?(server:String, room:String) {
         super.init()
         let status = internetReachability.currentReachabilityStatus()
         if (status.value == 0) {
+            // We cannot continue with initialization
             NSNotificationCenter.defaultCenter().postNotificationName("noInternet", object: nil)
             return nil
         }
@@ -91,7 +91,6 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         self.session = NSURLSession(configuration: sessionConfig)
         self.server = server
         self.room = room
-        self.cytubeRoom = cytubeRoom
         self.findSocketURL(nil)
     }
     
@@ -310,10 +309,6 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         self.pingTimer.invalidate()
         println("Closed socket because: \(reason)")
         self.handleEvent(["name": "disconnect"])
-    }
-    
-    func setCytubeRoom(room:CytubeRoom) {
-        self.cytubeRoom = room
     }
 }
 

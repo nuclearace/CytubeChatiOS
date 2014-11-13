@@ -10,8 +10,8 @@ import UIKit
 
 class ChatLinkController: UIViewController, UIWebViewDelegate {
     
-    @IBOutlet var webView:UIWebView!
-    @IBOutlet var navBarTitle:UINavigationItem!
+    @IBOutlet weak var webView:UIWebView!
+    @IBOutlet weak var navBarTitle:UINavigationItem!
     var link:NSURL!
     
     @IBAction func backButtonClicked() {

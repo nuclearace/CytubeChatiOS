@@ -19,7 +19,8 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             queue: nil) {[unowned self] (not:NSNotification?) in
                 self.tblRoom.reloadData()
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleSocketURLFail:", name: "socketURLFail", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleSocketURLFail:",
+            name: "socketURLFail", object: nil)
     }
     
     override func didReceiveMemoryWarning() {
