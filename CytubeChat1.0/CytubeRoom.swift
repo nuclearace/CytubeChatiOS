@@ -80,7 +80,6 @@ class CytubeRoom: NSObject {
         
         self.socket?.on("serverFailure") {[weak self] data in
             NSLog("The server failed")
-            self?.handleImminentDelete()
         }
         
         self.socket?.on("chatMsg") {[weak self] data in

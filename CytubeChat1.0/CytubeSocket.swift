@@ -174,6 +174,13 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         socketio = SRWebSocket(URL: NSURL(string: url))
         socketio!.delegate = self
         socketio!.open()
+        let time = dispatch_time(DISPATCH_TIME_NOW, 10000000000)
+        dispatch_after(time, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {[unowned self] in
+            if (!self.connected) {
+                self.close()
+                NSNotificationCenter.defaultCenter().postNotificationName("socketTimeout", object: nil)
+            }
+        }
     }
     //
     // End setup WebSocket
@@ -211,10 +218,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     func close() {
         NSLog("Closing Socket for \(self.room)")
-        if (!self.connected) {
-            return
-        }
-        
+        self.connecting = false
         self.connected = false
         self.socketio?.close()
     }
@@ -306,7 +310,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     // Called when the socket is closed
     func webSocket(webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         self.connected = false
-        self.pingTimer.invalidate()
+        self.pingTimer?.invalidate()
         println("Closed socket because: \(reason)")
         self.handleEvent(["name": "disconnect"])
     }

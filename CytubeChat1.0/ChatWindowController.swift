@@ -60,6 +60,8 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
             name: "noInternet", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleSocketURLFail:",
             name: "socketURLFail", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleSocketTimeout:",
+            name: "socketTimeout", object: nil)
         
         
         self.scrollChat()
@@ -203,6 +205,11 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     func handleSocketURLFail(not:NSNotification) {
         CytubeUtils.displayGenericAlertWithNoButtons(title: "Socket Failure", message: "Failed to load socketURL. Check you entered" +
             " the server correctly", view: self)
+    }
+    
+    func handleSocketTimeout(not:NSNotification) {
+        CytubeUtils.displayGenericAlertWithNoButtons(title: "Timeout", message: "It is taking too long to connect." +
+            "The server may be having trouble, or your connection is poor.", view: self)
     }
     
     func wasKicked(not:NSNotification) {
