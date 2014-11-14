@@ -305,6 +305,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     // Called when the socket is first opened
     func webSocketDidOpen(webSocket: SRWebSocket!) {
+        self.timeoutTimer.invalidate()
         self.pingTimer = NSTimer.scheduledTimerWithTimeInterval(25, target: self,
             selector: Selector("sendPing"), userInfo: nil, repeats: true)
         self.connecting = false
