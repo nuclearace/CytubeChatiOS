@@ -19,18 +19,6 @@ class CytubeUser: NSObject, Comparable {
         self.afk = (user["meta"] as NSDictionary)["afk"] as Bool
     }
     
-    override func copy() -> AnyObject {
-        let userObj = [
-            "name": self.username,
-            "rank": self.rank,
-            "meta": [
-                "afk": self.afk
-            ]
-        ]
-        
-        return CytubeUser(user: userObj)
-    }
-    
     deinit {
         println("CytubeUser \(self.username) is being deint")
     }
@@ -91,6 +79,18 @@ class CytubeUser: NSObject, Comparable {
     
     func setAFK(afk:Bool) {
         self.afk = afk
+    }
+    
+    override func copy() -> AnyObject {
+        let userObj = [
+            "name": self.username,
+            "rank": self.rank,
+            "meta": [
+                "afk": self.afk
+            ]
+        ]
+        
+        return CytubeUser(user: userObj)
     }
     
     override func isEqual(object:AnyObject?) -> Bool {
