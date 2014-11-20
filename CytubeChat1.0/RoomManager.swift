@@ -33,7 +33,7 @@ class RoomManager: NSObject {
     }
     
     func findRoomIndex(room:String, server:String) -> Int? {
-        for var i = 0; i < roomMng.rooms.count; ++i {
+        for (var i = 0; i < roomMng.rooms.count; i++) {
             if (rooms[i].server == server && rooms[i].room == room) {
                 return i
             }

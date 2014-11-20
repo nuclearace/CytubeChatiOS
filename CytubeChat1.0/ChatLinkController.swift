@@ -3,7 +3,6 @@
 //  CytubeChat
 //
 //  Created by Erik Little on 11/8/14.
-//  Copyright (c) 2014 Erik Little. All rights reserved.
 //
 
 import UIKit

@@ -27,7 +27,6 @@ private struct socketFrame {
                 var jsonString = NSString(data: jsonSend!, encoding: NSUTF8StringEncoding)
                 return array + jsonString! + "]"
             } else {
-                array += "\"" + name + "\""
                 array += ",\"\(args!)\""
                 return array + "]"
             }
@@ -261,6 +260,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         let str = frame.createFrameForSending()
         
         NSLog("SENDING: %@", name)
+        // println("Sending: \(str)")
         self.socketio?.send(str)
     }
     
@@ -321,4 +321,3 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         self.handleEvent(["name": "disconnect"])
     }
 }
-

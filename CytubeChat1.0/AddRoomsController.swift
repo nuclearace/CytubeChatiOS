@@ -44,7 +44,8 @@ class AddRoomsController: UIViewController, UITextFieldDelegate {
         let hostReachability = Reachability(hostName: server)
         if (hostReachability.currentReachabilityStatus().value == 0) {
             CytubeUtils.displayGenericAlertWithNoButtons(title: "Error", message:
-                "Please check that you entered a valid server", view: self)
+                "Please check that you entered a valid server" +
+                " and that you are connected to the internet.", view: self)
             return
         }
         
