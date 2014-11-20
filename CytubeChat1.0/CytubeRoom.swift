@@ -50,7 +50,7 @@ class CytubeRoom: NSObject {
         println("Adding Handlers for room: \(self.roomName)")
         
         self.socket?.on("connect") {[weak self] data in
-            NSLog("Connected to Cytube server \(self?.server!)")
+            println("Connected to Cytube server \(self?.server)")
             self?.connected = true
             self?.reconnecting = false
             self?.socket?.send("initChannelCallbacks", args: nil)
