@@ -1,3 +1,3 @@
-CytubeChat1.0
+CytubeChatiOS
 =============
 iOS chat app for CyTube Servers
