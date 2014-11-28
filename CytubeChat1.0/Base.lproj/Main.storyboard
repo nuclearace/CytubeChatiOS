@@ -137,7 +137,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ry-hw-N7j">
-                                                    <rect key="frame" x="0.0" y="1" width="600" height="42"/>
+                                                    <rect key="frame" x="3" y="1" width="597" height="42"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -148,10 +148,10 @@
                                                 </textView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="1ry-hw-N7j" firstAttribute="leading" secondItem="qBj-td-0VY" secondAttribute="leadingMargin" constant="-8" id="0or-eG-CtA"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="1ry-hw-N7j" secondAttribute="bottom" constant="-8" id="41y-aC-Lxq"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="1ry-hw-N7j" secondAttribute="trailing" constant="-8" id="9Q1-8v-NoV"/>
-                                                <constraint firstItem="1ry-hw-N7j" firstAttribute="top" secondItem="qBj-td-0VY" secondAttribute="topMargin" constant="-7" id="rJg-jI-ByQ"/>
+                                                <constraint firstItem="1ry-hw-N7j" firstAttribute="leading" secondItem="qBj-td-0VY" secondAttribute="leadingMargin" constant="-5" id="0c2-vt-TLK"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="1ry-hw-N7j" secondAttribute="trailing" constant="-8" id="Pi8-gV-fGB"/>
+                                                <constraint firstItem="1ry-hw-N7j" firstAttribute="top" secondItem="qBj-td-0VY" secondAttribute="topMargin" constant="-7" id="QkA-GR-aJJ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="1ry-hw-N7j" secondAttribute="bottom" constant="-8" id="yGe-Z4-MfQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
