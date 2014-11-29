@@ -259,7 +259,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         let frame = socketFrame(name: name, args: args)
         let str = frame.createFrameForSending()
         
-        NSLog("SENDING: %@", name)
+        // NSLog("SENDING: %@", name)
         // println("Sending: \(str)")
         self.socketio?.send(str)
     }

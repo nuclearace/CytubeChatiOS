@@ -12,8 +12,6 @@ class LoginController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var usernameText:UITextField!
     @IBOutlet weak var passwordText:UITextField!
     var room:CytubeRoom?
-    var password:String!
-    var username:String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,20 +30,18 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     @IBAction func submitBtnClicked(btn:UIBarButtonItem) {
         self.resignFirstResponder()
-        self.username = usernameText.text
-        self.password = passwordText.text
+        self.handleLogin()
     }
     
     func handleLogin() {
-        if (self.username == "") {
+        if (self.usernameText.text == "") {
             CytubeUtils.displayGenericAlertWithNoButtons(title: "Invalid Username",
                 message: "Username cannot be blank",
                 view: self)
             return
         }
-        self.handleLogin()
-        self.room?.setUsername(self.username)
-        self.room?.setPassword(self.password)
+        self.room?.setUsername(self.usernameText.text)
+        self.room?.setPassword(self.passwordText.text)
         self.room?.sendLogin()
         self.dismissViewControllerAnimated(true, completion: nil)
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasLoggedIn")
@@ -60,8 +56,6 @@ class LoginController: UIViewController, UITextFieldDelegate {
             return false
         }
         
-        self.username = usernameText.text
-        self.password = passwordText.text
         textField.resignFirstResponder()
         self.handleLogin()
         return true
