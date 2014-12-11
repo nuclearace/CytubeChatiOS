@@ -43,12 +43,15 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
             let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "userlistCell")
             let user = self.room.userlist[indexPath.row]
             
-            cell.textLabel.attributedText = user.createAttributedStringForUser()
+            cell.textLabel?.attributedText = user.createAttributedStringForUser()
             return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.selectedUser = self.room.userlist[indexPath.row]
+        if (self.selectedUser.username == self.room.username?) {
+            return
+        }
         self.showIgnoreUserAlert(user: self.selectedUser)
     }
     

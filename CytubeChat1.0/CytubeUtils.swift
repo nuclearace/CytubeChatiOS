@@ -33,7 +33,7 @@ class CytubeUtils {
             
             if (versionInt < 8) {
                 var alert:UIAlertView = UIAlertView(title: title, message: message,
-                    delegate: self, cancelButtonTitle: "Okay")
+                    delegate: nil, cancelButtonTitle: "Okay")
                 alert.show()
             } else {
                 var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)

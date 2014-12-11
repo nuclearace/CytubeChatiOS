@@ -139,7 +139,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "roomsCell")
             
             roomMng.rooms[indexPath.row].cytubeRoom.setView(self)
-            cell.textLabel.text = roomMng.rooms[indexPath.row].room
+            cell.textLabel?.text = roomMng.rooms[indexPath.row].room
             cell.detailTextLabel?.text = roomMng.rooms[indexPath.row].server
             return cell
     }
