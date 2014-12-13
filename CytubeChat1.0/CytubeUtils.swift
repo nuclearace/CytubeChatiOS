@@ -26,6 +26,34 @@ class CytubeUtils {
         return mut as NSString
     }
     
+    class func encryptPassword(password: String, key:String) -> String {
+        let edata = CytubeChatRNCryptor.encryptData(password.dataUsingEncoding(NSUTF8StringEncoding,
+            allowLossyConversion: true), password: key, error: nil)
+        
+        return edata.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.allZeros)
+    }
+    
+    class func decryptPassword(edata: NSData, key:String) -> String? {
+        
+        var err:NSError?
+        let pdata = RNDecryptor.decryptData(edata, withPassword: key, error: &err)
+        if (err != nil) {
+            println(err?.localizedDescription)
+            return nil
+        }
+        
+        return NSString(data: pdata, encoding: NSUTF8StringEncoding)!
+    }
+    
+    class func generateKey() -> String {
+        var returnString = ""
+        for (var i = 0; i < 13; i++) {
+            let ran = arc4random_uniform(256)
+            returnString += String(ran)
+        }
+        return returnString
+    }
+    
     class func displayGenericAlertWithNoButtons(#title:String, message:String, view:UIViewController?) {
         dispatch_async(dispatch_get_main_queue()) {() in
             let version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]

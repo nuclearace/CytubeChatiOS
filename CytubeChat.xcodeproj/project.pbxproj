@@ -26,16 +26,75 @@
 		740BEF8719EC857E00E577A0 /* ChatWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF8619EC857E00E577A0 /* ChatWindowController.swift */; };
 		7410736E19EDE86600D71C6C /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7410736D19EDE86600D71C6C /* SwiftRegex.swift */; };
 		7410737219EF445E00D71C6C /* CytubeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7410737119EF445E00D71C6C /* CytubeUtils.swift */; };
+		745855CC1A3B54AF000F6495 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745855CB1A3B54AF000F6495 /* DatabaseManager.swift */; };
+		745855DD1A3B5DB4000F6495 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 745855D61A3B5CFC000F6495 /* SQLite.framework */; };
+		745855E11A3B5EAE000F6495 /* SQLite.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 745855D61A3B5CFC000F6495 /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		74704BB119F0B13600B810A6 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74704BB019F0B13600B810A6 /* image.xcassets */; };
 		74704BB319F0C0F900B810A6 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74704BB219F0C0F900B810A6 /* LoginController.swift */; };
 		7478A2E21A0ED3A20013D46C /* ChatLinkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7478A2E11A0ED3A20013D46C /* ChatLinkController.swift */; };
 		7478A2E41A0ED4B80013D46C /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7478A2E31A0ED4B80013D46C /* ChatCell.swift */; };
 		747DBA891A12AF5A00486E7E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747DBA881A12AF5A00486E7E /* SystemConfiguration.framework */; };
 		747DBA8D1A12B2B400486E7E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 747DBA8C1A12B2B400486E7E /* Reachability.m */; };
-		74AD72791A03EF580013C8AF /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AD72781A03EF580013C8AF /* Operators.swift */; };
+		748943FB1A3CF13A00E70E5D /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 748943F41A3CF13A00E70E5D /* RNCryptor.m */; };
+		748943FC1A3CF13A00E70E5D /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 748943F61A3CF13A00E70E5D /* RNCryptorEngine.m */; };
+		748943FD1A3CF13A00E70E5D /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 748943F81A3CF13A00E70E5D /* RNDecryptor.m */; };
+		748943FE1A3CF13A00E70E5D /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 748943FA1A3CF13A00E70E5D /* RNEncryptor.m */; };
+		748944011A3CF34200E70E5D /* CytubeChatRNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 748944001A3CF34200E70E5D /* CytubeChatRNCryptor.m */; };
+		74AD72791A03EF580013C8AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AD72781A03EF580013C8AF /* Globals.swift */; };
 		74B767CC19F54D490021B178 /* UserlistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B767CB19F54D490021B178 /* UserlistController.swift */; };
 		74BB03E019FC708A000534DB /* PrivacyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB03DF19FC708A000534DB /* PrivacyController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		745855D51A3B5CFC000F6495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 745855CE1A3B5CFB000F6495 /* SQLite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DC3773F319C8CBB3004FCF85;
+			remoteInfo = "SQLite iOS";
+		};
+		745855D71A3B5CFC000F6495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 745855CE1A3B5CFB000F6495 /* SQLite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DC3773FE19C8CBB3004FCF85;
+			remoteInfo = "SQLite iOS Tests";
+		};
+		745855D91A3B5CFC000F6495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 745855CE1A3B5CFB000F6495 /* SQLite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DC37741419C8CC2F004FCF85;
+			remoteInfo = "SQLite Mac";
+		};
+		745855DB1A3B5CFC000F6495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 745855CE1A3B5CFB000F6495 /* SQLite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DC37741E19C8CC2F004FCF85;
+			remoteInfo = "SQLite Mac Tests";
+		};
+		745855DE1A3B5E6D000F6495 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 745855CE1A3B5CFB000F6495 /* SQLite.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = DC3773F219C8CBB3004FCF85;
+			remoteInfo = "SQLite iOS";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		745855E01A3B5E90000F6495 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				745855E11A3B5EAE000F6495 /* SQLite.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		74038C8219F00E65005DB2A7 /* CytubeUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CytubeUser.swift; sourceTree = "<group>"; };
@@ -64,6 +123,8 @@
 		740BEF8619EC857E00E577A0 /* ChatWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatWindowController.swift; sourceTree = "<group>"; };
 		7410736D19EDE86600D71C6C /* SwiftRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRegex.swift; sourceTree = "<group>"; };
 		7410737119EF445E00D71C6C /* CytubeUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CytubeUtils.swift; sourceTree = "<group>"; };
+		745855CB1A3B54AF000F6495 /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		745855CE1A3B5CFB000F6495 /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../SQLite.swift-master/SQLite.xcodeproj"; sourceTree = "<group>"; };
 		74704BB019F0B13600B810A6 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
 		74704BB219F0C0F900B810A6 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		7478A2E11A0ED3A20013D46C /* ChatLinkController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLinkController.swift; sourceTree = "<group>"; };
@@ -71,7 +132,19 @@
 		747DBA881A12AF5A00486E7E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		747DBA8B1A12B26C00486E7E /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		747DBA8C1A12B2B400486E7E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		74AD72781A03EF580013C8AF /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		748943F11A3CF13A00E70E5D /* RNCryptor+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor+Private.h"; sourceTree = "<group>"; };
+		748943F21A3CF13A00E70E5D /* RNCryptor-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor-Prefix.pch"; sourceTree = "<group>"; };
+		748943F31A3CF13A00E70E5D /* RNCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCryptor.h; sourceTree = "<group>"; };
+		748943F41A3CF13A00E70E5D /* RNCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCryptor.m; sourceTree = "<group>"; };
+		748943F51A3CF13A00E70E5D /* RNCryptorEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCryptorEngine.h; sourceTree = "<group>"; };
+		748943F61A3CF13A00E70E5D /* RNCryptorEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCryptorEngine.m; sourceTree = "<group>"; };
+		748943F71A3CF13A00E70E5D /* RNDecryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNDecryptor.h; sourceTree = "<group>"; };
+		748943F81A3CF13A00E70E5D /* RNDecryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNDecryptor.m; sourceTree = "<group>"; };
+		748943F91A3CF13A00E70E5D /* RNEncryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNEncryptor.h; sourceTree = "<group>"; };
+		748943FA1A3CF13A00E70E5D /* RNEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNEncryptor.m; sourceTree = "<group>"; };
+		748943FF1A3CF1F500E70E5D /* CytubeChatRNCryptorHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CytubeChatRNCryptorHeader.h; sourceTree = "<group>"; };
+		748944001A3CF34200E70E5D /* CytubeChatRNCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CytubeChatRNCryptor.m; sourceTree = "<group>"; };
+		74AD72781A03EF580013C8AF /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		74B767CB19F54D490021B178 /* UserlistController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserlistController.swift; sourceTree = "<group>"; };
 		74BB03DF19FC708A000534DB /* PrivacyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -81,6 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				745855DD1A3B5DB4000F6495 /* SQLite.framework in Frameworks */,
 				747DBA891A12AF5A00486E7E /* SystemConfiguration.framework in Frameworks */,
 				740BEF7F19EC322000E577A0 /* libicucore.dylib in Frameworks */,
 				740BEF7D19EC321300E577A0 /* Security.framework in Frameworks */,
@@ -102,6 +176,7 @@
 				740BEF7819EC31FE00E577A0 /* CFNetwork.framework */,
 				740BEF4719EC315400E577A0 /* CytubeChat1.0 */,
 				740BEF4619EC315400E577A0 /* Products */,
+				745855CE1A3B5CFB000F6495 /* SQLite.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -121,7 +196,8 @@
 				740BEF8219EC3AD300E577A0 /* CytubeRoom.swift */,
 				74038C8219F00E65005DB2A7 /* CytubeUser.swift */,
 				7410737119EF445E00D71C6C /* CytubeUtils.swift */,
-				74AD72781A03EF580013C8AF /* Operators.swift */,
+				745855CB1A3B54AF000F6495 /* DatabaseManager.swift */,
+				74AD72781A03EF580013C8AF /* Globals.swift */,
 				740BEF8419EC6FCF00E577A0 /* RoomManager.swift */,
 				740BEF4C19EC315400E577A0 /* RoomsController.swift */,
 				740BEF4E19EC315400E577A0 /* AddRoomsController.swift */,
@@ -132,9 +208,12 @@
 				74B767CB19F54D490021B178 /* UserlistController.swift */,
 				74BB03DF19FC708A000534DB /* PrivacyController.swift */,
 				7410736D19EDE86600D71C6C /* SwiftRegex.swift */,
+				748944001A3CF34200E70E5D /* CytubeChatRNCryptor.m */,
+				748943FF1A3CF1F500E70E5D /* CytubeChatRNCryptorHeader.h */,
 				740BEF7719EC319A00E577A0 /* CytubeChat-Bridging-Header.h */,
 				740BEF5019EC315400E577A0 /* Main.storyboard */,
 				740BEF5519EC315400E577A0 /* LaunchScreen.xib */,
+				748943F01A3CF13A00E70E5D /* RNCryptor */,
 				747DBA8A1A12B21D00486E7E /* Reachability */,
 				740BEF6C19EC317700E577A0 /* SocketRocket */,
 				740BEF4819EC315400E577A0 /* Supporting Files */,
@@ -165,6 +244,17 @@
 			path = SocketRocket;
 			sourceTree = "<group>";
 		};
+		745855CF1A3B5CFB000F6495 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				745855D61A3B5CFC000F6495 /* SQLite.framework */,
+				745855D81A3B5CFC000F6495 /* SQLite iOS Tests.xctest */,
+				745855DA1A3B5CFC000F6495 /* SQLite.framework */,
+				745855DC1A3B5CFC000F6495 /* SQLite Mac Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		747DBA8A1A12B21D00486E7E /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,6 +262,23 @@
 				747DBA8C1A12B2B400486E7E /* Reachability.m */,
 			);
 			name = Reachability;
+			sourceTree = "<group>";
+		};
+		748943F01A3CF13A00E70E5D /* RNCryptor */ = {
+			isa = PBXGroup;
+			children = (
+				748943F11A3CF13A00E70E5D /* RNCryptor+Private.h */,
+				748943F21A3CF13A00E70E5D /* RNCryptor-Prefix.pch */,
+				748943F31A3CF13A00E70E5D /* RNCryptor.h */,
+				748943F41A3CF13A00E70E5D /* RNCryptor.m */,
+				748943F51A3CF13A00E70E5D /* RNCryptorEngine.h */,
+				748943F61A3CF13A00E70E5D /* RNCryptorEngine.m */,
+				748943F71A3CF13A00E70E5D /* RNDecryptor.h */,
+				748943F81A3CF13A00E70E5D /* RNDecryptor.m */,
+				748943F91A3CF13A00E70E5D /* RNEncryptor.h */,
+				748943FA1A3CF13A00E70E5D /* RNEncryptor.m */,
+			);
+			path = RNCryptor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,10 +291,12 @@
 				740BEF4119EC315400E577A0 /* Sources */,
 				740BEF4219EC315400E577A0 /* Frameworks */,
 				740BEF4319EC315400E577A0 /* Resources */,
+				745855E01A3B5E90000F6495 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				745855DF1A3B5E6D000F6495 /* PBXTargetDependency */,
 			);
 			name = CytubeChat;
 			productName = CytubeChat1.0;
@@ -225,12 +334,49 @@
 			mainGroup = 740BEF3C19EC315400E577A0;
 			productRefGroup = 740BEF4619EC315400E577A0 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 745855CF1A3B5CFB000F6495 /* Products */;
+					ProjectRef = 745855CE1A3B5CFB000F6495 /* SQLite.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				740BEF4419EC315400E577A0 /* CytubeChat */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		745855D61A3B5CFC000F6495 /* SQLite.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLite.framework;
+			remoteRef = 745855D51A3B5CFC000F6495 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		745855D81A3B5CFC000F6495 /* SQLite iOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SQLite iOS Tests.xctest";
+			remoteRef = 745855D71A3B5CFC000F6495 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		745855DA1A3B5CFC000F6495 /* SQLite.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SQLite.framework;
+			remoteRef = 745855D91A3B5CFC000F6495 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		745855DC1A3B5CFC000F6495 /* SQLite Mac Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SQLite Mac Tests.xctest";
+			remoteRef = 745855DB1A3B5CFC000F6495 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		740BEF4319EC315400E577A0 /* Resources */ = {
@@ -252,28 +398,42 @@
 			files = (
 				740BEF7619EC317700E577A0 /* SRWebSocket.m in Sources */,
 				74B767CC19F54D490021B178 /* UserlistController.swift in Sources */,
+				748943FE1A3CF13A00E70E5D /* RNEncryptor.m in Sources */,
 				7410737219EF445E00D71C6C /* CytubeUtils.swift in Sources */,
 				7478A2E41A0ED4B80013D46C /* ChatCell.swift in Sources */,
+				748944011A3CF34200E70E5D /* CytubeChatRNCryptor.m in Sources */,
+				748943FD1A3CF13A00E70E5D /* RNDecryptor.m in Sources */,
 				740BEF8519EC6FCF00E577A0 /* RoomManager.swift in Sources */,
+				748943FC1A3CF13A00E70E5D /* RNCryptorEngine.m in Sources */,
 				74BB03E019FC708A000534DB /* PrivacyController.swift in Sources */,
 				740BEF8719EC857E00E577A0 /* ChatWindowController.swift in Sources */,
 				740BEF7519EC317700E577A0 /* NSData+SRB64Additions.m in Sources */,
 				740BEF4F19EC315400E577A0 /* AddRoomsController.swift in Sources */,
+				748943FB1A3CF13A00E70E5D /* RNCryptor.m in Sources */,
 				7410736E19EDE86600D71C6C /* SwiftRegex.swift in Sources */,
 				740BEF4B19EC315400E577A0 /* AppDelegate.swift in Sources */,
 				740BEF8319EC3AD300E577A0 /* CytubeRoom.swift in Sources */,
 				7478A2E21A0ED3A20013D46C /* ChatLinkController.swift in Sources */,
 				74038C8319F00E65005DB2A7 /* CytubeUser.swift in Sources */,
 				747DBA8D1A12B2B400486E7E /* Reachability.m in Sources */,
-				74AD72791A03EF580013C8AF /* Operators.swift in Sources */,
+				74AD72791A03EF580013C8AF /* Globals.swift in Sources */,
 				740BEF7419EC317700E577A0 /* base64.c in Sources */,
 				740BEF8119EC32BD00E577A0 /* CytubeSocket.swift in Sources */,
 				740BEF4D19EC315400E577A0 /* RoomsController.swift in Sources */,
 				74704BB319F0C0F900B810A6 /* LoginController.swift in Sources */,
+				745855CC1A3B54AF000F6495 /* DatabaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		745855DF1A3B5E6D000F6495 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "SQLite iOS";
+			targetProxy = 745855DE1A3B5E6D000F6495 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		740BEF5019EC315400E577A0 /* Main.storyboard */ = {
@@ -380,7 +540,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CytubeChat1.0/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = CytubeChat;
 				PROVISIONING_PROFILE = "";
@@ -397,7 +557,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CytubeChat1.0/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = CytubeChat;
 				PROVISIONING_PROFILE = "";

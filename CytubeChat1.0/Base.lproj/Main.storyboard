@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment version="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -356,11 +356,17 @@
                                     <outlet property="delegate" destination="gL4-Vg-feS" id="ay8-gh-A82"/>
                                 </connections>
                             </textField>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rgT-rD-1dF">
+                                <rect key="frame" x="535" y="190" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yb5-bH-yes">
+                                <rect key="frame" x="16" y="195" width="85" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBw-r7-FTH">
-                                <rect key="frame" x="504" y="191" width="80" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="PqE-ky-aUQ"/>
-                                </constraints>
+                                <rect key="frame" x="519" y="238" width="80" height="30"/>
                                 <state key="normal" title="Submit">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -371,21 +377,27 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="CVK-fA-NIV" firstAttribute="leading" secondItem="i4Q-0f-T3d" secondAttribute="leadingMargin" constant="-16" id="8cV-gC-2UJ"/>
-                            <constraint firstItem="BjX-Zs-U5M" firstAttribute="trailing" secondItem="i4Q-0f-T3d" secondAttribute="trailingMargin" id="IJq-jq-hxO"/>
-                            <constraint firstItem="CVK-fA-NIV" firstAttribute="top" secondItem="D5f-ER-80t" secondAttribute="bottom" constant="8" id="MRH-kR-1qN"/>
-                            <constraint firstItem="YbR-Zu-5q5" firstAttribute="leading" secondItem="i4Q-0f-T3d" secondAttribute="leadingMargin" id="V9c-tu-OsN"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="CVK-fA-NIV" secondAttribute="trailing" constant="-16" id="gls-Qq-MDN"/>
-                            <constraint firstItem="BjX-Zs-U5M" firstAttribute="top" secondItem="CVK-fA-NIV" secondAttribute="bottom" constant="35" id="gva-sq-H38"/>
-                            <constraint firstItem="GBw-r7-FTH" firstAttribute="top" secondItem="YbR-Zu-5q5" secondAttribute="bottom" constant="16" id="kOD-8d-sAo"/>
-                            <constraint firstItem="YbR-Zu-5q5" firstAttribute="trailing" secondItem="i4Q-0f-T3d" secondAttribute="trailingMargin" id="kgE-rP-OHM"/>
-                            <constraint firstItem="YbR-Zu-5q5" firstAttribute="top" secondItem="BjX-Zs-U5M" secondAttribute="bottom" constant="8" id="o9c-lp-ifN"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="GBw-r7-FTH" secondAttribute="trailing" id="sTa-L0-mit"/>
-                            <constraint firstItem="BjX-Zs-U5M" firstAttribute="leading" secondItem="i4Q-0f-T3d" secondAttribute="leadingMargin" id="tJG-yK-G3Y"/>
+                            <constraint firstItem="yb5-bH-yes" firstAttribute="leading" secondItem="YbR-Zu-5q5" secondAttribute="leading" id="17R-Xf-D0n"/>
+                            <constraint firstItem="rgT-rD-1dF" firstAttribute="centerX" secondItem="GBw-r7-FTH" secondAttribute="centerX" id="2eS-Iq-fnR"/>
+                            <constraint firstAttribute="trailing" secondItem="CVK-fA-NIV" secondAttribute="trailing" id="4VQ-PW-PHT"/>
+                            <constraint firstItem="CVK-fA-NIV" firstAttribute="leading" secondItem="i4Q-0f-T3d" secondAttribute="leading" id="KxO-HP-HsG"/>
+                            <constraint firstItem="yb5-bH-yes" firstAttribute="leading" secondItem="i4Q-0f-T3d" secondAttribute="leadingMargin" id="N49-Bf-lRV"/>
+                            <constraint firstItem="YbR-Zu-5q5" firstAttribute="top" secondItem="BjX-Zs-U5M" secondAttribute="bottom" constant="8" symbolic="YES" id="Oie-RZ-YLh"/>
+                            <constraint firstItem="BjX-Zs-U5M" firstAttribute="trailing" secondItem="YbR-Zu-5q5" secondAttribute="trailing" id="Pp5-wq-8zm"/>
+                            <constraint firstItem="CVK-fA-NIV" firstAttribute="top" secondItem="D5f-ER-80t" secondAttribute="bottom" constant="8" id="QpH-LZ-JVc"/>
+                            <constraint firstItem="BjX-Zs-U5M" firstAttribute="top" secondItem="CVK-fA-NIV" secondAttribute="bottom" constant="35" id="UHE-eX-pgW"/>
+                            <constraint firstItem="GBw-r7-FTH" firstAttribute="top" secondItem="rgT-rD-1dF" secondAttribute="bottom" constant="17" id="huE-yn-HxO"/>
+                            <constraint firstItem="rgT-rD-1dF" firstAttribute="centerY" secondItem="yb5-bH-yes" secondAttribute="centerY" id="ley-Jg-tSv"/>
+                            <constraint firstItem="YbR-Zu-5q5" firstAttribute="leading" secondItem="BjX-Zs-U5M" secondAttribute="leading" id="ljk-ON-t6W"/>
+                            <constraint firstItem="rgT-rD-1dF" firstAttribute="trailing" secondItem="YbR-Zu-5q5" secondAttribute="trailing" id="no6-DG-7Na"/>
+                            <constraint firstItem="rgT-rD-1dF" firstAttribute="top" secondItem="YbR-Zu-5q5" secondAttribute="bottom" constant="15" id="q4T-yU-tLK"/>
+                            <constraint firstItem="CVK-fA-NIV" firstAttribute="centerX" secondItem="BjX-Zs-U5M" secondAttribute="centerX" id="tmp-lR-TQ0"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="GBw-r7-FTH" secondAttribute="trailing" constant="-15" id="wPa-y9-EWc"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="passwordText" destination="YbR-Zu-5q5" id="5Cp-dZ-Z6S"/>
+                        <outlet property="rememberSwitch" destination="rgT-rD-1dF" id="iRm-cQ-Vp9"/>
                         <outlet property="usernameText" destination="BjX-Zs-U5M" id="9Lo-rH-Lyn"/>
                     </connections>
                 </viewController>

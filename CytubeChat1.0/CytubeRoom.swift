@@ -271,8 +271,17 @@ class CytubeRoom: NSObject {
         return false
     }
     
-    func sortUserlist() {
-        sort(&self.userlist) {$0 > $1}
+    func saveUser() {
+        if (self.username == nil) {
+            return
+        }
+        
+        dbManger.insertEntryForChannel(server: self.server, channel: self.roomName,
+            uname: self.username, pword: self.password!)
+    }
+    
+    func forgetUser() {
+        
     }
     
     func sendChatMsg(msg:String?) {
@@ -294,6 +303,10 @@ class CytubeRoom: NSObject {
             ]
             self.socket?.send("login", args: loginData)
         }
+    }
+    
+    func sortUserlist() {
+        sort(&self.userlist) {$0 > $1}
     }
     
     func openSocket() {

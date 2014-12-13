@@ -11,6 +11,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var usernameText:UITextField!
     @IBOutlet weak var passwordText:UITextField!
+    @IBOutlet weak var rememberSwitch:UISwitch!
+    
     var room:CytubeRoom?
     
     override func viewDidLoad() {
@@ -20,6 +22,12 @@ class LoginController: UIViewController, UITextFieldDelegate {
             CytubeUtils.displayGenericAlertWithNoButtons(title: "Hint",
                 message: "You can login as guest by submitting a username without a password.",
                 view: self)
+        }
+        
+        if let (username, password) = dbManger.getUsernamePasswordForChannel(server: self.room!.server!,
+            channel: self.room!.roomName) {
+                self.usernameText.text = username
+                self.passwordText.text = password
         }
     }
     
@@ -43,6 +51,9 @@ class LoginController: UIViewController, UITextFieldDelegate {
         self.room?.setUsername(self.usernameText.text)
         self.room?.setPassword(self.passwordText.text)
         self.room?.sendLogin()
+        if (self.rememberSwitch.on) {
+            self.room?.saveUser()
+        }
         self.dismissViewControllerAnimated(true, completion: nil)
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasLoggedIn")
         NSUserDefaults.standardUserDefaults().synchronize()

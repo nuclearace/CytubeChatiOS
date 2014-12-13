@@ -7,3 +7,6 @@
 
 #import "SocketRocket/SRWebSocket.h"
 #import "Reachability.h"
+#import "RNEncryptor.h"
+#import "RNDecryptor.h"
+#import "CytubeChatRNCryptorHeader.h"

@@ -8,6 +8,7 @@
 import UIKit
 
 let internetReachability = Reachability.reachabilityForInternetConnection()
+var dbManger:DatabaseManger!
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             selector: "handleNetworkChange:", name: kReachabilityChangedNotification, object: nil)
         
         internetReachability.startNotifier()
+        dbManger = DatabaseManger()
         roomMng.loadRooms()
         return true
     }
