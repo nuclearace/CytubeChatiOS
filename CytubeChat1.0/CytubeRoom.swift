@@ -97,6 +97,7 @@ class CytubeRoom: NSObject {
             } else {
                 if let error = data["error"] as? NSString {
                     self?.loggedIn = false
+                    self?.forgetUser()
                     self?.chatWindow?.chatInput.enabled = false
                     self?.chatWindow?.loginButton.enabled = true
                     CytubeUtils.displayGenericAlertWithNoButtons(title: "Login Failed", message: error,
@@ -281,7 +282,7 @@ class CytubeRoom: NSObject {
     }
     
     func forgetUser() {
-        
+        dbManger.removeEntryForChannel(server: self.server, channel: self.roomName)
     }
     
     func sendChatMsg(msg:String?) {

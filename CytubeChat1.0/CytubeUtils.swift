@@ -34,7 +34,6 @@ class CytubeUtils {
     }
     
     class func decryptPassword(edata: NSData, key:String) -> String? {
-        
         var err:NSError?
         let pdata = RNDecryptor.decryptData(edata, withPassword: key, error: &err)
         if (err != nil) {

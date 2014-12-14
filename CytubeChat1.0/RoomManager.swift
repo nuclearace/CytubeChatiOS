@@ -54,8 +54,9 @@ class RoomManager: NSObject {
         return rooms[index].cytubeRoom
     }
     
-    func removeRoom(roomAtIndex: Int) -> CytubeRoom {
+    func removeRoom(roomAtIndex:Int) -> CytubeRoom {
         let con = rooms.removeAtIndex(roomAtIndex)
+        con.cytubeRoom.forgetUser()
         self.saveRooms()
         return con.cytubeRoom
     }

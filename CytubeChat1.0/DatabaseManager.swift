@@ -77,4 +77,13 @@ class DatabaseManger: NSObject {
             println("inserted \(completeChannel) \(uname)")
         }
     }
+    
+    func removeEntryForChannel(#server:String, channel:String) {
+        let channels = db["channels"]
+        let name = Expression<String>("name")
+        let channelToFind = server + "." + channel
+        
+        let foundChannel = channels.filter(name == channelToFind)
+        foundChannel.delete()?
+    }
 }

@@ -51,8 +51,10 @@ class LoginController: UIViewController, UITextFieldDelegate {
         self.room?.setUsername(self.usernameText.text)
         self.room?.setPassword(self.passwordText.text)
         self.room?.sendLogin()
-        if (self.rememberSwitch.on) {
+        if (self.rememberSwitch.on && self.passwordText.text != "") {
             self.room?.saveUser()
+        } else {
+            self.room?.forgetUser()
         }
         self.dismissViewControllerAnimated(true, completion: nil)
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasLoggedIn")
