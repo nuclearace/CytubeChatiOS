@@ -17,7 +17,7 @@ class AddRoomsController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(animated:Bool) {
         super.viewDidAppear(true)
     }
     

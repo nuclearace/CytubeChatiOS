@@ -75,6 +75,9 @@ class DatabaseManger: NSObject {
         
         if let insertedUser = channels.insert(name <- completeChannel, username <- uname, password <- ePassword, key <- key2) {
             println("inserted \(completeChannel) \(uname)")
+        } else if let updatedUser = channels.filter(name == completeChannel)
+            .update(username <- uname, password <- ePassword, key <- key2) {
+            println("updated user \(uname)")
         }
     }
     

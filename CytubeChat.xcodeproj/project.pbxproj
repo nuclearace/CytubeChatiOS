@@ -94,6 +94,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		74B78E731A3E382200402F0B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -146,6 +155,7 @@
 		748944001A3CF34200E70E5D /* CytubeChatRNCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CytubeChatRNCryptor.m; sourceTree = "<group>"; };
 		74AD72781A03EF580013C8AF /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		74B767CB19F54D490021B178 /* UserlistController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserlistController.swift; sourceTree = "<group>"; };
+		74B78E751A3E382200402F0B /* CytubeChatTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CytubeChatTests; sourceTree = BUILT_PRODUCTS_DIR; };
 		74BB03DF19FC708A000534DB /* PrivacyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -160,6 +170,13 @@
 				740BEF7D19EC321300E577A0 /* Security.framework in Frameworks */,
 				740BEF7B19EC320700E577A0 /* Foundation.framework in Frameworks */,
 				740BEF7919EC31FE00E577A0 /* CFNetwork.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		74B78E721A3E382200402F0B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				740BEF4519EC315400E577A0 /* CytubeChat.app */,
+				74B78E751A3E382200402F0B /* CytubeChatTests */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -208,11 +226,10 @@
 				74B767CB19F54D490021B178 /* UserlistController.swift */,
 				74BB03DF19FC708A000534DB /* PrivacyController.swift */,
 				7410736D19EDE86600D71C6C /* SwiftRegex.swift */,
-				748944001A3CF34200E70E5D /* CytubeChatRNCryptor.m */,
-				748943FF1A3CF1F500E70E5D /* CytubeChatRNCryptorHeader.h */,
 				740BEF7719EC319A00E577A0 /* CytubeChat-Bridging-Header.h */,
 				740BEF5019EC315400E577A0 /* Main.storyboard */,
 				740BEF5519EC315400E577A0 /* LaunchScreen.xib */,
+				74548A821A3DD5620023F08E /* Obj-C */,
 				748943F01A3CF13A00E70E5D /* RNCryptor */,
 				747DBA8A1A12B21D00486E7E /* Reachability */,
 				740BEF6C19EC317700E577A0 /* SocketRocket */,
@@ -242,6 +259,15 @@
 				740BEF7319EC317700E577A0 /* SRWebSocket.m */,
 			);
 			path = SocketRocket;
+			sourceTree = "<group>";
+		};
+		74548A821A3DD5620023F08E /* Obj-C */ = {
+			isa = PBXGroup;
+			children = (
+				748944001A3CF34200E70E5D /* CytubeChatRNCryptor.m */,
+				748943FF1A3CF1F500E70E5D /* CytubeChatRNCryptorHeader.h */,
+			);
+			name = "Obj-C";
 			sourceTree = "<group>";
 		};
 		745855CF1A3B5CFB000F6495 /* Products */ = {
@@ -303,6 +329,23 @@
 			productReference = 740BEF4519EC315400E577A0 /* CytubeChat.app */;
 			productType = "com.apple.product-type.application";
 		};
+		74B78E741A3E382200402F0B /* CytubeChatTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 74B78E7E1A3E382200402F0B /* Build configuration list for PBXNativeTarget "CytubeChatTests" */;
+			buildPhases = (
+				74B78E711A3E382200402F0B /* Sources */,
+				74B78E721A3E382200402F0B /* Frameworks */,
+				74B78E731A3E382200402F0B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CytubeChatTests;
+			productName = CytubeChatTests;
+			productReference = 74B78E751A3E382200402F0B /* CytubeChatTests */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -320,6 +363,9 @@
 								enabled = 0;
 							};
 						};
+					};
+					74B78E741A3E382200402F0B = {
+						CreatedOnToolsVersion = 6.1.1;
 					};
 				};
 			};
@@ -343,6 +389,7 @@
 			projectRoot = "";
 			targets = (
 				740BEF4419EC315400E577A0 /* CytubeChat */,
+				74B78E741A3E382200402F0B /* CytubeChatTests */,
 			);
 		};
 /* End PBXProject section */
@@ -422,6 +469,13 @@
 				740BEF4D19EC315400E577A0 /* RoomsController.swift in Sources */,
 				74704BB319F0C0F900B810A6 /* LoginController.swift in Sources */,
 				745855CC1A3B54AF000F6495 /* DatabaseManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		74B78E711A3E382200402F0B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,6 +620,29 @@
 			};
 			name = Release;
 		};
+		74B78E791A3E382200402F0B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		74B78E7A1A3E382200402F0B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -583,6 +660,15 @@
 			buildConfigurations = (
 				740BEF6719EC315500E577A0 /* Debug */,
 				740BEF6819EC315500E577A0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		74B78E7E1A3E382200402F0B /* Build configuration list for PBXNativeTarget "CytubeChatTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				74B78E791A3E382200402F0B /* Debug */,
+				74B78E7A1A3E382200402F0B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

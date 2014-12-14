@@ -95,7 +95,7 @@ class CytubeRoom: NSObject {
                 self?.chatWindow?.chatInput.enabled = true
                 self?.chatWindow?.loginButton.enabled = false
             } else {
-                if let error = data["error"] as? NSString {
+                if let error = data["error"] as? String {
                     self?.loggedIn = false
                     self?.forgetUser()
                     self?.chatWindow?.chatInput.enabled = false
@@ -119,20 +119,20 @@ class CytubeRoom: NSObject {
         }
         
         self.socket?.on("userLeave") {[weak self] data in
-            let data = (data as NSDictionary)["name"] as NSString
+            let data = (data as NSDictionary)["name"] as String
             self?.handleUserLeave(data)
         }
         
         self.socket?.on("setAFK") {[weak self] data in
             if (self != nil) {
-                let username = (data as NSDictionary)["name"] as NSString
+                let username = (data as NSDictionary)["name"] as String
                 let afk = (data as NSDictionary)["afk"] as Bool
                 self?.handleSetAFK(username, afk: afk)
             }
         }
         
         self.socket?.on("kick") {[weak self] data in
-            let reason = (data as NSDictionary)["reason"] as NSString
+            let reason = (data as NSDictionary)["reason"] as String
             let kickObj = [
                 "reason": reason,
                 "room": self!.roomName
@@ -174,11 +174,11 @@ class CytubeRoom: NSObject {
     }
     
     func handleChatMsg(data:NSDictionary) {
-        let username:String = data["username"] as NSString
-        var msg:String = data["msg"] as NSString
-        let time:NSTimeInterval = data["time"] as NSTimeInterval / 1000
-        var dateFormatter:NSDateFormatter = NSDateFormatter()
-        var date:NSDate = NSDate(timeIntervalSince1970: time)
+        let username = data["username"] as String
+        var msg = data["msg"] as String
+        let time = data["time"] as NSTimeInterval / 1000
+        var dateFormatter = NSDateFormatter()
+        var date = NSDate(timeIntervalSince1970: time)
         dateFormatter.dateFormat = "HH:mm:ss z"
         
         if (CytubeUtils.userIsIgnored(ignoreList: self.ignoreList, user: username)) {
@@ -202,7 +202,7 @@ class CytubeRoom: NSObject {
     
     func handleImminentDelete() {
         if (self.connected) {
-            println("Imminent room deletion: Shut down socket")
+            // println("Imminent room deletion: Shut down socket")
             self.needDelete = true
             self.socket?.close()
         } else {
@@ -262,14 +262,14 @@ class CytubeRoom: NSObject {
     }
     
     func isConnected() -> Bool {
-        if ((socket?) != nil) {
-            if (socket!.connected) {
-                return true
-            } else {
-                return false
-            }
+        if (self.socket == nil) {
+            return false
         }
-        return false
+        if (socket!.connected) {
+            return true
+        } else {
+            return false
+        }
     }
     
     func saveUser() {

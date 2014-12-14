@@ -23,17 +23,17 @@ class CytubeUtils {
         mut = mut["(<([^>]+)>)"] ~= ""
         mut = mut["(^[ \t]+)"] ~= ""
         
-        return mut as NSString
+        return mut as String
     }
     
-    class func encryptPassword(password: String, key:String) -> String {
+    class func encryptPassword(password:String, key:String) -> String {
         let edata = CytubeChatRNCryptor.encryptData(password.dataUsingEncoding(NSUTF8StringEncoding,
             allowLossyConversion: true), password: key, error: nil)
         
         return edata.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.allZeros)
     }
     
-    class func decryptPassword(edata: NSData, key:String) -> String? {
+    class func decryptPassword(edata:NSData, key:String) -> String? {
         var err:NSError?
         let pdata = RNDecryptor.decryptData(edata, withPassword: key, error: &err)
         if (err != nil) {
@@ -95,7 +95,7 @@ class CytubeUtils {
                 if (cuser == userAsCytubeUser.getUsername()) {
                     return true
                 }
-            } else if let userAsString = user as? NSString {
+            } else if let userAsString = user as? String {
                 if (cuser == userAsString) {
                     return true
                 }
@@ -105,9 +105,9 @@ class CytubeUtils {
     }
     
     class func formatMessage(#msgObj:NSDictionary) -> NSAttributedString {
-        let time = msgObj["time"] as NSString
-        let username = msgObj["username"] as NSString
-        let msg = msgObj["msg"] as NSString
+        let time = msgObj["time"] as String
+        let username = msgObj["username"] as String
+        let msg = msgObj["msg"] as String
         let message = NSString(format: "%@ %@: %@", time, username, msg)
         let returnMessage = NSMutableAttributedString(string: message)
         let timeFont = UIFont(name: "Helvetica Neue", size: 10)
@@ -121,9 +121,9 @@ class CytubeUtils {
     }
     
     class func createIgnoredUserMessage(#msgObj:NSDictionary) -> NSAttributedString {
-        let time = msgObj["time"] as NSString
-        let username = msgObj["username"] as NSString
-        let msg = msgObj["msg"] as NSString
+        let time = msgObj["time"] as String
+        let username = msgObj["username"] as String
+        let msg = msgObj["msg"] as String
         let message = NSString(format: "%@ %@: %@", time, username, msg)
         let returnMessage = NSMutableAttributedString(string: message)
         let messageRange = message.rangeOfString(msg)
