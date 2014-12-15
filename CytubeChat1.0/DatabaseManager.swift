@@ -13,17 +13,21 @@ class DatabaseManger: NSObject {
     
     override init() {
         super.init()
+        var err:NSError?
         var shouldCreateTables = true
+        let manager = NSFileManager.defaultManager()
         let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory,
             NSSearchPathDomainMask.UserDomainMask, true)
         
         let documentsDirectory = paths[0] as String
         let destPath = documentsDirectory.stringByAppendingPathComponent("cytubechat.db")
-        if ((NSFileManager.defaultManager().fileExistsAtPath(destPath))) {
+        if ((manager.fileExistsAtPath(destPath))) {
             shouldCreateTables = false
         }
         
         self.db = Database(destPath)
+        manager.setAttributes([NSFileProtectionKey: NSFileProtectionComplete],
+            ofItemAtPath: destPath, error: &err)
         if (shouldCreateTables) {
             self.createTables()
         }
