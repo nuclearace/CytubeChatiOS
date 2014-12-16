@@ -213,8 +213,6 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func wasKicked(not:NSNotification) {
-        let version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
-        let versionInt:Int? = version.toInt()
         let roomName = self.room!.roomName
         let kickObj = not.object as NSDictionary
         if (kickObj["room"] as NSString != roomName) {
@@ -222,44 +220,27 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         }
         let reason = kickObj["reason"] as NSString
         
-        if (versionInt < 8) {
-            var alert:UIAlertView = UIAlertView(title: "Kicked", message:
-                "You have been kicked from room \(roomName). Reason: \(reason)",
-                delegate: self, cancelButtonTitle: "Okay")
-            alert.show()
-        } else {
-            var alert = UIAlertController(title: "Kicked", message:
-                "You have been kicked from room \(roomName). Reason: \(reason)", preferredStyle: UIAlertControllerStyle.Alert)
-            var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
-                self.room?.setChatWindow(nil)
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }
-            alert.addAction(action)
-            self.presentViewController(alert, animated: true, completion: nil)
+        var alert = UIAlertController(title: "Kicked", message:
+            "You have been kicked from room \(roomName). Reason: \(reason)", preferredStyle: UIAlertControllerStyle.Alert)
+        var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
+            self.room?.setChatWindow(nil)
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
+        alert.addAction(action)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func passwordFail(not:NSNotification) {
-        let version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
-        let versionInt:Int? = version.toInt()
         let roomName = self.room!.roomName
-        
-        if (versionInt < 8) {
-            var alert:UIAlertView = UIAlertView(title: "Password Fail", message:
-                "No password, or incorrect password for: \(roomName). Please try adding again.",
-                delegate: self, cancelButtonTitle: "Okay")
-            alert.show()
-        } else {
-            var alert = UIAlertController(title: "Password Fail", message:
-                "No password, or incorrect password for: \(roomName). Please try adding again.",
-                preferredStyle: UIAlertControllerStyle.Alert)
-            var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
-                self.room?.setChatWindow(nil)
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }
-            alert.addAction(action)
-            self.presentViewController(alert, animated: true, completion: nil)
+        var alert = UIAlertController(title: "Password Fail", message:
+            "No password, or incorrect password for: \(roomName). Please try adding again.",
+            preferredStyle: UIAlertControllerStyle.Alert)
+        var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
+            self.room?.setChatWindow(nil)
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
+        alert.addAction(action)
+        self.presentViewController(alert, animated: true, completion: nil)
         
     }
     

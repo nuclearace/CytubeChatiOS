@@ -55,24 +55,15 @@ class CytubeUtils {
     
     class func displayGenericAlertWithNoButtons(#title:String, message:String, view:UIViewController?) {
         dispatch_async(dispatch_get_main_queue()) {() in
-            let version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
-            let versionInt:Int? = version.toInt()
-            
-            if (versionInt < 8) {
-                var alert:UIAlertView = UIAlertView(title: title, message: message,
-                    delegate: nil, cancelButtonTitle: "Okay")
-                alert.show()
-            } else {
-                var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-                var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
-                    return
-                }
-                alert.addAction(action)
-                if (view == nil) {
-                    var view = UIApplication.sharedApplication().keyWindow?.rootViewController
-                }
-                view?.presentViewController(alert, animated: true, completion: nil)
+            var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
+                return
             }
+            alert.addAction(action)
+            if (view == nil) {
+                var view = UIApplication.sharedApplication().keyWindow?.rootViewController
+            }
+            view?.presentViewController(alert, animated: true, completion: nil)
         }
     }
     
@@ -137,6 +128,6 @@ class CytubeUtils {
         returnMessage.addAttribute(kCTFontAttributeName, value: usernameFont, range: usernameRange)
         returnMessage.addAttribute(kCTFontAttributeName, value: messageFont, range: messageRange)
         return returnMessage
-
+        
     }
 }

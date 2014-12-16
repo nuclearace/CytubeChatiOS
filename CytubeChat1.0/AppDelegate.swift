@@ -7,9 +7,6 @@
 
 import UIKit
 
-let internetReachability = Reachability.reachabilityForInternetConnection()
-var dbManger:DatabaseManger!
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -34,11 +31,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillResignActive(application: UIApplication) {
-        println("We are about to become inactive")
+        // println("We are about to become inactive")
     }
     
     func applicationDidEnterBackground(application: UIApplication) {
-        println("We entered the background")
+        // println("We entered the background")
         self.backgroundID = application.beginBackgroundTaskWithExpirationHandler() {[weak self] in
             if (self != nil) {
                 application.endBackgroundTask(self!.backgroundID)
@@ -46,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            NSLog("Running in the background\n")
+            // NSLog("Running in the background\n")
             roomMng.saveRooms()
             roomMng.closeRooms()
             application.endBackgroundTask(self.backgroundID)
@@ -54,16 +51,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillEnterForeground(application: UIApplication) {
-        println("Coming back from the background")
+        // println("Coming back from the background")
     }
     
     func applicationDidBecomeActive(application: UIApplication) {
-        println("We will become active")
+        // println("We will become active")
         roomMng.reopenRooms()
     }
     
     func applicationWillTerminate(application: UIApplication) {
-        println("We're going down")
+        // println("We're going down")
         roomMng.saveRooms()
     }
     

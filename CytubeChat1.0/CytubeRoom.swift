@@ -41,16 +41,16 @@ class CytubeRoom: NSObject {
     }
     
     deinit {
-        println("CytubeRoom \(self.roomName) is being deinit")
+        // println("CytubeRoom \(self.roomName) is being deinit")
         roomsController?.tblRoom.reloadData()
         NSNotificationCenter.defaultCenter().postNotificationName("roomRemoved", object: nil)
     }
     
     func addHandlers() {
-        println("Adding Handlers for room: \(self.roomName)")
+        // println("Adding Handlers for room: \(self.roomName)")
         
         self.socket?.on("connect") {[weak self] data in
-            println("Connected to Cytube server \(self?.server)")
+            // println("Connected to Cytube server \(self?.server)")
             self?.connected = true
             self?.reconnecting = false
             self?.socket?.send("initChannelCallbacks", args: nil)

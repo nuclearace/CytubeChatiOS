@@ -145,7 +145,7 @@ class RoomManager: NSObject {
         var handler = NSFileManager()
         var pointerErr:NSError?
         let pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        let path = pathsArray[0] as NSString + "/rooms.json"
+        let path = pathsArray[0] as String + "/rooms.json"
         
         if (!handler.fileExistsAtPath(path)) {
             return false
@@ -156,9 +156,9 @@ class RoomManager: NSObject {
             options: NSJSONReadingOptions.AllowFragments, error: &pointerErr) as? NSDictionary  {
                 for var i = 0; i < (roomsFromData["rooms"] as NSArray).count; ++i {
                     let con = (roomsFromData["rooms"] as NSArray)[i] as NSDictionary
-                    let recreatedRoom = CytubeRoom(roomName: con["room"] as NSString,
-                        server: con["server"] as NSString, password: con["roomPassword"] as NSString)
-                    self.addRoom(con["server"] as NSString, room: con["room"] as NSString, cytubeRoom: recreatedRoom)
+                    let recreatedRoom = CytubeRoom(roomName: con["room"] as String,
+                        server: con["server"] as String, password: con["roomPassword"] as? String)
+                    self.addRoom(con["server"] as String, room: con["room"] as String, cytubeRoom: recreatedRoom)
                 }
         }
         NSLog("Loaded Rooms")

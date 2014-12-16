@@ -46,7 +46,7 @@ private class EventHandler: NSObject {
     }
     
     deinit {
-        println("deint handler for \(event)")
+        // println("deint handler for \(event)")
     }
     
     func executeCallback(args:AnyObject?) {
@@ -203,8 +203,8 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
             }
         }
         
-        let event:NSString = json!["name"] as NSString
-        println("GOT EVENT: \(event)")
+        let event = json!["name"] as NSString
+        // println("GOT EVENT: \(event)")
         if (json?.count > 1) {
             doEvent(event, json!["args"])
         } else {

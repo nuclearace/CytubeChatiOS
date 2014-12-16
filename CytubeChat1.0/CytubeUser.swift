@@ -20,7 +20,7 @@ class CytubeUser: NSObject, Comparable {
     }
     
     deinit {
-        println("CytubeUser \(self.username) is being deint")
+        // println("CytubeUser \(self.username) is being deint")
     }
     
     func getColorValue() -> UIColor? {

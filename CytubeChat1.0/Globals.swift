@@ -7,6 +7,9 @@
 
 import Foundation
 
+let internetReachability = Reachability.reachabilityForInternetConnection()
+var dbManger:DatabaseManger!
+
 func ==(lhs:CytubeUser, rhs:CytubeUser) -> Bool {
     if (lhs.rank == rhs.rank) {
         return true

@@ -43,66 +43,48 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             return
         }
         self.inAlert = true
-        let version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
-        let versionInt:Int? = version.toInt()
         let point = sender.locationInView(tblRoom)
         let indexPath = tblRoom.indexPathForRowAtPoint(point)
         
-        if (indexPath != nil && versionInt >= 8) {
-            self.selectedRoom = roomMng.getRoomAtIndex(indexPath!.row)
-            var connectDisconnect:String!
-            let connected = selectedRoom.isConnected()
-            if (connected) {
-                connectDisconnect = "Disconnect"
-            } else {
-                connectDisconnect = "Connect"
-            }
-            var alert = UIAlertController(title: "Options", message: "What do you want to do?", preferredStyle: UIAlertControllerStyle.Alert)
-            var action = UIAlertAction(title: connectDisconnect, style: UIAlertActionStyle.Default) {[weak self] action in
-                if (connected) {
-                    self?.selectedRoom.closeRoom()
-                    self?.inAlert = false
-                    self?.selectedRoom = nil
-                } else {
-                    if (!(self?.selectedRoom.isConnected())!) {
-                        self?.selectedRoom.openSocket()
-                    }
-                    self?.selectedRoom.setActive(true)
-                    self?.inAlert = false
-                    self?.selectedRoom = nil
-                    self?.performSegueWithIdentifier("goToChatRoom", sender: self)
-                }
-            }
-            
-            var action1 = UIAlertAction(title: "Remove", style: UIAlertActionStyle.Destructive) {[weak self] action in
-                self?.selectedRoom.handleImminentDelete()
-                self?.inAlert = false
-                self?.selectedRoom = nil
-            }
-            var action2 = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {[weak self] action in
-                self?.inAlert = false
-                self?.selectedRoom = nil
-            }
-            
-            alert.addAction(action)
-            alert.addAction(action1)
-            alert.addAction(action2)
-            self.presentViewController(alert, animated: true, completion: nil)
-        } else if (indexPath != nil) {
-            self.selectedRoom = roomMng.getRoomAtIndex(indexPath!.row)
-            var connectDisconnect:String!
-            let connected = selectedRoom.isConnected()
-            if (connected) {
-                connectDisconnect = "Disconnect"
-            } else {
-                connectDisconnect = "Connect"
-            }
-            var alert = UIAlertView(title: "Options", message: "What do you want to do?",
-                delegate: self, cancelButtonTitle: "Cancel")
-            alert.addButtonWithTitle(connectDisconnect)
-            alert.addButtonWithTitle("Remove")
-            alert.show()
+        self.selectedRoom = roomMng.getRoomAtIndex(indexPath!.row)
+        var connectDisconnect:String!
+        let connected = selectedRoom.isConnected()
+        if (connected) {
+            connectDisconnect = "Disconnect"
+        } else {
+            connectDisconnect = "Connect"
         }
+        var alert = UIAlertController(title: "Options", message: "What do you want to do?", preferredStyle: UIAlertControllerStyle.Alert)
+        var action = UIAlertAction(title: connectDisconnect, style: UIAlertActionStyle.Default) {[weak self] action in
+            if (connected) {
+                self?.selectedRoom.closeRoom()
+                self?.inAlert = false
+                self?.selectedRoom = nil
+            } else {
+                if (!(self?.selectedRoom.isConnected())!) {
+                    self?.selectedRoom.openSocket()
+                }
+                self?.selectedRoom.setActive(true)
+                self?.inAlert = false
+                self?.selectedRoom = nil
+                self?.performSegueWithIdentifier("goToChatRoom", sender: self)
+            }
+        }
+        
+        var action1 = UIAlertAction(title: "Remove", style: UIAlertActionStyle.Destructive) {[weak self] action in
+            self?.selectedRoom.handleImminentDelete()
+            self?.inAlert = false
+            self?.selectedRoom = nil
+        }
+        var action2 = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {[weak self] action in
+            self?.inAlert = false
+            self?.selectedRoom = nil
+        }
+        
+        alert.addAction(action)
+        alert.addAction(action1)
+        alert.addAction(action2)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {

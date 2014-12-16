@@ -56,8 +56,6 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func showIgnoreUserAlert(#user:CytubeUser) {
-        let version = UIDevice.currentDevice().systemVersion["(.*)\\."][1]
-        let versionInt:Int? = version.toInt()
         var title:String!
         var message:String!
         if (CytubeUtils.userIsIgnored(ignoreList: self.room.ignoreList, user: user)) {
@@ -68,31 +66,25 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
             message = "Ignore \(user.getUsername())?"
         }
         
-        if (versionInt >= 8) {
-            var alert = UIAlertController(title: title, message:
-                message, preferredStyle: UIAlertControllerStyle.Alert)
-            var yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) {alert in
-                if (title == "Unignore") {
-                    for (var i = 0; i < self.room.ignoreList.count; ++i) {
-                        if (self.room.ignoreList[i] == self.selectedUser.getUsername()) {
-                            self.room.ignoreList.removeAtIndex(i)
-                        }
+        var alert = UIAlertController(title: title, message:
+            message, preferredStyle: UIAlertControllerStyle.Alert)
+        var yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) {alert in
+            if (title == "Unignore") {
+                for (var i = 0; i < self.room.ignoreList.count; ++i) {
+                    if (self.room.ignoreList[i] == self.selectedUser.getUsername()) {
+                        self.room.ignoreList.removeAtIndex(i)
                     }
-                } else {
-                    self.room.ignoreList.append(self.selectedUser.getUsername())
                 }
+            } else {
+                self.room.ignoreList.append(self.selectedUser.getUsername())
             }
-            var noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel) {alert in
-                return
-            }
-            alert.addAction(yesAction)
-            alert.addAction(noAction)
-            self.presentViewController(alert, animated: true, completion: nil)
-        } else {
-            var alert = UIAlertView(title: title, message: message, delegate: self, cancelButtonTitle: "No")
-            alert.addButtonWithTitle("Yes")
-            alert.show()
         }
+        var noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel) {alert in
+            return
+        }
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
