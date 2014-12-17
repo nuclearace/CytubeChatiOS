@@ -21,7 +21,7 @@ class DatabaseManger: NSObject {
         
         let documentsDirectory = paths[0] as String
         let destPath = documentsDirectory.stringByAppendingPathComponent("cytubechat.db")
-        if ((manager.fileExistsAtPath(destPath))) {
+        if (manager.fileExistsAtPath(destPath)) {
             shouldCreateTables = false
         }
         
@@ -78,10 +78,10 @@ class DatabaseManger: NSObject {
         let ePassword = CytubeUtils.encryptPassword(pword, key: key2)
         
         if let insertedUser = channels.insert(name <- completeChannel, username <- uname, password <- ePassword, key <- key2) {
-            println("inserted \(completeChannel) \(uname)")
+            // println("inserted \(completeChannel) \(uname)")
         } else if let updatedUser = channels.filter(name == completeChannel)
             .update(username <- uname, password <- ePassword, key <- key2) {
-            println("updated user \(uname)")
+            // println("updated user \(uname)")
         }
     }
     

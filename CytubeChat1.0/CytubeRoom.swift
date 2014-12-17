@@ -78,7 +78,7 @@ class CytubeRoom: NSObject {
             self?.chatWindow?.messageView.reloadData()
         }
         
-        self.socket?.on("serverFailure") {[weak self] data in
+        self.socket?.on("serverFailure") {data in
             NSLog("The server failed")
         }
         
@@ -89,7 +89,7 @@ class CytubeRoom: NSObject {
         
         self.socket?.on("login") {[weak self] data in
             let data = data as NSDictionary
-            let success:Bool = data["success"] as Bool
+            let success = data["success"] as Bool
             if (success) {
                 self?.loggedIn = true
                 self?.chatWindow?.chatInput.enabled = true
@@ -326,7 +326,7 @@ class CytubeRoom: NSObject {
     }
     
     func closeSocket() {
-        NSLog("Closing socket for \(self.roomName)")
+        // NSLog("Closing socket for \(self.roomName)")
         self.socket?.shutdownPingTimer()
         self.socket?.close()
         self.connected = false
@@ -349,11 +349,11 @@ class CytubeRoom: NSObject {
     }
     
     func closeRoom() {
-        if (self.connected == false) {
+        if (!self.connected) {
             return
         }
         
-        NSLog("Closing room \(self.roomName)")
+        // NSLog("Closing room \(self.roomName)")
         self.socket?.shutdownPingTimer()
         self.socket?.close()
         self.connected = false

@@ -11,7 +11,7 @@ class PrivacyController: UIViewController {
     
     @IBOutlet weak var backBtn:UIBarButtonItem!
     @IBOutlet weak var webView:UIWebView!
-    let privacyLink:NSURLRequest = NSURLRequest(URL: NSURL(string: "http://pastebin.com/raw.php?i=DtFfGReM")!)
+    let privacyLink = NSURLRequest(URL: NSURL(string: "http://pastebin.com/raw.php?i=DtFfGReM")!)
     
     override func viewDidAppear(animated: Bool) {
         self.webView.loadRequest(privacyLink)

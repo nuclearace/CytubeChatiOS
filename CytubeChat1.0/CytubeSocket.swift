@@ -59,7 +59,6 @@ private class EventHandler: NSObject {
 }
 
 class CytubeSocket: NSObject, SRWebSocketDelegate {
-    let session:NSURLSession?
     let room:String!
     let server:String!
     let sioconfigURL = "/sioconfig"
@@ -81,14 +80,6 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
             return nil
         }
         
-        let sessionConfig:NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        sessionConfig.allowsCellularAccess = true
-        sessionConfig.HTTPAdditionalHeaders = ["Content-Type": "application/json"]
-        sessionConfig.timeoutIntervalForRequest = 30
-        sessionConfig.timeoutIntervalForResource = 60
-        sessionConfig.HTTPMaximumConnectionsPerHost = 1
-        
-        self.session = NSURLSession(configuration: sessionConfig)
         self.server = server
         self.room = room
         self.findSocketURL(nil)
@@ -108,7 +99,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         var jsonError:NSError?
         var url =  "http://" + self.server + self.sioconfigURL
         
-        var request:NSURLRequest = NSURLRequest(URL: NSURL(string: url)!)
+        var request = NSURLRequest(URL: NSURL(string: url)!)
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) {[weak self] res, data, err in
             if ((err) != nil) {
                 dispatch_async(dispatch_get_main_queue()) {[weak self] in
@@ -130,15 +121,15 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
                 mutable = mutable["'"] ~= "\""
                 mutable[";var IO_URL=(.*)"] ~= ""
                 var jsonString = mutable[",IO_URL=(.*)"] ~= ""
-                let data = (jsonString as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+                let data = (jsonString as String).dataUsingEncoding(NSUTF8StringEncoding)
                 var realJSON:AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &jsonError)
                 
                 if realJSON != nil {
                     if (realJSON!["ipv4-ssl"] != "") {
-                        self?.socketIOURL = RegexMutable((realJSON!["ipv4-ssl"] as NSString))["https://"] ~= ""
+                        self?.socketIOURL = RegexMutable((realJSON!["ipv4-ssl"] as String))["https://"] ~= ""
                         self?.isSSL = true
                     } else {
-                        self?.socketIOURL = RegexMutable((realJSON!["ipv4-nossl"] as NSString))["http://"] ~= ""
+                        self?.socketIOURL = RegexMutable((realJSON!["ipv4-nossl"] as String))["http://"] ~= ""
                     }
                     if (callback != nil) {
                         callback!()
@@ -170,7 +161,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         self.socketConnect(endpoint)
     }
     
-    private func socketConnect(url:NSString) {
+    private func socketConnect(url:String) {
         socketio = SRWebSocket(URL: NSURL(string: url))
         socketio!.delegate = self
         socketio!.open()
@@ -221,7 +212,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     func close() {
         self.timeoutTimer.invalidate()
         self.pingTimer?.invalidate()
-        NSLog("Closing Socket for \(self.room)")
+        // NSLog("Closing Socket for \(self.room)")
         self.connecting = false
         self.connected = false
         self.socketio?.close()
@@ -268,7 +259,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         if (!self.connected) {
             return
         }
-        println("SENT PING")
+        // println("SENT PING")
         self.socketio?.send("2")
     }
     
@@ -278,9 +269,9 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
     
     func webSocket(webSocket: SRWebSocket!, didReceiveMessage message:AnyObject?) {
         // All incoming messages (socket.on()) are received in this function. Parsed with JSON
-        if (message as NSString == "3") {
-            return println("GOT PONG")
-        } else if (message as NSString == "40" || message as NSString == "41"
+        if (message as String == "3") {
+            return // println("GOT PONG")
+        } else if (message as String == "40" || message as String == "41"
             || message!.characterAtIndex(0) == 48 || message == nil) {
                 return // println("Got Trash")
         }
@@ -294,7 +285,7 @@ class CytubeSocket: NSObject, SRWebSocketDelegate {
         }
         messageMut.replaceCharactersInRange(NSMakeRange(0, 1), withString: "{\"name\":")
         messageMut.replaceCharactersInRange(NSMakeRange(messageMut.length - 1, 1), withString: "}")
-        let data:NSData = messageMut.dataUsingEncoding(NSUTF8StringEncoding)!
+        let data = messageMut.dataUsingEncoding(NSUTF8StringEncoding)!
         var jsonError:NSError?
         var json:AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &jsonError)
         

@@ -45,6 +45,10 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.inAlert = true
         let point = sender.locationInView(tblRoom)
         let indexPath = tblRoom.indexPathForRowAtPoint(point)
+        if (indexPath == nil) {
+            self.inAlert = false
+            return
+        }
         
         self.selectedRoom = roomMng.getRoomAtIndex(indexPath!.row)
         var connectDisconnect:String!
@@ -103,7 +107,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.inAlert = false
     }
     
-    // Called when a selects a room
+    // Called when a user selects a room
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var room = roomMng.getRoomAtIndex(indexPath.row)
         room.setActive(true)
@@ -127,7 +131,8 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func handleSocketURLFail(not:NSNotification) {
-        CytubeUtils.displayGenericAlertWithNoButtons(title: "Socket Failure", message: "Failed to load socketURL. Check you entered" +
+        CytubeUtils.displayGenericAlertWithNoButtons(title: "Socket Failure",
+            message: "Failed to load socketURL. Check you entered" +
             " the server correctly", view: self)
     }
 }

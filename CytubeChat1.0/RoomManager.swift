@@ -7,8 +7,6 @@
 
 import Foundation
 
-let roomMng = RoomManager()
-
 struct RoomContainer {
     var server = "No Server"
     var room = "No Room"
