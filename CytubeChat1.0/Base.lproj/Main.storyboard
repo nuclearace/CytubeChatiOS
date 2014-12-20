@@ -288,6 +288,10 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vAc-P5-zmd" id="6um-Wa-z67">
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <segue destination="HbE-0B-0mv" kind="show" identifier="showProfile" id="WGV-cG-lhc"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -297,6 +301,7 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="6Xl-Ri-WOI" firstAttribute="leading" secondItem="ESl-4A-yrj" secondAttribute="leadingMargin" constant="-16" id="7m5-OM-mgb"/>
                             <constraint firstItem="vdm-xU-iUG" firstAttribute="leading" secondItem="ESl-4A-yrj" secondAttribute="leadingMargin" constant="-16" id="8Is-0V-8yv"/>
@@ -306,6 +311,9 @@
                             <constraint firstAttribute="trailingMargin" secondItem="vdm-xU-iUG" secondAttribute="trailing" constant="-16" id="kac-wn-Eqe"/>
                             <constraint firstItem="sfd-Y3-fcA" firstAttribute="top" secondItem="vdm-xU-iUG" secondAttribute="bottom" id="ye7-dL-5zP"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="KpS-Od-JBb" appends="YES" id="tsf-zw-cGT"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="tblUserlist" destination="vdm-xU-iUG" id="pmK-Bp-2y3"/>
@@ -313,8 +321,76 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hwu-HF-oWD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="KpS-Od-JBb">
+                    <connections>
+                        <action selector="didLongPress:" destination="YWS-ug-z1r" id="j5q-C8-bje"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1006" y="744"/>
+        </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="W5n-rX-7sz">
+            <objects>
+                <viewController id="HbE-0B-0mv" customClass="ProfileViewController" customModule="CytubeChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NV1-Qc-yBS"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ape-gL-ARd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iyd-3K-WrV">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hES-zw-wWj">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem id="wsR-yE-4iW">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="x9X-FK-6hb">
+                                            <connections>
+                                                <action selector="backBtnClicked:" destination="HbE-0B-0mv" id="X2L-pb-GcL"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cP8-pG-nzl">
+                                <rect key="frame" x="0.0" y="401" width="600" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="SJd-bp-ehN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="otR-gw-r8o">
+                                <rect key="frame" x="0.0" y="64" width="600" height="329"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="otR-gw-r8o" firstAttribute="leading" secondItem="hES-zw-wWj" secondAttribute="leading" id="3bB-97-1RE"/>
+                            <constraint firstItem="otR-gw-r8o" firstAttribute="top" secondItem="hES-zw-wWj" secondAttribute="bottom" id="D1E-h6-XAh"/>
+                            <constraint firstItem="cP8-pG-nzl" firstAttribute="trailing" secondItem="otR-gw-r8o" secondAttribute="trailing" id="HwT-nK-2dq"/>
+                            <constraint firstAttribute="trailing" secondItem="otR-gw-r8o" secondAttribute="trailing" id="TSq-sn-du3"/>
+                            <constraint firstItem="cP8-pG-nzl" firstAttribute="bottom" secondItem="Ape-gL-ARd" secondAttribute="top" id="a4Z-QN-zJ8"/>
+                            <constraint firstItem="hES-zw-wWj" firstAttribute="trailing" secondItem="otR-gw-r8o" secondAttribute="trailing" id="ecm-fc-NTi"/>
+                            <constraint firstItem="cP8-pG-nzl" firstAttribute="leading" secondItem="iyd-3K-WrV" secondAttribute="leading" id="fXv-fQ-exG"/>
+                            <constraint firstItem="cP8-pG-nzl" firstAttribute="leading" secondItem="otR-gw-r8o" secondAttribute="leading" id="nuH-NJ-lxP"/>
+                            <constraint firstItem="hES-zw-wWj" firstAttribute="top" secondItem="NV1-Qc-yBS" secondAttribute="bottom" id="sap-Tf-d2s"/>
+                            <constraint firstItem="cP8-pG-nzl" firstAttribute="top" secondItem="otR-gw-r8o" secondAttribute="bottom" constant="8" symbolic="YES" id="tMC-vS-MGW"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backBtn" destination="x9X-FK-6hb" id="tXi-g6-mIb"/>
+                        <outlet property="navBarTitle" destination="wsR-yE-4iW" id="y3R-UO-uBO"/>
+                        <outlet property="profileImageView" destination="otR-gw-r8o" id="ZAg-bc-N6a"/>
+                        <outlet property="profileNavBar" destination="hES-zw-wWj" id="7Mj-EM-bCp"/>
+                        <outlet property="profileTextView" destination="cP8-pG-nzl" id="8Za-zz-UQX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DsQ-XC-vi0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1006" y="1479"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="fvK-pJ-qGo">

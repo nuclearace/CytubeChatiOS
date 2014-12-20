@@ -165,7 +165,7 @@ class CytubeRoom: NSObject {
     }
     
     func handleAddUser(user:NSDictionary) {
-        var tempUser = CytubeUser(user: user)
+        let tempUser = CytubeUser(user: user)
         if (!CytubeUtils.userlistContainsUser(userlist: self.userlist, user: tempUser)) {
             self.userlist.append(tempUser)
             self.sortUserlist()
@@ -175,10 +175,10 @@ class CytubeRoom: NSObject {
     
     func handleChatMsg(data:NSDictionary) {
         let username = data["username"] as String
-        var msg = data["msg"] as String
+        let msg = data["msg"] as String
         let time = data["time"] as NSTimeInterval / 1000
-        var dateFormatter = NSDateFormatter()
-        var date = NSDate(timeIntervalSince1970: time)
+        let dateFormatter = NSDateFormatter()
+        let date = NSDate(timeIntervalSince1970: time)
         dateFormatter.dateFormat = "HH:mm:ss z"
         
         if (CytubeUtils.userIsIgnored(ignoreList: self.ignoreList, user: username)) {
@@ -231,8 +231,8 @@ class CytubeRoom: NSObject {
     }
     
     func handleUserLeave(username:String) {
-        for var i = 0; i < self.userlist.count; ++i {
-            var user = self.userlist[i] as CytubeUser
+        for (var i = 0; i < self.userlist.count; i++) {
+            let user = self.userlist[i] as CytubeUser
             if (user.getUsername() == username) {
                 self.userlist.removeAtIndex(i)
                 self.userlistView?.tblUserlist.reloadData()
@@ -354,7 +354,6 @@ class CytubeRoom: NSObject {
         }
         
         // NSLog("Closing room \(self.roomName)")
-        self.socket?.shutdownPingTimer()
         self.socket?.close()
         self.connected = false
         self.userlist.removeAll(keepCapacity: false)

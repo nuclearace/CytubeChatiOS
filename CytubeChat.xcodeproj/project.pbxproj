@@ -43,6 +43,7 @@
 		74AD72791A03EF580013C8AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AD72781A03EF580013C8AF /* Globals.swift */; };
 		74B767CC19F54D490021B178 /* UserlistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B767CB19F54D490021B178 /* UserlistController.swift */; };
 		74BB03E019FC708A000534DB /* PrivacyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB03DF19FC708A000534DB /* PrivacyController.swift */; };
+		74CF92201A4612DF00D016BC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CF921F1A4612DF00D016BC /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +158,7 @@
 		74B767CB19F54D490021B178 /* UserlistController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserlistController.swift; sourceTree = "<group>"; };
 		74B78E751A3E382200402F0B /* CytubeChatTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CytubeChatTests; sourceTree = BUILT_PRODUCTS_DIR; };
 		74BB03DF19FC708A000534DB /* PrivacyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyController.swift; sourceTree = "<group>"; };
+		74CF921F1A4612DF00D016BC /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +227,7 @@
 				74704BB219F0C0F900B810A6 /* LoginController.swift */,
 				74B767CB19F54D490021B178 /* UserlistController.swift */,
 				74BB03DF19FC708A000534DB /* PrivacyController.swift */,
+				74CF921F1A4612DF00D016BC /* ProfileViewController.swift */,
 				7410736D19EDE86600D71C6C /* SwiftRegex.swift */,
 				740BEF7719EC319A00E577A0 /* CytubeChat-Bridging-Header.h */,
 				740BEF5019EC315400E577A0 /* Main.storyboard */,
@@ -449,6 +452,7 @@
 				7410737219EF445E00D71C6C /* CytubeUtils.swift in Sources */,
 				7478A2E41A0ED4B80013D46C /* ChatCell.swift in Sources */,
 				748944011A3CF34200E70E5D /* CytubeChatRNCryptor.m in Sources */,
+				74CF92201A4612DF00D016BC /* ProfileViewController.swift in Sources */,
 				748943FD1A3CF13A00E70E5D /* RNDecryptor.m in Sources */,
 				740BEF8519EC6FCF00E577A0 /* RoomManager.swift in Sources */,
 				748943FC1A3CF13A00E70E5D /* RNCryptorEngine.m in Sources */,

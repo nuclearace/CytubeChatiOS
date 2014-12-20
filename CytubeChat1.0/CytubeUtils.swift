@@ -5,7 +5,6 @@
 //  Created by Erik Little on 10/15/14.
 //
 
-import Foundation
 import UIKit
 
 class CytubeUtils {

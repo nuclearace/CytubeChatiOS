@@ -5,18 +5,23 @@
 //  Created by Erik Little on 10/16/14.
 //
 
-import Foundation
-import UIkit
+import UIKit
 
 class CytubeUser: NSObject, Comparable {
     let username:String!
-    var rank:Int!
     var afk = false
+    var profileImage:NSURL?
+    var profileText:String?
+    var rank:Int!
     
     init(user:NSDictionary) {
         self.username = user["name"] as NSString
         self.rank = user["rank"] as Int
         self.afk = (user["meta"] as NSDictionary)["afk"] as Bool
+        if let imageString = (user["profile"] as NSDictionary)["image"] as? String {
+            self.profileImage = NSURL(string: imageString)
+        }
+        self.profileText = (user["profile"] as NSDictionary)["text"] as? String
     }
     
     deinit {
