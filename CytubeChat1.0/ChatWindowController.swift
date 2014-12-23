@@ -26,6 +26,22 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.room = roomMng.getActiveRoom()
+        if (self.room != nil) {
+            if (room!.loggedIn) {
+                self.loginButton.enabled = false
+                self.chatInput.enabled = true
+            }
+        }
+        self.room?.setChatWindow(self)
+        self.roomTitle.setTitle(self.room?.roomName, forState: nil)
+        self.tapRec.addTarget(self, action: "tappedMessages")
+        self.messageView.addGestureRecognizer(self.tapRec)
+    }
+    
+    override func viewDidAppear(animated:Bool) {
+        super.viewDidAppear(true)
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:",
             name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:",
@@ -43,21 +59,6 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleSocketTimeout:",
             name: "socketTimeout", object: nil)
         
-        self.room = roomMng.getActiveRoom()
-        if (self.room != nil) {
-            if (room!.loggedIn) {
-                self.loginButton.enabled = false
-                self.chatInput.enabled = true
-            }
-        }
-        self.room?.setChatWindow(self)
-        self.roomTitle.setTitle(self.room?.roomName, forState: nil)
-        self.tapRec.addTarget(self, action: "tappedMessages")
-        self.messageView.addGestureRecognizer(self.tapRec)
-    }
-    
-    override func viewDidAppear(animated:Bool) {
-        super.viewDidAppear(true)
         if (self.room.kicked) {
             self.wasKicked(NSNotification(name: "wasKicked", object: [
                 "room": self.room.roomName,
