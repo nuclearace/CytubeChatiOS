@@ -19,7 +19,9 @@ class CytubeUser: NSObject, Comparable {
         self.rank = user["rank"] as Int
         self.afk = (user["meta"] as NSDictionary)["afk"] as Bool
         if let imageString = (user["profile"] as NSDictionary)["image"] as? String {
-            self.profileImage = NSURL(string: imageString)
+            if (imageString == "") {} else {
+                self.profileImage = NSURL(string: imageString)
+            }
         }
         self.profileText = (user["profile"] as NSDictionary)["text"] as? String
     }

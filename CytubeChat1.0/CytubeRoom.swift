@@ -115,7 +115,6 @@ class CytubeRoom: NSObject {
         self.socket?.on("addUser") {[weak self] data in
             let data = data as NSDictionary
             self?.handleAddUser(data)
-            self?.sortUserlist()
         }
         
         self.socket?.on("userLeave") {[weak self] data in

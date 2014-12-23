@@ -10,9 +10,9 @@ import UIKit
 class ProfileViewController: UIViewController {
     @IBOutlet weak var backBtn:UIBarButtonItem!
     @IBOutlet weak var navBarTitle:UINavigationItem!
-    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var profileImageView:UIImageView!
     @IBOutlet weak var profileNavBar:UINavigationBar!
-    @IBOutlet weak var profileTextView: UITextView!
+    @IBOutlet weak var profileTextView:UITextView!
     var user:CytubeUser?
     
     override func viewDidLoad() {
@@ -24,11 +24,8 @@ class ProfileViewController: UIViewController {
                     if (err != nil) {
                         return
                     }
-                    let image = UIImage(data: data)
-                    image?.resizableImageWithCapInsets(image!.capInsets,
-                        resizingMode: UIImageResizingMode.Stretch)
-                    self?.profileImageView.image = image
-                    self?.profileImageView.startAnimating()
+                    self?.profileImageView.contentMode = UIViewContentMode.ScaleAspectFit
+                    self?.profileImageView.image = UIImage(data: data)
             }
         }
     }

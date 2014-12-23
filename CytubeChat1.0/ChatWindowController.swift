@@ -25,6 +25,24 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:",
+            name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:",
+            name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasKicked:",
+            name: "wasKicked", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "passwordFail:",
+            name: "passwordFail", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNilSocketURL:",
+            name: "nilSocketURL", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNoInternet:",
+            name: "noInternet", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleSocketURLFail:",
+            name: "socketURLFail", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleSocketTimeout:",
+            name: "socketTimeout", object: nil)
+        
         self.room = roomMng.getActiveRoom()
         if (self.room != nil) {
             if (room!.loggedIn) {
@@ -46,23 +64,6 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
                 "reason": ""
                 ]))
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:",
-            name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:",
-            name: UIKeyboardWillHideNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasKicked:",
-            name: "wasKicked", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "passwordFail:",
-            name: "passwordFail", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNilSocketURL:",
-            name: "nilSocketURL", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNoInternet:",
-            name: "noInternet", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleSocketURLFail:",
-            name: "socketURLFail", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleSocketTimeout:",
-            name: "socketTimeout", object: nil)
-        
         
         self.scrollChat()
         
@@ -215,10 +216,10 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     func wasKicked(not:NSNotification) {
         let roomName = self.room!.roomName
         let kickObj = not.object as NSDictionary
-        if (kickObj["room"] as NSString != roomName) {
+        if (kickObj["room"] as? String != roomName) {
             return
         }
-        let reason = kickObj["reason"] as NSString
+        let reason = kickObj["reason"] as String
         
         var alert = UIAlertController(title: "Kicked", message:
             "You have been kicked from room \(roomName). Reason: \(reason)", preferredStyle: UIAlertControllerStyle.Alert)

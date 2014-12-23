@@ -31,7 +31,11 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
         NSUserDefaults.standardUserDefaults().synchronize()
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidAppear(animated:Bool) {
+        self.tblUserlist.reloadData()
+    }
+    
+    override func viewDidDisappear(animated:Bool) {
         self.room.setUserlistView(nil)
     }
     
@@ -87,6 +91,10 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView:UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
         self.selectedUser = self.room.userlist[indexPath.row]
         if (self.selectedUser != nil) {
+            if (self.selectedUser.profileText == ""
+                && self.selectedUser.profileImage == nil) {
+                return
+            }
             self.performSegueWithIdentifier("showProfile", sender: self)
         }
     }
