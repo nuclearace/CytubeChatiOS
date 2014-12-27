@@ -146,7 +146,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell:UITableViewCell = messageView.dequeueReusableCellWithIdentifier("chatWindowCell") as UITableViewCell
+        var cell = messageView.dequeueReusableCellWithIdentifier("chatWindowCell") as UITableViewCell
         let font = UIFont(name: "Helvetica Neue", size: 12)
         (cell.contentView.subviews[0] as UITextView).font = font
         (cell.contentView.subviews[0] as UITextView).text = nil
@@ -220,12 +220,14 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         if (kickObj["room"] as? String != roomName) {
             return
         }
+        self.chatInput.resignFirstResponder()
         let reason = kickObj["reason"] as String
         
         var alert = UIAlertController(title: "Kicked", message:
             "You have been kicked from room \(roomName). Reason: \(reason)", preferredStyle: UIAlertControllerStyle.Alert)
         var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
             self.room?.setChatWindow(nil)
+            self.room?.closeRoom()
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         alert.addAction(action)

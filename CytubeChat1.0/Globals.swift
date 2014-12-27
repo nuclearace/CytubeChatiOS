@@ -12,7 +12,7 @@ let internetReachability = Reachability.reachabilityForInternetConnection()
 let roomMng = RoomManager()
 
 func ==(lhs:CytubeUser, rhs:CytubeUser) -> Bool {
-    if (lhs.rank == rhs.rank) {
+    if (lhs.username == rhs.username) {
         return true
     }
     return false

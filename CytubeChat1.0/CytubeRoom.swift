@@ -137,8 +137,8 @@ class CytubeRoom: NSObject {
                 "room": self!.roomName
             ]
             self?.kicked = true
+            self?.shouldReconnect = false
             NSNotificationCenter.defaultCenter().postNotificationName("wasKicked", object: kickObj)
-            self?.closeRoom()
         }
         
         self.socket?.on("needPassword") {[weak self] data in
@@ -313,6 +313,7 @@ class CytubeRoom: NSObject {
         if (!self.connected && self.socket != nil) {
             self.kicked = false
             self.closed = false
+            self.shouldReconnect = true
             self.socket?.open()
         } else if (self.socket == nil) {
             // Try and add the socket
@@ -320,6 +321,7 @@ class CytubeRoom: NSObject {
             self.addHandlers()
             self.kicked = false
             self.closed = false
+            self.shouldReconnect = true
             self.socket?.open()
         }
     }
@@ -359,6 +361,7 @@ class CytubeRoom: NSObject {
         self.messageBuffer.removeAllObjects()
         self.username = nil
         self.password = nil
+        self.kicked = false
         self.chatWindow = nil
         self.userlistView = nil
         self.loggedIn = false
