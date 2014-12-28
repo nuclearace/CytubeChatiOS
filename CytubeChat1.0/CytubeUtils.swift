@@ -54,8 +54,10 @@ class CytubeUtils {
             }
         }
         
-        findSocketURL() {
-            room.setUpSocket()
+        // Find the url, and then set up the socket
+        findSocketURL {[weak room] in
+            if (room != nil) {
+                room!.setUpSocket()}
         }
     }
     
