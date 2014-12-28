@@ -19,7 +19,7 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         self.room = roomMng.getActiveRoom()
         self.userlistTitle.title = room.roomName + " userlist"
-        self.room.setUserlistView(self)
+        self.room.setUserListView(self)
         self.tblUserlist.reloadData()
         if (!NSUserDefaults.standardUserDefaults().boolForKey("HasSeenUserlist")) {
             CytubeUtils.displayGenericAlertWithNoButtons(title: "Hint",
@@ -36,7 +36,7 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewDidDisappear(animated:Bool) {
-        self.room.setUserlistView(nil)
+        self.room.setUserListView(nil)
     }
     
     override func didReceiveMemoryWarning() {

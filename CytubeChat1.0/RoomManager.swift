@@ -86,7 +86,7 @@ class RoomManager: NSObject {
         if (status.value == 2) {
             for cRoom in rooms {
                 if (cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.connected) {
-                    cRoom.cytubeRoom?.socket?.reconnect()
+                    cRoom.cytubeRoom?.socket?.open()
                 }
             }
         } else if (status.value == 0) {
@@ -156,6 +156,7 @@ class RoomManager: NSObject {
                     let con = (roomsFromData["rooms"] as NSArray)[i] as NSDictionary
                     let recreatedRoom = CytubeRoom(roomName: con["room"] as String,
                         server: con["server"] as String, password: con["roomPassword"] as? String)
+                    CytubeUtils.addSocket(room: recreatedRoom)
                     self.addRoom(con["server"] as String, room: con["room"] as String, cytubeRoom: recreatedRoom)
                 }
         }

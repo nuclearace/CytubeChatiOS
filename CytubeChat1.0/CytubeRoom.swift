@@ -27,7 +27,8 @@ class CytubeRoom: NSObject {
     var reconnecting = false
     var sentRoomPassword = false
     var shouldReconnect = true
-    var socket:CytubeSocket?
+    var socket:SocketIOClient?
+    var socketIOURL:String!
     var userlist = [CytubeUser]()
     var username:String!
     
@@ -36,8 +37,6 @@ class CytubeRoom: NSObject {
         self.roomName = roomName
         self.roomPassword = password
         self.server = server
-        self.socket = CytubeSocket(server: server, room: roomName)
-        self.addHandlers()
     }
     
     deinit {
@@ -53,9 +52,10 @@ class CytubeRoom: NSObject {
             // println("Connected to Cytube server \(self?.server)")
             self?.connected = true
             self?.reconnecting = false
-            self?.socket?.send("initChannelCallbacks", args: nil)
-            self?.socket?.send("joinChannel", args: ["name": self!.roomName])
+            self?.socket?.emit("initChannelCallbacks", args: nil)
+            self?.socket?.emit("joinChannel", args: ["name": self!.roomName])
             self?.messageBuffer.removeAllObjects()
+            self?.chatWindow?.messageView.reloadData()
             self?.sendLogin()
         }
         
@@ -63,6 +63,7 @@ class CytubeRoom: NSObject {
             if (self == nil) {
                 return
             }
+            
             if (!self!.reconnecting) {
                 self?.connected = false
                 self?.socketShutdown()
@@ -163,6 +164,8 @@ class CytubeRoom: NSObject {
         }
     }
     
+    
+    
     func handleAddUser(user:NSDictionary) {
         let tempUser = CytubeUser(user: user)
         if (!CytubeUtils.userlistContainsUser(userlist: self.userlist, user: tempUser)) {
@@ -212,7 +215,7 @@ class CytubeRoom: NSObject {
     
     func handleRoomPassword() {
         if (self.roomPassword != nil && !self.sentRoomPassword) {
-            self.socket?.send("channelPassword", args: self.roomPassword)
+            self.socket?.emit("channelPassword", args: self.roomPassword)
             self.sentRoomPassword = true
         } else {
             NSNotificationCenter.defaultCenter().postNotificationName("passwordFail", object: self)
@@ -292,7 +295,7 @@ class CytubeRoom: NSObject {
         let msgData = [
             "msg": msg!
         ]
-        self.socket?.send("chatMsg", args: msgData)
+        self.socket?.emit("chatMsg", args: msgData)
     }
     
     func sendLogin() {
@@ -301,8 +304,15 @@ class CytubeRoom: NSObject {
                 "name": self.username,
                 "pw": self.password
             ]
-            self.socket?.send("login", args: loginData)
+            self.socket?.emit("login", args: loginData)
         }
+    }
+    
+    func setUpSocket() {
+        self.socket = SocketIOClient(socketURL: self.socketIOURL, opts: [
+            "reconnects": false
+            ])
+        self.addHandlers()
     }
     
     func sortUserlist() {
@@ -317,8 +327,7 @@ class CytubeRoom: NSObject {
             self.socket?.open()
         } else if (self.socket == nil) {
             // Try and add the socket
-            self.socket = CytubeSocket(server: self.server, room: self.roomName)
-            self.addHandlers()
+            self.setUpSocket()
             self.kicked = false
             self.closed = false
             self.shouldReconnect = true
@@ -328,7 +337,6 @@ class CytubeRoom: NSObject {
     
     func closeSocket() {
         // NSLog("Closing socket for \(self.roomName)")
-        self.socket?.shutdownPingTimer()
         self.socket?.close()
         self.connected = false
         self.closed = true
@@ -342,10 +350,10 @@ class CytubeRoom: NSObject {
     func socketShutdown() {
         println("SOCKET SHUTDOWN")
         if (self.needDelete) {
-            var index = roomMng.findRoomIndex(self.roomName, server: self.socket!.server)
+            var index = roomMng.findRoomIndex(self.roomName, server: self.server)
             roomMng.removeRoom(index!)
         } else if (self.closed && self.shouldReconnect) {
-            self.socket?.reconnect()
+            self.socket?.open()
         }
     }
     
@@ -369,43 +377,11 @@ class CytubeRoom: NSObject {
         self.shouldReconnect = false
     }
     
-    func getRoomName() -> String {
-        return self.roomName
+    func setUserListView(view:UserlistController?) {
+        self.userlistView = view
     }
     
-    func setRoomPassword(password:String) {
-        self.roomPassword = password
-    }
-    
-    func setSocket(socket:CytubeSocket) {
-        self.socket = socket
-    }
-    
-    func getSocket() -> CytubeSocket? {
-        return self.socket
-    }
-    
-    func setActive(active:Bool) {
-        self.active = active
-    }
-    
-    func setView(roomsController:RoomsController) {
-        self.roomsController = roomsController
-    }
-    
-    func setChatWindow(chatWindow:ChatWindowController?) {
-        self.chatWindow = chatWindow
-    }
-    
-    func setPassword(password:String) {
-        self.password = password
-    }
-    
-    func setUsername(username:String) {
-        self.username = username
-    }
-    
-    func setUserlistView(userlistView:UserlistController?) {
-        self.userlistView = userlistView
+    func setChatWindow(view:ChatWindowController?) {
+        self.chatWindow = view
     }
 }

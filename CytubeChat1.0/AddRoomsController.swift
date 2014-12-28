@@ -56,6 +56,7 @@ class AddRoomsController: UIViewController, UITextFieldDelegate {
             return
         }
         var newRoom = CytubeRoom(roomName: room, server: server, password: password)
+        CytubeUtils.addSocket(room: newRoom)
         roomMng.addRoom(server, room: room, cytubeRoom: newRoom)
         
         self.view.endEditing(true)

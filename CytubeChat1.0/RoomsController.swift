@@ -31,7 +31,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         tblRoom.reloadData()
         var room = roomMng.getActiveRoom()
         room?.setChatWindow(nil)
-        room?.setActive(false)
+        room?.active = false
     }
     
     deinit {
@@ -68,7 +68,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
                 if (!(self?.selectedRoom.isConnected())!) {
                     self?.selectedRoom.openSocket()
                 }
-                self?.selectedRoom.setActive(true)
+                self?.selectedRoom.active = true
                 self?.inAlert = false
                 self?.selectedRoom = nil
                 self?.performSegueWithIdentifier("goToChatRoom", sender: self)
@@ -98,7 +98,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             if (!selectedRoom.isConnected()) {
                 selectedRoom.openSocket()
             }
-            selectedRoom.setActive(true)
+            selectedRoom.active = true
             self.performSegueWithIdentifier("goToChatRoom", sender: self)
         } else if (buttonIndex == 2) {
             self.selectedRoom.handleImminentDelete()
@@ -110,7 +110,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     // Called when a user selects a room
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var room = roomMng.getRoomAtIndex(indexPath.row)
-        room.setActive(true)
+        room.active = true
         self.performSegueWithIdentifier("goToChatRoom", sender: self)
     }
     
@@ -124,7 +124,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         NSIndexPath) -> UITableViewCell {
             let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "roomsCell")
             
-            roomMng.rooms[indexPath.row].cytubeRoom.setView(self)
+            roomMng.rooms[indexPath.row].cytubeRoom.roomsController = self
             cell.textLabel?.text = roomMng.rooms[indexPath.row].room
             cell.detailTextLabel?.text = roomMng.rooms[indexPath.row].server
             return cell

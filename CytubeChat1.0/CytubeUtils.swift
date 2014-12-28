@@ -9,6 +9,56 @@ import UIKit
 
 class CytubeUtils {
     
+    class func addSocket(#room:CytubeRoom) {
+        func findSocketURL(callback:(() -> Void)?) {
+            var jsonError:NSError?
+            var url =  "http://" + room.server + "/sioconfig"
+            
+            var request = NSURLRequest(URL: NSURL(string: url)!)
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) {[weak room] res, data, err in
+                if ((err) != nil) {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        NSLog("Socket url fail:" + err.localizedDescription)
+                        NSNotificationCenter.defaultCenter().postNotificationName("socketURLFail", object: nil)
+                    }
+                    return
+                } else {
+                    var stringData = NSString(data: data, encoding: NSUTF8StringEncoding) as String
+                    var mutable = RegexMutable(stringData)
+                    if (mutable["var IO_URLS="].matches().count == 0) {
+                        dispatch_async(dispatch_get_main_queue()) {
+                            NSLog("Socket url fail")
+                            NSNotificationCenter.defaultCenter().postNotificationName("socketURLFail", object: nil)
+                        }
+                        return
+                    }
+                    mutable = mutable["var IO_URLS="] ~= ""
+                    mutable = mutable["'"] ~= "\""
+                    mutable[";var IO_URL=(.*)"] ~= ""
+                    var jsonString = mutable[",IO_URL=(.*)"] ~= ""
+                    let data = (jsonString as String).dataUsingEncoding(NSUTF8StringEncoding)
+                    var realJSON:AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &jsonError)
+                    
+                    if realJSON != nil {
+                        if (realJSON!["ipv4-ssl"] != "") {
+                            room?.socketIOURL = realJSON!["ipv4-ssl"] as String
+                        } else {
+                            room?.socketIOURL = realJSON!["ipv4-nossl"] as String
+                        }
+                        
+                        if (callback != nil) {
+                            callback!()
+                        }
+                    }
+                }
+            }
+        }
+        
+        findSocketURL() {
+            room.setUpSocket()
+        }
+    }
+    
     class func filterChatMsg(data:String) -> String {
         var mut = RegexMutable(data)
         mut = mut["(&#39;)"] ~= "'"

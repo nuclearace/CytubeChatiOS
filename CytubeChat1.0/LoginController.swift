@@ -48,8 +48,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
                 view: self)
             return
         }
-        self.room?.setUsername(self.usernameText.text)
-        self.room?.setPassword(self.passwordText.text)
+        self.room?.username = self.usernameText.text
+        self.room?.password = self.passwordText.text
         self.room?.sendLogin()
         if (self.rememberSwitch.on && self.passwordText.text != "") {
             self.room?.saveUser()
