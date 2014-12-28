@@ -55,7 +55,6 @@ class CytubeRoom: NSObject {
             self?.socket?.emit("initChannelCallbacks", args: nil)
             self?.socket?.emit("joinChannel", args: ["name": self!.roomName])
             self?.messageBuffer.removeAllObjects()
-            self?.chatWindow?.messageView.reloadData()
             self?.sendLogin()
         }
         
@@ -63,7 +62,6 @@ class CytubeRoom: NSObject {
             if (self == nil) {
                 return
             }
-            
             if (!self!.reconnecting) {
                 self?.connected = false
                 self?.socketShutdown()
@@ -163,8 +161,6 @@ class CytubeRoom: NSObject {
             }
         }
     }
-    
-    
     
     func handleAddUser(user:NSDictionary) {
         let tempUser = CytubeUser(user: user)

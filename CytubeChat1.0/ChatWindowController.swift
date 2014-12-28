@@ -67,7 +67,6 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         }
         
         self.scrollChat()
-        
         // Start connection to server
         if (!self.room.isConnected()) {
             self.room.openSocket()
