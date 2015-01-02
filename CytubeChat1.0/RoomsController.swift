@@ -23,10 +23,6 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             name: "socketURLFail", object: nil)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     override func viewDidAppear(animated:Bool) {
         tblRoom.reloadData()
         var room = roomMng.getActiveRoom()

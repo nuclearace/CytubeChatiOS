@@ -77,10 +77,6 @@ class CytubeRoom: NSObject {
             self?.chatWindow?.messageView.reloadData()
         }
         
-        self.socket?.on("serverFailure") {data in
-            NSLog("The server failed")
-        }
-        
         self.socket?.on("chatMsg") {[weak self] data in
             let data = data as NSDictionary
             self?.handleChatMsg(data)
@@ -229,11 +225,12 @@ class CytubeRoom: NSObject {
     }
     
     func handleUserLeave(username:String) {
-        for (var i = 0; i < self.userlist.count; i++) {
+        for i in 0..<self.userlist.count {
             let user = self.userlist[i] as CytubeUser
             if (user.getUsername() == username) {
                 self.userlist.removeAtIndex(i)
                 self.userlistView?.tblUserlist.reloadData()
+                break
             }
         }
     }
@@ -344,7 +341,7 @@ class CytubeRoom: NSObject {
     }
     
     func socketShutdown() {
-        println("SOCKET SHUTDOWN")
+        // println("SOCKET SHUTDOWN")
         if (self.needDelete) {
             var index = roomMng.findRoomIndex(self.roomName, server: self.server)
             roomMng.removeRoom(index!)

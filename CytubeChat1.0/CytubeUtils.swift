@@ -97,7 +97,7 @@ class CytubeUtils {
     
     class func generateKey() -> String {
         var returnString = ""
-        for (var i = 0; i < 13; i++) {
+        for i in 0..<13 {
             let ran = arc4random_uniform(256)
             returnString += String(ran)
         }
