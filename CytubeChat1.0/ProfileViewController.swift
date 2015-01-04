@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ImageIO
 
 class ProfileViewController: UIViewController {
     @IBOutlet weak var backBtn:UIBarButtonItem!
@@ -16,13 +17,39 @@ class ProfileViewController: UIViewController {
     var user:CytubeUser?
     
     override func viewDidLoad() {
+        let urlString = self.user!.profileImage!.absoluteString
         self.navBarTitle.title = self.user?.username
         self.profileTextView.text = self.user?.profileText
         if (self.user?.profileImage != nil) {
             NSURLConnection.sendAsynchronousRequest(NSURLRequest(URL: self.user!.profileImage!),
                 queue: NSOperationQueue.mainQueue()) {[weak self] res, data, err in
-                    if (err != nil) {
+                    if (err != nil || self == nil) {
                         return
+                    }
+                    
+                    // Image is a GIF
+                    if (RegexMutable(urlString!)[".gif$"].matches().count != 0) {
+                        let source = CGImageSourceCreateWithData(data, nil)
+                        var images = [UIImage]()
+                        var dur = 0.0
+                        for i in 0..<CGImageSourceGetCount(source) {
+                            let asCGImage = CGImageSourceCreateImageAtIndex(source, i, nil)
+                            var prop = CGImageSourceCopyPropertiesAtIndex(source, i, nil)
+                            
+                            // Get properties for each frame
+                            if let gif = (prop as NSDictionary)["{GIF}"] as? NSDictionary {
+                                if let delay = gif["UnclampedDelayTime"] as? Double {
+                                    dur += delay
+                                }
+                            }
+                            images.append(UIImage(CGImage: asCGImage)!)
+                        }
+                        
+                        self?.profileImageView.animationImages = images
+                        self?.profileImageView.animationDuration = dur
+                        self?.profileImageView.startAnimating()
+                        return
+                        
                     }
                     self?.profileImageView.contentMode = UIViewContentMode.ScaleAspectFit
                     self?.profileImageView.image = UIImage(data: data)

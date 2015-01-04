@@ -216,9 +216,11 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     func wasKicked(not:NSNotification) {
         let roomName = self.room!.roomName
         let kickObj = not.object as NSDictionary
+        
         if (kickObj["room"] as? String != roomName) {
             return
         }
+        
         self.chatInput.resignFirstResponder()
         let reason = kickObj["reason"] as String
         

@@ -13,7 +13,7 @@ struct RoomContainer {
     var cytubeRoom:CytubeRoom!
 }
 
-class RoomManager: NSObject {
+class RoomManager {
     var rooms = [RoomContainer]()
     var roomsDidClose = false
     
