@@ -554,7 +554,7 @@
 				INFOPLIST_FILE = CytubeChat1.0/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LLVM_LTO = YES;
+				LLVM_LTO = NO;
 				PRODUCT_NAME = CytubeChat;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CytubeChat1.0/CytubeChat-Bridging-Header.h";
@@ -574,7 +574,7 @@
 				INFOPLIST_FILE = CytubeChat1.0/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LLVM_LTO = YES;
+				LLVM_LTO = NO;
 				PRODUCT_NAME = CytubeChat;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CytubeChat1.0/CytubeChat-Bridging-Header.h";

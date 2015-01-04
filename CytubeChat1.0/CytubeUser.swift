@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CytubeUser: NSObject, Comparable {
+class CytubeUser: Comparable {
     let username:String!
     var afk = false
     var profileImage:NSURL?
@@ -15,7 +15,7 @@ class CytubeUser: NSObject, Comparable {
     var rank:Int!
     
     init(user:NSDictionary) {
-        self.username = user["name"] as NSString
+        self.username = user["name"] as String
         self.rank = user["rank"] as Int
         self.afk = (user["meta"] as NSDictionary)["afk"] as Bool
         if let imageString = (user["profile"] as NSDictionary)["image"] as? String {
@@ -86,27 +86,5 @@ class CytubeUser: NSObject, Comparable {
     
     func setAFK(afk:Bool) {
         self.afk = afk
-    }
-    
-    override func copy() -> AnyObject {
-        let userObj = [
-            "name": self.username,
-            "rank": self.rank,
-            "meta": [
-                "afk": self.afk
-            ]
-        ]
-        
-        return CytubeUser(user: userObj)
-    }
-    
-    override func isEqual(object:AnyObject?) -> Bool {
-        var user = object as CytubeUser
-        if (object === self) {
-            return true
-        } else if (user.username != self.username) {
-            return false
-        }
-        return true
     }
 }
