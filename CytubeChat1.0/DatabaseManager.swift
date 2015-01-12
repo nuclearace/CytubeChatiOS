@@ -21,14 +21,14 @@ class DatabaseManger: NSObject {
         
         let documentsDirectory = paths[0] as String
         let destPath = documentsDirectory.stringByAppendingPathComponent("cytubechat.db")
-        if (manager.fileExistsAtPath(destPath)) {
+        if manager.fileExistsAtPath(destPath) {
             shouldCreateTables = false
         }
         
         self.db = Database(destPath)
         manager.setAttributes([NSFileProtectionKey: NSFileProtectionComplete],
             ofItemAtPath: destPath, error: &err)
-        if (shouldCreateTables) {
+        if shouldCreateTables {
             self.createTables()
         }
     }
@@ -54,7 +54,7 @@ class DatabaseManger: NSObject {
         let password = Expression<String>("password")
         let key = Expression<String>("key")
         let query = channels.select(username, password, key).filter(name == (server + "." + channel))
-        if (query.count == 1) {
+        if query.count == 1 {
             if let row = query.first {
                 let passwordData = NSData(base64EncodedString: row[password], options: NSDataBase64DecodingOptions.allZeros)
                 let upword = CytubeUtils.decryptPassword(passwordData!, key: row[key])

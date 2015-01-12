@@ -16,7 +16,7 @@ class CytubeUtils {
             
             var request = NSURLRequest(URL: NSURL(string: url)!)
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) {[weak room] res, data, err in
-                if ((err) != nil) {
+                if err != nil {
                     dispatch_async(dispatch_get_main_queue()) {
                         NSLog("Socket url fail:" + err.localizedDescription)
                         NSNotificationCenter.defaultCenter().postNotificationName("socketURLFail", object: nil)
@@ -25,7 +25,7 @@ class CytubeUtils {
                 } else {
                     var stringData = NSString(data: data, encoding: NSUTF8StringEncoding) as String
                     var mutable = RegexMutable(stringData)
-                    if (mutable["var IO_URLS="].matches().count == 0) {
+                    if mutable["var IO_URLS="].matches().count == 0 {
                         dispatch_async(dispatch_get_main_queue()) {
                             NSLog("Socket url fail")
                             NSNotificationCenter.defaultCenter().postNotificationName("socketURLFail", object: nil)
@@ -40,13 +40,13 @@ class CytubeUtils {
                     var realJSON:AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &jsonError)
                     
                     if realJSON != nil {
-                        if (realJSON!["ipv4-ssl"] != "") {
+                        if realJSON!["ipv4-ssl"] != "" {
                             room?.socketIOURL = realJSON!["ipv4-ssl"] as String
                         } else {
                             room?.socketIOURL = realJSON!["ipv4-nossl"] as String
                         }
                         
-                        if (callback != nil) {
+                        if callback != nil {
                             callback!()
                         }
                     }
@@ -56,7 +56,7 @@ class CytubeUtils {
         
         // Find the url, and then set up the socket
         findSocketURL {[weak room] in
-            if (room != nil) {
+            if room != nil {
                 room!.setUpSocket()}
         }
     }
@@ -87,7 +87,7 @@ class CytubeUtils {
     class func decryptPassword(edata:NSData, key:String) -> String? {
         var err:NSError?
         let pdata = RNDecryptor.decryptData(edata, withPassword: key, error: &err)
-        if (err != nil) {
+        if err != nil {
             println(err?.localizedDescription)
             return nil
         }
@@ -111,7 +111,7 @@ class CytubeUtils {
                 return
             }
             alert.addAction(action)
-            if (view == nil) {
+            if view == nil {
                 var view = UIApplication.sharedApplication().keyWindow?.rootViewController
             }
             view?.presentViewController(alert, animated: true, completion: nil)
@@ -120,7 +120,7 @@ class CytubeUtils {
     
     class func userlistContainsUser(#userlist:[CytubeUser], user:CytubeUser) -> Bool {
         for cuser in userlist {
-            if (cuser === user) {
+            if cuser === user {
                 return true
             }
         }
@@ -128,17 +128,17 @@ class CytubeUtils {
     }
     
     class func userIsIgnored(#ignoreList:[String], user:AnyObject) -> Bool {
-        if (ignoreList.count == 0) {
+        if ignoreList.count == 0 {
             return false
         }
         
         for cuser in ignoreList {
             if let userAsCytubeUser = user as? CytubeUser {
-                if (cuser == userAsCytubeUser.getUsername()) {
+                if cuser == userAsCytubeUser.getUsername() {
                     return true
                 }
             } else if let userAsString = user as? String {
-                if (cuser == userAsString) {
+                if cuser == userAsString {
                     return true
                 }
             }

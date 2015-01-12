@@ -33,7 +33,7 @@ class RoomManager {
     
     func findRoom(room:String, server:String) -> CytubeRoom? {
         for cRoom in rooms {
-            if (cRoom.server == server && cRoom.room == room) {
+            if cRoom.server == server && cRoom.room == room {
                 return cRoom.cytubeRoom
             }
         }
@@ -42,7 +42,7 @@ class RoomManager {
     
     func findRoomIndex(room:String, server:String) -> Int? {
         for i in 0..<roomMng.rooms.count {
-            if (rooms[i].server == server && rooms[i].room == room) {
+            if rooms[i].server == server && rooms[i].room == room {
                 return i
             }
         }
@@ -51,7 +51,7 @@ class RoomManager {
     
     func getActiveRoom() -> CytubeRoom? {
         for cRoom in rooms {
-            if (cRoom.cytubeRoom.active) {
+            if cRoom.cytubeRoom.active {
                 return cRoom.cytubeRoom
             }
         }
@@ -72,19 +72,20 @@ class RoomManager {
     func closeRooms() {
         self.roomsDidClose = true
         for cRoom in rooms {
-            if (cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.isConnected()) {
+            if cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.isConnected() {
                 cRoom.cytubeRoom?.closeSocket()
             }
         }
     }
     
     func reopenRooms() {
-        if (!self.roomsDidClose) {
+        if !self.roomsDidClose {
             return
         }
+        
         self.roomsDidClose = false
         for cRoom in rooms {
-            if (cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.closed) {
+            if cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.closed {
                 cRoom.cytubeRoom?.openSocket()
             }
         }
@@ -93,15 +94,15 @@ class RoomManager {
     // If we go from wifi to cellular we need to reconnect
     @objc func handleNetworkChange(not:NSNotification) {
         let status = internetReachability.currentReachabilityStatus()
-        if (status.value == 2) {
+        if status.value == 2 {
             for cRoom in rooms {
                 if (cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.connected) {
                     cRoom.cytubeRoom?.socket?.open()
                 }
             }
-        } else if (status.value == 0) {
+        } else if status.value == 0 {
             for cRoom in rooms {
-                if (cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.connected) {
+                if cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.connected {
                     cRoom.cytubeRoom?.closeSocket()
                 }
             }
@@ -155,14 +156,14 @@ class RoomManager {
         let pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true)
         let path = pathsArray[0] as String + "/rooms.json"
         
-        if (!handler.fileExistsAtPath(path)) {
+        if !handler.fileExistsAtPath(path) {
             return false
         }
         
         let data = NSData(contentsOfFile: path)
         if let roomsFromData:NSDictionary = NSJSONSerialization.JSONObjectWithData(data!,
             options: NSJSONReadingOptions.AllowFragments, error: &pointerErr) as? NSDictionary  {
-                for var i = 0; i < (roomsFromData["rooms"] as NSArray).count; ++i {
+                for i in 0..<(roomsFromData["rooms"] as NSArray).count {
                     let con = (roomsFromData["rooms"] as NSArray)[i] as NSDictionary
                     let recreatedRoom = CytubeRoom(roomName: con["room"] as String,
                         server: con["server"] as String, password: con["roomPassword"] as? String)

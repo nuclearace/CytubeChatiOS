@@ -35,13 +35,13 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func didLongPress(sender:UIGestureRecognizer) {
-        if (self.inAlert) {
+        if self.inAlert {
             return
         }
         self.inAlert = true
         let point = sender.locationInView(tblRoom)
         let indexPath = tblRoom.indexPathForRowAtPoint(point)
-        if (indexPath == nil) {
+        if indexPath == nil {
             self.inAlert = false
             return
         }
@@ -49,21 +49,22 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.selectedRoom = roomMng.getRoomAtIndex(indexPath!.row)
         var connectDisconnect:String!
         let connected = selectedRoom.isConnected()
-        if (connected) {
+        if connected {
             connectDisconnect = "Disconnect"
         } else {
             connectDisconnect = "Connect"
         }
         var alert = UIAlertController(title: "Options", message: "What do you want to do?", preferredStyle: UIAlertControllerStyle.Alert)
         var action = UIAlertAction(title: connectDisconnect, style: UIAlertActionStyle.Default) {[weak self] action in
-            if (connected) {
+            if connected {
                 self?.selectedRoom.closeRoom()
                 self?.inAlert = false
                 self?.selectedRoom = nil
             } else {
-                if (!(self?.selectedRoom.isConnected())!) {
+                if !(self?.selectedRoom.isConnected())! {
                     self?.selectedRoom.openSocket()
                 }
+                
                 self?.selectedRoom.active = true
                 self?.inAlert = false
                 self?.selectedRoom = nil
@@ -88,15 +89,15 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
-        if (buttonIndex == 1 && selectedRoom.isConnected()) {
+        if buttonIndex == 1 && selectedRoom.isConnected() {
             self.selectedRoom.closeRoom()
         } else if (buttonIndex == 1 && !selectedRoom.isConnected()) {
-            if (!selectedRoom.isConnected()) {
+            if !selectedRoom.isConnected() {
                 selectedRoom.openSocket()
             }
             selectedRoom.active = true
             self.performSegueWithIdentifier("goToChatRoom", sender: self)
-        } else if (buttonIndex == 2) {
+        } else if buttonIndex == 2 {
             self.selectedRoom.handleImminentDelete()
         }
         self.selectedRoom = nil

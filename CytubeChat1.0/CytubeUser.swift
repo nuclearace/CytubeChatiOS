@@ -19,7 +19,7 @@ class CytubeUser: Comparable {
         self.rank = user["rank"] as Int
         self.afk = (user["meta"] as NSDictionary)["afk"] as Bool
         if let imageString = (user["profile"] as NSDictionary)["image"] as? String {
-            if (imageString == "") {} else {
+            if imageString == "" {} else {
                 self.profileImage = NSURL(string: imageString)
             }
         }
@@ -31,27 +31,27 @@ class CytubeUser: Comparable {
     }
     
     func getColorValue() -> UIColor? {
-        if (rank == 0) {
+        if rank == 0 {
             return UIColor(red: 0.6, green: 0.6, blue: 0.23, alpha: 1)
         }
         
-        if (rank == 2) {
+        if rank == 2 {
             return UIColor(red: 0.07, green: 0.75, blue: 0.30, alpha: 1)
         }
         
-        if (rank == 3) {
+        if rank == 3 {
             return UIColor(red: 0.94, green: 0.7, blue: 0.30, alpha: 1)
         }
         
-        if (rank == 4) {
+        if rank == 4 {
             return UIColor(red: 0.36, green: 0, blue: 0.38, alpha: 1)
         }
         
-        if (rank >= 5 && rank < 255) {
+        if rank >= 5 && rank < 255 {
             return UIColor(red: 0.90, green: 0, blue: 0.38, alpha: 1)
         }
         
-        if (rank >= 255) {
+        if rank >= 255 {
             return UIColor(red: 0.98, green: 0, blue: 0.35, alpha: 1)
         }
         return nil
@@ -64,7 +64,7 @@ class CytubeUser: Comparable {
             attString.addAttribute(NSForegroundColorAttributeName, value: color, range: range)
         }
         
-        if (self.afk) {
+        if self.afk {
             let font = UIFont.italicSystemFontOfSize(16)
             attString.addAttribute(kCTFontAttributeName, value: font, range: range)
         }

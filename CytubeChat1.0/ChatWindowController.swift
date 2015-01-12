@@ -27,7 +27,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         
         self.room = roomMng.getActiveRoom()
-        if (self.room != nil) {
+        if self.room != nil {
             if (room!.loggedIn) {
                 self.loginButton.enabled = false
                 self.chatInput.enabled = true
@@ -59,7 +59,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleSocketTimeout:",
             name: "socketTimeout", object: nil)
         
-        if (self.room.kicked) {
+        if self.room.kicked {
             self.wasKicked(NSNotification(name: "wasKicked", object: [
                 "room": self.room.roomName,
                 "reason": ""
@@ -68,7 +68,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         
         self.scrollChat()
         // Start connection to server
-        if (!self.room.isConnected()) {
+        if !self.room.isConnected() {
             self.room.openSocket()
         }
     }
@@ -87,7 +87,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     
     override func prepareForSegue(segue:UIStoryboardSegue, sender:AnyObject?) {
         if let segueIdentifier = segue.identifier {
-            if (segueIdentifier == "openChatLink") {
+            if segueIdentifier == "openChatLink" {
                 let cell = sender as ChatCell
                 (segue.destinationViewController as ChatLinkController).link = cell.link
             }
@@ -103,7 +103,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func keyboardWillShow(not:NSNotification) {
-        if (self.keyboardIsShowing) {
+        if self.keyboardIsShowing {
             return
         }
         self.keyboardIsShowing = true
@@ -116,7 +116,9 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         UIView.animateWithDuration(0.3, animations: {() -> Void in
             self.inputBottomLayoutGuide.constant = keyboardFrame.size.height + 10
         })
+        
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(0.01))
+        
         dispatch_after(time, dispatch_get_main_queue()) {() in
             self.scrollChat()
         }
@@ -132,9 +134,8 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let r:CytubeRoom = room? {
-            var c = room?.messageBuffer.count
-            return c!
+        if room != nil {
+            return room!.messageBuffer.count
         } else {
             return 0
         }
@@ -185,7 +186,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func scrollChat() {
-        if (!self.canScroll || self.room?.messageBuffer.count == 0) {
+        if !self.canScroll || self.room?.messageBuffer.count == 0 {
             return
         }
         
@@ -217,7 +218,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         let roomName = self.room!.roomName
         let kickObj = not.object as NSDictionary
         
-        if (kickObj["room"] as? String != roomName) {
+        if kickObj["room"] as? String != roomName {
             return
         }
         

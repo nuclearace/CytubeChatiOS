@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // println("We entered the background")
         self.backgroundID = application.beginBackgroundTaskWithExpirationHandler() {[weak self] in
-            if (self != nil) {
+            if self != nil {
                 application.endBackgroundTask(self!.backgroundID)
             }
         }

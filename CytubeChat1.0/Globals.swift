@@ -12,23 +12,24 @@ let internetReachability = Reachability.reachabilityForInternetConnection()
 let roomMng = RoomManager()
 
 func ==(lhs:CytubeUser, rhs:CytubeUser) -> Bool {
-    if (lhs.username == rhs.username) {
+    if lhs.username == rhs.username {
         return true
     }
     return false
 }
 
 func <(lhs:CytubeUser, rhs:CytubeUser) -> Bool {
-    if (lhs.rank < rhs.rank) {
+    if lhs.rank < rhs.rank {
         return true
-    } else if (lhs.rank == rhs.rank && lhs.username.lowercaseString > rhs.username.lowercaseString) {
+    } else if lhs.rank == rhs.rank
+        && lhs.username.lowercaseString > rhs.username.lowercaseString {
         return true
     }
     return false
 }
 
 func ===(lhs:CytubeUser, rhs:CytubeUser) -> Bool {
-    if (lhs == rhs && lhs.username == rhs.username) {
+    if lhs == rhs && lhs.username == rhs.username {
         return true
     }
     return false

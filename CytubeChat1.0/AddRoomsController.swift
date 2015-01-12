@@ -35,14 +35,14 @@ class AddRoomsController: UIViewController, UITextFieldDelegate {
         let server = serverText.text
         let password = passwordText.text
         
-        if (server == "" || room == "") {
+        if server == "" || room == "" {
             CytubeUtils.displayGenericAlertWithNoButtons(title: "Error", message:
                 "Please enter a valid server and room.", view: self)
             return
         }
         
         let hostReachability = Reachability(hostName: server)
-        if (hostReachability.currentReachabilityStatus().value == 0) {
+        if hostReachability.currentReachabilityStatus().value == 0 {
             CytubeUtils.displayGenericAlertWithNoButtons(title: "Error", message:
                 "Please check that you entered a valid server" +
                 " and that you are connected to the internet.", view: self)
@@ -66,7 +66,7 @@ class AddRoomsController: UIViewController, UITextFieldDelegate {
         roomMng.saveRooms()
         self.tabBarController?.selectedIndex = 0
         
-        if (!NSUserDefaults.standardUserDefaults().boolForKey("HasLaunchedOnce")) {
+        if !NSUserDefaults.standardUserDefaults().boolForKey("HasLaunchedOnce") {
             CytubeUtils.displayGenericAlertWithNoButtons(title: "Hint",
                 message: "Click on a room to join it." +
                 " You can also long press on a room to bring up options for that room.", view: self)

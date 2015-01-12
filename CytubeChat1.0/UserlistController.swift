@@ -21,7 +21,7 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
         self.userlistTitle.title = room.roomName + " userlist"
         self.room.setUserListView(self)
         self.tblUserlist.reloadData()
-        if (!NSUserDefaults.standardUserDefaults().boolForKey("HasSeenUserlist")) {
+        if !NSUserDefaults.standardUserDefaults().boolForKey("HasSeenUserlist") {
             CytubeUtils.displayGenericAlertWithNoButtons(title: "Hint",
                 message: "You can view a users profile by tapping on that user. Also, if that" +
                 " user is annoying you, long press on their name to bring up options to ignore them.",
@@ -45,7 +45,7 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func prepareForSegue(segue:UIStoryboardSegue, sender:AnyObject?) {
         if let segueIdentifier = segue.identifier {
-            if (segueIdentifier == "showProfile") {
+            if segueIdentifier == "showProfile" {
                 (segue.destinationViewController as ProfileViewController).user = self.selectedUser
             }
         }
@@ -56,20 +56,21 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func didLongPress(sender:UIGestureRecognizer) {
-        if (self.inAlert) {
+        if self.inAlert {
             return
         }
+        
         self.inAlert = true
         let point = sender.locationInView(self.tblUserlist)
         let indexPath = self.tblUserlist.indexPathForRowAtPoint(point)
-        if (indexPath == nil) {
+        if indexPath == nil {
             self.inAlert = false
             return
         }
         
         self.selectedUser = self.room.userlist[indexPath!.row]
-        if (self.selectedUser.username.lowercaseString
-            == self.room.username?.lowercaseString) {
+        if self.selectedUser.username.lowercaseString
+            == self.room.username?.lowercaseString {
                 return
         }
         self.showIgnoreUserAlert(user: self.selectedUser)
@@ -90,9 +91,9 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView:UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
         self.selectedUser = self.room.userlist[indexPath.row]
-        if (self.selectedUser != nil) {
-            if (self.selectedUser.profileText == ""
-                && self.selectedUser.profileImage == nil) {
+        if self.selectedUser != nil {
+            if self.selectedUser.profileText == ""
+                && self.selectedUser.profileImage == nil {
                 return
             }
             self.performSegueWithIdentifier("showProfile", sender: self)
@@ -102,7 +103,7 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
     func showIgnoreUserAlert(#user:CytubeUser) {
         var title:String!
         var message:String!
-        if (CytubeUtils.userIsIgnored(ignoreList: self.room.ignoreList, user: user)) {
+        if CytubeUtils.userIsIgnored(ignoreList: self.room.ignoreList, user: user) {
             title = "Unignore"
             message = "Unignore \(user.getUsername())?"
         } else {
@@ -113,9 +114,9 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
         var alert = UIAlertController(title: title, message:
             message, preferredStyle: UIAlertControllerStyle.Alert)
         var yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) {alert in
-            if (title == "Unignore") {
-                for (var i = 0; i < self.room.ignoreList.count; ++i) {
-                    if (self.room.ignoreList[i] == self.selectedUser.getUsername()) {
+            if title == "Unignore" {
+                for i in 0..<self.room.ignoreList.count {
+                    if self.room.ignoreList[i] == self.selectedUser.getUsername() {
                         self.room.ignoreList.removeAtIndex(i)
                     }
                 }
