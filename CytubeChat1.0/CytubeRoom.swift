@@ -52,7 +52,7 @@ class CytubeRoom: NSObject {
             // println("Connected to Cytube server \(self?.server)")
             self?.connected = true
             self?.reconnecting = false
-            self?.socket?.emit("initChannelCallbacks", args: nil)
+            self?.socket?.emit("initChannelCallbacks")
             self?.socket?.emit("joinChannel", args: ["name": self!.roomName])
             self?.messageBuffer.removeAllObjects()
             self?.sendLogin()
@@ -246,6 +246,7 @@ class CytubeRoom: NSObject {
         if (self.messageBuffer.count > 75) {
             self.messageBuffer.removeObjectAtIndex(0)
         }
+        
         self.messageBuffer.addObject(msg)
         self.chatWindow?.messageView.reloadData()
         self.chatWindow?.scrollChat()

@@ -42,7 +42,7 @@ private class EventHandler: NSObject {
     }
 }
 
-private struct Event {
+private class Event {
     var event:String!
     var args:AnyObject!
     var placeholders:Int!
@@ -94,7 +94,7 @@ private struct Event {
         }
     }
     
-    mutating func fillInPlaceHolder(data:NSData) -> Bool {
+    func fillInPlaceHolder(data:NSData) -> Bool {
         func checkDoEvent() -> Bool {
             if (self.placeholders == self.currentPlace) {
                 return true

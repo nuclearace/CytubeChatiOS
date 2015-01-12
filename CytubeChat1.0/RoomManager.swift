@@ -17,6 +17,16 @@ class RoomManager {
     var rooms = [RoomContainer]()
     var roomsDidClose = false
     
+    init() {
+        // Look for changes in network
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNetworkChange:",
+            name: kReachabilityChangedNotification, object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     func addRoom(server:String, room:String, cytubeRoom:CytubeRoom) {
         rooms.append(RoomContainer(server: server, room: room, cytubeRoom: cytubeRoom))
     }
@@ -81,7 +91,7 @@ class RoomManager {
     }
     
     // If we go from wifi to cellular we need to reconnect
-    func handleNetworkChange(not:NSNotification) {
+    @objc func handleNetworkChange(not:NSNotification) {
         let status = internetReachability.currentReachabilityStatus()
         if (status.value == 2) {
             for cRoom in rooms {

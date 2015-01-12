@@ -20,10 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             diskCapacity: cacheSizeDisk, diskPath: nil)
         NSURLCache.setSharedURLCache(sharedCache)
         
-        // Look for changes in network
-        NSNotificationCenter.defaultCenter().addObserver(roomMng,
-            selector: "handleNetworkChange:", name: kReachabilityChangedNotification, object: nil)
-        
         internetReachability.startNotifier()
         dbManger = DatabaseManger()
         roomMng.loadRooms()

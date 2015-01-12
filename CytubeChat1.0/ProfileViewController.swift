@@ -32,11 +32,12 @@ class ProfileViewController: UIViewController {
                         let source = CGImageSourceCreateWithData(data, nil)
                         var images = [UIImage]()
                         var dur = 0.0
+                        
                         for i in 0..<CGImageSourceGetCount(source) {
                             let asCGImage = CGImageSourceCreateImageAtIndex(source, i, nil)
-                            var prop = CGImageSourceCopyPropertiesAtIndex(source, i, nil)
+                            let prop = CGImageSourceCopyPropertiesAtIndex(source, i, nil)
                             
-                            // Get properties for each frame
+                            // Get delay for each frame, so we can play back at proper speed
                             if let gif = (prop as NSDictionary)["{GIF}"] as? NSDictionary {
                                 if let delay = gif["UnclampedDelayTime"] as? Double {
                                     dur += delay
@@ -49,7 +50,6 @@ class ProfileViewController: UIViewController {
                         self?.profileImageView.animationDuration = dur
                         self?.profileImageView.startAnimating()
                         return
-                        
                     }
                     self?.profileImageView.contentMode = UIViewContentMode.ScaleAspectFit
                     self?.profileImageView.image = UIImage(data: data)
