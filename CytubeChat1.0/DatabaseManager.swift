@@ -8,7 +8,7 @@
 import Foundation
 import SQLite
 
-class DatabaseManger: NSObject {
+final class DatabaseManger: NSObject {
     let db:Database!
     
     override init() {

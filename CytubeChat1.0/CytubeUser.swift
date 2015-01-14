@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CytubeUser: Comparable {
+final class CytubeUser: Comparable {
     let username:String!
     var afk = false
     var color:UIColor? {
@@ -27,7 +27,6 @@ class CytubeUser: Comparable {
                 return UIColor(red: 0.98, green: 0, blue: 0.35, alpha: 1)
             default:
                 return nil
-                
             }
         }
     }

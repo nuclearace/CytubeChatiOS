@@ -13,7 +13,7 @@ struct RoomContainer {
     var cytubeRoom:CytubeRoom!
 }
 
-class RoomManager {
+final class RoomManager {
     var rooms = [RoomContainer]()
     var roomsDidClose = false
     

@@ -7,8 +7,7 @@
 
 import Foundation
 
-class CytubeRoom: NSObject {
-    
+final class CytubeRoom: NSObject {
     weak var chatWindow:ChatWindowController?
     weak var roomsController:RoomsController?
     weak var userlistView:UserlistController?
