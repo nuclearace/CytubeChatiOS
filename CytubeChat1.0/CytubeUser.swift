@@ -10,6 +10,27 @@ import UIKit
 class CytubeUser: Comparable {
     let username:String!
     var afk = false
+    var color:UIColor? {
+        get {
+            switch rank {
+            case 0:
+                return UIColor(red: 0.6, green: 0.6, blue: 0.23, alpha: 1)
+            case 2:
+                return UIColor(red: 0.07, green: 0.75, blue: 0.30, alpha: 1)
+            case 3:
+                return UIColor(red: 0.94, green: 0.7, blue: 0.30, alpha: 1)
+            case 4:
+                return UIColor(red: 0.36, green: 0, blue: 0.38, alpha: 1)
+            case 5...254:
+                return UIColor(red: 0.60, green: 0, blue: 0.38, alpha: 1)
+            case 255...Int.max:
+                return UIColor(red: 0.98, green: 0, blue: 0.35, alpha: 1)
+            default:
+                return nil
+                
+            }
+        }
+    }
     var profileImage:NSURL?
     var profileText:String?
     var rank:Int!
@@ -30,37 +51,10 @@ class CytubeUser: Comparable {
         // println("CytubeUser \(self.username) is being deint")
     }
     
-    func getColorValue() -> UIColor? {
-        if rank == 0 {
-            return UIColor(red: 0.6, green: 0.6, blue: 0.23, alpha: 1)
-        }
-        
-        if rank == 2 {
-            return UIColor(red: 0.07, green: 0.75, blue: 0.30, alpha: 1)
-        }
-        
-        if rank == 3 {
-            return UIColor(red: 0.94, green: 0.7, blue: 0.30, alpha: 1)
-        }
-        
-        if rank == 4 {
-            return UIColor(red: 0.36, green: 0, blue: 0.38, alpha: 1)
-        }
-        
-        if rank >= 5 && rank < 255 {
-            return UIColor(red: 0.90, green: 0, blue: 0.38, alpha: 1)
-        }
-        
-        if rank >= 255 {
-            return UIColor(red: 0.98, green: 0, blue: 0.35, alpha: 1)
-        }
-        return nil
-    }
-    
     func createAttributedStringForUser() -> NSAttributedString {
         let range = NSMakeRange(0, countElements(self.username))
         let attString = NSMutableAttributedString(string: self.username, attributes: nil)
-        if let color = self.getColorValue() {
+        if let color = self.color {
             attString.addAttribute(NSForegroundColorAttributeName, value: color, range: range)
         }
         
@@ -70,21 +64,5 @@ class CytubeUser: Comparable {
         }
         
         return attString
-    }
-    
-    func getUsername() -> String {
-        return self.username
-    }
-    
-    func getRank() -> Int {
-        return self.rank
-    }
-    
-    func getAFK() -> Bool {
-        return self.afk
-    }
-    
-    func setAFK(afk:Bool) {
-        self.afk = afk
     }
 }

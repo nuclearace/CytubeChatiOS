@@ -200,7 +200,7 @@ class CytubeRoom: NSObject {
             self.needDelete = true
             self.socket?.close()
         } else {
-            var index = roomMng.findRoomIndex(self.roomName, server: self.server)
+            let index = roomMng.findRoomIndex(self.roomName, server: self.server)
             roomMng.removeRoom(index!)
         }
     }
@@ -217,8 +217,8 @@ class CytubeRoom: NSObject {
     
     func handleSetAFK(username:String, afk:Bool) {
         for user in self.userlist {
-            if user.getUsername() == username {
-                user.setAFK(afk)
+            if user.username == username {
+                user.afk = afk
                 self.userlistView?.tblUserlist.reloadData()
             }
         }
@@ -227,7 +227,7 @@ class CytubeRoom: NSObject {
     func handleUserLeave(username:String) {
         for i in 0..<self.userlist.count {
             let user = self.userlist[i] as CytubeUser
-            if user.getUsername() == username {
+            if user.username == username {
                 self.userlist.removeAtIndex(i)
                 self.userlistView?.tblUserlist.reloadData()
                 break
@@ -261,6 +261,7 @@ class CytubeRoom: NSObject {
         if self.socket == nil {
             return false
         }
+        
         if socket!.connected {
             return true
         } else {

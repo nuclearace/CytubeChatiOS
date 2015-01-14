@@ -105,7 +105,7 @@ class CytubeUtils {
     }
     
     class func displayGenericAlertWithNoButtons(#title:String, message:String, view:UIViewController?) {
-        dispatch_async(dispatch_get_main_queue()) {() in
+        dispatch_async(dispatch_get_main_queue()) {
             var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
             var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
                 return
@@ -134,7 +134,7 @@ class CytubeUtils {
         
         for cuser in ignoreList {
             if let userAsCytubeUser = user as? CytubeUser {
-                if cuser == userAsCytubeUser.getUsername() {
+                if cuser == userAsCytubeUser.username {
                     return true
                 }
             } else if let userAsString = user as? String {

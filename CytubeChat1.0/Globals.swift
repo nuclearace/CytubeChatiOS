@@ -1,5 +1,5 @@
 //
-//  Operators.swift
+//  Globals.swift
 //  CytubeChat
 //
 //  Created by Erik Little on 10/31/14.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-var dbManger:DatabaseManger!
+let dbManger = DatabaseManger()
 let internetReachability = Reachability.reachabilityForInternetConnection()
 let roomMng = RoomManager()
 

@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSURLCache.setSharedURLCache(sharedCache)
         
         internetReachability.startNotifier()
-        dbManger = DatabaseManger()
         roomMng.loadRooms()
         return true
     }

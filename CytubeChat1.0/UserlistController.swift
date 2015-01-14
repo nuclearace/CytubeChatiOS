@@ -105,10 +105,10 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
         var message:String!
         if CytubeUtils.userIsIgnored(ignoreList: self.room.ignoreList, user: user) {
             title = "Unignore"
-            message = "Unignore \(user.getUsername())?"
+            message = "Unignore \(user.username)?"
         } else {
             title = "Ignore"
-            message = "Ignore \(user.getUsername())?"
+            message = "Ignore \(user.username)?"
         }
         
         var alert = UIAlertController(title: title, message:
@@ -116,13 +116,13 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
         var yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) {alert in
             if title == "Unignore" {
                 for i in 0..<self.room.ignoreList.count {
-                    if self.room.ignoreList[i] == self.selectedUser.getUsername() {
+                    if self.room.ignoreList[i] == self.selectedUser.username {
                         self.room.ignoreList.removeAtIndex(i)
                     }
                 }
                 self.inAlert = false
             } else {
-                self.room.ignoreList.append(self.selectedUser.getUsername())
+                self.room.ignoreList.append(self.selectedUser.username)
                 self.inAlert = false
             }
         }
