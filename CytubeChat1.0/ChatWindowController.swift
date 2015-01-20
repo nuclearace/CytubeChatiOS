@@ -119,9 +119,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(0.01))
         
-        dispatch_after(time, dispatch_get_main_queue()) {() in
-            self.scrollChat()
-        }
+        dispatch_after(time, dispatch_get_main_queue()) {self.scrollChat()}
     }
     
     func keyboardWillHide(not:NSNotification) {

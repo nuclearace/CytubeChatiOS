@@ -40,10 +40,12 @@
 		748943FE1A3CF13A00E70E5D /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 748943FA1A3CF13A00E70E5D /* RNEncryptor.m */; };
 		748944011A3CF34200E70E5D /* CytubeChatRNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 748944001A3CF34200E70E5D /* CytubeChatRNCryptor.m */; };
 		74AD72791A03EF580013C8AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AD72781A03EF580013C8AF /* Globals.swift */; };
+		74B61A801A6ECAC4002E2701 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B61A7C1A6ECAC4002E2701 /* Event.swift */; };
+		74B61A811A6ECAC4002E2701 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B61A7D1A6ECAC4002E2701 /* EventHandler.swift */; };
+		74B61A821A6ECAC4002E2701 /* SocketIOClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B61A7E1A6ECAC4002E2701 /* SocketIOClient.swift */; };
 		74B767CC19F54D490021B178 /* UserlistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B767CB19F54D490021B178 /* UserlistController.swift */; };
 		74BB03E019FC708A000534DB /* PrivacyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB03DF19FC708A000534DB /* PrivacyController.swift */; };
 		74CF92201A4612DF00D016BC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CF921F1A4612DF00D016BC /* ProfileViewController.swift */; };
-		74D565FC1A505C240053F24D /* SocketIOClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D565FB1A505C240053F24D /* SocketIOClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,10 +147,12 @@
 		748943FF1A3CF1F500E70E5D /* CytubeChatRNCryptorHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CytubeChatRNCryptorHeader.h; sourceTree = "<group>"; };
 		748944001A3CF34200E70E5D /* CytubeChatRNCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CytubeChatRNCryptor.m; sourceTree = "<group>"; };
 		74AD72781A03EF580013C8AF /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		74B61A7C1A6ECAC4002E2701 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		74B61A7D1A6ECAC4002E2701 /* EventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
+		74B61A7E1A6ECAC4002E2701 /* SocketIOClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOClient.swift; sourceTree = "<group>"; };
 		74B767CB19F54D490021B178 /* UserlistController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserlistController.swift; sourceTree = "<group>"; };
 		74BB03DF19FC708A000534DB /* PrivacyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyController.swift; sourceTree = "<group>"; };
 		74CF921F1A4612DF00D016BC /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		74D565FB1A505C240053F24D /* SocketIOClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,7 +203,6 @@
 				7410737119EF445E00D71C6C /* CytubeUtils.swift */,
 				745855CB1A3B54AF000F6495 /* DatabaseManager.swift */,
 				74AD72781A03EF580013C8AF /* Globals.swift */,
-				74D565FB1A505C240053F24D /* SocketIOClient.swift */,
 				740BEF8419EC6FCF00E577A0 /* RoomManager.swift */,
 				740BEF4C19EC315400E577A0 /* RoomsController.swift */,
 				740BEF4E19EC315400E577A0 /* AddRoomsController.swift */,
@@ -214,6 +217,7 @@
 				740BEF7719EC319A00E577A0 /* CytubeChat-Bridging-Header.h */,
 				740BEF5019EC315400E577A0 /* Main.storyboard */,
 				740BEF5519EC315400E577A0 /* LaunchScreen.xib */,
+				74B61A7B1A6ECAC4002E2701 /* SwiftIO */,
 				74548A821A3DD5620023F08E /* Obj-C */,
 				748943F01A3CF13A00E70E5D /* RNCryptor */,
 				747DBA8A1A12B21D00486E7E /* Reachability */,
@@ -290,6 +294,16 @@
 				748943FA1A3CF13A00E70E5D /* RNEncryptor.m */,
 			);
 			path = RNCryptor;
+			sourceTree = "<group>";
+		};
+		74B61A7B1A6ECAC4002E2701 /* SwiftIO */ = {
+			isa = PBXGroup;
+			children = (
+				74B61A7C1A6ECAC4002E2701 /* Event.swift */,
+				74B61A7D1A6ECAC4002E2701 /* EventHandler.swift */,
+				74B61A7E1A6ECAC4002E2701 /* SocketIOClient.swift */,
+			);
+			path = SwiftIO;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -412,14 +426,16 @@
 				748943FE1A3CF13A00E70E5D /* RNEncryptor.m in Sources */,
 				7410737219EF445E00D71C6C /* CytubeUtils.swift in Sources */,
 				7478A2E41A0ED4B80013D46C /* ChatCell.swift in Sources */,
+				74B61A811A6ECAC4002E2701 /* EventHandler.swift in Sources */,
 				748944011A3CF34200E70E5D /* CytubeChatRNCryptor.m in Sources */,
 				74CF92201A4612DF00D016BC /* ProfileViewController.swift in Sources */,
 				748943FD1A3CF13A00E70E5D /* RNDecryptor.m in Sources */,
 				740BEF8519EC6FCF00E577A0 /* RoomManager.swift in Sources */,
 				748943FC1A3CF13A00E70E5D /* RNCryptorEngine.m in Sources */,
 				74BB03E019FC708A000534DB /* PrivacyController.swift in Sources */,
-				74D565FC1A505C240053F24D /* SocketIOClient.swift in Sources */,
+				74B61A801A6ECAC4002E2701 /* Event.swift in Sources */,
 				740BEF8719EC857E00E577A0 /* ChatWindowController.swift in Sources */,
+				74B61A821A6ECAC4002E2701 /* SocketIOClient.swift in Sources */,
 				740BEF7519EC317700E577A0 /* NSData+SRB64Additions.m in Sources */,
 				740BEF4F19EC315400E577A0 /* AddRoomsController.swift in Sources */,
 				748943FB1A3CF13A00E70E5D /* RNCryptor.m in Sources */,
