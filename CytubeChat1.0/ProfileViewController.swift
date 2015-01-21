@@ -17,6 +17,11 @@ class ProfileViewController: UIViewController {
     var user:CytubeUser?
     
     override func viewDidLoad() {
+        if self.user == nil {
+            self.dismissViewControllerAnimated(true, completion: nil)
+            return
+        }
+        
         let urlString = self.user!.profileImage!.absoluteString
         self.navBarTitle.title = self.user?.username
         self.profileTextView.text = self.user?.profileText

@@ -114,7 +114,8 @@ final class RoomManager {
         NSLog("Saving Rooms")
         let handler = NSFileManager()
         var pointerErr:NSError?
-        let pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory,
+            NSSearchPathDomainMask.UserDomainMask, true)
         let path = pathsArray[0] as NSString + "/rooms.json"
         var roomArray = [NSDictionary]()
         var sroom:NSDictionary!
@@ -153,7 +154,8 @@ final class RoomManager {
         NSLog("Loading rooms")
         var handler = NSFileManager()
         var pointerErr:NSError?
-        let pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory,
+            NSSearchPathDomainMask.UserDomainMask, true)
         let path = pathsArray[0] as String + "/rooms.json"
         
         if !handler.fileExistsAtPath(path) {

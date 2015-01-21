@@ -25,7 +25,7 @@
 class EventHandler {
     let event:String!
     let callback:((data:AnyObject?) -> Void)!
-    var callbackMult:((data:[AnyObject]) -> Void)!
+    let callbackMult:((data:[AnyObject]) -> Void)!
     
     init(event:String, callback:((data:AnyObject?) -> Void)) {
         self.event = event

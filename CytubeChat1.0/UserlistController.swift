@@ -91,6 +91,7 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView:UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
         self.selectedUser = self.room.userlist[indexPath.row]
+        
         if self.selectedUser != nil {
             if self.selectedUser.profileText == ""
                 && self.selectedUser.profileImage == nil {
