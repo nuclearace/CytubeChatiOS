@@ -19,12 +19,12 @@ final class RoomManager {
     
     init() {
         // Look for changes in network
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNetworkChange:",
+        defaultCenter.addObserver(self, selector: "handleNetworkChange:",
             name: kReachabilityChangedNotification, object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        defaultCenter.removeObserver(self)
     }
     
     func addRoom(server:String, room:String, cytubeRoom:CytubeRoom) {
@@ -106,7 +106,7 @@ final class RoomManager {
                     cRoom.cytubeRoom?.closeSocket()
                 }
             }
-            NSNotificationCenter.defaultCenter().postNotificationName("noInternet", object: nil)
+            defaultCenter.postNotificationName("noInternet", object: nil)
         }
     }
     

@@ -42,21 +42,21 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidAppear(animated:Bool) {
         super.viewDidAppear(true)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:",
+        defaultCenter.addObserver(self, selector: "keyboardWillShow:",
             name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:",
+        defaultCenter.addObserver(self, selector: "keyboardWillHide:",
             name: UIKeyboardWillHideNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasKicked:",
+        defaultCenter.addObserver(self, selector: "wasKicked:",
             name: "wasKicked", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "passwordFail:",
+        defaultCenter.addObserver(self, selector: "passwordFail:",
             name: "passwordFail", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNilSocketURL:",
+        defaultCenter.addObserver(self, selector: "handleNilSocketURL:",
             name: "nilSocketURL", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNoInternet:",
+        defaultCenter.addObserver(self, selector: "handleNoInternet:",
             name: "noInternet", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleSocketURLFail:",
+        defaultCenter.addObserver(self, selector: "handleSocketURLFail:",
             name: "socketURLFail", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleSocketTimeout:",
+        defaultCenter.addObserver(self, selector: "handleSocketTimeout:",
             name: "socketTimeout", object: nil)
         
         if self.room.kicked {
@@ -74,15 +74,11 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     override func viewDidDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        defaultCenter.removeObserver(self)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        defaultCenter.removeObserver(self)
     }
     
     override func prepareForSegue(segue:UIStoryboardSegue, sender:AnyObject?) {

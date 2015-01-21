@@ -8,6 +8,7 @@
 import Foundation
 
 let dbManger = DatabaseManger()
+let defaultCenter = NSNotificationCenter.defaultCenter()
 let internetReachability = Reachability.reachabilityForInternetConnection()
 let roomMng = RoomManager()
 

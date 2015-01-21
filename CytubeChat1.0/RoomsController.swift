@@ -15,11 +15,11 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserverForName("roomRemoved", object: nil,
+        defaultCenter.addObserverForName("roomRemoved", object: nil,
             queue: nil) {[unowned self] (not:NSNotification?) in
                 self.tblRoom.reloadData()
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleSocketURLFail:",
+        defaultCenter.addObserver(self, selector: "handleSocketURLFail:",
             name: "socketURLFail", object: nil)
     }
     
@@ -31,7 +31,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        defaultCenter.removeObserver(self)
     }
     
     @IBAction func didLongPress(sender:UIGestureRecognizer) {

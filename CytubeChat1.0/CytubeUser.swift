@@ -11,23 +11,21 @@ final class CytubeUser: Comparable {
     let username:String!
     var afk = false
     var color:UIColor? {
-        get {
-            switch rank {
-            case 0:
-                return UIColor(red: 0.6, green: 0.6, blue: 0.23, alpha: 1)
-            case 2:
-                return UIColor(red: 0.07, green: 0.75, blue: 0.30, alpha: 1)
-            case 3:
-                return UIColor(red: 0.94, green: 0.7, blue: 0.30, alpha: 1)
-            case 4:
-                return UIColor(red: 0.36, green: 0, blue: 0.38, alpha: 1)
-            case 5...254:
-                return UIColor(red: 0.60, green: 0, blue: 0.38, alpha: 1)
-            case 255...Int.max:
-                return UIColor(red: 0.98, green: 0, blue: 0.35, alpha: 1)
-            default:
-                return nil
-            }
+        switch rank {
+        case 0:
+            return UIColor(red: 0.6, green: 0.6, blue: 0.23, alpha: 1)
+        case 2:
+            return UIColor(red: 0.07, green: 0.75, blue: 0.30, alpha: 1)
+        case 3:
+            return UIColor(red: 0.94, green: 0.7, blue: 0.30, alpha: 1)
+        case 4:
+            return UIColor(red: 0.36, green: 0, blue: 0.38, alpha: 1)
+        case 5...254:
+            return UIColor(red: 0.60, green: 0, blue: 0.38, alpha: 1)
+        case 255...Int.max:
+            return UIColor(red: 0.98, green: 0, blue: 0.35, alpha: 1)
+        default:
+            return nil
         }
     }
     var profileImage:NSURL?

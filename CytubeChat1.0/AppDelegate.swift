@@ -13,8 +13,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window:UIWindow?
     var backgroundID:UIBackgroundTaskIdentifier!
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        let cacheSizeMemory = 4*1024*1024 // 4MB
+    func application(application:UIApplication, didFinishLaunchingWithOptions launchOptions:[NSObject: AnyObject]?) -> Bool {
+        let cacheSizeMemory = 5*1024*1024 // 5MB
         let cacheSizeDisk = 32*1024*1024; // 32MB
         let sharedCache = NSURLCache(memoryCapacity: cacheSizeMemory,
             diskCapacity: cacheSizeDisk, diskPath: nil)
@@ -25,11 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(application:UIApplication) {
         // println("We are about to become inactive")
     }
     
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(application:UIApplication) {
         // println("We entered the background")
         self.backgroundID = application.beginBackgroundTaskWithExpirationHandler() {[weak self] in
             if self != nil {
@@ -45,21 +45,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
     }
     
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(application:UIApplication) {
         // println("Coming back from the background")
     }
     
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(application:UIApplication) {
         // println("We will become active")
         roomMng.reopenRooms()
     }
     
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(application:UIApplication) {
         // println("We're going down")
         roomMng.saveRooms()
     }
     
-    func applicationDidReceiveMemoryWarning(application: UIApplication) {
+    func applicationDidReceiveMemoryWarning(application:UIApplication) {
         NSLog("Recieved memory warning, clearing url cache")
         let sharedCache = NSURLCache.sharedURLCache()
         sharedCache.removeAllCachedResponses()

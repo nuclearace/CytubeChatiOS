@@ -44,7 +44,7 @@ class SocketIOClient: NSObject, SRWebSocketDelegate {
         let status = internetReachability.currentReachabilityStatus()
         if (status.value == 0) {
             self.connecting = false
-            NSNotificationCenter.defaultCenter().postNotificationName("noInternet", object: nil)
+            defaultCenter.postNotificationName("noInternet", object: nil)
             return
         }
         

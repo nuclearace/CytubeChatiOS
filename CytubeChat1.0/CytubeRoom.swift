@@ -41,7 +41,7 @@ final class CytubeRoom: NSObject {
     deinit {
         // println("CytubeRoom \(self.roomName) is being deinit")
         roomsController?.tblRoom.reloadData()
-        NSNotificationCenter.defaultCenter().postNotificationName("roomRemoved", object: nil)
+        defaultCenter.postNotificationName("roomRemoved", object: nil)
     }
     
     func addHandlers() {
@@ -132,28 +132,26 @@ final class CytubeRoom: NSObject {
             ]
             self?.kicked = true
             self?.shouldReconnect = false
-            NSNotificationCenter.defaultCenter().postNotificationName("wasKicked", object: kickObj)
+            defaultCenter.postNotificationName("wasKicked", object: kickObj)
         }
         
         self.socket?.on("needPassword") {[weak self] data in
             if self?.roomPassword != nil && self?.roomPassword != "" {
                 self?.handleRoomPassword()
             } else {
-                NSNotificationCenter.defaultCenter().postNotificationName("passwordFail", object: self)
+                defaultCenter.postNotificationName("passwordFail", object: self)
                 self?.handleImminentDelete()
             }
         }
         
         self.socket?.on("cancelNeedPassword") {[weak self] data in
-            if self? != nil {
-                self?.sentRoomPassword = false
-            }
+            self?.sentRoomPassword = false
+            return
         }
         
         self.socket?.on("clearchat") {[weak self] data in
-            if self != nil {
-                self?.clearChat()
-            }
+            self?.clearChat()
+            return
         }
     }
     
@@ -209,7 +207,7 @@ final class CytubeRoom: NSObject {
             self.socket?.emit("channelPassword", args: self.roomPassword)
             self.sentRoomPassword = true
         } else {
-            NSNotificationCenter.defaultCenter().postNotificationName("passwordFail", object: self)
+            defaultCenter.postNotificationName("passwordFail", object: self)
             self.handleImminentDelete()
         }
     }

@@ -19,7 +19,7 @@ class CytubeUtils {
                 if err != nil {
                     dispatch_async(dispatch_get_main_queue()) {
                         NSLog("Socket url fail:" + err.localizedDescription)
-                        NSNotificationCenter.defaultCenter().postNotificationName("socketURLFail", object: nil)
+                        defaultCenter.postNotificationName("socketURLFail", object: nil)
                     }
                     return
                 } else {
@@ -28,7 +28,7 @@ class CytubeUtils {
                     if mutable["var IO_URLS="].matches().count == 0 {
                         dispatch_async(dispatch_get_main_queue()) {
                             NSLog("Socket url fail")
-                            NSNotificationCenter.defaultCenter().postNotificationName("socketURLFail", object: nil)
+                            defaultCenter.postNotificationName("socketURLFail", object: nil)
                         }
                         return
                     }

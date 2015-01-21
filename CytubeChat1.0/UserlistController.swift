@@ -39,10 +39,6 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
         self.room.setUserListView(nil)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     override func prepareForSegue(segue:UIStoryboardSegue, sender:AnyObject?) {
         if let segueIdentifier = segue.identifier {
             if segueIdentifier == "showProfile" {
