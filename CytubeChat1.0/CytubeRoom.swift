@@ -61,6 +61,7 @@ final class CytubeRoom: NSObject {
             if self == nil {
                 return
             }
+            
             if !self!.reconnecting {
                 self?.connected = false
                 self?.socketShutdown()

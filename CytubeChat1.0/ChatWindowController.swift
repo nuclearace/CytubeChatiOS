@@ -60,6 +60,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
             name: "socketTimeout", object: nil)
         
         if self.room.kicked {
+            // TODO Save the kick reason
             self.wasKicked(NSNotification(name: "wasKicked", object: [
                 "room": self.room.roomName,
                 "reason": ""
@@ -74,10 +75,6 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     override func viewDidDisappear(animated: Bool) {
-        defaultCenter.removeObserver(self)
-    }
-    
-    deinit {
         defaultCenter.removeObserver(self)
     }
     

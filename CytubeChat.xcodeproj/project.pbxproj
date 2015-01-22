@@ -175,8 +175,8 @@
 		740BEF3C19EC315400E577A0 = {
 			isa = PBXGroup;
 			children = (
-				747DBA881A12AF5A00486E7E /* SystemConfiguration.framework */,
 				740BEF7E19EC322000E577A0 /* libicucore.dylib */,
+				747DBA881A12AF5A00486E7E /* SystemConfiguration.framework */,
 				740BEF7C19EC321300E577A0 /* Security.framework */,
 				740BEF7A19EC320700E577A0 /* Foundation.framework */,
 				740BEF7819EC31FE00E577A0 /* CFNetwork.framework */,

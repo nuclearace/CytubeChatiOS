@@ -15,8 +15,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        defaultCenter.addObserverForName("roomRemoved", object: nil,
-            queue: nil) {[unowned self] (not:NSNotification?) in
+        defaultCenter.addObserverForName("roomRemoved", object: nil, queue: nil) {[unowned self] not in
                 self.tblRoom.reloadData()
         }
         defaultCenter.addObserver(self, selector: "handleSocketURLFail:",
@@ -54,7 +53,8 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         } else {
             connectDisconnect = "Connect"
         }
-        var alert = UIAlertController(title: "Options", message: "What do you want to do?", preferredStyle: UIAlertControllerStyle.Alert)
+        var alert = UIAlertController(title: "Options", message: "What do you want to do?",
+            preferredStyle: UIAlertControllerStyle.Alert)
         var action = UIAlertAction(title: connectDisconnect, style: UIAlertActionStyle.Default) {[weak self] action in
             if connected {
                 self?.selectedRoom.closeRoom()

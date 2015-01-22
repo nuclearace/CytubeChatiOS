@@ -152,7 +152,7 @@ final class RoomManager {
     
     func loadRooms() -> Bool {
         NSLog("Loading rooms")
-        var handler = NSFileManager()
+        let handler = NSFileManager()
         var pointerErr:NSError?
         let pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory,
             NSSearchPathDomainMask.UserDomainMask, true)
