@@ -21,12 +21,14 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
         self.userlistTitle.title = room.roomName + " userlist"
         self.room.setUserListView(self)
         self.tblUserlist.reloadData()
+        
         if !NSUserDefaults.standardUserDefaults().boolForKey("HasSeenUserlist") {
             CytubeUtils.displayGenericAlertWithNoButtons(title: "Hint",
                 message: "You can view a users profile by tapping on that user. Also, if that" +
                 " user is annoying you, long press on their name to bring up options to ignore them.",
                 view: self)
         }
+        
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasSeenUserlist")
         NSUserDefaults.standardUserDefaults().synchronize()
     }

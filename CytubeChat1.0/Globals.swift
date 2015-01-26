@@ -16,6 +16,7 @@ func ==(lhs:CytubeUser, rhs:CytubeUser) -> Bool {
     if lhs.username == rhs.username {
         return true
     }
+    
     return false
 }
 
@@ -26,6 +27,7 @@ func <(lhs:CytubeUser, rhs:CytubeUser) -> Bool {
         && lhs.username.lowercaseString > rhs.username.lowercaseString {
         return true
     }
+    
     return false
 }
 
@@ -33,5 +35,6 @@ func ===(lhs:CytubeUser, rhs:CytubeUser) -> Bool {
     if lhs == rhs && lhs.username == rhs.username {
         return true
     }
+    
     return false
 }

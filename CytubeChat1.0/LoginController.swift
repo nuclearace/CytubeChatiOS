@@ -12,7 +12,6 @@ class LoginController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var usernameText:UITextField!
     @IBOutlet weak var passwordText:UITextField!
     @IBOutlet weak var rememberSwitch:UISwitch!
-    
     var room:CytubeRoom?
     
     override func viewDidLoad() {

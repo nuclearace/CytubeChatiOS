@@ -118,11 +118,9 @@ final class CytubeRoom: NSObject {
         }
         
         self.socket?.on("setAFK") {[weak self] data in
-            if self != nil {
-                let username = (data as NSDictionary)["name"] as String
-                let afk = (data as NSDictionary)["afk"] as Bool
-                self?.handleSetAFK(username, afk: afk)
-            }
+            let username = (data as NSDictionary)["name"] as String
+            let afk = (data as NSDictionary)["afk"] as Bool
+            self?.handleSetAFK(username, afk: afk)
         }
         
         self.socket?.on("kick") {[weak self] data in
@@ -223,14 +221,8 @@ final class CytubeRoom: NSObject {
     }
     
     func handleUserLeave(username:String) {
-        for i in 0..<self.userlist.count {
-            let user = self.userlist[i] as CytubeUser
-            if user.username == username {
-                self.userlist.removeAtIndex(i)
-                self.userlistView?.tblUserlist.reloadData()
-                break
-            }
-        }
+        self.userlist = self.userlist.filter {!($0.username == username)}
+        self.userlistView?.tblUserlist.reloadData()
     }
     
     func handleUserlist(userlist:NSArray) {

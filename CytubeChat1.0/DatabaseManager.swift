@@ -63,6 +63,7 @@ final class DatabaseManger: NSObject {
                 }
             }
         }
+        
         return nil
     }
     
@@ -73,7 +74,6 @@ final class DatabaseManger: NSObject {
         let password = Expression<String>("password")
         let key = Expression<String>("key")
         let completeChannel = server + "." + channel
-        
         let key2 = CytubeUtils.generateKey()
         let ePassword = CytubeUtils.encryptPassword(pword, key: key2)
         

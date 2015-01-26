@@ -28,6 +28,7 @@ final class CytubeUser: Comparable {
             return nil
         }
     }
+    
     var profileImage:NSURL?
     var profileText:String?
     var rank:Int!
@@ -42,10 +43,6 @@ final class CytubeUser: Comparable {
             }
         }
         self.profileText = (user["profile"] as NSDictionary)["text"] as? String
-    }
-    
-    deinit {
-        // println("CytubeUser \(self.username) is being deint")
     }
     
     func createAttributedStringForUser() -> NSAttributedString {

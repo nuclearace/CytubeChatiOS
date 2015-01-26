@@ -13,18 +13,6 @@ class AddRoomsController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var roomText:UITextField!
     @IBOutlet weak var passwordText:UITextField!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    override func viewDidAppear(animated:Bool) {
-        super.viewDidAppear(true)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     // Add room was pressed
     @IBAction func btnAddTask(sender: UIButton) {
         self.handleAddRoom()
