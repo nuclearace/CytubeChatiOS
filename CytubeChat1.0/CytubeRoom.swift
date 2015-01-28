@@ -105,6 +105,7 @@ final class CytubeRoom: NSObject {
             let data = data as NSArray
             self?.handleUserlist(data)
             self?.sortUserlist()
+            self?.userlistView?.tblUserlist.reloadData()
         }
         
         self.socket?.on("addUser") {[weak self] data in
