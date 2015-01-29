@@ -52,7 +52,7 @@ final class CytubeRoom: NSObject {
             self?.connected = true
             self?.reconnecting = false
             self?.socket?.emit("initChannelCallbacks")
-            self?.socket?.emit("joinChannel", args: ["name": self!.roomName])
+            self?.socket?.emit("joinChannel", ["name": self!.roomName])
             self?.messageBuffer.removeAllObjects()
             self?.sendLogin()
         }
@@ -109,7 +109,7 @@ final class CytubeRoom: NSObject {
         }
         
         self.socket?.on("addUser") {[weak self] data in
-            let data = data as NSDictionary
+            let data = data as [String: AnyObject]
             self?.handleAddUser(data)
         }
         
@@ -155,7 +155,7 @@ final class CytubeRoom: NSObject {
         }
     }
     
-    func handleAddUser(user:NSDictionary) {
+    func handleAddUser(user:[String: AnyObject]) {
         let tempUser = CytubeUser(user: user)
         if !CytubeUtils.userlistContainsUser(userlist: self.userlist, user: tempUser) {
             self.userlist.append(tempUser)
@@ -204,7 +204,7 @@ final class CytubeRoom: NSObject {
     
     func handleRoomPassword() {
         if self.roomPassword != nil && !self.sentRoomPassword {
-            self.socket?.emit("channelPassword", args: self.roomPassword)
+            self.socket?.emit("channelPassword", self.roomPassword)
             self.sentRoomPassword = true
         } else {
             defaultCenter.postNotificationName("passwordFail", object: self)
@@ -229,7 +229,7 @@ final class CytubeRoom: NSObject {
     func handleUserlist(userlist:NSArray) {
         self.userlist.removeAll(keepCapacity: false)
         for user in userlist {
-            self.userlist.append(CytubeUser(user: user as NSDictionary))
+            self.userlist.append(CytubeUser(user: user as [String: AnyObject]))
         }
     }
     
@@ -281,7 +281,7 @@ final class CytubeRoom: NSObject {
         let msgData = [
             "msg": msg!
         ]
-        self.socket?.emit("chatMsg", args: msgData)
+        self.socket?.emit("chatMsg", msgData)
     }
     
     func sendLogin() {
@@ -290,7 +290,7 @@ final class CytubeRoom: NSObject {
                 "name": self.username,
                 "pw": self.password
             ]
-            self.socket?.emit("login", args: loginData)
+            self.socket?.emit("login", loginData)
         }
     }
     

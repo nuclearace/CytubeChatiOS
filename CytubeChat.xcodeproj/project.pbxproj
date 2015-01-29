@@ -40,7 +40,7 @@
 		748943FE1A3CF13A00E70E5D /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 748943FA1A3CF13A00E70E5D /* RNEncryptor.m */; };
 		748944011A3CF34200E70E5D /* CytubeChatRNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 748944001A3CF34200E70E5D /* CytubeChatRNCryptor.m */; };
 		74AD72791A03EF580013C8AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AD72781A03EF580013C8AF /* Globals.swift */; };
-		74B61A801A6ECAC4002E2701 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B61A7C1A6ECAC4002E2701 /* Event.swift */; };
+		74B61A801A6ECAC4002E2701 /* SocketEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B61A7C1A6ECAC4002E2701 /* SocketEvent.swift */; };
 		74B61A811A6ECAC4002E2701 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B61A7D1A6ECAC4002E2701 /* EventHandler.swift */; };
 		74B61A821A6ECAC4002E2701 /* SocketIOClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B61A7E1A6ECAC4002E2701 /* SocketIOClient.swift */; };
 		74B767CC19F54D490021B178 /* UserlistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B767CB19F54D490021B178 /* UserlistController.swift */; };
@@ -147,7 +147,7 @@
 		748943FF1A3CF1F500E70E5D /* CytubeChatRNCryptorHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CytubeChatRNCryptorHeader.h; sourceTree = "<group>"; };
 		748944001A3CF34200E70E5D /* CytubeChatRNCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CytubeChatRNCryptor.m; sourceTree = "<group>"; };
 		74AD72781A03EF580013C8AF /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
-		74B61A7C1A6ECAC4002E2701 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		74B61A7C1A6ECAC4002E2701 /* SocketEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketEvent.swift; sourceTree = "<group>"; };
 		74B61A7D1A6ECAC4002E2701 /* EventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		74B61A7E1A6ECAC4002E2701 /* SocketIOClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOClient.swift; sourceTree = "<group>"; };
 		74B767CB19F54D490021B178 /* UserlistController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserlistController.swift; sourceTree = "<group>"; };
@@ -299,7 +299,7 @@
 		74B61A7B1A6ECAC4002E2701 /* SwiftIO */ = {
 			isa = PBXGroup;
 			children = (
-				74B61A7C1A6ECAC4002E2701 /* Event.swift */,
+				74B61A7C1A6ECAC4002E2701 /* SocketEvent.swift */,
 				74B61A7D1A6ECAC4002E2701 /* EventHandler.swift */,
 				74B61A7E1A6ECAC4002E2701 /* SocketIOClient.swift */,
 			);
@@ -433,7 +433,7 @@
 				740BEF8519EC6FCF00E577A0 /* RoomManager.swift in Sources */,
 				748943FC1A3CF13A00E70E5D /* RNCryptorEngine.m in Sources */,
 				74BB03E019FC708A000534DB /* PrivacyController.swift in Sources */,
-				74B61A801A6ECAC4002E2701 /* Event.swift in Sources */,
+				74B61A801A6ECAC4002E2701 /* SocketEvent.swift in Sources */,
 				740BEF8719EC857E00E577A0 /* ChatWindowController.swift in Sources */,
 				74B61A821A6ECAC4002E2701 /* SocketIOClient.swift in Sources */,
 				740BEF7519EC317700E577A0 /* NSData+SRB64Additions.m in Sources */,
@@ -575,6 +575,7 @@
 				PRODUCT_NAME = CytubeChat;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CytubeChat1.0/CytubeChat-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -595,6 +596,7 @@
 				PRODUCT_NAME = CytubeChat;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CytubeChat1.0/CytubeChat-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

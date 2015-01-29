@@ -22,7 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-class EventHandler {
+class SocketEventHandler {
     let event:String!
     let callback:((data:AnyObject?) -> Void)!
     let callbackMult:((data:[AnyObject]) -> Void)!
@@ -38,11 +38,7 @@ class EventHandler {
     }
     
     func executeCallback(args:AnyObject?) {
-        if args != nil {
-            callback(data: args!)
-        } else {
-            callback(data: nil)
-        }
+        callback(data: args)
     }
     
     func executeCallback(args:[AnyObject]) {

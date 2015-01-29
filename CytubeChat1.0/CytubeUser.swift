@@ -33,16 +33,16 @@ final class CytubeUser: Comparable {
     var profileText:String?
     var rank:Int!
     
-    init(user:NSDictionary) {
+    init(user:[String: AnyObject]) {
         self.username = user["name"] as String
         self.rank = user["rank"] as Int
-        self.afk = (user["meta"] as NSDictionary)["afk"] as Bool
-        if let imageString = (user["profile"] as NSDictionary)["image"] as? String {
+        self.afk = (user["meta"] as [String: AnyObject])["afk"] as Bool
+        if let imageString = (user["profile"] as [String: AnyObject])["image"] as? String {
             if imageString == "" {} else {
                 self.profileImage = NSURL(string: imageString)
             }
         }
-        self.profileText = (user["profile"] as NSDictionary)["text"] as? String
+        self.profileText = (user["profile"] as [String: AnyObject])["text"] as? String
     }
     
     func createAttributedStringForUser() -> NSAttributedString {

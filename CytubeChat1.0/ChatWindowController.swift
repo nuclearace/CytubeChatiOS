@@ -65,6 +65,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
                 "room": self.room.roomName,
                 "reason": ""
                 ]))
+            return
         }
         
         self.scrollChat()
