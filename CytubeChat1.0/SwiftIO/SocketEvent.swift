@@ -153,7 +153,7 @@ class SocketEvent {
         } else if let arr = args as? NSArray {
             return self.fillInArray(args as NSArray)
         } else if let string = args as? String {
-            if string == "~~\(self.currentPlace)" {
+            if string == "~~0" {
                 return self.datas.removeAtIndex(0)
             }
         } else if args is Bool {

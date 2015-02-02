@@ -58,10 +58,10 @@ class ProfileViewController: UIViewController {
                     self?.profileImageView.animationImages = images
                     self?.profileImageView.animationDuration = dur
                     self?.profileImageView.startAnimating()
-                    return
+                } else {
+                    self?.profileImageView.contentMode = UIViewContentMode.ScaleAspectFit
+                    self?.profileImageView.image = UIImage(data: data)
                 }
-                self?.profileImageView.contentMode = UIViewContentMode.ScaleAspectFit
-                self?.profileImageView.image = UIImage(data: data)
         }
     }
     

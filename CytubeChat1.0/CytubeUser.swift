@@ -38,7 +38,7 @@ final class CytubeUser: Comparable {
         self.rank = user["rank"] as Int
         self.afk = (user["meta"] as [String: AnyObject])["afk"] as Bool
         if let imageString = (user["profile"] as [String: AnyObject])["image"] as? String {
-            if imageString == "" {} else {
+            if imageString != "" {
                 self.profileImage = NSURL(string: imageString)
             }
         }

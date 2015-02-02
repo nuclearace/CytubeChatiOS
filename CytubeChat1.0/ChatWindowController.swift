@@ -107,7 +107,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
         
         self.keyboardOffset = self.inputBottomLayoutGuide.constant
-        UIView.animateWithDuration(0.3, animations: {() -> Void in
+        UIView.animateWithDuration(0.3, animations: {
             self.inputBottomLayoutGuide.constant = keyboardFrame.size.height + 10
         })
         
