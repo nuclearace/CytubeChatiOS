@@ -37,6 +37,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         if self.inAlert {
             return
         }
+        
         self.inAlert = true
         let point = sender.locationInView(tblRoom)
         let indexPath = tblRoom.indexPathForRowAtPoint(point)
@@ -100,6 +101,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         } else if buttonIndex == 2 {
             self.selectedRoom.handleImminentDelete()
         }
+        
         self.selectedRoom = nil
         self.inAlert = false
     }

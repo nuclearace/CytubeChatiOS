@@ -100,11 +100,12 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         if self.keyboardIsShowing {
             return
         }
+        
         self.keyboardIsShowing = true
         self.canScroll = true
         let scrollNum = room?.messageBuffer.count
         let info = not.userInfo!
-        let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
+        let keyboardFrame = (info[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
         
         self.keyboardOffset = self.inputBottomLayoutGuide.constant
         UIView.animateWithDuration(0.3, animations: {
