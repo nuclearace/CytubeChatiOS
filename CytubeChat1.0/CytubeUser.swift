@@ -34,19 +34,19 @@ final class CytubeUser: Comparable {
     var rank:Int!
     
     init(user:[String: AnyObject]) {
-        self.username = user["name"] as String
-        self.rank = user["rank"] as Int
-        self.afk = (user["meta"] as [String: AnyObject])["afk"] as Bool
-        if let imageString = (user["profile"] as [String: AnyObject])["image"] as? String {
+        self.username = user["name"] as! String
+        self.rank = user["rank"] as! Int
+        self.afk = (user["meta"] as! [String: AnyObject])["afk"] as! Bool
+        if let imageString = (user["profile"] as! [String: AnyObject])["image"] as? String {
             if imageString != "" {
                 self.profileImage = NSURL(string: imageString)
             }
         }
-        self.profileText = (user["profile"] as [String: AnyObject])["text"] as? String
+        self.profileText = (user["profile"] as! [String: AnyObject])["text"] as? String
     }
     
     func createAttributedStringForUser() -> NSAttributedString {
-        let range = NSMakeRange(0, countElements(self.username))
+        let range = NSMakeRange(0, count(self.username))
         let attString = NSMutableAttributedString(string: self.username, attributes: nil)
         if let color = self.color {
             attString.addAttribute(NSForegroundColorAttributeName, value: color, range: range)
@@ -54,7 +54,7 @@ final class CytubeUser: Comparable {
         
         if self.afk {
             let font = UIFont.italicSystemFontOfSize(16)
-            attString.addAttribute(kCTFontAttributeName, value: font, range: range)
+            attString.addAttribute(kCTFontAttributeName as! String, value: font, range: range)
         }
         
         return attString

@@ -72,7 +72,7 @@ final class RoomManager {
     func closeRooms() {
         self.roomsDidClose = true
         for cRoom in rooms {
-            if cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.isConnected() {
+            if cRoom.cytubeRoom != nil && cRoom.cytubeRoom!.isConnected() {
                 cRoom.cytubeRoom?.closeSocket()
             }
         }
@@ -85,7 +85,7 @@ final class RoomManager {
         
         self.roomsDidClose = false
         for cRoom in rooms {
-            if cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.closed {
+            if cRoom.cytubeRoom != nil && cRoom.cytubeRoom!.closed {
                 cRoom.cytubeRoom?.openSocket()
             }
         }
@@ -96,13 +96,13 @@ final class RoomManager {
         let status = internetReachability.currentReachabilityStatus()
         if status.value == 2 {
             for cRoom in rooms {
-                if (cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.connected) {
+                if (cRoom.cytubeRoom != nil && cRoom.cytubeRoom!.connected) {
                     cRoom.cytubeRoom?.socket?.open()
                 }
             }
         } else if status.value == 0 {
             for cRoom in rooms {
-                if cRoom.cytubeRoom? != nil && cRoom.cytubeRoom!.connected {
+                if cRoom.cytubeRoom != nil && cRoom.cytubeRoom!.connected {
                     cRoom.cytubeRoom?.closeSocket()
                 }
             }
@@ -116,12 +116,12 @@ final class RoomManager {
         var pointerErr:NSError?
         let pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory,
             NSSearchPathDomainMask.UserDomainMask, true)
-        let path = pathsArray[0] as NSString + "/rooms.json"
+        let path = pathsArray[0] as! NSString as! String + "/rooms.json"
         var roomArray = [NSDictionary]()
         var sroom:NSDictionary!
         
         for room in rooms {
-            if let roomPassword = room.cytubeRoom?.roomPassword? {
+            if let roomPassword = room.cytubeRoom?.roomPassword {
                 sroom = [
                     "room": room.room,
                     "server": room.server,
@@ -156,7 +156,7 @@ final class RoomManager {
         var pointerErr:NSError?
         let pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory,
             NSSearchPathDomainMask.UserDomainMask, true)
-        let path = pathsArray[0] as String + "/rooms.json"
+        let path = pathsArray[0] as! String + "/rooms.json"
         
         if !handler.fileExistsAtPath(path) {
             return false
@@ -165,12 +165,12 @@ final class RoomManager {
         let data = NSData(contentsOfFile: path)
         if let roomsFromData:NSDictionary = NSJSONSerialization.JSONObjectWithData(data!,
             options: NSJSONReadingOptions.AllowFragments, error: &pointerErr) as? NSDictionary  {
-                for i in 0..<(roomsFromData["rooms"] as NSArray).count {
-                    let con = (roomsFromData["rooms"] as NSArray)[i] as NSDictionary
-                    let recreatedRoom = CytubeRoom(roomName: con["room"] as String,
-                        server: con["server"] as String, password: con["roomPassword"] as? String)
+                for i in 0..<(roomsFromData["rooms"] as! NSArray).count {
+                    let con = (roomsFromData["rooms"] as! NSArray)[i] as! NSDictionary
+                    let recreatedRoom = CytubeRoom(roomName: con["room"] as! String,
+                        server: con["server"] as! String, password: con["roomPassword"] as? String)
                     CytubeUtils.addSocket(room: recreatedRoom)
-                    self.addRoom(con["server"] as String, room: con["room"] as String, cytubeRoom: recreatedRoom)
+                    self.addRoom(con["server"] as! String, room: con["room"] as! String, cytubeRoom: recreatedRoom)
                 }
         }
         NSLog("Loaded Rooms")

@@ -23,8 +23,8 @@ class CytubeUtils {
                     }
                     return
                 } else {
-                    var stringData = NSString(data: data, encoding: NSUTF8StringEncoding) as String
-                    var mutable = RegexMutable(stringData)
+                    var stringData = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
+                    var mutable = stringData
                     if mutable["var IO_URLS="].matches().count == 0 {
                         dispatch_async(dispatch_get_main_queue()) {
                             NSLog("Socket url fail")
@@ -40,10 +40,10 @@ class CytubeUtils {
                     var realJSON:AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &jsonError)
                     
                     if realJSON != nil {
-                        if realJSON!["ipv4-ssl"] != "" {
-                            room?.socketIOURL = realJSON!["ipv4-ssl"] as String
+                        if realJSON?["ipv4-ssl"] as? String != "" {
+                            room?.socketIOURL = realJSON!["ipv4-ssl"] as! String
                         } else {
-                            room?.socketIOURL = realJSON!["ipv4-nossl"] as String
+                            room?.socketIOURL = realJSON!["ipv4-nossl"] as! String
                         }
                         
                         if callback != nil {
@@ -62,7 +62,7 @@ class CytubeUtils {
     }
     
     class func filterChatMsg(data:String) -> String {
-        var mut = RegexMutable(data)
+        var mut = data
         mut = mut["(&#39;)"] ~= "'"
         mut = mut["(&amp;)"] ~= "&"
         mut = mut["(&lt;)"] ~= "<"
@@ -92,7 +92,7 @@ class CytubeUtils {
             return nil
         }
         
-        return NSString(data: pdata, encoding: NSUTF8StringEncoding)!
+        return NSString(data: pdata, encoding: NSUTF8StringEncoding) as? String
     }
     
     class func generateKey() -> String {
@@ -147,27 +147,27 @@ class CytubeUtils {
     }
     
     class func formatMessage(#msgObj:NSDictionary) -> NSAttributedString {
-        let time = msgObj["time"] as String
-        let username = msgObj["username"] as String
-        let msg = msgObj["msg"] as String
+        let time = msgObj["time"] as! String
+        let username = msgObj["username"] as! String
+        let msg = msgObj["msg"] as! String
         let message = NSString(format: "%@ %@: %@", time, username, msg)
-        let returnMessage = NSMutableAttributedString(string: message)
+        let returnMessage = NSMutableAttributedString(string: message as! String)
         let timeFont = UIFont(name: "Helvetica Neue", size: 10)
         let timeRange = message.rangeOfString(time)
         let usernameFont = UIFont.boldSystemFontOfSize(12)
         let usernameRange = message.rangeOfString(username + ":")
         
-        returnMessage.addAttribute(kCTFontAttributeName, value: timeFont!, range: timeRange)
-        returnMessage.addAttribute(kCTFontAttributeName, value: usernameFont, range: usernameRange)
+        returnMessage.addAttribute(String(kCTFontAttributeName), value: timeFont!, range: timeRange)
+        returnMessage.addAttribute(String(kCTFontAttributeName), value: usernameFont, range: usernameRange)
         return returnMessage
     }
     
     class func createIgnoredUserMessage(#msgObj:NSDictionary) -> NSAttributedString {
-        let time = msgObj["time"] as String
-        let username = msgObj["username"] as String
-        let msg = msgObj["msg"] as String
+        let time = msgObj["time"] as! String
+        let username = msgObj["username"] as! String
+        let msg = msgObj["msg"] as! String
         let message = NSString(format: "%@ %@: %@", time, username, msg)
-        let returnMessage = NSMutableAttributedString(string: message)
+        let returnMessage = NSMutableAttributedString(string: message as! String)
         let messageRange = message.rangeOfString(msg)
         let messageFont = UIFont.boldSystemFontOfSize(12)
         let timeFont = UIFont(name: "Helvetica Neue", size: 10)
@@ -175,9 +175,9 @@ class CytubeUtils {
         let usernameFont = UIFont.boldSystemFontOfSize(12)
         let usernameRange = message.rangeOfString(username + ":")
         
-        returnMessage.addAttribute(kCTFontAttributeName, value: timeFont!, range: timeRange)
-        returnMessage.addAttribute(kCTFontAttributeName, value: usernameFont, range: usernameRange)
-        returnMessage.addAttribute(kCTFontAttributeName, value: messageFont, range: messageRange)
+        returnMessage.addAttribute(String(kCTFontAttributeName), value: timeFont!, range: timeRange)
+        returnMessage.addAttribute(String(kCTFontAttributeName), value: usernameFont, range: usernameRange)
+        returnMessage.addAttribute(String(kCTFontAttributeName), value: messageFont, range: messageRange)
         return returnMessage
         
     }

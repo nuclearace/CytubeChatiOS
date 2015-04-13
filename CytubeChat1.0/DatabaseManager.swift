@@ -12,20 +12,20 @@ final class DatabaseManger: NSObject {
     let db:Database!
     
     override init() {
-        super.init()
         var err:NSError?
         var shouldCreateTables = true
         let manager = NSFileManager.defaultManager()
         let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory,
             NSSearchPathDomainMask.UserDomainMask, true)
         
-        let documentsDirectory = paths[0] as String
+        let documentsDirectory = paths[0] as! String
         let destPath = documentsDirectory.stringByAppendingPathComponent("cytubechat.db")
         if manager.fileExistsAtPath(destPath) {
             shouldCreateTables = false
         }
         
         self.db = Database(destPath)
+        super.init()
         manager.setAttributes([NSFileProtectionKey: NSFileProtectionComplete],
             ofItemAtPath: destPath, error: &err)
         if shouldCreateTables {
@@ -91,6 +91,6 @@ final class DatabaseManger: NSObject {
         let channelToFind = server + "." + channel
         
         let foundChannel = channels.filter(name == channelToFind)
-        foundChannel.delete()?
+        foundChannel.delete()!
     }
 }

@@ -5,7 +5,7 @@
 //  Created by Erik Little on 11/8/14.
 //
 
-import UIkit
+import UIKit
 
 class ChatCell: UITableViewCell, UITextViewDelegate {
     
@@ -13,7 +13,7 @@ class ChatCell: UITableViewCell, UITextViewDelegate {
     
     func textView(textView:UITextView, shouldInteractWithURL URL:NSURL, inRange characterRange:NSRange) -> Bool {
         self.link = URL
-        ((self.superview!.superview! as UITableView).dataSource as ChatWindowController)
+        ((self.superview!.superview! as! UITableView).dataSource as! ChatWindowController)
             .performSegueWithIdentifier("openChatLink", sender: self)
         return false
     }

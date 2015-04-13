@@ -25,7 +25,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     override func viewDidAppear(animated:Bool) {
         tblRoom.reloadData()
         var room = roomMng.getActiveRoom()
-        room?.setChatWindow(nil)
+        room?._setChatWindow(nil)
         room?.active = false
     }
     

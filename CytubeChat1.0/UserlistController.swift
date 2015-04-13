@@ -44,7 +44,7 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
     override func prepareForSegue(segue:UIStoryboardSegue, sender:AnyObject?) {
         if let segueIdentifier = segue.identifier {
             if segueIdentifier == "showProfile" {
-                (segue.destinationViewController as ProfileViewController).user = self.selectedUser
+                (segue.destinationViewController as! ProfileViewController).user = self.selectedUser
             }
         }
     }

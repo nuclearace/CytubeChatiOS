@@ -37,7 +37,7 @@ class ProfileViewController: UIViewController {
                 }
                 
                 // Image is a GIF
-                if RegexMutable(urlString!)[".gif$"].matches().count != 0 {
+                if urlString![".gif$"].matches().count != 0 {
                     let source = CGImageSourceCreateWithData(data, nil)
                     var images = [UIImage]()
                     var dur = 0.0

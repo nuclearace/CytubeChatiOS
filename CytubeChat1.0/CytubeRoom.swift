@@ -32,10 +32,10 @@ final class CytubeRoom: NSObject {
     var username:String!
     
     init(roomName:String, server:String, password:String?) {
-        super.init()
         self.roomName = roomName
         self.roomPassword = password
         self.server = server
+        super.init()
     }
     
     deinit {
@@ -57,7 +57,7 @@ final class CytubeRoom: NSObject {
             self?.sendLogin()
         }
         
-        self.socket?.on("disconnect") {[weak self] data in
+        self.socket?.on("disconnect") {[weak self] data, ack in
             if self == nil {
                 return
             }
@@ -70,21 +70,21 @@ final class CytubeRoom: NSObject {
             }
         }
         
-        self.socket?.on("reconnect") {[weak self] data in
+        self.socket?.on("reconnect") {[weak self] data, ack in
             self?.connected = false
             self?.reconnecting = true
             self?.messageBuffer.removeAllObjects()
             self?.chatWindow?.messageView.reloadData()
         }
         
-        self.socket?.on("chatMsg") {[weak self] data in
-            let data = data as NSDictionary
+        self.socket?.on("chatMsg") {[weak self] data, ack in
+            let data = data?[0] as! NSDictionary
             self?.handleChatMsg(data)
         }
         
-        self.socket?.on("login") {[weak self] data in
-            let data = data as NSDictionary
-            let success = data["success"] as Bool
+        self.socket?.on("login") {[weak self] data, ack in
+            let data = data?[0] as! NSDictionary
+            let success = data["success"] as! Bool
             if success {
                 self?.loggedIn = true
                 self?.chatWindow?.chatInput.enabled = true
@@ -101,31 +101,31 @@ final class CytubeRoom: NSObject {
             }
         }
         
-        self.socket?.on("userlist") {[weak self] data in
-            let data = data as NSArray
+        self.socket?.on("userlist") {[weak self] data, ack in
+            let data = data?[0] as! NSArray
             self?.handleUserlist(data)
             self?.sortUserlist()
             self?.userlistView?.tblUserlist.reloadData()
         }
         
-        self.socket?.on("addUser") {[weak self] data in
-            let data = data as [String: AnyObject]
+        self.socket?.on("addUser") {[weak self] data, ack in
+            let data = data?[0] as! [String: AnyObject]
             self?.handleAddUser(data)
         }
         
-        self.socket?.on("userLeave") {[weak self] data in
-            let data = (data as NSDictionary)["name"] as String
+        self.socket?.on("userLeave") {[weak self] data, ack in
+            let data = (data?[0] as! NSDictionary)["name"] as! String
             self?.handleUserLeave(data)
         }
         
-        self.socket?.on("setAFK") {[weak self] data in
-            let username = (data as NSDictionary)["name"] as String
-            let afk = (data as NSDictionary)["afk"] as Bool
+        self.socket?.on("setAFK") {[weak self] data, ack in
+            let username = (data?[0] as! NSDictionary)["name"] as! String
+            let afk = (data?[0] as! NSDictionary)["afk"] as! Bool
             self?.handleSetAFK(username, afk: afk)
         }
         
-        self.socket?.on("kick") {[weak self] data in
-            let reason = (data as NSDictionary)["reason"] as String
+        self.socket?.on("kick") {[weak self] data, ack in
+            let reason = (data?[0] as! NSDictionary)["reason"] as! String
             let kickObj = [
                 "reason": reason,
                 "room": self!.roomName
@@ -135,7 +135,7 @@ final class CytubeRoom: NSObject {
             defaultCenter.postNotificationName("wasKicked", object: kickObj)
         }
         
-        self.socket?.on("needPassword") {[weak self] data in
+        self.socket?.on("needPassword") {[weak self] data, ack in
             if self?.roomPassword != nil && self?.roomPassword != "" {
                 self?.handleRoomPassword()
             } else {
@@ -144,12 +144,12 @@ final class CytubeRoom: NSObject {
             }
         }
         
-        self.socket?.on("cancelNeedPassword") {[weak self] data in
+        self.socket?.on("cancelNeedPassword") {[weak self] data, ack in
             self?.sentRoomPassword = false
             return
         }
         
-        self.socket?.on("clearchat") {[weak self] data in
+        self.socket?.on("clearchat") {[weak self] data, ack in
             self?.clearChat()
             return
         }
@@ -165,9 +165,9 @@ final class CytubeRoom: NSObject {
     }
     
     func handleChatMsg(data:NSDictionary) {
-        let username = data["username"] as String
-        let msg = data["msg"] as String
-        let time = data["time"] as NSTimeInterval / 1000
+        let username = data["username"] as! String
+        let msg = data["msg"] as! String
+        let time = data["time"] as! NSTimeInterval / 1000
         let dateFormatter = NSDateFormatter()
         let date = NSDate(timeIntervalSince1970: time)
         dateFormatter.dateFormat = "HH:mm:ss z"
@@ -195,7 +195,7 @@ final class CytubeRoom: NSObject {
         if self.connected {
             // println("Imminent room deletion: Shut down socket")
             self.needDelete = true
-            self.socket?.close()
+            self.socket?.close(fast: false)
         } else {
             let index = roomMng.findRoomIndex(self.roomName, server: self.server)
             roomMng.removeRoom(index!)
@@ -229,7 +229,7 @@ final class CytubeRoom: NSObject {
     func handleUserlist(userlist:NSArray) {
         self.userlist.removeAll(keepCapacity: false)
         for user in userlist {
-            self.userlist.append(CytubeUser(user: user as [String: AnyObject]))
+            self.userlist.append(CytubeUser(user: user as! [String: AnyObject]))
         }
     }
     
@@ -323,7 +323,7 @@ final class CytubeRoom: NSObject {
     
     func closeSocket() {
         // NSLog("Closing socket for \(self.roomName)")
-        self.socket?.close()
+        self.socket?.close(fast: false)
         self.connected = false
         self.closed = true
         self.shouldReconnect = false
@@ -349,7 +349,7 @@ final class CytubeRoom: NSObject {
         }
         
         // NSLog("Closing room \(self.roomName)")
-        self.socket?.close()
+        self.socket?.close(fast: false)
         self.connected = false
         self.userlist.removeAll(keepCapacity: false)
         self.messageBuffer.removeAllObjects()
@@ -367,7 +367,7 @@ final class CytubeRoom: NSObject {
         self.userlistView = view
     }
     
-    func setChatWindow(view:ChatWindowController?) {
+    func _setChatWindow(view:ChatWindowController?) {
         self.chatWindow = view
     }
 }
