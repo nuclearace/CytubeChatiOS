@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SQLite
 
 final class DatabaseManger: NSObject {
     let db:Database!
