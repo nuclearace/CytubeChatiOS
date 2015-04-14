@@ -296,7 +296,8 @@ final class CytubeRoom: NSObject {
     
     func setUpSocket() {
         self.socket = SocketIOClient(socketURL: self.socketIOURL, opts: [
-            "reconnects": false
+            "reconnects": false,
+            "log": false
             ])
         self.addHandlers()
     }

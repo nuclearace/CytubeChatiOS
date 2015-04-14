@@ -13,8 +13,8 @@ class CytubeUtils {
         func findSocketURL(callback:(() -> Void)?) {
             var jsonError:NSError?
             var url =  "http://" + room.server + "/sioconfig"
-            
             var request = NSURLRequest(URL: NSURL(string: url)!)
+            
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) {[weak room] res, data, err in
                 if err != nil {
                     dispatch_async(dispatch_get_main_queue()) {

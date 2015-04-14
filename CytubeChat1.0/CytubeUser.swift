@@ -22,7 +22,7 @@ final class CytubeUser: Comparable {
             return UIColor(red: 0.36, green: 0, blue: 0.38, alpha: 1)
         case 5...254:
             return UIColor(red: 0.60, green: 0, blue: 0.38, alpha: 1)
-        case 255...Int.max:
+        case 255...Int.max-1:
             return UIColor(red: 0.98, green: 0, blue: 0.35, alpha: 1)
         default:
             return nil
