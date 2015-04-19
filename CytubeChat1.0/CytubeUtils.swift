@@ -7,9 +7,8 @@
 
 import UIKit
 
-class CytubeUtils {
-    
-    class func addSocket(#room:CytubeRoom) {
+final class CytubeUtils {
+    static func addSocket(#room:CytubeRoom) {
         func findSocketURL(callback:(() -> Void)?) {
             var jsonError:NSError?
             var url =  "http://" + room.server + "/sioconfig"
@@ -61,7 +60,7 @@ class CytubeUtils {
         }
     }
     
-    class func filterChatMsg(data:String) -> String {
+    static func filterChatMsg(data:String) -> String {
         var mut = data
         mut = mut["(&#39;)"] ~= "'"
         mut = mut["(&amp;)"] ~= "&"
@@ -77,14 +76,14 @@ class CytubeUtils {
         return mut as String
     }
     
-    class func encryptPassword(password:String, key:String) -> String {
+    static func encryptPassword(password:String, key:String) -> String {
         let edata = CytubeChatRNCryptor.encryptData(password.dataUsingEncoding(NSUTF8StringEncoding,
             allowLossyConversion: true), password: key, error: nil)
         
         return edata.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.allZeros)
     }
     
-    class func decryptPassword(edata:NSData, key:String) -> String? {
+    static func decryptPassword(edata:NSData, key:String) -> String? {
         var err:NSError?
         let pdata = RNDecryptor.decryptData(edata, withPassword: key, error: &err)
         if err != nil {
@@ -95,7 +94,7 @@ class CytubeUtils {
         return NSString(data: pdata, encoding: NSUTF8StringEncoding) as? String
     }
     
-    class func generateKey() -> String {
+    static func generateKey() -> String {
         var returnString = ""
         for i in 0..<13 {
             let ran = arc4random_uniform(256)
@@ -104,7 +103,7 @@ class CytubeUtils {
         return returnString
     }
     
-    class func displayGenericAlertWithNoButtons(#title:String, message:String, view:UIViewController?) {
+    static func displayGenericAlertWithNoButtons(#title:String, message:String, view:UIViewController?) {
         dispatch_async(dispatch_get_main_queue()) {
             var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
             var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
@@ -118,7 +117,7 @@ class CytubeUtils {
         }
     }
     
-    class func userlistContainsUser(#userlist:[CytubeUser], user:CytubeUser) -> Bool {
+    static func userlistContainsUser(#userlist:[CytubeUser], user:CytubeUser) -> Bool {
         for cuser in userlist {
             if cuser === user {
                 return true
@@ -127,7 +126,7 @@ class CytubeUtils {
         return false
     }
     
-    class func userIsIgnored(#ignoreList:[String], user:AnyObject) -> Bool {
+    static func userIsIgnored(#ignoreList:[String], user:AnyObject) -> Bool {
         if ignoreList.count == 0 {
             return false
         }
@@ -146,7 +145,7 @@ class CytubeUtils {
         return false
     }
     
-    class func formatMessage(#msgObj:NSDictionary) -> NSAttributedString {
+    static func formatMessage(#msgObj:NSDictionary) -> NSAttributedString {
         let time = msgObj["time"] as! String
         let username = msgObj["username"] as! String
         let msg = msgObj["msg"] as! String
@@ -162,7 +161,7 @@ class CytubeUtils {
         return returnMessage
     }
     
-    class func createIgnoredUserMessage(#msgObj:NSDictionary) -> NSAttributedString {
+    static func createIgnoredUserMessage(#msgObj:NSDictionary) -> NSAttributedString {
         let time = msgObj["time"] as! String
         let username = msgObj["username"] as! String
         let msg = msgObj["msg"] as! String

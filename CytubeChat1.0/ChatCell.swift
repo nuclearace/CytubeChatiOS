@@ -8,7 +8,6 @@
 import UIKit
 
 class ChatCell: UITableViewCell, UITextViewDelegate {
-    
     var link:NSURL!
     
     func textView(textView:UITextView, shouldInteractWithURL URL:NSURL, inRange characterRange:NSRange) -> Bool {
