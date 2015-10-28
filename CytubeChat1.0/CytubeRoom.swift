@@ -296,6 +296,11 @@ final class CytubeRoom: NSObject {
     }
     
     func setUpSocket() {
+        if socketIOURL == nil {
+            CytubeUtils.displayGenericAlertWithNoButtons(title: "Error",
+                message: "Error getting server information", view: chatWindow)
+            return
+        }
         socket = SocketIOClient(socketURL: socketIOURL, options: [
             "reconnects": false,
             "log": false

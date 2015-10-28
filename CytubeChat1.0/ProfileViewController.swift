@@ -17,54 +17,57 @@ class ProfileViewController: UIViewController {
     var user:CytubeUser?
     
     override func viewDidLoad() {
-        if self.user == nil {
+        if user == nil {
             self.dismissViewControllerAnimated(true, completion: nil)
             return
         }
         
-        let urlString = self.user!.profileImage!.absoluteString
-        self.navBarTitle.title = self.user?.username
-        self.profileTextView.text = self.user?.profileText
+        let urlString = user!.profileImage!.absoluteString
+        navBarTitle.title = self.user?.username
+        profileTextView.text = self.user?.profileText
         
-        if self.user?.profileImage == nil {
+        if user?.profileImage == nil {
             return
         }
-        CytubeUtils.session.dataTaskWithRequest(NSURLRequest(URL: self.user!.profileImage!)){[weak self] data, res, err in
+        
+        print(user!.profileImage!)
+        NSURLSession.sharedSession().dataTaskWithRequest(NSURLRequest(URL: user!.profileImage!)) {[weak self] data, res, err in
             if err != nil || self == nil || data == nil {
-                NSLog("no image")
                 return
             }
             
-            // Image is a GIF
-            if urlString[".gif$"].matches().count != 0 {
-                let source = CGImageSourceCreateWithData(data!, nil)!
-                var images = [UIImage]()
-                var dur = 0.0
-                
-                for i in 0..<CGImageSourceGetCount(source) {
-                    let asCGImage = CGImageSourceCreateImageAtIndex(source, i, nil)
-                    let prop = CGImageSourceCopyPropertiesAtIndex(source, i, nil)
+            dispatch_async(dispatch_get_main_queue()) {
+                // Image is a GIF
+                if urlString[".gif$"].matches().count != 0 {
+                    let source = CGImageSourceCreateWithData(data!, nil)!
+                    var images = [UIImage]()
+                    var dur = 0.0
                     
-                    // Get delay for each frame, so we can play back at proper speed
-                    if let gif = (prop as? NSDictionary)?["{GIF}"] as? NSDictionary {
-                        if let delay = gif["UnclampedDelayTime"] as? Double {
-                            dur += delay
+                    for i in 0..<CGImageSourceGetCount(source) {
+                        let asCGImage = CGImageSourceCreateImageAtIndex(source, i, nil)
+                        let prop = CGImageSourceCopyPropertiesAtIndex(source, i, nil)
+                        
+                        // Get delay for each frame, so we can play back at proper speed
+                        if let gif = (prop as? NSDictionary)?["{GIF}"] as? NSDictionary {
+                            if let delay = gif["UnclampedDelayTime"] as? Double {
+                                dur += delay
+                            }
                         }
+                        images.append(UIImage(CGImage: asCGImage!))
                     }
-                    images.append(UIImage(CGImage: asCGImage!))
+                    
+                    self?.profileImageView.animationImages = images
+                    self?.profileImageView.animationDuration = dur
+                    self?.profileImageView.startAnimating()
+                } else {
+                    self?.profileImageView.image = UIImage(data: data!)
+                    self?.profileImageView.contentMode = UIViewContentMode.ScaleAspectFit
                 }
-                
-                self?.profileImageView.animationImages = images
-                self?.profileImageView.animationDuration = dur
-                self?.profileImageView.startAnimating()
-            } else {
-                self?.profileImageView.contentMode = UIViewContentMode.ScaleAspectFit
-                self?.profileImageView.image = UIImage(data: data!)
             }
-        }
+            }.resume()
     }
     
     @IBAction func backBtnClicked(btn:UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }
