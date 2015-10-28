@@ -24,7 +24,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     override func viewDidAppear(animated:Bool) {
         tblRoom.reloadData()
-        var room = roomMng.getActiveRoom()
+        let room = roomMng.getActiveRoom()
         room?._setChatWindow(nil)
         room?.active = false
     }
@@ -54,9 +54,9 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         } else {
             connectDisconnect = "Connect"
         }
-        var alert = UIAlertController(title: "Options", message: "What do you want to do?",
+        let alert = UIAlertController(title: "Options", message: "What do you want to do?",
             preferredStyle: UIAlertControllerStyle.Alert)
-        var action = UIAlertAction(title: connectDisconnect, style: UIAlertActionStyle.Default) {[weak self] action in
+        let action = UIAlertAction(title: connectDisconnect, style: UIAlertActionStyle.Default) {[weak self] action in
             if connected {
                 self?.selectedRoom.closeRoom()
                 self?.inAlert = false
@@ -73,12 +73,12 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
         
-        var action1 = UIAlertAction(title: "Remove", style: UIAlertActionStyle.Destructive) {[weak self] action in
+        let action1 = UIAlertAction(title: "Remove", style: UIAlertActionStyle.Destructive) {[weak self] action in
             self?.selectedRoom.handleImminentDelete()
             self?.inAlert = false
             self?.selectedRoom = nil
         }
-        var action2 = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {[weak self] action in
+        let action2 = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {[weak self] action in
             self?.inAlert = false
             self?.selectedRoom = nil
         }
@@ -108,7 +108,7 @@ class RoomsController: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     // Called when a user selects a room
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var room = roomMng.getRoomAtIndex(indexPath.row)
+        let room = roomMng.getRoomAtIndex(indexPath.row)
         room.active = true
         self.performSegueWithIdentifier("goToChatRoom", sender: self)
     }

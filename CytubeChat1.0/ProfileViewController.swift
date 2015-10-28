@@ -29,39 +29,37 @@ class ProfileViewController: UIViewController {
         if self.user?.profileImage == nil {
             return
         }
-        
-        NSURLConnection.sendAsynchronousRequest(NSURLRequest(URL: self.user!.profileImage!),
-            queue: NSOperationQueue.mainQueue()) {[weak self] res, data, err in
-                if err != nil || self == nil {
-                    return
+        CytubeUtils.session.dataTaskWithRequest(NSURLRequest(URL: self.user!.profileImage!)){[weak self] data, res, err in
+            if err != nil || self == nil || data == nil {
+                return
+            }
+            
+            // Image is a GIF
+            if urlString[".gif$"].matches().count != 0 {
+                let source = CGImageSourceCreateWithData(data!, nil)!
+                var images = [UIImage]()
+                var dur = 0.0
+                
+                for i in 0..<CGImageSourceGetCount(source) {
+                    let asCGImage = CGImageSourceCreateImageAtIndex(source, i, nil)
+                    let prop = CGImageSourceCopyPropertiesAtIndex(source, i, nil)
+                    
+                    // Get delay for each frame, so we can play back at proper speed
+                    if let gif = (prop as? NSDictionary)?["{GIF}"] as? NSDictionary {
+                        if let delay = gif["UnclampedDelayTime"] as? Double {
+                            dur += delay
+                        }
+                    }
+                    images.append(UIImage(CGImage: asCGImage!))
                 }
                 
-                // Image is a GIF
-                if urlString![".gif$"].matches().count != 0 {
-                    let source = CGImageSourceCreateWithData(data, nil)
-                    var images = [UIImage]()
-                    var dur = 0.0
-                    
-                    for i in 0..<CGImageSourceGetCount(source) {
-                        let asCGImage = CGImageSourceCreateImageAtIndex(source, i, nil)
-                        let prop = CGImageSourceCopyPropertiesAtIndex(source, i, nil)
-                        
-                        // Get delay for each frame, so we can play back at proper speed
-                        if let gif = (prop as NSDictionary)["{GIF}"] as? NSDictionary {
-                            if let delay = gif["UnclampedDelayTime"] as? Double {
-                                dur += delay
-                            }
-                        }
-                        images.append(UIImage(CGImage: asCGImage)!)
-                    }
-                    
-                    self?.profileImageView.animationImages = images
-                    self?.profileImageView.animationDuration = dur
-                    self?.profileImageView.startAnimating()
-                } else {
-                    self?.profileImageView.contentMode = UIViewContentMode.ScaleAspectFit
-                    self?.profileImageView.image = UIImage(data: data)
-                }
+                self?.profileImageView.animationImages = images
+                self?.profileImageView.animationDuration = dur
+                self?.profileImageView.startAnimating()
+            } else {
+                self?.profileImageView.contentMode = UIViewContentMode.ScaleAspectFit
+                self?.profileImageView.image = UIImage(data: data!)
+            }
         }
     }
     

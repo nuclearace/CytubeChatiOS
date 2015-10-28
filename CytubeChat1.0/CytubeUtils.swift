@@ -7,61 +7,50 @@
 
 import UIKit
 
-class CytubeUtils {
+final class CytubeUtils {
+    static let session = NSURLSession(configuration: .defaultSessionConfiguration())
     
-    class func addSocket(#room:CytubeRoom) {
+    static func addSocket(room room:CytubeRoom) {
+        
         func findSocketURL(callback:(() -> Void)?) {
-            var jsonError:NSError?
-            var url =  "http://" + room.server + "/sioconfig"
+            let url =  "http://" + room.server + "/socketconfig/\(room.roomName).json"
+            let request = NSURLRequest(URL: NSURL(string: url)!)
             
-            var request = NSURLRequest(URL: NSURL(string: url)!)
-            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue()) {[weak room] res, data, err in
-                if err != nil {
+            session.dataTaskWithRequest(request) {[weak room] data, res, err in
+                if err != nil || data == nil {
                     dispatch_async(dispatch_get_main_queue()) {
-                        NSLog("Socket url fail:" + err.localizedDescription)
+                        NSLog("Socket url fail:" + err!.localizedDescription)
                         defaultCenter.postNotificationName("socketURLFail", object: nil)
                     }
                     return
                 } else {
-                    var stringData = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
-                    var mutable = stringData
-                    if mutable["var IO_URLS="].matches().count == 0 {
-                        dispatch_async(dispatch_get_main_queue()) {
-                            NSLog("Socket url fail")
-                            defaultCenter.postNotificationName("socketURLFail", object: nil)
-                        }
-                        return
-                    }
-                    mutable = mutable["var IO_URLS="] ~= ""
-                    mutable = mutable["'"] ~= "\""
-                    mutable[";var IO_URL=(.*)"] ~= ""
-                    var jsonString = mutable[",IO_URL=(.*)"] ~= ""
-                    let data = (jsonString as String).dataUsingEncoding(NSUTF8StringEncoding)
-                    var realJSON:AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &jsonError)
-                    
-                    if realJSON != nil {
-                        if realJSON?["ipv4-ssl"] as? String != "" {
-                            room?.socketIOURL = realJSON!["ipv4-ssl"] as! String
-                        } else {
-                            room?.socketIOURL = realJSON!["ipv4-nossl"] as! String
+                    do {
+                        let realJSON = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+                        if let servers = realJSON["servers"] as? [AnyObject] {
+                            for server in servers {
+                                if let dict = server as? NSDictionary {
+                                    if dict["secure"] as? Bool == true && dict["ipv6"] == nil {
+                                        room?.socketIOURL = dict["url"] as! String
+                                    } else if dict["ipv6"] == nil {
+                                        room?.socketIOURL = dict["url"] as! String
+                                    }
+                                }
+                            }
                         }
                         
-                        if callback != nil {
-                            callback!()
-                        }
+                        callback?()
+                    } catch {
+                        fatalError("Error getting server")
                     }
                 }
-            }
+                }.resume()
         }
         
         // Find the url, and then set up the socket
-        findSocketURL {[weak room] in
-            if room != nil {
-                room!.setUpSocket()}
-        }
+        findSocketURL {[weak room] in room?.setUpSocket()}
     }
     
-    class func filterChatMsg(data:String) -> String {
+    static func filterChatMsg(data:String) -> String {
         var mut = data
         mut = mut["(&#39;)"] ~= "'"
         mut = mut["(&amp;)"] ~= "&"
@@ -77,25 +66,27 @@ class CytubeUtils {
         return mut as String
     }
     
-    class func encryptPassword(password:String, key:String) -> String {
-        let edata = CytubeChatRNCryptor.encryptData(password.dataUsingEncoding(NSUTF8StringEncoding,
-            allowLossyConversion: true), password: key, error: nil)
-        
-        return edata.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.allZeros)
-    }
-    
-    class func decryptPassword(edata:NSData, key:String) -> String? {
-        var err:NSError?
-        let pdata = RNDecryptor.decryptData(edata, withPassword: key, error: &err)
-        if err != nil {
-            println(err?.localizedDescription)
+    static func encryptPassword(password:String, key:String) -> String? {
+        do {
+            let edata = try CytubeChatRNCryptor.encryptData(password.dataUsingEncoding(NSUTF8StringEncoding,
+                allowLossyConversion: true), password: key)
+            return edata.base64EncodedStringWithOptions(NSDataBase64EncodingOptions())
+        } catch {
             return nil
         }
         
-        return NSString(data: pdata, encoding: NSUTF8StringEncoding) as? String
     }
     
-    class func generateKey() -> String {
+    static func decryptPassword(edata:NSData, key:String) -> String? {
+        do {
+            let pdata = try RNDecryptor.decryptData(edata, withPassword: key)
+            return NSString(data: pdata, encoding: NSUTF8StringEncoding) as? String
+        } catch {
+            return nil
+        }
+    }
+    
+    static func generateKey() -> String {
         var returnString = ""
         for i in 0..<13 {
             let ran = arc4random_uniform(256)
@@ -104,21 +95,21 @@ class CytubeUtils {
         return returnString
     }
     
-    class func displayGenericAlertWithNoButtons(#title:String, message:String, view:UIViewController?) {
+    static func displayGenericAlertWithNoButtons(title title:String, message:String, view:UIViewController?) {
         dispatch_async(dispatch_get_main_queue()) {
-            var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-            var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
+            let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            let action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
                 return
             }
             alert.addAction(action)
-            if view == nil {
-                var view = UIApplication.sharedApplication().keyWindow?.rootViewController
-            }
+            //            if view == nil {
+            //                view = UIApplication.sharedApplication().keyWindow?.rootViewController
+            //            }
             view?.presentViewController(alert, animated: true, completion: nil)
         }
     }
     
-    class func userlistContainsUser(#userlist:[CytubeUser], user:CytubeUser) -> Bool {
+    static func userlistContainsUser(userlist userlist:[CytubeUser], user:CytubeUser) -> Bool {
         for cuser in userlist {
             if cuser === user {
                 return true
@@ -127,7 +118,7 @@ class CytubeUtils {
         return false
     }
     
-    class func userIsIgnored(#ignoreList:[String], user:AnyObject) -> Bool {
+    static func userIsIgnored(ignoreList ignoreList:[String], user:AnyObject) -> Bool {
         if ignoreList.count == 0 {
             return false
         }
@@ -146,12 +137,12 @@ class CytubeUtils {
         return false
     }
     
-    class func formatMessage(#msgObj:NSDictionary) -> NSAttributedString {
+    static func formatMessage(msgObj msgObj:NSDictionary) -> NSAttributedString {
         let time = msgObj["time"] as! String
         let username = msgObj["username"] as! String
         let msg = msgObj["msg"] as! String
         let message = NSString(format: "%@ %@: %@", time, username, msg)
-        let returnMessage = NSMutableAttributedString(string: message as! String)
+        let returnMessage = NSMutableAttributedString(string: message as String)
         let timeFont = UIFont(name: "Helvetica Neue", size: 10)
         let timeRange = message.rangeOfString(time)
         let usernameFont = UIFont.boldSystemFontOfSize(12)
@@ -162,12 +153,12 @@ class CytubeUtils {
         return returnMessage
     }
     
-    class func createIgnoredUserMessage(#msgObj:NSDictionary) -> NSAttributedString {
+    static func createIgnoredUserMessage(msgObj msgObj:NSDictionary) -> NSAttributedString {
         let time = msgObj["time"] as! String
         let username = msgObj["username"] as! String
         let msg = msgObj["msg"] as! String
         let message = NSString(format: "%@ %@: %@", time, username, msg)
-        let returnMessage = NSMutableAttributedString(string: message as! String)
+        let returnMessage = NSMutableAttributedString(string: message as String)
         let messageRange = message.rangeOfString(msg)
         let messageFont = UIFont.boldSystemFontOfSize(12)
         let timeFont = UIFont(name: "Helvetica Neue", size: 10)

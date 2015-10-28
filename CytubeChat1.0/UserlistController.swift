@@ -99,7 +99,7 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    func showIgnoreUserAlert(#user:CytubeUser) {
+    func showIgnoreUserAlert(user user:CytubeUser) {
         var title:String!
         var message:String!
         if CytubeUtils.userIsIgnored(ignoreList: self.room.ignoreList, user: user) {
@@ -110,9 +110,9 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
             message = "Ignore \(user.username)?"
         }
         
-        var alert = UIAlertController(title: title, message:
+        let alert = UIAlertController(title: title, message:
             message, preferredStyle: UIAlertControllerStyle.Alert)
-        var yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) {alert in
+        let yesAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default) {alert in
             if title == "Unignore" {
                 for i in 0..<self.room.ignoreList.count {
                     if self.room.ignoreList[i] == self.selectedUser.username {
@@ -125,7 +125,7 @@ class UserlistController: UIViewController, UITableViewDelegate, UITableViewData
                 self.inAlert = false
             }
         }
-        var noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel) {alert in
+        let noAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel) {alert in
             self.inAlert = false
             return
         }

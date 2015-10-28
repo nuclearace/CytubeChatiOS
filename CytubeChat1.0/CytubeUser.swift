@@ -22,7 +22,7 @@ final class CytubeUser: Comparable {
             return UIColor(red: 0.36, green: 0, blue: 0.38, alpha: 1)
         case 5...254:
             return UIColor(red: 0.60, green: 0, blue: 0.38, alpha: 1)
-        case 255...Int.max:
+        case 255...Int.max-1:
             return UIColor(red: 0.98, green: 0, blue: 0.35, alpha: 1)
         default:
             return nil
@@ -46,7 +46,7 @@ final class CytubeUser: Comparable {
     }
     
     func createAttributedStringForUser() -> NSAttributedString {
-        let range = NSMakeRange(0, count(self.username))
+        let range = NSMakeRange(0, username.characters.count)
         let attString = NSMutableAttributedString(string: self.username, attributes: nil)
         if let color = self.color {
             attString.addAttribute(NSForegroundColorAttributeName, value: color, range: range)
@@ -54,7 +54,7 @@ final class CytubeUser: Comparable {
         
         if self.afk {
             let font = UIFont.italicSystemFontOfSize(16)
-            attString.addAttribute(kCTFontAttributeName as! String, value: font, range: range)
+            attString.addAttribute(kCTFontAttributeName as String, value: font, range: range)
         }
         
         return attString

@@ -94,13 +94,13 @@ final class RoomManager {
     // If we go from wifi to cellular we need to reconnect
     @objc func handleNetworkChange(not:NSNotification) {
         let status = internetReachability.currentReachabilityStatus()
-        if status.value == 2 {
+        if status.rawValue == 2 {
             for cRoom in rooms {
                 if (cRoom.cytubeRoom != nil && cRoom.cytubeRoom!.connected) {
                     cRoom.cytubeRoom?.socket?.open()
                 }
             }
-        } else if status.value == 0 {
+        } else if status.rawValue == 0 {
             for cRoom in rooms {
                 if cRoom.cytubeRoom != nil && cRoom.cytubeRoom!.connected {
                     cRoom.cytubeRoom?.closeSocket()
@@ -113,10 +113,9 @@ final class RoomManager {
     func saveRooms() {
         NSLog("Saving Rooms")
         let handler = NSFileManager()
-        var pointerErr:NSError?
         let pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory,
             NSSearchPathDomainMask.UserDomainMask, true)
-        let path = pathsArray[0] as! NSString as! String + "/rooms.json"
+        let path = pathsArray[0] as NSString as String + "/rooms.json"
         var roomArray = [NSDictionary]()
         var sroom:NSDictionary!
         
@@ -143,37 +142,46 @@ final class RoomManager {
             "rooms": roomArray
         ]
         
-        let jsonForWriting = NSJSONSerialization.dataWithJSONObject(roomsForSave,
-            options: NSJSONWritingOptions.PrettyPrinted, error: &pointerErr)
-        
-        handler.createFileAtPath(path, contents: jsonForWriting, attributes: nil)
-        NSLog("Rooms saved")
+        do {
+            let jsonForWriting = try NSJSONSerialization.dataWithJSONObject(roomsForSave,
+                options: NSJSONWritingOptions.PrettyPrinted)
+            
+            handler.createFileAtPath(path, contents: jsonForWriting, attributes: nil)
+            NSLog("Rooms saved")
+        } catch {
+            NSLog("Error saving rooms")
+        }
     }
     
     func loadRooms() -> Bool {
         NSLog("Loading rooms")
         let handler = NSFileManager()
-        var pointerErr:NSError?
         let pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory,
             NSSearchPathDomainMask.UserDomainMask, true)
-        let path = pathsArray[0] as! String + "/rooms.json"
+        let path = pathsArray[0] + "/rooms.json"
         
         if !handler.fileExistsAtPath(path) {
             return false
         }
         
         let data = NSData(contentsOfFile: path)
-        if let roomsFromData:NSDictionary = NSJSONSerialization.JSONObjectWithData(data!,
-            options: NSJSONReadingOptions.AllowFragments, error: &pointerErr) as? NSDictionary  {
-                for i in 0..<(roomsFromData["rooms"] as! NSArray).count {
-                    let con = (roomsFromData["rooms"] as! NSArray)[i] as! NSDictionary
-                    let recreatedRoom = CytubeRoom(roomName: con["room"] as! String,
-                        server: con["server"] as! String, password: con["roomPassword"] as? String)
-                    CytubeUtils.addSocket(room: recreatedRoom)
-                    self.addRoom(con["server"] as! String, room: con["room"] as! String, cytubeRoom: recreatedRoom)
-                }
+        do {
+            if let roomsFromData = try NSJSONSerialization.JSONObjectWithData(data!,
+                options: NSJSONReadingOptions.AllowFragments) as? NSDictionary  {
+                    for i in 0..<(roomsFromData["rooms"] as! NSArray).count {
+                        let con = (roomsFromData["rooms"] as! NSArray)[i] as! NSDictionary
+                        let recreatedRoom = CytubeRoom(roomName: con["room"] as! String,
+                            server: con["server"] as! String, password: con["roomPassword"] as? String)
+                        CytubeUtils.addSocket(room: recreatedRoom)
+                        self.addRoom(con["server"] as! String, room: con["room"] as! String, cytubeRoom: recreatedRoom)
+                    }
+            }
+            
+            NSLog("Loaded Rooms")
+            return true
+        } catch {
+            NSLog("Error loading rooms")
+            return false
         }
-        NSLog("Loaded Rooms")
-        return true
     }
 }

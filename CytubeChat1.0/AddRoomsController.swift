@@ -19,9 +19,9 @@ class AddRoomsController: UIViewController, UITextFieldDelegate {
     }
     
     func handleAddRoom() {
-        let room = roomText.text
-        let server = serverText.text
-        let password = passwordText.text
+        let room = roomText.text ?? ""
+        let server = serverText.text ?? ""
+        let password = passwordText.text ?? ""
         
         if server == "" || room == "" {
             CytubeUtils.displayGenericAlertWithNoButtons(title: "Error", message:
@@ -30,7 +30,7 @@ class AddRoomsController: UIViewController, UITextFieldDelegate {
         }
         
         let hostReachability = Reachability(hostName: server)
-        if hostReachability.currentReachabilityStatus().value == 0 {
+        if hostReachability.currentReachabilityStatus().rawValue == 0 {
             CytubeUtils.displayGenericAlertWithNoButtons(title: "Error", message:
                 "Please check that you entered a valid server" +
                 " and that you are connected to the internet.", view: self)
@@ -43,7 +43,7 @@ class AddRoomsController: UIViewController, UITextFieldDelegate {
                 "You have already added this room!", view: self)
             return
         }
-        var newRoom = CytubeRoom(roomName: room, server: server, password: password)
+        let newRoom = CytubeRoom(roomName: room, server: server, password: password)
         CytubeUtils.addSocket(room: newRoom)
         roomMng.addRoom(server, room: room, cytubeRoom: newRoom)
         
@@ -63,7 +63,7 @@ class AddRoomsController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }
     
