@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CytubeChat1.0/ProfileViewController.swift"
-            timestampString = "467743654.530926"
+            timestampString = "467747112.552374"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CytubeChat1.0/ProfileViewController.swift"
-            timestampString = "467743655.837"
+            timestampString = "467747112.552374"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -70,7 +70,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CytubeChat1.0/CytubeUser.swift"
@@ -81,6 +81,54 @@
             endingLineNumber = "57"
             landmarkName = "createAttributedStringForUser()"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CytubeChat1.0/CytubeUser.swift"
+            timestampString = "467747050.785094"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "createAttributedStringForUser()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CytubeChat.CytubeUser.createAttributedStringForUser (CytubeChat.CytubeUser)() -&gt; __ObjC.NSAttributedString"
+                  moduleName = "CytubeChat"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/eriklittle/Documents/iOS%20shit/CytubeChat1.0/CytubeChat1.0/CytubeUser.swift"
+                  timestampString = "467747050.789038"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "1637">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CytubeChat.CytubeUser.createAttributedStringForUser (CytubeChat.CytubeUser)() -&gt; __ObjC.NSAttributedString"
+                  moduleName = "CytubeChat"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/eriklittle/Documents/iOS%20shit/CytubeChat1.0/CytubeChat1.0/CytubeUser.swift"
+                  timestampString = "467747050.789278"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "1661">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

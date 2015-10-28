@@ -31,6 +31,7 @@ class ProfileViewController: UIViewController {
         }
         CytubeUtils.session.dataTaskWithRequest(NSURLRequest(URL: self.user!.profileImage!)){[weak self] data, res, err in
             if err != nil || self == nil || data == nil {
+                NSLog("no image")
                 return
             }
             

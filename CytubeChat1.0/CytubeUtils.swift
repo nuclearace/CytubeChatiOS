@@ -40,8 +40,52 @@ final class CytubeUtils {
                         
                         callback?()
                     } catch {
-                        fatalError("Error getting server")
+                        findServerOldSchool(callback)
                     }
+                }
+                }.resume()
+        }
+        
+        func findServerOldSchool(callback: (() -> Void)?) {
+            let url =  "http://" + room.server + "/sioconfig"
+            let request = NSURLRequest(URL: NSURL(string: url)!)
+            
+            session.dataTaskWithRequest(request) {[weak room] data, res, err in
+                if err != nil || data == nil {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        NSLog("Socket url fail:" + err!.localizedDescription)
+                        defaultCenter.postNotificationName("socketURLFail", object: nil)
+                    }
+                    return
+                } else {
+                    var mutable = NSString(data: data!, encoding: NSUTF8StringEncoding) as! String
+                    if mutable["var IO_URLS="].matches().count == 0 {
+                        dispatch_async(dispatch_get_main_queue()) {
+                            NSLog("Socket url fail")
+                            defaultCenter.postNotificationName("socketURLFail", object: nil)
+                        }
+                        return
+                    }
+                    mutable = mutable["var IO_URLS="] ~= ""
+                    mutable = mutable["'"] ~= "\""
+                    mutable[";var IO_URL=(.*)"] ~= ""
+                    let jsonString = mutable[",IO_URL=(.*)"] ~= ""
+                    let data = (jsonString as String).dataUsingEncoding(NSUTF8StringEncoding)
+                    
+                    do {
+                        let realJSON = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+                        
+                        if realJSON["ipv4-ssl"] as? String != "" {
+                            room?.socketIOURL = realJSON["ipv4-ssl"] as! String
+                        } else {
+                            room?.socketIOURL = realJSON["ipv4-nossl"] as! String
+                        }
+                        
+                        callback?()
+                    } catch {
+                        NSLog("Error getting socket config the old way")
+                    }
+                    
                 }
                 }.resume()
         }
@@ -88,7 +132,7 @@ final class CytubeUtils {
     
     static func generateKey() -> String {
         var returnString = ""
-        for i in 0..<13 {
+        for _ in 0..<13 {
             let ran = arc4random_uniform(256)
             returnString += String(ran)
         }
@@ -102,9 +146,6 @@ final class CytubeUtils {
                 return
             }
             alert.addAction(action)
-            //            if view == nil {
-            //                view = UIApplication.sharedApplication().keyWindow?.rootViewController
-            //            }
             view?.presentViewController(alert, animated: true, completion: nil)
         }
     }

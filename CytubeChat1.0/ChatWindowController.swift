@@ -68,6 +68,8 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
             return
         }
         
+        keyboardOffset = inputBottomLayoutGuide.constant
+        
         self.scrollChat()
         // Start connection to server
         if !self.room.isConnected() {
@@ -106,8 +108,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         //let scrollNum = room?.messageBuffer.count
         let info = not.userInfo!
         let keyboardFrame = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
-        
-        self.keyboardOffset = self.inputBottomLayoutGuide.constant
+
         UIView.animateWithDuration(0.3, animations: {
             self.inputBottomLayoutGuide.constant = keyboardFrame.size.height + 10
         })
@@ -121,8 +122,10 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         self.canScroll = true
         self.keyboardIsShowing = false
         
-        UIView.animateWithDuration(0.3, animations: {[unowned self] () -> Void in
-            self.inputBottomLayoutGuide.constant = self.keyboardOffset
+        UIView.animateWithDuration(0.3, animations: {[weak self] in
+            if let this = self {
+                this.inputBottomLayoutGuide.constant = this.keyboardOffset
+            }
         })
     }
     

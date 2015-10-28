@@ -8,6 +8,6 @@
 
 @interface CytubeChatRNCryptor : RNEncryptor
 
-+ (NSData *)encryptData:(NSData * __nullable)data password:(NSString * __nonnull)password error:(NSError ** __nullable)error;
++ (NSData * __null_unspecified)encryptData:(NSData * __nullable)data password:(NSString * __nonnull)password error:(NSError * __null_unspecified * __nullable)error;
 
 @end

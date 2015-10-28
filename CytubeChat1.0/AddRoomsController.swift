@@ -38,7 +38,7 @@ class AddRoomsController: UIViewController, UITextFieldDelegate {
         }
         
         // User is trying to add an existing room
-        if let cRoom = roomMng.findRoom(room, server: server) {
+        if roomMng.findRoom(room, server: server) != nil {
             CytubeUtils.displayGenericAlertWithNoButtons(title: "Already added", message:
                 "You have already added this room!", view: self)
             return
