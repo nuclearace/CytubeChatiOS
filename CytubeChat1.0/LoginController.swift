@@ -23,8 +23,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
                 view: self)
         }
         
-        if let (username, password) = dbManger.getUsernamePasswordForChannel(server: self.room!.server!,
-            channel: self.room!.roomName) {
+        if let (username, password) = dbManger?.getUsernamePasswordForChannel(server: room!.server!,
+            channel: room!.roomName) {
                 self.usernameText.text = username
                 self.passwordText.text = password
         }

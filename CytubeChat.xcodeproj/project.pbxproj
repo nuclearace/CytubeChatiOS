@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3925E24B0B7F0D8305085DA0 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FDB61C4A094F760C8AE9EC0 /* Pods.framework */; };
 		74038C8319F00E65005DB2A7 /* CytubeUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74038C8219F00E65005DB2A7 /* CytubeUser.swift */; };
 		740BEF4B19EC315400E577A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF4A19EC315400E577A0 /* AppDelegate.swift */; };
 		740BEF4D19EC315400E577A0 /* RoomsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF4C19EC315400E577A0 /* RoomsController.swift */; };
@@ -15,24 +16,10 @@
 		740BEF5719EC315400E577A0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 740BEF5519EC315400E577A0 /* LaunchScreen.xib */; };
 		740BEF7B19EC320700E577A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 740BEF7A19EC320700E577A0 /* Foundation.framework */; };
 		740BEF7D19EC321300E577A0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 740BEF7C19EC321300E577A0 /* Security.framework */; };
-		740BEF7F19EC322000E577A0 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 740BEF7E19EC322000E577A0 /* libicucore.dylib */; };
 		740BEF8319EC3AD300E577A0 /* CytubeRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF8219EC3AD300E577A0 /* CytubeRoom.swift */; };
 		740BEF8519EC6FCF00E577A0 /* RoomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF8419EC6FCF00E577A0 /* RoomManager.swift */; };
 		740BEF8719EC857E00E577A0 /* ChatWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740BEF8619EC857E00E577A0 /* ChatWindowController.swift */; };
 		7410737219EF445E00D71C6C /* CytubeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7410737119EF445E00D71C6C /* CytubeUtils.swift */; };
-		7446A9621AE3EC0900F6961B /* SocketAckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7446A9551AE3EC0900F6961B /* SocketAckManager.swift */; };
-		7446A9631AE3EC0900F6961B /* SocketAnyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7446A9561AE3EC0900F6961B /* SocketAnyEvent.swift */; };
-		7446A9641AE3EC0900F6961B /* SocketEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7446A9571AE3EC0900F6961B /* SocketEngine.swift */; };
-		7446A9651AE3EC0900F6961B /* SocketEngineClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7446A9581AE3EC0900F6961B /* SocketEngineClient.swift */; };
-		7446A9661AE3EC0900F6961B /* SocketEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7446A9591AE3EC0900F6961B /* SocketEventHandler.swift */; };
-		7446A9671AE3EC0900F6961B /* SocketFixUTF8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7446A95A1AE3EC0900F6961B /* SocketFixUTF8.swift */; };
-		7446A9681AE3EC0900F6961B /* SocketIOClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7446A95B1AE3EC0900F6961B /* SocketIOClient.swift */; };
-		7446A9691AE3EC0900F6961B /* SocketLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7446A95C1AE3EC0900F6961B /* SocketLogger.swift */; };
-		7446A96A1AE3EC0900F6961B /* SocketPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7446A95D1AE3EC0900F6961B /* SocketPacket.swift */; };
-		7446A96B1AE3EC0900F6961B /* SocketParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7446A95E1AE3EC0900F6961B /* SocketParser.swift */; };
-		7446A96C1AE3EC0900F6961B /* SocketTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7446A95F1AE3EC0900F6961B /* SocketTypes.swift */; };
-		7446A96D1AE3EC0900F6961B /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7446A9601AE3EC0900F6961B /* SwiftRegex.swift */; };
-		7446A96E1AE3EC0900F6961B /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7446A9611AE3EC0900F6961B /* WebSocket.swift */; };
 		745855CC1A3B54AF000F6495 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745855CB1A3B54AF000F6495 /* DatabaseManager.swift */; };
 		74704BB119F0B13600B810A6 /* image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74704BB019F0B13600B810A6 /* image.xcassets */; };
 		74704BB319F0C0F900B810A6 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74704BB219F0C0F900B810A6 /* LoginController.swift */; };
@@ -48,20 +35,8 @@
 		74AD72791A03EF580013C8AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AD72781A03EF580013C8AF /* Globals.swift */; };
 		74B767CC19F54D490021B178 /* UserlistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B767CB19F54D490021B178 /* UserlistController.swift */; };
 		74BB03E019FC708A000534DB /* PrivacyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB03DF19FC708A000534DB /* PrivacyController.swift */; };
-		74CB6E711ADC311500BAFBD7 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 74CB6E701ADC311500BAFBD7 /* libsqlite3.dylib */; };
-		74CB6ECA1ADC371B00BAFBD7 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB6EBC1ADC371B00BAFBD7 /* Database.swift */; };
-		74CB6ECB1ADC371B00BAFBD7 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB6EBD1ADC371B00BAFBD7 /* Expression.swift */; };
-		74CB6ECC1ADC371B00BAFBD7 /* FTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB6EBE1ADC371B00BAFBD7 /* FTS.swift */; };
-		74CB6ECD1ADC371B00BAFBD7 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB6EBF1ADC371B00BAFBD7 /* Functions.swift */; };
-		74CB6ECE1ADC371B00BAFBD7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 74CB6EC01ADC371B00BAFBD7 /* Info.plist */; };
-		74CB6ECF1ADC371B00BAFBD7 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB6EC11ADC371B00BAFBD7 /* Query.swift */; };
-		74CB6ED01ADC371B00BAFBD7 /* RTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB6EC21ADC371B00BAFBD7 /* RTree.swift */; };
-		74CB6ED11ADC371B00BAFBD7 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB6EC31ADC371B00BAFBD7 /* Schema.swift */; };
-		74CB6ED21ADC371B00BAFBD7 /* SQLite-Bridging.m in Sources */ = {isa = PBXBuildFile; fileRef = 74CB6EC51ADC371B00BAFBD7 /* SQLite-Bridging.m */; };
-		74CB6ED31ADC371B00BAFBD7 /* SQLite.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 74CB6EC71ADC371B00BAFBD7 /* SQLite.xcconfig */; };
-		74CB6ED41ADC371B00BAFBD7 /* Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB6EC81ADC371B00BAFBD7 /* Statement.swift */; };
-		74CB6ED51ADC371B00BAFBD7 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB6EC91ADC371B00BAFBD7 /* Value.swift */; };
 		74CF92201A4612DF00D016BC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CF921F1A4612DF00D016BC /* ProfileViewController.swift */; };
+		74F2A0D11BE12D54009DB9E7 /* SwiftRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F2A0D01BE12D54009DB9E7 /* SwiftRegex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -77,6 +52,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6FDB61C4A094F760C8AE9EC0 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74038C8219F00E65005DB2A7 /* CytubeUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CytubeUser.swift; sourceTree = "<group>"; };
 		740BEF4519EC315400E577A0 /* CytubeChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CytubeChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		740BEF4919EC315400E577A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -88,24 +64,10 @@
 		740BEF7719EC319A00E577A0 /* CytubeChat-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CytubeChat-Bridging-Header.h"; sourceTree = "<group>"; };
 		740BEF7A19EC320700E577A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		740BEF7C19EC321300E577A0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		740BEF7E19EC322000E577A0 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		740BEF8219EC3AD300E577A0 /* CytubeRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CytubeRoom.swift; sourceTree = "<group>"; };
 		740BEF8419EC6FCF00E577A0 /* RoomManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomManager.swift; sourceTree = "<group>"; };
 		740BEF8619EC857E00E577A0 /* ChatWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatWindowController.swift; sourceTree = "<group>"; };
 		7410737119EF445E00D71C6C /* CytubeUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CytubeUtils.swift; sourceTree = "<group>"; };
-		7446A9551AE3EC0900F6961B /* SocketAckManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketAckManager.swift; sourceTree = "<group>"; };
-		7446A9561AE3EC0900F6961B /* SocketAnyEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketAnyEvent.swift; sourceTree = "<group>"; };
-		7446A9571AE3EC0900F6961B /* SocketEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketEngine.swift; sourceTree = "<group>"; };
-		7446A9581AE3EC0900F6961B /* SocketEngineClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketEngineClient.swift; sourceTree = "<group>"; };
-		7446A9591AE3EC0900F6961B /* SocketEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketEventHandler.swift; sourceTree = "<group>"; };
-		7446A95A1AE3EC0900F6961B /* SocketFixUTF8.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketFixUTF8.swift; sourceTree = "<group>"; };
-		7446A95B1AE3EC0900F6961B /* SocketIOClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOClient.swift; sourceTree = "<group>"; };
-		7446A95C1AE3EC0900F6961B /* SocketLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketLogger.swift; sourceTree = "<group>"; };
-		7446A95D1AE3EC0900F6961B /* SocketPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketPacket.swift; sourceTree = "<group>"; };
-		7446A95E1AE3EC0900F6961B /* SocketParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketParser.swift; sourceTree = "<group>"; };
-		7446A95F1AE3EC0900F6961B /* SocketTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketTypes.swift; sourceTree = "<group>"; };
-		7446A9601AE3EC0900F6961B /* SwiftRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRegex.swift; sourceTree = "<group>"; };
-		7446A9611AE3EC0900F6961B /* WebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
 		745855CB1A3B54AF000F6495 /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		74704BB019F0B13600B810A6 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
 		74704BB219F0C0F900B810A6 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -129,23 +91,10 @@
 		74AD72781A03EF580013C8AF /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		74B767CB19F54D490021B178 /* UserlistController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserlistController.swift; sourceTree = "<group>"; };
 		74BB03DF19FC708A000534DB /* PrivacyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyController.swift; sourceTree = "<group>"; };
-		74CB6E701ADC311500BAFBD7 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		74CB6EBC1ADC371B00BAFBD7 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
-		74CB6EBD1ADC371B00BAFBD7 /* Expression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
-		74CB6EBE1ADC371B00BAFBD7 /* FTS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTS.swift; sourceTree = "<group>"; };
-		74CB6EBF1ADC371B00BAFBD7 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
-		74CB6EC01ADC371B00BAFBD7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		74CB6EC11ADC371B00BAFBD7 /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
-		74CB6EC21ADC371B00BAFBD7 /* RTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTree.swift; sourceTree = "<group>"; };
-		74CB6EC31ADC371B00BAFBD7 /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
-		74CB6EC41ADC371B00BAFBD7 /* SQLite-Bridging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SQLite-Bridging.h"; sourceTree = "<group>"; };
-		74CB6EC51ADC371B00BAFBD7 /* SQLite-Bridging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SQLite-Bridging.m"; sourceTree = "<group>"; };
-		74CB6EC61ADC371B00BAFBD7 /* SQLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLite.h; sourceTree = "<group>"; };
-		74CB6EC71ADC371B00BAFBD7 /* SQLite.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = SQLite.xcconfig; sourceTree = "<group>"; };
-		74CB6EC81ADC371B00BAFBD7 /* Statement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statement.swift; sourceTree = "<group>"; };
-		74CB6EC91ADC371B00BAFBD7 /* Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
-		74CB6ED61ADC374400BAFBD7 /* fts3_tokenizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fts3_tokenizer.h; sourceTree = "<group>"; };
 		74CF921F1A4612DF00D016BC /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		74F2A0D01BE12D54009DB9E7 /* SwiftRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRegex.swift; sourceTree = "<group>"; };
+		9EEC52A46E77B414C92E95A7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F867DEFF7F0722362A8D54E3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,27 +102,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74CB6E711ADC311500BAFBD7 /* libsqlite3.dylib in Frameworks */,
 				747DBA891A12AF5A00486E7E /* SystemConfiguration.framework in Frameworks */,
-				740BEF7F19EC322000E577A0 /* libicucore.dylib in Frameworks */,
 				740BEF7D19EC321300E577A0 /* Security.framework in Frameworks */,
 				740BEF7B19EC320700E577A0 /* Foundation.framework in Frameworks */,
+				3925E24B0B7F0D8305085DA0 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		411B44A88FE1E1ABE8283DCD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9EEC52A46E77B414C92E95A7 /* Pods.debug.xcconfig */,
+				F867DEFF7F0722362A8D54E3 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		740BEF3C19EC315400E577A0 = {
 			isa = PBXGroup;
 			children = (
-				74CB6E701ADC311500BAFBD7 /* libsqlite3.dylib */,
-				740BEF7E19EC322000E577A0 /* libicucore.dylib */,
 				747DBA881A12AF5A00486E7E /* SystemConfiguration.framework */,
 				740BEF7C19EC321300E577A0 /* Security.framework */,
 				740BEF7A19EC320700E577A0 /* Foundation.framework */,
 				740BEF4719EC315400E577A0 /* CytubeChat1.0 */,
 				740BEF4619EC315400E577A0 /* Products */,
+				411B44A88FE1E1ABE8283DCD /* Pods */,
+				D326682C93D5A0D7994150D5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -204,11 +161,10 @@
 				74B767CB19F54D490021B178 /* UserlistController.swift */,
 				74BB03DF19FC708A000534DB /* PrivacyController.swift */,
 				74CF921F1A4612DF00D016BC /* ProfileViewController.swift */,
+				74F2A0D01BE12D54009DB9E7 /* SwiftRegex.swift */,
 				740BEF7719EC319A00E577A0 /* CytubeChat-Bridging-Header.h */,
 				740BEF5019EC315400E577A0 /* Main.storyboard */,
 				740BEF5519EC315400E577A0 /* LaunchScreen.xib */,
-				7446A9541AE3EC0900F6961B /* SocketIOClientSwift */,
-				74CB6EBB1ADC371B00BAFBD7 /* SQLite */,
 				74548A821A3DD5620023F08E /* Obj-C */,
 				748943F01A3CF13A00E70E5D /* RNCryptor */,
 				747DBA8A1A12B21D00486E7E /* Reachability */,
@@ -224,27 +180,6 @@
 				740BEF4919EC315400E577A0 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		7446A9541AE3EC0900F6961B /* SocketIOClientSwift */ = {
-			isa = PBXGroup;
-			children = (
-				7446A9551AE3EC0900F6961B /* SocketAckManager.swift */,
-				7446A9561AE3EC0900F6961B /* SocketAnyEvent.swift */,
-				7446A9571AE3EC0900F6961B /* SocketEngine.swift */,
-				7446A9581AE3EC0900F6961B /* SocketEngineClient.swift */,
-				7446A9591AE3EC0900F6961B /* SocketEventHandler.swift */,
-				7446A95A1AE3EC0900F6961B /* SocketFixUTF8.swift */,
-				7446A95B1AE3EC0900F6961B /* SocketIOClient.swift */,
-				7446A95C1AE3EC0900F6961B /* SocketLogger.swift */,
-				7446A95D1AE3EC0900F6961B /* SocketPacket.swift */,
-				7446A95E1AE3EC0900F6961B /* SocketParser.swift */,
-				7446A95F1AE3EC0900F6961B /* SocketTypes.swift */,
-				7446A9601AE3EC0900F6961B /* SwiftRegex.swift */,
-				7446A9611AE3EC0900F6961B /* WebSocket.swift */,
-			);
-			name = SocketIOClientSwift;
-			path = "../../Socket.IO-Swift/Socket.IO-Swift/SwiftIO/SocketIOClientSwift";
 			sourceTree = "<group>";
 		};
 		74548A821A3DD5620023F08E /* Obj-C */ = {
@@ -282,26 +217,12 @@
 			path = RNCryptor;
 			sourceTree = "<group>";
 		};
-		74CB6EBB1ADC371B00BAFBD7 /* SQLite */ = {
+		D326682C93D5A0D7994150D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				74CB6EBC1ADC371B00BAFBD7 /* Database.swift */,
-				74CB6EBD1ADC371B00BAFBD7 /* Expression.swift */,
-				74CB6EBE1ADC371B00BAFBD7 /* FTS.swift */,
-				74CB6EBF1ADC371B00BAFBD7 /* Functions.swift */,
-				74CB6EC01ADC371B00BAFBD7 /* Info.plist */,
-				74CB6EC11ADC371B00BAFBD7 /* Query.swift */,
-				74CB6EC21ADC371B00BAFBD7 /* RTree.swift */,
-				74CB6EC31ADC371B00BAFBD7 /* Schema.swift */,
-				74CB6EC41ADC371B00BAFBD7 /* SQLite-Bridging.h */,
-				74CB6EC51ADC371B00BAFBD7 /* SQLite-Bridging.m */,
-				74CB6EC61ADC371B00BAFBD7 /* SQLite.h */,
-				74CB6EC71ADC371B00BAFBD7 /* SQLite.xcconfig */,
-				74CB6EC81ADC371B00BAFBD7 /* Statement.swift */,
-				74CB6EC91ADC371B00BAFBD7 /* Value.swift */,
-				74CB6ED61ADC374400BAFBD7 /* fts3_tokenizer.h */,
+				6FDB61C4A094F760C8AE9EC0 /* Pods.framework */,
 			);
-			path = SQLite;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -311,10 +232,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 740BEF6619EC315500E577A0 /* Build configuration list for PBXNativeTarget "CytubeChat" */;
 			buildPhases = (
+				37138B50A59871C9773C2FE7 /* Check Pods Manifest.lock */,
 				740BEF4119EC315400E577A0 /* Sources */,
 				740BEF4219EC315400E577A0 /* Frameworks */,
 				740BEF4319EC315400E577A0 /* Resources */,
 				745855E01A3B5E90000F6495 /* CopyFiles */,
+				F4FBEC6B0A185541789F97BC /* Embed Pods Frameworks */,
+				970A8ED830D158AFF9D2E1C7 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -331,6 +255,8 @@
 		740BEF3D19EC315400E577A0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Erik Little";
 				TargetAttributes = {
@@ -368,9 +294,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74CB6ECE1ADC371B00BAFBD7 /* Info.plist in Resources */,
 				74704BB119F0B13600B810A6 /* image.xcassets in Resources */,
-				74CB6ED31ADC371B00BAFBD7 /* SQLite.xcconfig in Resources */,
 				740BEF5219EC315400E577A0 /* Main.storyboard in Resources */,
 				740BEF5719EC315400E577A0 /* LaunchScreen.xib in Resources */,
 			);
@@ -378,56 +302,82 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		37138B50A59871C9773C2FE7 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		970A8ED830D158AFF9D2E1C7 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F4FBEC6B0A185541789F97BC /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		740BEF4119EC315400E577A0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				74B767CC19F54D490021B178 /* UserlistController.swift in Sources */,
-				74CB6ECB1ADC371B00BAFBD7 /* Expression.swift in Sources */,
 				748943FE1A3CF13A00E70E5D /* RNEncryptor.m in Sources */,
-				74CB6ECD1ADC371B00BAFBD7 /* Functions.swift in Sources */,
 				7410737219EF445E00D71C6C /* CytubeUtils.swift in Sources */,
-				7446A96C1AE3EC0900F6961B /* SocketTypes.swift in Sources */,
 				7478A2E41A0ED4B80013D46C /* ChatCell.swift in Sources */,
-				7446A9691AE3EC0900F6961B /* SocketLogger.swift in Sources */,
-				74CB6ECA1ADC371B00BAFBD7 /* Database.swift in Sources */,
 				748944011A3CF34200E70E5D /* CytubeChatRNCryptor.m in Sources */,
-				74CB6ECC1ADC371B00BAFBD7 /* FTS.swift in Sources */,
 				74CF92201A4612DF00D016BC /* ProfileViewController.swift in Sources */,
-				7446A96A1AE3EC0900F6961B /* SocketPacket.swift in Sources */,
-				74CB6ED11ADC371B00BAFBD7 /* Schema.swift in Sources */,
 				748943FD1A3CF13A00E70E5D /* RNDecryptor.m in Sources */,
 				740BEF8519EC6FCF00E577A0 /* RoomManager.swift in Sources */,
-				7446A9651AE3EC0900F6961B /* SocketEngineClient.swift in Sources */,
-				74CB6ED21ADC371B00BAFBD7 /* SQLite-Bridging.m in Sources */,
-				7446A96B1AE3EC0900F6961B /* SocketParser.swift in Sources */,
 				748943FC1A3CF13A00E70E5D /* RNCryptorEngine.m in Sources */,
 				74BB03E019FC708A000534DB /* PrivacyController.swift in Sources */,
-				7446A9671AE3EC0900F6961B /* SocketFixUTF8.swift in Sources */,
-				74CB6ECF1ADC371B00BAFBD7 /* Query.swift in Sources */,
 				740BEF8719EC857E00E577A0 /* ChatWindowController.swift in Sources */,
-				7446A9631AE3EC0900F6961B /* SocketAnyEvent.swift in Sources */,
-				7446A9621AE3EC0900F6961B /* SocketAckManager.swift in Sources */,
 				740BEF4F19EC315400E577A0 /* AddRoomsController.swift in Sources */,
-				7446A96D1AE3EC0900F6961B /* SwiftRegex.swift in Sources */,
+				74F2A0D11BE12D54009DB9E7 /* SwiftRegex.swift in Sources */,
 				748943FB1A3CF13A00E70E5D /* RNCryptor.m in Sources */,
 				740BEF4B19EC315400E577A0 /* AppDelegate.swift in Sources */,
-				74CB6ED01ADC371B00BAFBD7 /* RTree.swift in Sources */,
-				7446A9661AE3EC0900F6961B /* SocketEventHandler.swift in Sources */,
 				740BEF8319EC3AD300E577A0 /* CytubeRoom.swift in Sources */,
-				74CB6ED51ADC371B00BAFBD7 /* Value.swift in Sources */,
-				7446A96E1AE3EC0900F6961B /* WebSocket.swift in Sources */,
 				7478A2E21A0ED3A20013D46C /* ChatLinkController.swift in Sources */,
 				74038C8319F00E65005DB2A7 /* CytubeUser.swift in Sources */,
 				747DBA8D1A12B2B400486E7E /* Reachability.m in Sources */,
 				74AD72791A03EF580013C8AF /* Globals.swift in Sources */,
 				740BEF4D19EC315400E577A0 /* RoomsController.swift in Sources */,
-				7446A9641AE3EC0900F6961B /* SocketEngine.swift in Sources */,
 				74704BB319F0C0F900B810A6 /* LoginController.swift in Sources */,
-				7446A9681AE3EC0900F6961B /* SocketIOClient.swift in Sources */,
 				745855CC1A3B54AF000F6495 /* DatabaseManager.swift in Sources */,
-				74CB6ED41ADC371B00BAFBD7 /* Statement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,6 +482,7 @@
 		};
 		740BEF6719EC315500E577A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9EEC52A46E77B414C92E95A7 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -539,7 +490,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = CytubeChat1.0/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LLVM_LTO = NO;
 				PRODUCT_NAME = CytubeChat;
@@ -553,6 +504,7 @@
 		};
 		740BEF6819EC315500E577A0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F867DEFF7F0722362A8D54E3 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -561,7 +513,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_OPTIMIZATION_LEVEL = 3;
 				INFOPLIST_FILE = CytubeChat1.0/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LLVM_LTO = NO;
 				PRODUCT_NAME = CytubeChat;

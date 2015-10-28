@@ -34,7 +34,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
             }
         }
         self.room?._setChatWindow(self)
-        self.roomTitle.setTitle(self.room?.roomName, forState: nil)
+        self.roomTitle.setTitle(self.room?.roomName, forState: .Normal)
         self.tapRec.addTarget(self, action: "tappedMessages")
         self.messageView.addGestureRecognizer(self.tapRec)
     }
@@ -103,7 +103,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         
         self.keyboardIsShowing = true
         self.canScroll = true
-        let scrollNum = room?.messageBuffer.count
+        //let scrollNum = room?.messageBuffer.count
         let info = not.userInfo!
         let keyboardFrame = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
         
@@ -139,7 +139,7 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = messageView.dequeueReusableCellWithIdentifier("chatWindowCell") as! UITableViewCell
+        let cell = messageView.dequeueReusableCellWithIdentifier("chatWindowCell")! as UITableViewCell
         let font = UIFont(name: "Helvetica Neue", size: 12)
         (cell.contentView.subviews[0] as! UITextView).font = font
         (cell.contentView.subviews[0] as! UITextView).text = nil
@@ -218,9 +218,9 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
         self.chatInput.resignFirstResponder()
         let reason = kickObj["reason"] as! String
         
-        var alert = UIAlertController(title: "Kicked", message:
+        let alert = UIAlertController(title: "Kicked", message:
             "You have been kicked from room \(roomName). Reason: \(reason)", preferredStyle: UIAlertControllerStyle.Alert)
-        var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
+        let action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
             self.room?._setChatWindow(nil)
             self.room?.closeRoom()
             self.dismissViewControllerAnimated(true, completion: nil)
@@ -231,10 +231,10 @@ class ChatWindowController: UIViewController, UITableViewDataSource, UITableView
     
     func passwordFail(not:NSNotification) {
         let roomName = self.room!.roomName
-        var alert = UIAlertController(title: "Password Fail", message:
+        let alert = UIAlertController(title: "Password Fail", message:
             "No password, or incorrect password for: \(roomName). Please try adding again.",
             preferredStyle: UIAlertControllerStyle.Alert)
-        var action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
+        let action = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default) {action in
             self.room?._setChatWindow(nil)
             self.dismissViewControllerAnimated(true, completion: nil)
         }

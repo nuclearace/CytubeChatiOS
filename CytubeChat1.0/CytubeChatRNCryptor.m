@@ -9,7 +9,7 @@
 
 @implementation CytubeChatRNCryptor
 
-+ (NSData *)encryptData:(NSData *)data password:(NSString *)password error:(NSError **)error {
++ (NSData *)encryptData:(NSData * __nullable)data password:(NSString * __nonnull)password error:(NSError ** __nullable)error {
     
     return [self encryptData:data withSettings:kRNCryptorAES256Settings password:password error:error];
 }
