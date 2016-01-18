@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Socket_IO_Client_Swift
+import SocketIOClientSwift
 
 final class CytubeRoom: NSObject {
     weak var chatWindow:ChatWindowController?
@@ -302,9 +302,8 @@ final class CytubeRoom: NSObject {
             return
         }
         socket = SocketIOClient(socketURL: socketIOURL, options: [
-            "reconnects": false,
-            "log": false
-            ])
+            .Reconnects(false),
+            .Log(true)])
         addHandlers()
     }
     

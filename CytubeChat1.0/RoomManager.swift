@@ -113,9 +113,8 @@ final class RoomManager {
     func saveRooms() {
         NSLog("Saving Rooms")
         let handler = NSFileManager()
-        let pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory,
-            NSSearchPathDomainMask.UserDomainMask, true)
-        let path = pathsArray[0] as NSString as String + "/rooms.json"
+        let pathsArray = NSSearchPathForDirectoriesInDomains(.LibraryDirectory, .UserDomainMask, true)
+        let path = pathsArray[0] + "/rooms.json"
         var roomArray = [NSDictionary]()
         var sroom:NSDictionary!
         
@@ -143,8 +142,7 @@ final class RoomManager {
         ]
         
         do {
-            let jsonForWriting = try NSJSONSerialization.dataWithJSONObject(roomsForSave,
-                options: NSJSONWritingOptions.PrettyPrinted)
+            let jsonForWriting = try NSJSONSerialization.dataWithJSONObject(roomsForSave, options: .PrettyPrinted)
             
             handler.createFileAtPath(path, contents: jsonForWriting, attributes: nil)
             NSLog("Rooms saved")

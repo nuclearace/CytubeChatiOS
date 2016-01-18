@@ -22,7 +22,6 @@ class ProfileViewController: UIViewController {
             return
         }
         
-        let urlString = user!.profileImage!.absoluteString
         navBarTitle.title = self.user?.username
         profileTextView.text = self.user?.profileText
         
@@ -30,7 +29,8 @@ class ProfileViewController: UIViewController {
             return
         }
         
-        print(user!.profileImage!)
+        let urlString = user!.profileImage!.absoluteString
+        
         NSURLSession.sharedSession().dataTaskWithRequest(NSURLRequest(URL: user!.profileImage!)) {[weak self] data, res, err in
             if err != nil || self == nil || data == nil {
                 return
